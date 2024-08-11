@@ -230,7 +230,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inputHandlerSo: {fileID: 11400000, guid: 9bd8b26e5e59e9840b7ba66994f01be3, type: 2}
   target: {fileID: 5709361492992857131}
-  offset: {x: 0, y: 0, z: -2}
+  offset: {x: 0, y: 0.5, z: -2}
   followSpeed: 5
   topMinMaxAngles: {x: 80, y: 100}
   bottomMinMaxAngles: {x: 260, y: 280}
@@ -661,7 +661,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 133857736005540275, guid: 15965ff27e5330e40b3c582ff5ab6b8a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.39
+      value: 0.82
       objectReference: {fileID: 0}
     - target: {fileID: 133857736005540275, guid: 15965ff27e5330e40b3c582ff5ab6b8a, type: 3}
       propertyPath: m_LocalPosition.z
