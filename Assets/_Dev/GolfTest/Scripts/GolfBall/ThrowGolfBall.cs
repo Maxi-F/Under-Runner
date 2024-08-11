@@ -10,10 +10,13 @@ namespace _Dev.GolfTest.Scripts.GolfBall
         [Header("Event Channels")]
         [SerializeField] private InputHandlerSO inputHandlerSo;
         [SerializeField] private BoolEventChannelSO canThrowChannelSo;
+        [SerializeField] private FloatEventChannelSO powerChangedChannelSo;
         
         [Header("Throw Properties")]
-        [SerializeField] private float forceMagnitude = 10.0f;
+        [SerializeField] private Vector2 forceMagnitude = new Vector2(1.0f, 10.0f);
 
+        [SerializeField] private float powerScale = 1f;
+        
         [Header("Ball properties")] 
         [SerializeField] private float minStopVelocity = 0.01f;
 
@@ -21,32 +24,45 @@ namespace _Dev.GolfTest.Scripts.GolfBall
         
         private Vector3 _desiredDirection;
 
+        private bool _isCharging = false;
         private bool _shouldThrow = false;
         private Rigidbody _rigidbody;
-        
+        private float _throwPower;        
         void Start()
         {
             // TODO put this logic somewhere else, should not be here
             Cursor.lockState = CursorLockMode.Locked;
-            
+
+            _throwPower = forceMagnitude.x;
             _rigidbody ??= GetComponent<Rigidbody>();
         }
         
         void OnEnable()
         {
             inputHandlerSo.onCameraRotate.AddListener(HandleCameraRotate);
-            inputHandlerSo.onThrow.AddListener(HandleThrow);
-
+            inputHandlerSo.onThrow.AddListener(HandleChargeThrow);
+            inputHandlerSo.onThrowRelease.AddListener(HandleThrow);
         }
 
         void OnDisable()
         {
             inputHandlerSo.onCameraRotate.RemoveListener(HandleCameraRotate);
-            inputHandlerSo.onThrow.RemoveListener(HandleThrow);
+            inputHandlerSo.onThrow.RemoveListener(HandleChargeThrow);
+            inputHandlerSo.onThrowRelease.RemoveListener(HandleThrow);
         }
 
         private void Update()
         {
+            if (_isCharging)
+            {
+                _throwPower = Mathf.Clamp(_throwPower + (powerScale * Time.deltaTime), forceMagnitude.x,
+                    forceMagnitude.y);
+
+                if (Mathf.Approximately(_throwPower, forceMagnitude.y)) _throwPower = forceMagnitude.x;
+                
+                powerChangedChannelSo.RaiseEvent(_throwPower);
+            }
+            
             if (_rigidbody.velocity.magnitude >= minCheckVelocity && 
                 _rigidbody.velocity.magnitude <= minStopVelocity)
             {
@@ -57,19 +73,35 @@ namespace _Dev.GolfTest.Scripts.GolfBall
         
         private void FixedUpdate()
         {
-            if (!_shouldThrow || _rigidbody.velocity.magnitude >= float.Epsilon)
+            if (!_shouldThrow || _isCharging || IsMoving())
             {
                 _shouldThrow = false;
                 return;
             }
+
+            if (!_isCharging)
+            {
+                _rigidbody.AddForce(_desiredDirection * _throwPower, ForceMode.Impulse);
+                _shouldThrow = false;
+                _throwPower = forceMagnitude.x;
+            }
+        }
+        
+        void HandleChargeThrow()
+        {
+            if (IsMoving()) return;
             
-            _rigidbody.AddForce(_desiredDirection * forceMagnitude, ForceMode.Impulse);
-            _shouldThrow = false;
+            Debug.Log("Charging!");
+            _isCharging = true;
         }
 
         void HandleThrow()
         {
+            if (!_isCharging) return;
+            
+            Debug.Log("Throw!!");
             _shouldThrow = true;
+            _isCharging = false;
             
             canThrowChannelSo.RaiseEvent(false);
         }
@@ -84,6 +116,11 @@ namespace _Dev.GolfTest.Scripts.GolfBall
             _desiredDirection = UnityEngine.Camera.main.transform.forward;
         }
 
+        private bool IsMoving()
+        {
+            return _rigidbody.velocity.magnitude >= float.Epsilon;
+        }
+        
         private void OnDrawGizmos()
         {
             Gizmos.DrawLine(transform.position, _desiredDirection);

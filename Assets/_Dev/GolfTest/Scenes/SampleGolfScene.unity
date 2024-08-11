@@ -1395,6 +1395,7 @@ GameObject:
   - component: {fileID: 1896330978}
   - component: {fileID: 1896330980}
   - component: {fileID: 1896330979}
+  - component: {fileID: 1896330981}
   m_Layer: 5
   m_Name: Power
   m_TagString: Untagged
@@ -1518,6 +1519,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1896330977}
   m_CullTransparentMesh: 1
+--- !u!114 &1896330981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1896330977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df0b23e72cca8e4488973be25a38329e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerChangedChannelSo: {fileID: 11400000, guid: 2dd01e013b3ab744b88006ab5daa2661, type: 2}
 --- !u!1 &1946469486
 GameObject:
   m_ObjectHideFlags: 0
@@ -1856,7 +1870,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputHandlerSo: {fileID: 11400000, guid: 9bd8b26e5e59e9840b7ba66994f01be3, type: 2}
   canThrowChannelSo: {fileID: 11400000, guid: 826bff78ce16d6a48b99a50b41bb6082, type: 2}
-  forceMagnitude: 10
+  powerChangedChannelSo: {fileID: 11400000, guid: 2dd01e013b3ab744b88006ab5daa2661, type: 2}
+  forceMagnitude: {x: 1, y: 10}
+  powerScale: 5
   minStopVelocity: 0.2
   minCheckVelocity: 0.01
 --- !u!1001 &5826785087140075684
