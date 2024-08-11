@@ -52,5 +52,13 @@ namespace _Dev.GolfTest.Scripts.GravitySystem
         {
             _currentVelocity = Vector3.zero;
         }
+
+        private void OnTriggerStay(Collider other)
+        {
+            if (!other.CompareTag("Atmosphere"))
+                return;
+
+            _currentVelocity -= _currentVelocity * (other.transform.parent.GetComponent<CelestialBody>().AtmosphereDrag * Time.fixedDeltaTime);
+        }
     }
 }
