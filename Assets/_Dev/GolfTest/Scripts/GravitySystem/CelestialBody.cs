@@ -8,6 +8,7 @@ namespace _Dev.GolfTest.Scripts.GravitySystem
         [Header("Celestial Body Properties")]
         
         [SerializeField] private float size;
+        [Tooltip("Body's Mass In tons")]
         [SerializeField] private float mass;
 
         public float Size

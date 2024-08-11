@@ -7,8 +7,9 @@ namespace _Dev.GolfTest.Scripts.GravitySystem
 {
     public class PhysicalObject : MonoBehaviour
     {
-        private Rigidbody rb;
-        private Vector3 _velocity;
+        [SerializeField] private Vector3 initialVelocity;
+        private Rigidbody _rb;
+        private Vector3 _currentVelocity;
 
         #region Constants
 
@@ -18,35 +19,38 @@ namespace _Dev.GolfTest.Scripts.GravitySystem
 
         private void Awake()
         {
-            rb = GetComponent<Rigidbody>();
+            _rb = GetComponent<Rigidbody>();
+            _currentVelocity = initialVelocity;
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             foreach (CelestialBody celestialBody in FindObjectsOfType<CelestialBody>())
             {
                 UpdateVelocity(celestialBody);
             }
-        }
 
-        private void FixedUpdate()
-        {
-            rb.AddForce(_velocity);
+            UpdatePosition();
         }
 
         private void UpdateVelocity(CelestialBody body)
         {
             Vector3 bodyPosition = body.transform.position;
-            Vector3 thisPosition = transform.position;
+            Vector3 thisPosition = _rb.position;
             float sqrDistance = (bodyPosition - thisPosition).sqrMagnitude;
             Vector3 forceDir = (bodyPosition - thisPosition).normalized;
-            float force = GRAVITY_FORCE * ((body.Mass * rb.mass) / sqrDistance);
-            _velocity += forceDir * force;
+            float force = GRAVITY_FORCE * _rb.mass * (body.Mass * 1000) / sqrDistance;
+            _currentVelocity += forceDir * (force * Time.deltaTime);
+        }
+
+        private void UpdatePosition()
+        {
+            _rb.position += _currentVelocity * Time.deltaTime;
         }
 
         private void OnCollisionStay(Collision other)
         {
-            _velocity = Vector3.zero;
+            _currentVelocity = Vector3.zero;
         }
     }
 }
