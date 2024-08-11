@@ -1,4 +1,5 @@
 using System;
+using _Dev.GolfTest.Scripts.Events;
 using _Dev.GolfTest.Scripts.InputHandlers;
 using UnityEngine;
 
@@ -6,8 +7,10 @@ namespace _Dev.GolfTest.Scripts.GolfBall
 {
     public class ThrowGolfBall : MonoBehaviour
     {
+        [Header("Event Channels")]
         [SerializeField] private InputHandlerSO inputHandlerSo;
-
+        [SerializeField] private BoolEventChannelSO canThrowChannelSo;
+        
         [Header("Throw Properties")]
         [SerializeField] private float forceMagnitude = 10.0f;
 
@@ -48,6 +51,7 @@ namespace _Dev.GolfTest.Scripts.GolfBall
                 _rigidbody.velocity.magnitude <= minStopVelocity)
             {
                 _rigidbody.velocity = new Vector3(0, _rigidbody.velocity.y, 0);
+                canThrowChannelSo.RaiseEvent(true);
             }
         }
         
@@ -66,6 +70,8 @@ namespace _Dev.GolfTest.Scripts.GolfBall
         void HandleThrow()
         {
             _shouldThrow = true;
+            
+            canThrowChannelSo.RaiseEvent(false);
         }
 
         void HandleCameraRotate(Vector2 _lookDelta, bool _isController)
