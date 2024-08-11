@@ -928,18 +928,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: I_Floor
       objectReference: {fileID: 0}
-    - target: {fileID: 2688526019633136955, guid: cdac34f5c37c6144a97ad457b962777c, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6980583819351385572, guid: cdac34f5c37c6144a97ad457b962777c, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 103.51307
-      objectReference: {fileID: 0}
-    - target: {fileID: 6980583819351385572, guid: cdac34f5c37c6144a97ad457b962777c, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 462.45996
-      objectReference: {fileID: 0}
     - target: {fileID: 6980583819351385572, guid: cdac34f5c37c6144a97ad457b962777c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1038,6 +1026,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 304747787848191479, guid: 15965ff27e5330e40b3c582ff5ab6b8a, type: 3}
+      propertyPath: m_AngularDrag
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4260933679123195159, guid: 15965ff27e5330e40b3c582ff5ab6b8a, type: 3}
       propertyPath: m_Name
       value: GolfBall
@@ -1069,6 +1061,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputHandlerSo: {fileID: 11400000, guid: 9bd8b26e5e59e9840b7ba66994f01be3, type: 2}
   forceMagnitude: 10
+  minStopVelocity: 0.2
+  minCheckVelocity: 0.01
 --- !u!1001 &5826785087140075684
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1080,6 +1074,10 @@ PrefabInstance:
     - target: {fileID: 3004593595679873611, guid: a6e1999112bfb074794bf97bae87c76f, type: 3}
       propertyPath: m_Name
       value: Main Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 4335670461562129244, guid: a6e1999112bfb074794bf97bae87c76f, type: 3}
+      propertyPath: near clip plane
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 6764636802869525471, guid: a6e1999112bfb074794bf97bae87c76f, type: 3}
       propertyPath: target
