@@ -25,7 +25,7 @@ namespace _Dev.GolfTest.Scripts.Camera
         private Vector2 _desiredRotation;
         private bool _isController;
         
-        void Start()
+        void OnEnable()
         {
             _inputHandlerSo.onCameraRotate.AddListener(HandleCameraRotate);
         }
