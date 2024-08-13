@@ -163,6 +163,7 @@ MonoBehaviour:
   inputHandlerSo: {fileID: 11400000, guid: 9bd8b26e5e59e9840b7ba66994f01be3, type: 2}
   canThrowChannelSo: {fileID: 11400000, guid: 826bff78ce16d6a48b99a50b41bb6082, type: 2}
   powerChangedChannelSo: {fileID: 11400000, guid: 2dd01e013b3ab744b88006ab5daa2661, type: 2}
+  ballThrown: {fileID: 11400000, guid: 67af89e6be3af824094a7de0d3a30755, type: 2}
   forceMagnitude: {x: 1, y: 10}
   powerScale: 5
   minStopVelocity: 0.2

@@ -13,6 +13,7 @@ namespace _Dev.GolfTest.Scripts.GolfBall
 
         [SerializeField] private BoolEventChannelSO canThrowChannelSo;
         [SerializeField] private FloatEventChannelSO powerChangedChannelSo;
+        [SerializeField] private VoidEventChannelSO ballThrown;
 
         [Header("Throw Properties")] [SerializeField]
         private Vector2 forceMagnitude = new Vector2(1.0f, 10.0f);
@@ -89,6 +90,7 @@ namespace _Dev.GolfTest.Scripts.GolfBall
                 _physicalObject.CurrentVelocity = _desiredDirection * _throwPower;
                 _shouldThrow = false;
                 _throwPower = forceMagnitude.x;
+                ballThrown.RaiseEvent();
             }
         }
 

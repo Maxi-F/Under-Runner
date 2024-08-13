@@ -575,6 +575,14 @@ PrefabInstance:
       propertyPath: size
       value: 150
       objectReference: {fileID: 0}
+    - target: {fileID: 8590888326945310122, guid: 9e44046fd05782a44aea16f3b3c1a7f6, type: 3}
+      propertyPath: ballThrown
+      value: 
+      objectReference: {fileID: 11400000, guid: 67af89e6be3af824094a7de0d3a30755, type: 2}
+    - target: {fileID: 8590888326945310122, guid: 9e44046fd05782a44aea16f3b3c1a7f6, type: 3}
+      propertyPath: atmosphereShutDownDuration
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 9125818110631988108, guid: 9e44046fd05782a44aea16f3b3c1a7f6, type: 3}
       propertyPath: m_Name
       value: Planet
