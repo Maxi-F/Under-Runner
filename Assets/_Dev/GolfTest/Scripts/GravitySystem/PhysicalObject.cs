@@ -11,7 +11,12 @@ namespace _Dev.GolfTest.Scripts.GravitySystem
         private Rigidbody _rb;
         private Vector3 currentVelocity;
 
-        public Vector3 CurrentVelocity => currentVelocity;
+        public Vector3 CurrentVelocity
+        {
+            get { return currentVelocity; }
+            set { currentVelocity = value; }
+        }
+
         #region Constants
 
         private const float GRAVITY_FORCE = 6.74E-5F;
@@ -32,7 +37,7 @@ namespace _Dev.GolfTest.Scripts.GravitySystem
             }
 
             UpdatePosition();
-            
+
             Debug.Log($"RigidBody Velocity: {_rb.velocity}");
         }
 
