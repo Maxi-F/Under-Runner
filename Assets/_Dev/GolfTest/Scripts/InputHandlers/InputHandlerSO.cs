@@ -9,7 +9,8 @@ namespace _Dev.GolfTest.Scripts.InputHandlers
     {
         public UnityEvent<Vector2, bool> onCameraRotate;
         public UnityEvent onThrow;
-
+        public UnityEvent onThrowRelease;
+        
         public void HandleCameraRotate(InputAction.CallbackContext context)
         {
             Vector2 lookInput = context.ReadValue<Vector2>();
@@ -22,6 +23,10 @@ namespace _Dev.GolfTest.Scripts.InputHandlers
             if (context.started)
             {
                 onThrow?.Invoke();
+            }
+            else if (context.canceled)
+            {
+                onThrowRelease?.Invoke();
             }
         }
     }
