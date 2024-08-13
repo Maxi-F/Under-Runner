@@ -6,7 +6,7 @@ namespace _Dev.GolfTest.Scripts.Events
     [CreateAssetMenu(menuName = "Void Event Channel")]
     public class VoidEventChannelSO : ScriptableObject
     {
-        protected UnityEvent onEvent;
+        public UnityEvent onEvent;
 
         public void RaiseEvent()
         {
