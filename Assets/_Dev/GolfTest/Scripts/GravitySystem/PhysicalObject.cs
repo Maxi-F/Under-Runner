@@ -9,8 +9,9 @@ namespace _Dev.GolfTest.Scripts.GravitySystem
     {
         [SerializeField] private Vector3 initialVelocity;
         private Rigidbody _rb;
-        private Vector3 _currentVelocity;
+        private Vector3 currentVelocity;
 
+        public Vector3 CurrentVelocity => currentVelocity;
         #region Constants
 
         private const float GRAVITY_FORCE = 6.74E-5F;
@@ -20,7 +21,7 @@ namespace _Dev.GolfTest.Scripts.GravitySystem
         private void Awake()
         {
             _rb = GetComponent<Rigidbody>();
-            _currentVelocity = initialVelocity;
+            currentVelocity = initialVelocity;
         }
 
         private void FixedUpdate()
@@ -31,6 +32,8 @@ namespace _Dev.GolfTest.Scripts.GravitySystem
             }
 
             UpdatePosition();
+            
+            Debug.Log($"RigidBody Velocity: {_rb.velocity}");
         }
 
         private void UpdateVelocity(CelestialBody body)
@@ -40,17 +43,17 @@ namespace _Dev.GolfTest.Scripts.GravitySystem
             float sqrDistance = (bodyPosition - thisPosition).sqrMagnitude;
             Vector3 forceDir = (bodyPosition - thisPosition).normalized;
             float force = GRAVITY_FORCE * _rb.mass * (body.Mass * 1000) / sqrDistance;
-            _currentVelocity += forceDir * (force * Time.deltaTime);
+            currentVelocity += forceDir * (force * Time.deltaTime);
         }
 
         private void UpdatePosition()
         {
-            _rb.position += _currentVelocity * Time.deltaTime;
+            _rb.position += currentVelocity * Time.deltaTime;
         }
 
         private void OnCollisionStay(Collision other)
         {
-            _currentVelocity = Vector3.zero;
+            currentVelocity = Vector3.zero;
         }
 
         private void OnTriggerStay(Collider other)
@@ -58,7 +61,7 @@ namespace _Dev.GolfTest.Scripts.GravitySystem
             if (!other.CompareTag("Atmosphere"))
                 return;
 
-            _currentVelocity -= _currentVelocity * (other.transform.parent.GetComponent<CelestialBody>().AtmosphereDrag * Time.fixedDeltaTime);
+            currentVelocity -= currentVelocity * (other.transform.parent.GetComponent<CelestialBody>().AtmosphereDrag * Time.fixedDeltaTime);
         }
     }
 }

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4062980453145283660}
   - component: {fileID: 357952373377981402}
   - component: {fileID: 304747787848191479}
+  - component: {fileID: 1985692778451020042}
   m_Layer: 0
   m_Name: GolfBall
   m_TagString: Untagged
@@ -116,7 +117,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -133,3 +134,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1985692778451020042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4260933679123195159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 818c34aaeadd884478b9de4f12daa087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputHandlerSo: {fileID: 11400000, guid: 9bd8b26e5e59e9840b7ba66994f01be3, type: 2}
+  canThrowChannelSo: {fileID: 11400000, guid: 826bff78ce16d6a48b99a50b41bb6082, type: 2}
+  powerChangedChannelSo: {fileID: 11400000, guid: 2dd01e013b3ab744b88006ab5daa2661, type: 2}
+  forceMagnitude: {x: 1, y: 10}
+  powerScale: 5
+  minStopVelocity: 0.2
+  minCheckVelocity: 0.01
