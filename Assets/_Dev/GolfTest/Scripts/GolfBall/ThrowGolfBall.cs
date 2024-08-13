@@ -29,6 +29,7 @@ namespace _Dev.GolfTest.Scripts.GolfBall
         private bool _isCharging = false;
         private bool _shouldThrow = false;
         private Rigidbody _rigidbody;
+        private PhysicalObject _physicalObject;
         private float _throwPower;
 
         void Start()
@@ -38,6 +39,7 @@ namespace _Dev.GolfTest.Scripts.GolfBall
 
             _throwPower = forceMagnitude.x;
             _rigidbody ??= GetComponent<Rigidbody>();
+            _physicalObject ??= GetComponent<PhysicalObject>();
         }
 
         void OnEnable()
@@ -66,10 +68,8 @@ namespace _Dev.GolfTest.Scripts.GolfBall
                 powerChangedChannelSo.RaiseEvent(_throwPower);
             }
 
-            if ((_rigidbody.velocity.magnitude >= minCheckVelocity &&
-                 _rigidbody.velocity.magnitude <= minStopVelocity) ||
-                (TryGetComponent<PhysicalObject>(out PhysicalObject physical) &&
-                 physical.CurrentVelocity.magnitude <= minStopVelocity))
+            if ((_rigidbody.velocity.magnitude >= minCheckVelocity && _rigidbody.velocity.magnitude <= minStopVelocity) ||
+                (_physicalObject && _physicalObject.CurrentVelocity.magnitude <= minStopVelocity))
             {
                 _rigidbody.velocity = new Vector3(0, _rigidbody.velocity.y, 0);
                 canThrowChannelSo.RaiseEvent(true);
@@ -86,7 +86,7 @@ namespace _Dev.GolfTest.Scripts.GolfBall
 
             if (!_isCharging)
             {
-                _rigidbody.AddForce(_desiredDirection * _throwPower, ForceMode.Impulse);
+                _physicalObject.CurrentVelocity = _desiredDirection * _throwPower;
                 _shouldThrow = false;
                 _throwPower = forceMagnitude.x;
             }
