@@ -6,13 +6,13 @@ namespace _Dev.GolfTest.Scripts.Events
     [CreateAssetMenu(menuName = "Events/Int Channel")]
     public class IntEventChannelSO : VoidEventChannelSO
     {
-        public UnityEvent<int> onFloatEvent;
+        public UnityEvent<int> onIntEvent;
 
         public void RaiseEvent(int value)
         {
-            if (onFloatEvent != null)
+            if (onIntEvent != null)
             {
-                onFloatEvent.Invoke(value);
+                onIntEvent.Invoke(value);
             }
             else
             {

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Atmosphere
   - NewRoad
+  - Enemy
   layers:
   - Default
   - TransparentFX
