@@ -8,12 +8,15 @@ namespace _Dev.UnderRunnerTest.Scripts.Roads
     public class RoadManager : MonoBehaviour
     {
         [SerializeField] private RoadSO[] roads;
+        [SerializeField] private GameObject startingLastRoad;
         [SerializeField] private VoidEventChannelSO onNewRoadTriggerEvent;
         
         private int _actualIndex = 0;
+        private GameObject _lastRoad;
 
         public void Start()
         {
+            _lastRoad = startingLastRoad;
             onNewRoadTriggerEvent.onEvent.AddListener(HandleNewRoad);
         }
 
@@ -24,9 +27,13 @@ namespace _Dev.UnderRunnerTest.Scripts.Roads
 
         private void HandleNewRoad()
         {
-            Instantiate(roads[_actualIndex].roadSection, roads[_actualIndex].distanceToSpawnTo,
+            RoadEnd roadEnd = _lastRoad.GetComponentInChildren<RoadEnd>();
+            
+            GameObject newLastRoad = Instantiate(roads[_actualIndex].roadSection, roadEnd.transform.position,
                 roads[_actualIndex].startRotation);
 
+            _lastRoad = newLastRoad;
+            
             _actualIndex++;
 
             if (_actualIndex >= roads.Length) _actualIndex = 0;
