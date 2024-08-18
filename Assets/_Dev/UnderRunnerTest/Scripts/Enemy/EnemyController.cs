@@ -26,8 +26,10 @@ namespace _Dev.UnderRunnerTest.Scripts.Enemy
             onEnemyDeathEvent?.onEvent.AddListener(HandleDeath);
         }
 
-        private void HandleShield(bool isActive)
+        public void HandleShield(bool isActive)
         {
+            Debug.Log($"Handling shield: {isActive}");
+            
             shieldObject.SetActive(isActive);
             _healthPoints.SetCanTakeDamage(!isActive);
         }
