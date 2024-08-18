@@ -1,7 +1,5 @@
-using System;
 using _Dev.UnderRunnerTest.Scripts.Input;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 namespace _Dev.UnderRunnerTest.Scripts.Player
 {
@@ -12,6 +10,11 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
 
         [Header("Movement Config")] [SerializeField]
         private float speed;
+
+        [Header("Look Config")] [SerializeField]
+        private Vector2 maxLookAngles;
+
+        [SerializeField] private GameObject visor;
 
         private Vector3 _currentDir;
         private CharacterController _characterController;
@@ -41,6 +44,15 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
             _currentDir.x = dir.x;
             _currentDir.y = 0;
             _currentDir.z = dir.y;
+            LookAround(dir);
+        }
+
+        private void LookAround(Vector2 dir)
+        {
+            Vector2 normalizedDir = dir.normalized;
+            float xAngle = Mathf.Asin(normalizedDir.x) * Mathf.Rad2Deg;
+            xAngle = Mathf.Clamp(xAngle, -maxLookAngles.x, maxLookAngles.x);
+            visor.transform.rotation = Quaternion.Euler(0, xAngle, 0);
         }
     }
 }
