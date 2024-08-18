@@ -1,17 +1,25 @@
+using System;
 using _Dev.UnderRunnerTest.Scripts.Input;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 namespace _Dev.UnderRunnerTest.Scripts.Player
 {
+    [RequireComponent(typeof(CharacterController))]
     public class PlayerMovement : MonoBehaviour
     {
-        [Header("Input")] 
-        [SerializeField] private InputHandlerSO inputHandler;
+        [Header("Input")] [SerializeField] private InputHandlerSO inputHandler;
 
-        [Header("Movement Config")] 
-        [SerializeField] private float speed;
+        [Header("Movement Config")] [SerializeField]
+        private float speed;
 
         private Vector3 _currentDir;
+        private CharacterController _characterController;
+
+        private void Awake()
+        {
+            _characterController = GetComponent<CharacterController>();
+        }
 
         private void OnEnable()
         {
@@ -23,10 +31,9 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
             inputHandler.onPlayerMove.RemoveListener(HandleMovement);
         }
 
-        // Update is called once per frame
         private void Update()
         {
-            transform.Translate(_currentDir * (speed * Time.deltaTime));
+            _characterController.Move(_currentDir * (speed * Time.deltaTime));
         }
 
         private void HandleMovement(Vector2 dir)
