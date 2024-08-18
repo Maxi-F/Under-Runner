@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 namespace _Dev.GolfTest.Scripts.Events
 {
-    [CreateAssetMenu(menuName = "Void Event Channel")]
+    [CreateAssetMenu(menuName = "Events/Void Channel")]
     public class VoidEventChannelSO : ScriptableObject
     {
         public UnityEvent onEvent;

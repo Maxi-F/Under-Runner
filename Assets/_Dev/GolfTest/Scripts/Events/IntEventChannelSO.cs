@@ -3,12 +3,12 @@ using UnityEngine.Events;
 
 namespace _Dev.GolfTest.Scripts.Events
 {
-    [CreateAssetMenu(menuName = "Events/Float Channel")]
-    public class FloatEventChannelSO : VoidEventChannelSO
+    [CreateAssetMenu(menuName = "Events/Int Channel")]
+    public class IntEventChannelSO : VoidEventChannelSO
     {
-        public UnityEvent<float> onFloatEvent;
+        public UnityEvent<int> onFloatEvent;
 
-        public void RaiseEvent(float value)
+        public void RaiseEvent(int value)
         {
             if (onFloatEvent != null)
             {
