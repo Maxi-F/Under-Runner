@@ -242,6 +242,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2522365577350333360, guid: 86ebb8b4fd6897c48ab10d6592596719, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3558001559191328432, guid: 86ebb8b4fd6897c48ab10d6592596719, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4648560696984191321, guid: 86ebb8b4fd6897c48ab10d6592596719, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6872171784296851344, guid: 86ebb8b4fd6897c48ab10d6592596719, type: 3}
       propertyPath: m_Name
       value: RoadModel

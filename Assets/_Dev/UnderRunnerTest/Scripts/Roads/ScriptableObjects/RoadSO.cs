@@ -6,7 +6,6 @@ namespace _Dev.UnderRunnerTest.Scripts.Roads.ScriptableObjects
     public class RoadSO : ScriptableObject
     {
         public GameObject roadSection;
-        public Vector3 distanceToSpawnTo;
         public Quaternion startRotation;
     }
 }
