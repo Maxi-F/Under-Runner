@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Atmosphere
+  - NewRoad
   layers:
   - Default
   - TransparentFX
