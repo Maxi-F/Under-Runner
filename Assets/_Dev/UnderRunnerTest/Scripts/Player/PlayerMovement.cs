@@ -52,7 +52,11 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
             Vector2 normalizedDir = dir.normalized;
             float xAngle = Mathf.Asin(normalizedDir.x) * Mathf.Rad2Deg;
             xAngle = Mathf.Clamp(xAngle, -maxLookAngles.x, maxLookAngles.x);
-            visor.transform.rotation = Quaternion.Euler(0, xAngle, 0);
+
+            float yAngle = normalizedDir.y < 0 ? Mathf.Asin(normalizedDir.y) * Mathf.Rad2Deg : 0;
+            yAngle = Mathf.Clamp(yAngle, -maxLookAngles.y, maxLookAngles.y);
+
+            visor.transform.rotation = Quaternion.Euler(yAngle, xAngle, 0);
         }
     }
 }
