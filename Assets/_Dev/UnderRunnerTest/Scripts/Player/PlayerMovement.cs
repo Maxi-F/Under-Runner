@@ -16,9 +16,10 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
 
         [SerializeField] private GameObject visor;
 
-        private Vector3 _currentDir;
+        private Vector3 currentDir;
         private CharacterController _characterController;
 
+        public Vector3 CurrentDir => currentDir;
         private void Awake()
         {
             _characterController = GetComponent<CharacterController>();
@@ -36,14 +37,14 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
 
         private void Update()
         {
-            _characterController.Move(_currentDir * (speed * Time.deltaTime));
+            _characterController.Move(currentDir * (speed * Time.deltaTime));
         }
 
         private void HandleMovement(Vector2 dir)
         {
-            _currentDir.x = dir.x;
-            _currentDir.y = 0;
-            _currentDir.z = dir.y;
+            currentDir.x = dir.x;
+            currentDir.y = 0;
+            currentDir.z = dir.y;
             LookAround(dir);
         }
 
