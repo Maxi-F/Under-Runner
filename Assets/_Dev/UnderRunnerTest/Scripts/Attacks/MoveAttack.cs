@@ -21,7 +21,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Attacks
         private bool _isPlayerMoving;
         private float _velocityTime = 0f;
         
-        void Start()
+        void OnEnable()
         {
             onIsPlayerMoving.onBoolEvent.AddListener(HandleIsMoving);
         }
@@ -74,6 +74,11 @@ namespace _Dev.UnderRunnerTest.Scripts.Attacks
             transform.position = startPosition;
             
             gameObject.SetActive(true);
+        }
+
+        public bool HasFinished()
+        {
+            return !gameObject.activeInHierarchy;
         }
     }
 }

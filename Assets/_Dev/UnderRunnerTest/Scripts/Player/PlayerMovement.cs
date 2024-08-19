@@ -39,6 +39,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
         private void Update()
         {
             _characterController.Move(_currentDir * (speed * Time.deltaTime));
+            onIsPlayerMovingEvent?.RaiseEvent(_currentDir.magnitude >= float.Epsilon);
         }
 
         private void HandleMovement(Vector2 dir)
@@ -46,7 +47,6 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
             _currentDir.x = dir.x;
             _currentDir.y = 0;
             _currentDir.z = dir.y;
-            onIsPlayerMovingEvent?.RaiseEvent(dir.magnitude >= float.Epsilon);
             LookAround(dir);
         }
 
