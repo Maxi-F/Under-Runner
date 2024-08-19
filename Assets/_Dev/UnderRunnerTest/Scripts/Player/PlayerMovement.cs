@@ -1,3 +1,4 @@
+using _Dev.GolfTest.Scripts.Events;
 using _Dev.UnderRunnerTest.Scripts.Input;
 using UnityEngine;
 
@@ -7,7 +8,8 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
     public class PlayerMovement : MonoBehaviour
     {
         [Header("Input")] [SerializeField] private InputHandlerSO inputHandler;
-
+        [SerializeField] private BoolEventChannelSO onIsPlayerMovingEvent;
+        
         [Header("Movement Config")] [SerializeField]
         private float speed;
 
@@ -18,7 +20,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
 
         private Vector3 _currentDir;
         private CharacterController _characterController;
-
+        
         private void Awake()
         {
             _characterController = GetComponent<CharacterController>();
@@ -44,6 +46,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
             _currentDir.x = dir.x;
             _currentDir.y = 0;
             _currentDir.z = dir.y;
+            onIsPlayerMovingEvent?.RaiseEvent(dir.magnitude >= float.Epsilon);
             LookAround(dir);
         }
 
