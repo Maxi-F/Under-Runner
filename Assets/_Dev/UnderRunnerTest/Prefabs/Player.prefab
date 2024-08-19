@@ -292,6 +292,7 @@ MonoBehaviour:
   inputHandler: {fileID: 11400000, guid: 4902f51743585ca40aec021ece06aa06, type: 2}
   dashSpeed: 12
   dashDuration: 0.2
+  dashCoolDown: 1
 --- !u!1 &7126222401044393342
 GameObject:
   m_ObjectHideFlags: 0
