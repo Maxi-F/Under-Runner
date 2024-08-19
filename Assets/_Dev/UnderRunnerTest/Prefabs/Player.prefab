@@ -309,8 +309,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputHandler: {fileID: 11400000, guid: 4902f51743585ca40aec021ece06aa06, type: 2}
   attackRadius: 1.5
-  attackDuration: 1
-  attackCoolDown: 0.5
+  attackDuration: 0.2
+  attackCoolDown: 0.25
   attackPoint: {fileID: 3832919044576944865}
 --- !u!1 &7126222401044393342
 GameObject:
