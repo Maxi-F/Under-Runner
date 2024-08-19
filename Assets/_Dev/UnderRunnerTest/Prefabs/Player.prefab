@@ -161,6 +161,7 @@ GameObject:
   - component: {fileID: 1792199589205503695}
   - component: {fileID: 3471723417962381595}
   - component: {fileID: 6487825136179884570}
+  - component: {fileID: 4699157676241342615}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -276,6 +277,21 @@ MonoBehaviour:
   speed: 7.5
   maxLookAngles: {x: 45, y: 45}
   visor: {fileID: 2359771110193480003}
+--- !u!114 &4699157676241342615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4780633370198621073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2de91bbcdf642643802a0de8d48a7e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputHandler: {fileID: 11400000, guid: 4902f51743585ca40aec021ece06aa06, type: 2}
+  dashSpeed: 12
+  dashDuration: 0.2
 --- !u!1 &7126222401044393342
 GameObject:
   m_ObjectHideFlags: 0

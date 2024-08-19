@@ -8,6 +8,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Input
     public class InputHandlerSO : ScriptableObject
     {
         public UnityEvent<Vector2> onPlayerMove;
+        public UnityEvent onPlayerDash;
 
         public void HandleMovement(InputAction.CallbackContext context)
         {
@@ -15,6 +16,11 @@ namespace _Dev.UnderRunnerTest.Scripts.Input
 
             onPlayerMove?.Invoke(dir);
         }
-    }
 
+        public void HandleDash(InputAction.CallbackContext context)
+        {
+            if (context.started)
+                onPlayerDash?.Invoke();
+        }
+    }
 }
