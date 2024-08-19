@@ -13,10 +13,14 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
         private float dashSpeed;
 
         [SerializeField] private float dashDuration;
+        [SerializeField] private float dashCoolDown;
 
 
         private PlayerMovement _movement;
         private CharacterController _characterController;
+
+        private bool _canDash = true;
+        private Coroutine _dashCoroutine = null;
 
         private void Awake()
         {
@@ -36,26 +40,40 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
 
         private void HandleDash()
         {
-            //Dash(_movement.CurrentDir);
-            StartCoroutine(DashCoroutine());
+            if (!_canDash)
+                return;
+
+            if (_dashCoroutine != null)
+                StopCoroutine(_dashCoroutine);
+
+            _dashCoroutine = StartCoroutine(DashCoroutine());
         }
 
         private void Dash(Vector3 dir)
         {
-            _characterController.Move(dir * dashSpeed);
+            _characterController.Move(dir * (dashSpeed * Time.deltaTime));
         }
 
         private IEnumerator DashCoroutine()
         {
             float startTime = Time.time;
             float timer = 0;
-            
+            _canDash = false;
+
             while (timer < dashDuration)
             {
-                _characterController.Move(_movement.CurrentDir * (dashSpeed * Time.deltaTime));
+                Dash(_movement.CurrentDir);
                 timer = Time.time - startTime;
                 yield return null;
             }
+
+            yield return CoolDownCoroutine();
+            _canDash = true;
+        }
+
+        private IEnumerator CoolDownCoroutine()
+        {
+            yield return new WaitForSeconds(dashCoolDown);
         }
     }
 }
