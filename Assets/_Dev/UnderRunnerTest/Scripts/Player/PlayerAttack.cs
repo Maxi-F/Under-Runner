@@ -15,10 +15,11 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
         [SerializeField] private float attackDuration;
         [SerializeField] private float attackCoolDown;
         [SerializeField] private Transform attackPoint;
+        [SerializeField] private LayerMask layers;
 
         private bool _canAttack = true;
         private Coroutine _attackCoroutine = null;
-        private bool? _sphereCastResult = null;
+        private bool _isAttacking = false;
 
         private void OnEnable()
         {
@@ -35,7 +36,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
             if (!Application.isPlaying)
                 return;
 
-            if (_sphereCastResult != null)
+            if (_isAttacking)
             {
                 Gizmos.DrawWireSphere(attackPoint.position, attackRadius);
             }
@@ -55,19 +56,39 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
         private IEnumerator AttackCoroutine()
         {
             _canAttack = false;
+            _isAttacking = true;
             float timer = 0;
             float startTime = Time.time;
-
+            bool hasAttackFinished = false;
             //Turn On Trigger
-            while (timer < attackDuration)
+
+            while (timer < attackDuration && !hasAttackFinished)
             {
                 timer = Time.time - startTime;
-                _sphereCastResult = Physics.SphereCast(attackPoint.position, attackRadius, transform.forward, out RaycastHit hit);
+                RaycastHit[] hits = Physics.SphereCastAll(attackPoint.position, attackRadius, attackPoint.forward, 0, layers);
+
+                foreach (RaycastHit hit in hits)
+                {
+                    Debug.Log($"Hitted: {hit.transform.name}");
+                    if (hit.transform.CompareTag("Deflectable"))
+                    {
+                        Debug.Log("Parry");
+                        hasAttackFinished = true;
+                        break;
+                    }
+
+                    if (hit.transform.CompareTag("Enemy"))
+                    {
+                        Debug.Log("Hit");
+                        hasAttackFinished = true;
+                        break;
+                    }
+                }
                 yield return null;
             }
 
             //Turn Off Trigger
-            _sphereCastResult = null;
+            _isAttacking = false;
 
             yield return CoolDownCoroutine();
             _canAttack = true;

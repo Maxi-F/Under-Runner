@@ -276,6 +276,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputHandler: {fileID: 11400000, guid: 4902f51743585ca40aec021ece06aa06, type: 2}
+  onIsPlayerMovingEvent: {fileID: 0}
   speed: 7.5
   maxLookAngles: {x: 45, y: 45}
   visor: {fileID: 2359771110193480003}
@@ -312,6 +313,9 @@ MonoBehaviour:
   attackDuration: 0.2
   attackCoolDown: 0.25
   attackPoint: {fileID: 3832919044576944865}
+  layers:
+    serializedVersion: 2
+    m_Bits: 192
 --- !u!1 &7126222401044393342
 GameObject:
   m_ObjectHideFlags: 0
