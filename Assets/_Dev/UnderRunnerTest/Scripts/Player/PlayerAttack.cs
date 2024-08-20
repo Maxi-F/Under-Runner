@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
+using _Dev.UnderRunnerTest.Scripts.Health;
 using _Dev.UnderRunnerTest.Scripts.Input;
+using _Dev.UnderRunnerTest.Scripts.ParryProjectile;
 using UnityEngine;
 
 namespace _Dev.UnderRunnerTest.Scripts.Player
@@ -10,15 +12,17 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
         [SerializeField] private InputHandlerSO inputHandler;
 
         [Header("Attack Configuration")] [SerializeField]
-        private float attackRadius;
+        private int attackDamage;
 
+        private float attackRadius;
         [SerializeField] private float attackDuration;
         [SerializeField] private float attackCoolDown;
         [SerializeField] private Transform attackPoint;
+        [SerializeField] private LayerMask layers;
 
         private bool _canAttack = true;
         private Coroutine _attackCoroutine = null;
-        private bool? _sphereCastResult = null;
+        private bool _isAttacking;
 
         private void OnEnable()
         {
@@ -35,7 +39,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
             if (!Application.isPlaying)
                 return;
 
-            if (_sphereCastResult != null)
+            if (_isAttacking)
             {
                 Gizmos.DrawWireSphere(attackPoint.position, attackRadius);
             }
@@ -55,19 +59,47 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
         private IEnumerator AttackCoroutine()
         {
             _canAttack = false;
+            _isAttacking = true;
             float timer = 0;
             float startTime = Time.time;
-
+            bool hasAttackFinished = false;
             //Turn On Trigger
-            while (timer < attackDuration)
+
+            while (timer < attackDuration && !hasAttackFinished)
             {
                 timer = Time.time - startTime;
-                _sphereCastResult = Physics.SphereCast(attackPoint.position, attackRadius, transform.forward, out RaycastHit hit);
+                RaycastHit[] hits = Physics.SphereCastAll(attackPoint.position, attackRadius, attackPoint.forward, 0, layers);
+
+                foreach (RaycastHit hit in hits)
+                {
+                    if (hit.transform.CompareTag("Deflectable"))
+                    {
+                        if (hit.transform.TryGetComponent<IDeflectable>(out IDeflectable deflectableInterface))
+                        {
+                            deflectableInterface.Deflect();
+                        }
+
+                        hasAttackFinished = true;
+                        break;
+                    }
+
+                    if (hit.transform.CompareTag("Enemy"))
+                    {
+                        if (hit.transform.TryGetComponent<ITakeDamage>(out ITakeDamage takeDamageInterface))
+                        {
+                            takeDamageInterface.TakeDamage(attackDamage);
+                        }
+
+                        hasAttackFinished = true;
+                        break;
+                    }
+                }
+
                 yield return null;
             }
 
             //Turn Off Trigger
-            _sphereCastResult = null;
+            _isAttacking = false;
 
             yield return CoolDownCoroutine();
             _canAttack = true;
