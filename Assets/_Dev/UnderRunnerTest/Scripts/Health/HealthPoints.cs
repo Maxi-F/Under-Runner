@@ -46,7 +46,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Health
             }
             else
             {
-                onTakeDamageEvent?.RaiseEvent();
+                onTakeDamageEvent?.RaiseEvent(CurrentHp);
             }
         }
     }
