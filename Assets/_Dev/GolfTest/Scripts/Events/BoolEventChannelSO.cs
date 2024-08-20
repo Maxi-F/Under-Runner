@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 namespace _Dev.GolfTest.Scripts.Events
 {
-    [CreateAssetMenu(menuName = "Bool Event Channel")]
+    [CreateAssetMenu(menuName = "Events/Bool Channel")]
     public class BoolEventChannelSO : VoidEventChannelSO
     {
         public UnityEvent<bool> onBoolEvent;
