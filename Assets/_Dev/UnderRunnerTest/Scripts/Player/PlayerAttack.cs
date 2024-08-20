@@ -80,9 +80,9 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
 
                     if (hit.transform.CompareTag("Enemy"))
                     {
-                        if (hit.transform.TryGetComponent<HealthPoints>(out HealthPoints health))
+                        if (hit.transform.TryGetComponent<ITakeDamage>(out ITakeDamage takeDamageInterface))
                         {
-                            health.TakeDamage(attackDamage);
+                            takeDamageInterface.TakeDamage(attackDamage);
                             Debug.Log("Hit");
                         }
 
