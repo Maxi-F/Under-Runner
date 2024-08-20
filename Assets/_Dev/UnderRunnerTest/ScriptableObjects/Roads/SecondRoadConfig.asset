@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: SecondRoadConfig
   m_EditorClassIdentifier: 
   roadSection: {fileID: 6046938452802903233, guid: e948c734f10036549926b6886c929788, type: 3}
-  distanceToSpawnTo: {x: 55, y: 0, z: 0}
-  startRotation: {x: 0, y: 0, z: 0, w: 0}
+  startRotation: {x: 0, y: 0, z: 0, w: 1}
