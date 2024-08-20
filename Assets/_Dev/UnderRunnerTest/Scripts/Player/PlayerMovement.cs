@@ -40,7 +40,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
         private void Update()
         {
             _characterController.Move(currentDir * (speed * Time.deltaTime));
-            onIsPlayerMovingEvent?.RaiseEvent(_currentDir.magnitude >= float.Epsilon);
+            onIsPlayerMovingEvent?.RaiseEvent(currentDir.magnitude >= float.Epsilon);
         }
 
         private void HandleMovement(Vector2 dir)
