@@ -77,8 +77,8 @@ namespace _Dev.GolfTest.Scripts.Camera
         /// </summary>
         private void ModifyPosition()
         {
-            var rotatedOffset = transform.rotation * offset;
-            var offsetEmulatingTransformPoint = target.position + rotatedOffset;
+            Vector3 rotatedOffset = transform.rotation * offset;
+            Vector3 offsetEmulatingTransformPoint = target.position + rotatedOffset;
 
             transform.position = Vector3.Slerp(transform.position, offsetEmulatingTransformPoint, Time.fixedDeltaTime * followSpeed);
         }

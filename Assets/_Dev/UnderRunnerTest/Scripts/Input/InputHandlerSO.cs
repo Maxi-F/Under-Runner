@@ -9,6 +9,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Input
     {
         public UnityEvent<Vector2> onPlayerMove;
         public UnityEvent onPlayerDash;
+        public UnityEvent onPlayerAttack;
 
         public void HandleMovement(InputAction.CallbackContext context)
         {
@@ -21,6 +22,12 @@ namespace _Dev.UnderRunnerTest.Scripts.Input
         {
             if (context.started)
                 onPlayerDash?.Invoke();
+        }
+
+        public void HandleAttack(InputAction.CallbackContext context)
+        {
+            if (context.started)
+                onPlayerAttack?.Invoke();
         }
     }
 }

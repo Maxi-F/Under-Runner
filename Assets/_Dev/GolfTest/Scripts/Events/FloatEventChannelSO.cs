@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 namespace _Dev.GolfTest.Scripts.Events
 {
-    [CreateAssetMenu(menuName = "Float Event Channel")]
+    [CreateAssetMenu(menuName = "Events/Float Channel")]
     public class FloatEventChannelSO : VoidEventChannelSO
     {
         public UnityEvent<float> onFloatEvent;
