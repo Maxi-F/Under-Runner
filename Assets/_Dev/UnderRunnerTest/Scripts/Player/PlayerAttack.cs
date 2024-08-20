@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using _Dev.UnderRunnerTest.Scripts.Health;
 using _Dev.UnderRunnerTest.Scripts.Input;
 using UnityEngine;
 
@@ -10,8 +11,8 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
         [SerializeField] private InputHandlerSO inputHandler;
 
         [Header("Attack Configuration")] [SerializeField]
+        private int attackDamage;
         private float attackRadius;
-
         [SerializeField] private float attackDuration;
         [SerializeField] private float attackCoolDown;
         [SerializeField] private Transform attackPoint;
@@ -79,11 +80,17 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
 
                     if (hit.transform.CompareTag("Enemy"))
                     {
-                        Debug.Log("Hit");
+                        if (hit.transform.TryGetComponent<HealthPoints>(out HealthPoints health))
+                        {
+                            health.TakeDamage(attackDamage);
+                            Debug.Log("Hit");
+                        }
+
                         hasAttackFinished = true;
                         break;
                     }
                 }
+
                 yield return null;
             }
 
