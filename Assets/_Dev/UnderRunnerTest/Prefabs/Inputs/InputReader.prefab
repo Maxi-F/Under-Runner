@@ -74,6 +74,40 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 25a2b743-dc1c-48a8-84ed-6982ea2dc42d
     m_ActionName: TopDownCombat/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 4902f51743585ca40aec021ece06aa06, type: 2}
+        m_TargetAssemblyTypeName: _Dev.UnderRunnerTest.Scripts.Input.InputHandlerSO,
+          Assembly-CSharp
+        m_MethodName: HandleDash
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 337021fd-80d5-40c9-8374-264e543412bd
+    m_ActionName: TopDownCombat/Dash[/Keyboard/shift]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 4902f51743585ca40aec021ece06aa06, type: 2}
+        m_TargetAssemblyTypeName: _Dev.UnderRunnerTest.Scripts.Input.InputHandlerSO,
+          Assembly-CSharp
+        m_MethodName: HandleAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: fef1fd6b-8a59-4a11-af06-f1220fcac7f4
+    m_ActionName: TopDownCombat/Attack[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: TopDownCombat
