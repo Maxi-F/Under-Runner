@@ -14,7 +14,8 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
         [Header("Attack Configuration")] [SerializeField]
         private int attackDamage;
 
-        private float attackRadius;
+        [SerializeField] private GameObject attackSphere;
+        [SerializeField] private float attackRadius;
         [SerializeField] private float attackDuration;
         [SerializeField] private float attackCoolDown;
         [SerializeField] private Transform attackPoint;
@@ -22,8 +23,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
 
         private bool _canAttack = true;
         private Coroutine _attackCoroutine = null;
-        private bool _isAttacking;
-
+        
         private void OnEnable()
         {
             inputHandler.onPlayerAttack.AddListener(HandleAttack);
@@ -32,17 +32,6 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
         private void OnDisable()
         {
             inputHandler.onPlayerAttack.RemoveListener(HandleAttack);
-        }
-
-        private void OnDrawGizmos()
-        {
-            if (!Application.isPlaying)
-                return;
-
-            if (_isAttacking)
-            {
-                Gizmos.DrawWireSphere(attackPoint.position, attackRadius);
-            }
         }
 
         public void HandleAttack()
@@ -59,7 +48,8 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
         private IEnumerator AttackCoroutine()
         {
             _canAttack = false;
-            _isAttacking = true;
+            attackSphere.SetActive(true);
+            
             float timer = 0;
             float startTime = Time.time;
             bool hasAttackFinished = false;
@@ -98,8 +88,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
                 yield return null;
             }
 
-            //Turn Off Trigger
-            _isAttacking = false;
+            attackSphere.SetActive(false);
 
             yield return CoolDownCoroutine();
             _canAttack = true;
