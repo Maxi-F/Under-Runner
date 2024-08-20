@@ -150,7 +150,11 @@ MonoBehaviour:
   enemyObject: {fileID: 8961736479340173517}
   shieldObject: {fileID: 2240729731342305122}
   shieldActive: 1
+  timeToReactivateShield: 4
+  flyVelocity: 1.75
+  flyTime: 2
   onEnemyDeathEvent: {fileID: 11400000, guid: 36bbe8a4a81fcf74da11d75999d01f40, type: 2}
+  onEnemyParriedEvent: {fileID: 11400000, guid: 2560c5f78509b5141b8e058e758dd606, type: 2}
   onEnemyDamageEvent: {fileID: 11400000, guid: 41331d8fc0079ac47bec86270d050339, type: 2}
 --- !u!114 &2073324618396084509
 MonoBehaviour:
@@ -165,6 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBetweenAttacks: 1
+  onEnemyParriedEvent: {fileID: 11400000, guid: 2560c5f78509b5141b8e058e758dd606, type: 2}
 --- !u!114 &9129665508328350156
 MonoBehaviour:
   m_ObjectHideFlags: 0
