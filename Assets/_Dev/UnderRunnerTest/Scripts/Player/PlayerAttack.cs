@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using _Dev.UnderRunnerTest.Scripts.Health;
 using _Dev.UnderRunnerTest.Scripts.Input;
+using _Dev.UnderRunnerTest.Scripts.ParryProjectile;
 using UnityEngine;
 
 namespace _Dev.UnderRunnerTest.Scripts.Player
@@ -12,6 +13,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
 
         [Header("Attack Configuration")] [SerializeField]
         private int attackDamage;
+
         private float attackRadius;
         [SerializeField] private float attackDuration;
         [SerializeField] private float attackCoolDown;
@@ -20,7 +22,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
 
         private bool _canAttack = true;
         private Coroutine _attackCoroutine = null;
-        private bool _isAttacking = false;
+        private bool _isAttacking;
 
         private void OnEnable()
         {
@@ -70,10 +72,13 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
 
                 foreach (RaycastHit hit in hits)
                 {
-                    Debug.Log($"Hitted: {hit.transform.name}");
                     if (hit.transform.CompareTag("Deflectable"))
                     {
-                        Debug.Log("Parry");
+                        if (hit.transform.TryGetComponent<IDeflectable>(out IDeflectable deflectableInterface))
+                        {
+                            deflectableInterface.Deflect();
+                        }
+
                         hasAttackFinished = true;
                         break;
                     }
@@ -83,7 +88,6 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
                         if (hit.transform.TryGetComponent<ITakeDamage>(out ITakeDamage takeDamageInterface))
                         {
                             takeDamageInterface.TakeDamage(attackDamage);
-                            Debug.Log("Hit");
                         }
 
                         hasAttackFinished = true;

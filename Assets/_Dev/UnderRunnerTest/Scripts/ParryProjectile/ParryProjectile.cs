@@ -4,15 +4,15 @@ using UnityEngine;
 
 namespace _Dev.UnderRunnerTest.Scripts.ParryProjectile
 {
-    public class ParryProjectile : MonoBehaviour
+    public class ParryProjectile : MonoBehaviour, IDeflectable
     {
         [SerializeField] private GameObject objectToFollow;
         [SerializeField] private float velocity = 5.0f;
-        
+
         private void Update()
         {
             Vector3 direction = (objectToFollow.transform.position - transform.position).normalized;
-            transform.position +=  direction * (velocity * Time.deltaTime);
+            transform.position += direction * (velocity * Time.deltaTime);
         }
 
         private void OnTriggerEnter(Collider other)
@@ -22,10 +22,15 @@ namespace _Dev.UnderRunnerTest.Scripts.ParryProjectile
             if (other.CompareTag("Enemy"))
             {
                 EnemyController enemy = other.GetComponentInChildren<EnemyController>();
-                
+
                 enemy.HandleShield(false);
                 gameObject.SetActive(false);
             }
+        }
+
+        public void Deflect()
+        {
+            Debug.Log("Parry");
         }
     }
 }
