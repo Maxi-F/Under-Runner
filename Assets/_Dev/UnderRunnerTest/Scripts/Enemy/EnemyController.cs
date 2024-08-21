@@ -50,11 +50,13 @@ namespace _Dev.UnderRunnerTest.Scripts.Enemy
 
         public void HandleShield(bool isActive)
         {
-            Debug.Log($"Handling shield: {isActive}");
+            if (!isActive && !shieldObject.activeInHierarchy) return;
             
             shieldObject.SetActive(isActive);
             _healthPoints.SetCanTakeDamage(!isActive);
-            onEnemyParriedEvent?.RaiseEvent(isActive);
+            
+            if(!isActive)
+                onEnemyParriedEvent?.RaiseEvent(isActive);
             
             StartCoroutine(Fly(isActive));
         }
@@ -69,6 +71,8 @@ namespace _Dev.UnderRunnerTest.Scripts.Enemy
 
             if(!isActive)
                 StartCoroutine(ReactivateShield());
+            else 
+                onEnemyParriedEvent?.RaiseEvent(isActive);
         }
 
         private IEnumerator ReactivateShield()

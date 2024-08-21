@@ -48,7 +48,8 @@ GameObject:
   - component: {fileID: 1389590182879712784}
   - component: {fileID: 2073324618396084509}
   - component: {fileID: 9129665508328350156}
-  m_Layer: 0
+  - component: {fileID: 2162685059267034076}
+  m_Layer: 6
   m_Name: EnemyLogic
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -82,8 +83,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04cb3bb3ce8700649b43a4c9b6a29908, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 5
-  initHealth: 5
+  maxHealth: 100
+  initHealth: 100
   canTakeDamage: 1
   onDeathEvent: {fileID: 11400000, guid: 36bbe8a4a81fcf74da11d75999d01f40, type: 2}
   onTakeDamageEvent: {fileID: 11400000, guid: 41331d8fc0079ac47bec86270d050339, type: 2}
@@ -184,6 +185,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nonMoveAttack: {fileID: 4629402699858247172}
   moveAttack: {fileID: 2791396338982899926}
+--- !u!114 &2162685059267034076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6797202327773222759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7fa5f08dbdd9f142871d41d18595583, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parryProjectile: {fileID: 3647964052860360875, guid: 48bea42002bf10540a71e54ce9228159, type: 3}
+  player: {fileID: 0}
+  offset: {x: 0, y: 0, z: -2}
 --- !u!1 &8961736479340173517
 GameObject:
   m_ObjectHideFlags: 0
@@ -356,7 +372,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6589846707606878040, guid: 27c120399e7805446ab5ba0ae10b4a50, type: 3}
       propertyPath: endPosition.z
-      value: -5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6589846707606878040, guid: 27c120399e7805446ab5ba0ae10b4a50, type: 3}
       propertyPath: isInMoveAttack
@@ -372,7 +388,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6589846707606878040, guid: 27c120399e7805446ab5ba0ae10b4a50, type: 3}
       propertyPath: startPosition.z
-      value: -5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6589846707606878040, guid: 27c120399e7805446ab5ba0ae10b4a50, type: 3}
       propertyPath: velocityInTime.m_Curve.Array.size
@@ -445,7 +461,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1291363360286005173, guid: dd867531eb68b05489e5511d2fc38d3a, type: 3}
       propertyPath: endPosition.z
-      value: -5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1291363360286005173, guid: dd867531eb68b05489e5511d2fc38d3a, type: 3}
       propertyPath: isInMoveAttack
@@ -461,7 +477,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1291363360286005173, guid: dd867531eb68b05489e5511d2fc38d3a, type: 3}
       propertyPath: startPosition.z
-      value: -5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1291363360286005173, guid: dd867531eb68b05489e5511d2fc38d3a, type: 3}
       propertyPath: onIsPlayerMoving

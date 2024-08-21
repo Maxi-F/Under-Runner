@@ -20,7 +20,6 @@ namespace _Dev.UnderRunnerTest.Scripts.Enemy.Attacks
         void Start()
         {
             _attacks ??= GetComponents<IEnemyAttack>();
-            Debug.Log(_attacks.Length);
             
             SelectRandomAttack();
             

@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/_Dev/UnderRunnerTest/Scenes/EndlessRunnerTest.unity
+    guid: adf6d975a8b986440800eb3d5bd5d994
   m_configObjects: {}

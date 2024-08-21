@@ -49,9 +49,6 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
 
         private void OnDrawGizmos()
         {
-            if (!Application.isPlaying)
-                return;
-            
             Gizmos.DrawWireSphere(attackPoint.position, attackRadius);
         }
         

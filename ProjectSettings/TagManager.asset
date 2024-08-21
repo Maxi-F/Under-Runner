@@ -8,6 +8,7 @@ TagManager:
   - NewRoad
   - Enemy
   - Deflectable
+  - Attack
   layers:
   - Default
   - TransparentFX

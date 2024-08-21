@@ -8,7 +8,8 @@ namespace _Dev.UnderRunnerTest.Scripts.UI
     public class PlayerHealthUIHandler : MonoBehaviour
     {
         [SerializeField] private IntEventChannelSO onPlayerTakeDamageEvent;
-
+        [SerializeField] private String entity = "Player";
+        
         private TextMeshProUGUI _textMesh;
         
         // Start is called before the first frame update
@@ -25,7 +26,7 @@ namespace _Dev.UnderRunnerTest.Scripts.UI
 
         private void HandleChangeHealth(int value)
         {
-            _textMesh.text = $"Player Health: {value} / 100";
+            _textMesh.text = $"{entity} Health: {value} / 100";
         }
     }
 }

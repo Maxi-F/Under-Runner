@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 6507988668116696635}
   m_Layer: 0
   m_Name: AttackSphere
-  m_TagString: Untagged
+  m_TagString: Attack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -268,9 +268,11 @@ GameObject:
   - component: {fileID: 6487825136179884570}
   - component: {fileID: 4699157676241342615}
   - component: {fileID: 6481343404815373606}
+  - component: {fileID: 1856129533111618862}
+  - component: {fileID: 4004944892389013156}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -414,15 +416,46 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputHandler: {fileID: 11400000, guid: 4902f51743585ca40aec021ece06aa06, type: 2}
-  attackDamage: 10
+  attackDamage: 2
   attackSphere: {fileID: 3130646683754657857}
-  attackRadius: 0
+  attackRadius: 0.9
   attackDuration: 0.2
   attackCoolDown: 0.25
   attackPoint: {fileID: 3832919044576944865}
   layers:
     serializedVersion: 2
     m_Bits: 192
+  enemy: {fileID: 0}
+--- !u!114 &1856129533111618862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4780633370198621073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65e60f25d669f654c9413a0eb2e3c356, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onNewRoadTriggerEvent: {fileID: 11400000, guid: e9f150e4cef40854bb3ad229e1d7be90, type: 2}
+--- !u!114 &4004944892389013156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4780633370198621073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04cb3bb3ce8700649b43a4c9b6a29908, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  initHealth: 100
+  canTakeDamage: 1
+  onDeathEvent: {fileID: 11400000, guid: 1609b932e078810448a25604c23359d3, type: 2}
+  onTakeDamageEvent: {fileID: 11400000, guid: 703652f7737657e41ba9437afd9a0117, type: 2}
 --- !u!1 &7126222401044393342
 GameObject:
   m_ObjectHideFlags: 0
@@ -524,7 +557,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}

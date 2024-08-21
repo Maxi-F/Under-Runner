@@ -33,11 +33,8 @@ namespace _Dev.UnderRunnerTest.Scripts.Health
         {
             if (!canTakeDamage)
             {
-                Debug.Log($"{gameObject.name} cannot take damage!");
                 return;
             }
-            
-            Debug.Log($"taking damage... {gameObject.name}");
             CurrentHp -= damage;
 
             if (CurrentHp <= 0)
