@@ -20,6 +20,8 @@ namespace _Dev.UnderRunnerTest.Scripts.Enemy.Attacks
         void Start()
         {
             _attacks ??= GetComponents<IEnemyAttack>();
+            Debug.Log(_attacks.Length);
+            
             SelectRandomAttack();
             
             onEnemyParriedEvent?.onBoolEvent.AddListener(HandleEnemyParried);
@@ -46,7 +48,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Enemy.Attacks
 
         private void SelectRandomAttack()
         {
-            _actualAttack = _attacks[Random.Range(0, _attacks.Length - 1)];
+            _actualAttack = _attacks[Random.Range(0, _attacks.Length)];
         }
 
         IEnumerator ExecuteAttack()

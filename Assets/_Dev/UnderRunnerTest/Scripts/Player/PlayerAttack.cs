@@ -21,6 +21,8 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
         [SerializeField] private Transform attackPoint;
         [SerializeField] private LayerMask layers;
 
+        [Header("Enemy")] [SerializeField] private GameObject enemy;
+        
         private bool _canAttack = true;
         private Coroutine _attackCoroutine = null;
         
@@ -45,6 +47,14 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
             _attackCoroutine = StartCoroutine(AttackCoroutine());
         }
 
+        private void OnDrawGizmos()
+        {
+            if (!Application.isPlaying)
+                return;
+            
+            Gizmos.DrawWireSphere(attackPoint.position, attackRadius);
+        }
+        
         private IEnumerator AttackCoroutine()
         {
             _canAttack = false;
@@ -53,20 +63,19 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
             float timer = 0;
             float startTime = Time.time;
             bool hasAttackFinished = false;
-            //Turn On Trigger
 
             while (timer < attackDuration && !hasAttackFinished)
             {
                 timer = Time.time - startTime;
                 RaycastHit[] hits = Physics.SphereCastAll(attackPoint.position, attackRadius, attackPoint.forward, 0, layers);
-
+                
                 foreach (RaycastHit hit in hits)
                 {
                     if (hit.transform.CompareTag("Deflectable"))
                     {
                         if (hit.transform.TryGetComponent<IDeflectable>(out IDeflectable deflectableInterface))
                         {
-                            deflectableInterface.Deflect();
+                            deflectableInterface.Deflect(enemy);
                         }
 
                         hasAttackFinished = true;
