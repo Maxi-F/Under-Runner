@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace _Dev.GolfTest.Scripts.Events
+namespace _Dev.UnderRunnerTest.Scripts.Events
 {
     [CreateAssetMenu(menuName = "Events/Void Channel")]
     public class VoidEventChannelSO : ScriptableObject

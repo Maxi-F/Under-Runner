@@ -1,5 +1,5 @@
 using System;
-using _Dev.GolfTest.Scripts.Events;
+using _Dev.UnderRunnerTest.Scripts.Events;
 using UnityEngine;
 
 namespace _Dev.UnderRunnerTest.Scripts.Player

@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using _Dev.GolfTest.Scripts.Events;
+using _Dev.UnderRunnerTest.Scripts.Events;
 
 namespace _Dev.GolfTest.Scripts.GravitySystem
 {
