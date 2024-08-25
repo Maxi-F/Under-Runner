@@ -17,19 +17,33 @@ namespace _Dev.UnderRunnerTest.Scripts.Attacks.FallingAttack
         [Header("Prefab")]
         [SerializeField] private GameObject fallingBlock;
 
-        [Header("Events")] [SerializeField] private Vector3EventChannelSO onPlayerPositionChanged;
-        
-        private bool _canSpawn = true;
-        private Vector3 _playerPosition;
+        [Header("Events")] 
+        [SerializeField] private Vector3EventChannelSO onPlayerPositionChanged;
+        [SerializeField] private VoidEventChannelSO onHandleAttack;
 
+        private bool _isSpawning = false;
+        private Vector3 _playerPosition;
+        
         private void OnEnable()
         {
             onPlayerPositionChanged?.onVectorEvent.AddListener(HandleNewPlayerPosition);
+            onHandleAttack?.onEvent.AddListener(HandleSpawnBlocks);
         }
         
         private void OnDisable()
         {
             onPlayerPositionChanged?.onVectorEvent.RemoveListener(HandleNewPlayerPosition);
+            onHandleAttack?.onEvent.RemoveListener(HandleSpawnBlocks);
+        }
+
+        public bool IsSpawning()
+        {
+            return _isSpawning;
+        }
+
+        private void HandleSpawnBlocks()
+        {
+            StartCoroutine(SpawnBlocks(spawnQuantity));
         }
 
         private void HandleNewPlayerPosition(Vector3 playerPosition)
@@ -37,17 +51,12 @@ namespace _Dev.UnderRunnerTest.Scripts.Attacks.FallingAttack
             _playerPosition = playerPosition;
         }
 
-        private void Update()
-        {
-            if (_canSpawn)
-            {
-                StartCoroutine(SpawnBlocks(spawnQuantity));
-                _canSpawn = false;
-            }
-        }
-
         private IEnumerator SpawnBlocks(int quantity)
         {
+            if (_isSpawning) yield break;
+            
+            _isSpawning = true;
+
             for (int i = 0; i < quantity; i++)
             {
                 GameObject fallingBlockInstance = Instantiate(fallingBlock, transform);
@@ -66,7 +75,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Attacks.FallingAttack
 
             yield return new WaitForSeconds(spawnCooldown);
 
-            _canSpawn = true;
+            _isSpawning = false;
         }
 
         private Vector2 CalculateRandomDistance()
