@@ -47,7 +47,6 @@ GameObject:
   - component: {fileID: 2453675309563085654}
   - component: {fileID: 1389590182879712784}
   - component: {fileID: 2073324618396084509}
-  - component: {fileID: 9129665508328350156}
   - component: {fileID: 2162685059267034076}
   m_Layer: 6
   m_Name: EnemyLogic
@@ -171,20 +170,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeBetweenAttacks: 1
   onEnemyParriedEvent: {fileID: 11400000, guid: 2560c5f78509b5141b8e058e758dd606, type: 2}
---- !u!114 &9129665508328350156
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6797202327773222759}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 469db73b9d6f530418b1966867fe052d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nonMoveAttack: {fileID: 4629402699858247172}
-  moveAttack: {fileID: 2791396338982899926}
 --- !u!114 &2162685059267034076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -391,6 +376,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6589846707606878040, guid: 27c120399e7805446ab5ba0ae10b4a50, type: 3}
+      propertyPath: distanceToInactivate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6589846707606878040, guid: 27c120399e7805446ab5ba0ae10b4a50, type: 3}
       propertyPath: velocityInTime.m_Curve.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -420,17 +409,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4436858728046797118, guid: 27c120399e7805446ab5ba0ae10b4a50, type: 3}
   m_PrefabInstance: {fileID: 1967272115223103836}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4629402699858247172 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6589846707606878040, guid: 27c120399e7805446ab5ba0ae10b4a50, type: 3}
-  m_PrefabInstance: {fileID: 1967272115223103836}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e1671f7256b5e84e83fc076c10aa0d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &3987603270337791843
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -483,6 +461,10 @@ PrefabInstance:
       propertyPath: onIsPlayerMoving
       value: 
       objectReference: {fileID: 11400000, guid: 528be811a443df646ab214a54be4da4d, type: 2}
+    - target: {fileID: 1291363360286005173, guid: dd867531eb68b05489e5511d2fc38d3a, type: 3}
+      propertyPath: distanceToInactivate
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1291363360286005173, guid: dd867531eb68b05489e5511d2fc38d3a, type: 3}
       propertyPath: velocityInTime.m_Curve.Array.size
       value: 2
@@ -552,17 +534,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd867531eb68b05489e5511d2fc38d3a, type: 3}
---- !u!114 &2791396338982899926 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1291363360286005173, guid: dd867531eb68b05489e5511d2fc38d3a, type: 3}
-  m_PrefabInstance: {fileID: 3987603270337791843}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e1671f7256b5e84e83fc076c10aa0d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &4637648811133208240 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8577929066096624083, guid: dd867531eb68b05489e5511d2fc38d3a, type: 3}
