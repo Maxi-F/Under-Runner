@@ -996,6 +996,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2073324618396084509, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: timeBetweenAttacks
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2162685059267034076, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
       propertyPath: player
       value: 
@@ -1010,7 +1014,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 673461572015972428, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
       insertIndex: -1
       addedObject: {fileID: 195267069}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6797202327773222759, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1896469102}
   m_SourcePrefab: {fileID: 100100000, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
 --- !u!1 &342337568
 GameObject:
@@ -2421,7 +2428,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1667251551
 Transform:
   m_ObjectHideFlags: 0
@@ -3013,6 +3020,24 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 401449196481155113, guid: e948c734f10036549926b6886c929788, type: 3}
   m_PrefabInstance: {fileID: 1857963559}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1896469093 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6797202327773222759, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+  m_PrefabInstance: {fileID: 324373034}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1896469102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1896469093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5092ec987e0ae784ca2190f7ef8010cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swing: {fileID: 1667251556}
 --- !u!1 &1924909080
 GameObject:
   m_ObjectHideFlags: 0
