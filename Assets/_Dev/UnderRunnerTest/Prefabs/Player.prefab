@@ -216,7 +216,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -311,7 +311,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Height: 1
@@ -383,7 +383,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputHandler: {fileID: 11400000, guid: 4902f51743585ca40aec021ece06aa06, type: 2}
-  onIsPlayerMovingEvent: {fileID: 11400000, guid: 528be811a443df646ab214a54be4da4d, type: 2}
+  onPlayerNewPositionEvent: {fileID: 11400000, guid: 1edae3268f02d1c4190e82ddfa3be357, type: 2}
   speed: 7.5
   maxLookAngles: {x: 45, y: 45}
   visor: {fileID: 2359771110193480003}
