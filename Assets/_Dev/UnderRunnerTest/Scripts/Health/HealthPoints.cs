@@ -11,6 +11,8 @@ namespace _Dev.UnderRunnerTest.Scripts.Health
         
         [Header("events")] [SerializeField] private VoidEventChannelSO onDeathEvent;
         [SerializeField] private IntEventChannelSO onTakeDamageEvent;
+
+        private bool _isInvincible = false;
         
         public int CurrentHp { get; private set; }
 
@@ -22,6 +24,14 @@ namespace _Dev.UnderRunnerTest.Scripts.Health
         public void SetCanTakeDamage(bool value)
         {
             canTakeDamage = value;
+        }
+        
+        // Is invincible =/= can take damage.
+        // isInvincible is used for attacks That can be avoidable.
+        // canTakeDamage is used if the entity just cant take damage in any way.
+        public void SetIsInvincible(bool value)
+        {
+            _isInvincible = value;
         }
         
         public void ResetHitPoints()
@@ -45,6 +55,12 @@ namespace _Dev.UnderRunnerTest.Scripts.Health
             {
                 onTakeDamageEvent?.RaiseEvent(CurrentHp);
             }
+        }
+
+        public void TryTakeAvoidableDamage(int damage)
+        {
+            if (_isInvincible) return;
+            TakeDamage(damage);
         }
     }
 }

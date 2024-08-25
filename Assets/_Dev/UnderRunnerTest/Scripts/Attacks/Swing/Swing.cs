@@ -28,7 +28,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Attacks.Swing
             {
                 ITakeDamage damageTaker = other.GetComponent<ITakeDamage>();
                 
-                damageTaker.TakeDamage(damage);
+                damageTaker.TryTakeAvoidableDamage(damage);
             }
         }
 
