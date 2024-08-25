@@ -1,6 +1,7 @@
 using _Dev.UnderRunnerTest.Scripts.Events;
 using _Dev.UnderRunnerTest.Scripts.Input;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace _Dev.UnderRunnerTest.Scripts.Player
 {
@@ -8,8 +9,8 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
     public class PlayerMovement : MonoBehaviour
     {
         [Header("Input")] [SerializeField] private InputHandlerSO inputHandler;
-        [SerializeField] private BoolEventChannelSO onIsPlayerMovingEvent;
-        
+        [SerializeField] private Vector3EventChannelSO onPlayerNewPositionEvent;
+
         [Header("Movement Config")] [SerializeField]
         private float speed;
 
@@ -17,11 +18,13 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
         private Vector2 maxLookAngles;
 
         [SerializeField] private GameObject visor;
+        [SerializeField] private GameObject attackPointPivot;
 
         private Vector3 currentDir;
         private CharacterController _characterController;
 
         public Vector3 CurrentDir => currentDir;
+
         private void Awake()
         {
             _characterController = GetComponent<CharacterController>();
@@ -40,7 +43,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
         private void Update()
         {
             _characterController.Move(currentDir * (speed * Time.deltaTime));
-            onIsPlayerMovingEvent?.RaiseEvent(currentDir.magnitude >= float.Epsilon);
+            onPlayerNewPositionEvent?.RaiseEvent(transform.position);
         }
 
         private void HandleMovement(Vector2 dir)
@@ -61,6 +64,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
             yAngle = Mathf.Clamp(yAngle, -maxLookAngles.y, maxLookAngles.y);
 
             visor.transform.rotation = Quaternion.Euler(yAngle, xAngle, 0);
+            attackPointPivot.transform.rotation = Quaternion.Euler(yAngle, xAngle, 0);
         }
     }
 }

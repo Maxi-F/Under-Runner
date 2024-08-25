@@ -1,4 +1,5 @@
 using System.Collections;
+using _Dev.UnderRunnerTest.Scripts.Health;
 using _Dev.UnderRunnerTest.Scripts.Input;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -18,6 +19,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
 
         private PlayerMovement _movement;
         private CharacterController _characterController;
+        private HealthPoints _healthPoints;
 
         private bool _canDash = true;
         private Coroutine _dashCoroutine = null;
@@ -26,6 +28,8 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
         {
             _movement = GetComponent<PlayerMovement>();
             _characterController = GetComponent<CharacterController>();
+
+            _healthPoints ??= GetComponent<HealthPoints>();
         }
 
         private void OnEnable()
@@ -46,6 +50,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
             if (_dashCoroutine != null)
                 StopCoroutine(_dashCoroutine);
 
+            _healthPoints.SetIsInvincible(true);
             _dashCoroutine = StartCoroutine(DashCoroutine());
         }
 
@@ -66,7 +71,8 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
                 timer = Time.time - startTime;
                 yield return null;
             }
-
+            
+            _healthPoints.SetIsInvincible(false);
             yield return CoolDownCoroutine();
             _canDash = true;
         }
