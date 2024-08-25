@@ -2899,6 +2899,11 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &2065007369 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2873061450910897065, guid: c02fe28806b8ebe408584f7b7177db58, type: 3}
+  m_PrefabInstance: {fileID: 5570556194643352595}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2079920166
 GameObject:
   m_ObjectHideFlags: 0
@@ -3204,6 +3209,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 755462241880792496, guid: c02fe28806b8ebe408584f7b7177db58, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 21848ed961667de428bb636144016628, type: 2}
     - target: {fileID: 2873061450910897065, guid: c02fe28806b8ebe408584f7b7177db58, type: 3}
       propertyPath: m_Name
       value: FallingAttack
@@ -3211,6 +3220,18 @@ PrefabInstance:
     - target: {fileID: 3088664114474056215, guid: c02fe28806b8ebe408584f7b7177db58, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4452309657071859003, guid: c02fe28806b8ebe408584f7b7177db58, type: 3}
+      propertyPath: m_Name
+      value: targetSprite
+      objectReference: {fileID: 0}
+    - target: {fileID: 6276385047753486123, guid: c02fe28806b8ebe408584f7b7177db58, type: 3}
+      propertyPath: m_Size.x
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6276385047753486123, guid: c02fe28806b8ebe408584f7b7177db58, type: 3}
+      propertyPath: m_Size.z
+      value: 1.8
       objectReference: {fileID: 0}
     - target: {fileID: 7360055294922511000, guid: c02fe28806b8ebe408584f7b7177db58, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3252,6 +3273,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8728384522948797396, guid: c02fe28806b8ebe408584f7b7177db58, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8728384522948797396, guid: c02fe28806b8ebe408584f7b7177db58, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8964947929010650887, guid: c02fe28806b8ebe408584f7b7177db58, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3259,6 +3292,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3769955456969220119, guid: c02fe28806b8ebe408584f7b7177db58, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5570556194643352597}
+    - targetCorrespondingSourceObject: {fileID: 3769955456969220119, guid: c02fe28806b8ebe408584f7b7177db58, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5570556194643352601}
   m_SourcePrefab: {fileID: 100100000, guid: c02fe28806b8ebe408584f7b7177db58, type: 3}
 --- !u!1 &5570556194643352596 stripped
 GameObject:
@@ -3280,6 +3316,21 @@ MonoBehaviour:
   damage: 5
   isAvoidable: 0
   entityDamageTaker: Player
+--- !u!114 &5570556194643352601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5570556194643352596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb7a626461f50f4ea1ec36b517daeda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialHeightRange: {x: 10, y: 15}
+  heightToDestroy: -2
+  parentObject: {fileID: 2065007369}
 --- !u!1001 &8933589425644651686
 PrefabInstance:
   m_ObjectHideFlags: 0
