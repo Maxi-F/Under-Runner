@@ -58,10 +58,8 @@ namespace _Dev.UnderRunnerTest.Scripts.Minion
         private IEnumerator ChangeStateCoroutine()
         {
             yield return new WaitForSeconds(timeBetweenStates);
-            if (Random.Range(0, 2) == 0)
-                ChangeToMoveState();
-            else
-                ChangeToIdleState();
+            int randomIndex = Random.Range(0, config.states.Count);
+            fsm.ChangeState(config.states[randomIndex]);
         }
 
         [ContextMenu("Move")]
