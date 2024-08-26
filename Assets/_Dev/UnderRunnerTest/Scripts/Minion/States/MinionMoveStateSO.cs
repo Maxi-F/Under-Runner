@@ -6,11 +6,8 @@ using Debug = UnityEngine.Debug;
 namespace _Dev.UnderRunnerTest.Scripts.Minion.States
 {
     [CreateAssetMenu(fileName = "MinionMoveState", menuName = "Minion/MoveState", order = 0)]
-    public class MinionMoveStateSO : StateSO
+    public class MinionMoveStateSO : MinionStateSO
     {
-        [HideInInspector] public Transform agentTransform;
-        [HideInInspector] public GameObject target;
-
         [SerializeField] private float speed;
         [SerializeField] private float minDistance;
 
@@ -24,6 +21,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Minion.States
         public override void Update()
         {
             base.Update();
+            
             if (Vector3.Distance(agentTransform.position, target.transform.position) < minDistance)
                 _dir = agentTransform.position - target.transform.position;
             else

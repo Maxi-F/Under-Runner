@@ -21,9 +21,11 @@ namespace _Dev.UnderRunnerTest.Scripts.Minion
             base.Awake();
             StartChangeCoroutine();
 
-            MinionMoveStateSO moveStateSo = fsm.FindState<MinionMoveStateSO>() as MinionMoveStateSO;
-            moveStateSo.target = player;
-            moveStateSo.agentTransform = transform;
+            foreach (StateSO state in config.states)
+            {
+                (state as MinionStateSO).target = player;
+                (state as MinionStateSO).agentTransform = transform;
+            }
         }
 
         private void OnEnable()
