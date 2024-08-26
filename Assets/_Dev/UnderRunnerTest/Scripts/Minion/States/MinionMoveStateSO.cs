@@ -9,7 +9,6 @@ namespace _Dev.UnderRunnerTest.Scripts.Minion.States
         public override void Enter()
         {
             base.Enter();
-            Debug.Log("MOVE Enter");
         }
 
         public override void Update()
@@ -21,7 +20,6 @@ namespace _Dev.UnderRunnerTest.Scripts.Minion.States
         public override void Exit()
         {
             base.Exit();
-            Debug.Log("MOVE Exit");
         }
     }
 }
