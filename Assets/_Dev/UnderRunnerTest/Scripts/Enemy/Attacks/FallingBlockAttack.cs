@@ -7,7 +7,12 @@ namespace _Dev.UnderRunnerTest.Scripts.Enemy.Attacks
     public class FallingBlockAttack : MonoBehaviour, IEnemyAttack
     {
         [SerializeField] private VoidEventChannelSO onHandleAttack;
-        
+
+        public bool CanExecute()
+        {
+            return true;
+        }
+
         public void Execute()
         {
             onHandleAttack?.RaiseEvent();
