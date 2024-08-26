@@ -13,7 +13,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Enemy.Attacks
             GameObject parryProjectileInstance = Instantiate(parryProjectile);
             parryProjectileInstance.transform.position = transform.position + offset;
             
-            ParryProjectile.ParryProjectile parryConfig = parryProjectileInstance.GetComponent<ParryProjectile.ParryProjectile>();
+            Scripts.Attacks.ParryProjectile.ParryProjectile parryConfig = parryProjectileInstance.GetComponent<Scripts.Attacks.ParryProjectile.ParryProjectile>();
             
             parryConfig.SetObjectToFollow(player);
         }

@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Deflectable
   - Attack
+  - Floor
   layers:
   - Default
   - TransparentFX
