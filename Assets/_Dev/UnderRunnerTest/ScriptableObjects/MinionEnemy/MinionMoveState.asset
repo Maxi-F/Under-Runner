@@ -14,3 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transitions:
   - {fileID: 11400000, guid: 6f58ea75d503fb3488f4ab4c7b98fb16, type: 2}
+  onEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  onExit:
+    m_PersistentCalls:
+      m_Calls: []
+  agentTransform: {fileID: 0}
+  target: {fileID: 0}
+  speed: 2
+  minDistance: 3

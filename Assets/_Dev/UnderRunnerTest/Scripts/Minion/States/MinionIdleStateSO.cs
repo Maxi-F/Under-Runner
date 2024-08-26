@@ -16,7 +16,6 @@ namespace _Dev.UnderRunnerTest.Scripts.Minion.States
         public override void Update()
         {
             base.Update();
-            Debug.Log("Idle Update");
         }
 
         public override void Exit()

@@ -14,11 +14,16 @@ namespace _Dev.UnderRunnerTest.Scripts.Minion
     {
         [SerializeField] private float timeBetweenStates;
 
+        [SerializeField] private GameObject player;
 
         protected override void Awake()
         {
             base.Awake();
             StartChangeCoroutine();
+
+            MinionMoveStateSO moveStateSo = fsm.FindState<MinionMoveStateSO>() as MinionMoveStateSO;
+            moveStateSo.target = player;
+            moveStateSo.agentTransform = transform;
         }
 
         private void OnEnable()
@@ -39,7 +44,6 @@ namespace _Dev.UnderRunnerTest.Scripts.Minion
 
         private void StartChangeCoroutine()
         {
-            Debug.Log("Start Change");
             StartCoroutine(ChangeStateCoroutine());
         }
 
@@ -55,25 +59,13 @@ namespace _Dev.UnderRunnerTest.Scripts.Minion
         [ContextMenu("Move")]
         private void ChangeToMoveState()
         {
-            foreach (StateSO state in config.states)
-            {
-                if (state as MinionMoveStateSO != null)
-                {
-                    fsm.ChangeState(state);
-                }
-            }
+            fsm.ChangeState(fsm.FindState<MinionMoveStateSO>());
         }
 
         [ContextMenu("Idle")]
         private void ChangeToIdleState()
         {
-            foreach (StateSO state in config.states)
-            {
-                if (state as MinionIdleStateSO != null)
-                {
-                    fsm.ChangeState(state);
-                }
-            }
+            fsm.ChangeState(fsm.FindState<MinionIdleStateSO>());
         }
     }
 }
