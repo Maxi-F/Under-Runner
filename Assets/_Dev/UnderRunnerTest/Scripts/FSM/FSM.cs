@@ -13,6 +13,7 @@ namespace _Dev.UnderRunnerTest.Scripts.FSM
             _currentStateSo = states[0];
             _currentStateSo.Enter();
         }
+
         public void Update()
         {
             _currentStateSo.Update();
@@ -20,6 +21,13 @@ namespace _Dev.UnderRunnerTest.Scripts.FSM
 
         public void ChangeState(StateSO to)
         {
+            if (_currentStateSo == to)
+            {
+                _currentStateSo.Exit();
+                _currentStateSo.Enter();
+                return;
+            }
+
             if (_currentStateSo.TryGetTransition(to, out TransitionSO transition))
             {
                 _currentStateSo = to;
