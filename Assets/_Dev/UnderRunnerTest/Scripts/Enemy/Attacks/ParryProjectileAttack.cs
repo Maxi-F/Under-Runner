@@ -12,21 +12,24 @@ namespace _Dev.UnderRunnerTest.Scripts.Enemy.Attacks
 
         [Header("Parry Projectile directions")] 
         [SerializeField] private List<ParryProjectileFirstForce> firstForces;
+
+        private Scripts.Attacks.ParryProjectile.ParryProjectile _parryProjectile;
         
         public void Execute()
         {
             GameObject parryProjectileInstance = Instantiate(parryProjectile);
             parryProjectileInstance.transform.position = transform.position + offset;
             
-            Scripts.Attacks.ParryProjectile.ParryProjectile parryConfig = parryProjectileInstance.GetComponent<Scripts.Attacks.ParryProjectile.ParryProjectile>();
+            _parryProjectile = parryProjectileInstance.GetComponent<Scripts.Attacks.ParryProjectile.ParryProjectile>();
             
-            parryConfig.SetFirstForce(firstForces[Random.Range(0, firstForces.Count)]);
-            parryConfig.SetObjectToFollow(player);
+            _parryProjectile.SetFirstForce(firstForces[Random.Range(0, firstForces.Count)]);
+            _parryProjectile.SetObjectToFollow(player);
+            _parryProjectile.SetFirstObjectToFollow(player);
         }
 
         public bool IsExecuting()
         {
-            return false;
+            return _parryProjectile.gameObject.activeInHierarchy;
         }
     }
 }

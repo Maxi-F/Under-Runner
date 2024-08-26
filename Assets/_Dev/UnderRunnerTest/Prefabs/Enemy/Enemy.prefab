@@ -277,6 +277,7 @@ MonoBehaviour:
   shieldObject: {fileID: 2240729731342305122}
   shieldActive: 1
   timeToReactivateShield: 4
+  shieldPoints: {fileID: 3068078800414283953}
   flyVelocity: 1.75
   flyTime: 2
   onEnemyDeathEvent: {fileID: 11400000, guid: 36bbe8a4a81fcf74da11d75999d01f40, type: 2}
@@ -311,6 +312,16 @@ MonoBehaviour:
   parryProjectile: {fileID: 3647964052860360875, guid: 48bea42002bf10540a71e54ce9228159, type: 3}
   player: {fileID: 0}
   offset: {x: 0, y: 0, z: -2}
+  firstForces:
+  - startImpulse: {x: -15, y: -0.5, z: -5}
+    angularForce: {x: 20, y: 0, z: 0}
+    secondsInAngularVelocity: 1
+  - startImpulse: {x: 15, y: -0.5, z: -5}
+    angularForce: {x: -20, y: 0, z: 0}
+    secondsInAngularVelocity: 1
+  - startImpulse: {x: 0, y: -0.5, z: -5}
+    angularForce: {x: 0, y: 0, z: 0}
+    secondsInAngularVelocity: 1
 --- !u!114 &5219174360119938913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -459,13 +470,38 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6657953638011216389, guid: d43615b12d6a40d4faec0d162fbb550c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3068078800414283953}
   m_SourcePrefab: {fileID: 100100000, guid: d43615b12d6a40d4faec0d162fbb550c, type: 3}
 --- !u!1 &2240729731342305122 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1168559037796139576, guid: d43615b12d6a40d4faec0d162fbb550c, type: 3}
   m_PrefabInstance: {fileID: 1094134541066028378}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6001864675482167135 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6657953638011216389, guid: d43615b12d6a40d4faec0d162fbb550c, type: 3}
+  m_PrefabInstance: {fileID: 1094134541066028378}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3068078800414283953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6001864675482167135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04cb3bb3ce8700649b43a4c9b6a29908, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 2
+  initHealth: 2
+  canTakeDamage: 1
+  onDeathEvent: {fileID: 0}
+  onTakeDamageEvent: {fileID: 0}
 --- !u!4 &7242222450462948032 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7759332051241287578, guid: d43615b12d6a40d4faec0d162fbb550c, type: 3}

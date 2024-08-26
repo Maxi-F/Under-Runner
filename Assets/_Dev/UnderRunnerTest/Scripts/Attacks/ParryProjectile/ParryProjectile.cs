@@ -25,13 +25,17 @@ namespace _Dev.UnderRunnerTest.Scripts.Attacks.ParryProjectile
         [Header("Damage properties")]
         [SerializeField] private int damage = 5;
 
+        [SerializeField] private int shieldDamage = 1;
+
         [Header("Parry Properties")] [SerializeField]
         private float startVelocityInParry;
-        
+
+        private GameObject _firstObjectToFollow;
         private GameObject _objectToFollow;
         private Rigidbody _rigidbody;
         private ParryProjectileFirstForce _parryProjectileConfig;
 
+        private float _timeApplyingFollowForce = 0f;
         private bool _isStarted = false;
 
         public void SetFirstForce(ParryProjectileFirstForce config)
@@ -73,14 +77,12 @@ namespace _Dev.UnderRunnerTest.Scripts.Attacks.ParryProjectile
 
         private IEnumerator ApplyFollowForce()
         {
-            float timeApplyingFollowForce = 0f;
-
-            while (timeApplyingFollowForce < secondsInFollowForce)
+            while (_timeApplyingFollowForce < secondsInFollowForce)
             {
                 Vector3 direction = GetDirection(_objectToFollow.gameObject.transform.position);
                 _rigidbody.AddForce(direction * secondForceAcceleration, ForceMode.Acceleration);
 
-                timeApplyingFollowForce += Time.fixedDeltaTime;
+                _timeApplyingFollowForce += Time.fixedDeltaTime;
                 
                 yield return new WaitForFixedUpdate();
             }
@@ -94,14 +96,18 @@ namespace _Dev.UnderRunnerTest.Scripts.Attacks.ParryProjectile
             {
                 EnemyController enemy = other.GetComponentInChildren<EnemyController>();
 
-                enemy.HandleShield(false);
-                gameObject.SetActive(false);
+                if (enemy.TryDestroyShield(shieldDamage))
+                {
+                    gameObject.SetActive(false);
+                    return;
+                };
+
+                Deflect(_firstObjectToFollow);
                 return;
             } 
             
             if (other.CompareTag("Player"))
             {
-                Debug.Log("PLAYER NOT PARRY");
                 ITakeDamage damageTaker = other.GetComponent<ITakeDamage>();
                 
                 damageTaker.TakeDamage(damage);
@@ -113,9 +119,15 @@ namespace _Dev.UnderRunnerTest.Scripts.Attacks.ParryProjectile
         {
             _objectToFollow = newObjectToFollow;
         }
+        
+        public void SetFirstObjectToFollow(GameObject newFirstObjectToFollow)
+        {
+            _firstObjectToFollow = newFirstObjectToFollow;
+        }
 
         public void Deflect(GameObject newObjectToFollow)
         {
+            _timeApplyingFollowForce = 0f;
             _rigidbody.velocity = GetDirection(newObjectToFollow.transform.position) * startVelocityInParry;
             
             SetObjectToFollow(newObjectToFollow);
