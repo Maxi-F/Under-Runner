@@ -1,15 +1,16 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace _Dev.UnderRunnerTest.Scripts.FSM
 {
     public class StateSO : ScriptableObject
     {
         [SerializeField] private List<TransitionSO> transitions;
-        public Action onEnter;
-        public Action onUpdate;
-        public Action onExit;
+        public UnityEvent onEnter;
+        public UnityEvent onUpdate;
+        public UnityEvent onExit;
 
         public List<TransitionSO> Transitions => transitions;
 
