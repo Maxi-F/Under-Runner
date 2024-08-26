@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f044ca147a7eec48a4e7397a0ac4e36, type: 3}
-  m_Name: IdleToAttack
+  m_Name: AttackToIdle
   m_EditorClassIdentifier: 
-  from: {fileID: 11400000, guid: c8a9bf99e3118b043bb70cc450c2bcd7, type: 2}
-  to: {fileID: 11400000, guid: 0f87bc902d160c1488a8cb506176a49b, type: 2}
+  from: {fileID: 11400000, guid: 0f87bc902d160c1488a8cb506176a49b, type: 2}
+  to: {fileID: 11400000, guid: c8a9bf99e3118b043bb70cc450c2bcd7, type: 2}
