@@ -27,3 +27,5 @@ MonoBehaviour:
   agentTransform: {fileID: 0}
   target: {fileID: 0}
   preparationDuration: 0.5
+  ChargeLength: 7
+  ChargeSpeed: 10
