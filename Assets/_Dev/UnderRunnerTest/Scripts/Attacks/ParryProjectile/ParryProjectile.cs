@@ -28,15 +28,11 @@ namespace _Dev.UnderRunnerTest.Scripts.ParryProjectile
 
                 enemy.HandleShield(false);
                 gameObject.SetActive(false);
-            }
-        }
-
-        private void OnCollisionEnter(Collision other)
-        {
-            if (other.gameObject.CompareTag("Player"))
+                return;
+            } if (other.CompareTag("Player"))
             {
                 Debug.Log("PLAYER NOT PARRY");
-                ITakeDamage damageTaker = other.gameObject.GetComponent<ITakeDamage>();
+                ITakeDamage damageTaker = other.GetComponent<ITakeDamage>();
                 
                 damageTaker.TakeDamage(damage);
                 gameObject.SetActive(false);
