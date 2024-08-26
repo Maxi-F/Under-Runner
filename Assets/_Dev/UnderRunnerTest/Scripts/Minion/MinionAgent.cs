@@ -25,6 +25,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Minion
             {
                 (state as MinionStateSO).target = player;
                 (state as MinionStateSO).agentTransform = transform;
+                (state as MinionStateSO).onCoroutineCall += HandleCallCoroutine;
             }
         }
 
@@ -42,6 +43,11 @@ namespace _Dev.UnderRunnerTest.Scripts.Minion
             {
                 state.onEnter.RemoveListener(StartChangeCoroutine);
             }
+        }
+
+        private void HandleCallCoroutine(IEnumerator coroutine)
+        {
+            StartCoroutine(coroutine);
         }
 
         private void StartChangeCoroutine()
