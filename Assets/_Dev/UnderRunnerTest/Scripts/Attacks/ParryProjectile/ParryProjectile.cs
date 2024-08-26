@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using _Dev.UnderRunnerTest.Scripts.Enemy;
 using _Dev.UnderRunnerTest.Scripts.Health;
@@ -6,16 +7,20 @@ using UnityEngine;
 
 namespace _Dev.UnderRunnerTest.Scripts.Attacks.ParryProjectile
 {
+    [Serializable]
+    public class ParryProjectileFirstForce
+    {
+        public Vector3 startImpulse;
+        public Vector3 angularForce;
+        public float secondsInAngularVelocity;
+    }
+    
     public class ParryProjectile : MonoBehaviour, IDeflectable
     {
-        [Header("First Force Properties")]
-        [SerializeField] private Vector3 startForce;
-        [SerializeField] private Vector3 angularVelocityForce;
-        [SerializeField] private float secondsInAngularVelocity;
-
         [Header("Second Force Properties")] 
         [SerializeField] private float secondForceAcceleration;
         [SerializeField] private float secondsInFollowForce;
+        [SerializeField] private float yConstantForce = 0.25f;
         
         [Header("Damage properties")]
         [SerializeField] private int damage = 5;
@@ -25,23 +30,38 @@ namespace _Dev.UnderRunnerTest.Scripts.Attacks.ParryProjectile
         
         private GameObject _objectToFollow;
         private Rigidbody _rigidbody;
+        private ParryProjectileFirstForce _parryProjectileConfig;
+
+        private bool _isStarted = false;
+
+        public void SetFirstForce(ParryProjectileFirstForce config)
+        {
+            _parryProjectileConfig = config;
+        }
         
         private void Start()
         {
             _rigidbody ??= GetComponent<Rigidbody>();
-            
-            _rigidbody.AddForce(startForce, ForceMode.Impulse);
-            
-            StartCoroutine(ApplyAngularForce());
+        }
+
+        private void FixedUpdate()
+        {
+            if (!_isStarted)
+            {
+                StartCoroutine(ApplyAngularForce());
+                _isStarted = true;
+            }
         }
 
         private IEnumerator ApplyAngularForce()
         {
+            _rigidbody.AddForce(_parryProjectileConfig.startImpulse, ForceMode.Impulse);
+            
             float timeApplyingAngularForce = 0f;
 
-            while (timeApplyingAngularForce < secondsInAngularVelocity)
+            while (timeApplyingAngularForce < _parryProjectileConfig.secondsInAngularVelocity)
             {
-                _rigidbody.AddForce(angularVelocityForce, ForceMode.Acceleration);
+                _rigidbody.AddForce(_parryProjectileConfig.angularForce, ForceMode.Acceleration);
 
                 timeApplyingAngularForce += Time.fixedDeltaTime;
 
@@ -57,8 +77,8 @@ namespace _Dev.UnderRunnerTest.Scripts.Attacks.ParryProjectile
 
             while (timeApplyingFollowForce < secondsInFollowForce)
             {
-                Vector3 direction = GetDirection(_objectToFollow.gameObject.transform.position);              
-                _rigidbody.AddForce(direction * angularVelocityForce.magnitude, ForceMode.Acceleration);
+                Vector3 direction = GetDirection(_objectToFollow.gameObject.transform.position);
+                _rigidbody.AddForce(direction * secondForceAcceleration, ForceMode.Acceleration);
 
                 timeApplyingFollowForce += Time.fixedDeltaTime;
                 
@@ -103,7 +123,10 @@ namespace _Dev.UnderRunnerTest.Scripts.Attacks.ParryProjectile
 
         private Vector3 GetDirection(Vector3 to)
         {
-            return (to - gameObject.transform.position).normalized;
+            Vector3 direction = (to - gameObject.transform.position).normalized;
+            direction.y = direction.y < 0f ? -yConstantForce : yConstantForce;
+            
+            return direction;
         }
     }
 }

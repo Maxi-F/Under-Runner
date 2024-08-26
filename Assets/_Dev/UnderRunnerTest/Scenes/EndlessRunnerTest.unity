@@ -968,6 +968,70 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1059696745}
+    - target: {fileID: 2162685059267034076, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: firstForces.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2162685059267034076, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: firstForces.Array.data[0].angularForce.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2162685059267034076, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: firstForces.Array.data[0].startImpulse.x
+      value: -15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2162685059267034076, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: firstForces.Array.data[0].startImpulse.y
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2162685059267034076, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: firstForces.Array.data[0].startImpulse.z
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2162685059267034076, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: firstForces.Array.data[1].angularForce.x
+      value: -20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2162685059267034076, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: firstForces.Array.data[1].startImpulse.x
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2162685059267034076, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: firstForces.Array.data[1].startImpulse.y
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2162685059267034076, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: firstForces.Array.data[1].startImpulse.z
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2162685059267034076, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: firstForces.Array.data[2].angularForce.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2162685059267034076, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: firstForces.Array.data[2].startImpulse.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2162685059267034076, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: firstForces.Array.data[2].startImpulse.y
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2162685059267034076, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: firstForces.Array.data[2].startImpulse.z
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2162685059267034076, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: firstForces.Array.data[0].secondsInAngularVelocity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2162685059267034076, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: firstForces.Array.data[1].secondsInAngularVelocity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2162685059267034076, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: firstForces.Array.data[2].secondsInAngularVelocity
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8961736479340173517, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
       propertyPath: m_Name
       value: Enemy
@@ -976,7 +1040,9 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5219174360119938913, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+    - {fileID: 5666759384207404707, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

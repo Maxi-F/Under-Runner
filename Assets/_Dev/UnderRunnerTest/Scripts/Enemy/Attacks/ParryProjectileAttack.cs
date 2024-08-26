@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using _Dev.UnderRunnerTest.Scripts.Attacks.ParryProjectile;
 using UnityEngine;
 
 namespace _Dev.UnderRunnerTest.Scripts.Enemy.Attacks
@@ -7,6 +9,9 @@ namespace _Dev.UnderRunnerTest.Scripts.Enemy.Attacks
         [SerializeField] private GameObject parryProjectile;
         [SerializeField] private GameObject player;
         [SerializeField] private Vector3 offset;
+
+        [Header("Parry Projectile directions")] 
+        [SerializeField] private List<ParryProjectileFirstForce> firstForces;
         
         public void Execute()
         {
@@ -15,6 +20,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Enemy.Attacks
             
             Scripts.Attacks.ParryProjectile.ParryProjectile parryConfig = parryProjectileInstance.GetComponent<Scripts.Attacks.ParryProjectile.ParryProjectile>();
             
+            parryConfig.SetFirstForce(firstForces[Random.Range(0, firstForces.Count)]);
             parryConfig.SetObjectToFollow(player);
         }
 
