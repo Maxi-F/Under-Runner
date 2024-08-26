@@ -34,5 +34,18 @@ namespace _Dev.UnderRunnerTest.Scripts.FSM
                 transition.Do();
             }
         }
+        
+        public StateSO FindState<T>() where T : StateSO
+        {
+            foreach (StateSO state in states)
+            {
+                if (state as T != null)
+                {
+                    return state;
+                }
+            }
+
+            return null;
+        }
     }
 }
