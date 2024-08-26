@@ -47,7 +47,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Health
             }
             CurrentHp -= damage;
 
-            if (CurrentHp <= 0)
+            if (IsDead())
             {
                 onDeathEvent?.RaiseEvent();
             }
@@ -55,6 +55,11 @@ namespace _Dev.UnderRunnerTest.Scripts.Health
             {
                 onTakeDamageEvent?.RaiseEvent(CurrentHp);
             }
+        }
+
+        public bool IsDead()
+        {
+            return CurrentHp <= 0;
         }
 
         public void TryTakeAvoidableDamage(int damage)

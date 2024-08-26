@@ -490,7 +490,7 @@ GameObject:
   - component: {fileID: 134790557}
   m_Layer: 0
   m_Name: Player_floor
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -964,10 +964,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2073324618396084509, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: onAttackExecutedEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: 322e70b8667e7784fae7bc03f04b1528, type: 2}
     - target: {fileID: 2162685059267034076, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 1059696745}
+    - target: {fileID: 2162685059267034076, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: onAnotherAttackExecuted
+      value: 
+      objectReference: {fileID: 11400000, guid: 322e70b8667e7784fae7bc03f04b1528, type: 2}
     - target: {fileID: 8961736479340173517, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
       propertyPath: m_Name
       value: Enemy
@@ -1414,10 +1422,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2677738976719943602, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4780633370198621073, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1426,14 +1430,6 @@ PrefabInstance:
       propertyPath: enemy
       value: 
       objectReference: {fileID: 1224237589}
-    - target: {fileID: 6487825136179884570, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
-      propertyPath: onPlayerNewPositionEvent
-      value: 
-      objectReference: {fileID: 11400000, guid: 1edae3268f02d1c4190e82ddfa3be357, type: 2}
-    - target: {fileID: 6507988668116696635, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

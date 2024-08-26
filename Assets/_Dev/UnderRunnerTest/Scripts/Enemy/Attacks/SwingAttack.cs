@@ -9,7 +9,12 @@ namespace _Dev.UnderRunnerTest.Scripts.Enemy.Attacks
         [SerializeField] private Swing swing;
 
         private bool _isExecuting;
-    
+
+        public bool CanExecute()
+        {
+            return true;
+        }
+
         public void Execute()
         {
             _isExecuting = true;

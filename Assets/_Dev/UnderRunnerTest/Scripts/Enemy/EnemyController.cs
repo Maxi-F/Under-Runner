@@ -15,6 +15,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Enemy
 
         [Header("ShieldProperties")] [SerializeField]
         private float timeToReactivateShield = 4.0f;
+        [SerializeField] private HealthPoints shieldPoints;
         
         [Header("FlyProperties")] 
         [SerializeField] private float flyVelocity = 10.0f;
@@ -57,6 +58,8 @@ namespace _Dev.UnderRunnerTest.Scripts.Enemy
             
             if(!isActive)
                 onEnemyParriedEvent?.RaiseEvent(isActive);
+            else
+                shieldPoints.ResetHitPoints();
             
             StartCoroutine(Fly(isActive));
         }
@@ -90,6 +93,19 @@ namespace _Dev.UnderRunnerTest.Scripts.Enemy
         private void HandleDeath()
         {
             enemyObject.SetActive(false);
+        }
+
+        public bool TryDestroyShield(int parryDamage)
+        {
+            shieldPoints.TakeDamage(parryDamage);
+
+            if (shieldPoints.IsDead())
+            {
+                HandleShield(false);
+                return true;
+            }
+
+            return false;
         }
     }
 }
