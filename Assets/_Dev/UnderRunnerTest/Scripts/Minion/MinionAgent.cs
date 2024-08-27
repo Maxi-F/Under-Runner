@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using _Dev.UnderRunnerTest.Scripts.Events;
 using _Dev.UnderRunnerTest.Scripts.FSM;
+using _Dev.UnderRunnerTest.Scripts.Health;
 using _Dev.UnderRunnerTest.Scripts.Minion.States;
 using UnityEditor;
 using UnityEngine;
@@ -27,6 +29,8 @@ namespace _Dev.UnderRunnerTest.Scripts.Minion
                 (state as MinionStateSO).agentTransform = transform;
                 (state as MinionStateSO).onCoroutineCall += HandleCallCoroutine;
             }
+
+            GetComponent<HealthPoints>().onDeath += Die;
         }
 
         private void OnEnable()
@@ -43,6 +47,8 @@ namespace _Dev.UnderRunnerTest.Scripts.Minion
             {
                 state.onEnter.RemoveListener(StartChangeCoroutine);
             }
+
+            GetComponent<HealthPoints>().onDeath -= Die;
         }
 
         private void HandleCallCoroutine(IEnumerator coroutine)
@@ -72,6 +78,11 @@ namespace _Dev.UnderRunnerTest.Scripts.Minion
         private void ChangeToIdleState()
         {
             fsm.ChangeState(fsm.FindState<MinionIdleStateSO>());
+        }
+
+        private void Die()
+        {
+            Destroy(this.gameObject);
         }
     }
 }
