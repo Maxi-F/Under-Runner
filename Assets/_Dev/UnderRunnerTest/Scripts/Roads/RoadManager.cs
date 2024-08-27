@@ -16,6 +16,8 @@ namespace _Dev.UnderRunnerTest.Scripts.Roads
         [SerializeField] private VoidEventChannelSO onNewRoadTriggerEvent;
 
         [SerializeField] private VoidEventChannelSO onRoadDeleteTriggerEvent;
+        
+        [SerializeField] private GameObjectEventChannelSO onRoadInstantiatedEvent;
 
         private int _roadCount;
         private int _actualIndex = 0;
@@ -49,6 +51,8 @@ namespace _Dev.UnderRunnerTest.Scripts.Roads
             GameObject newLastRoad = Instantiate(roads[_actualIndex].roadSection, roadEnd.transform.position,
                 roads[_actualIndex].startRotation);
 
+            onRoadInstantiatedEvent?.RaiseEvent(newLastRoad);
+            
             _lastRoad = newLastRoad;
             
             _actualIndex++;
