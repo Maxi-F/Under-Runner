@@ -1,48 +1,51 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using _Dev.UnderRunnerTest.Scripts.Events;
 using UnityEngine;
 
-public class ObstaclesSpawner : MonoBehaviour
+namespace _Dev.UnderRunnerTest.Scripts.ObstacleSystem
 {
-    [SerializeField] private GameObjectEventChannelSO onRoadInstantiatedEvent;
-    [SerializeField] private float spawnCoolDown;
-    [SerializeField] private GameObject obstaclePrefab;
-
-    private bool _shouldSpawnObject;
-    private Coroutine spawnCoroutine;
-
-    public void Start()
+    public class ObstaclesSpawner : MonoBehaviour
     {
-        onRoadInstantiatedEvent?.onGameObjectEvent.AddListener(HandleNewRoadInstance);
-    }
+        [SerializeField] private GameObjectEventChannelSO onRoadInstantiatedEvent;
+        [SerializeField] private float spawnCoolDown;
+        [SerializeField] private GameObject obstaclePrefab;
 
-    private void Update()
-    {
-        if (!_shouldSpawnObject)
+        private bool _shouldSpawnObject;
+        private Coroutine spawnCoroutine;
+
+        public void Start()
         {
+            onRoadInstantiatedEvent?.onGameObjectEvent.AddListener(HandleNewRoadInstance);
+
+            StartCoroutine(SpawnObjectCoroutine());
+        }
+
+        private void OnDestroy()
+        {
+            onRoadInstantiatedEvent?.onGameObjectEvent.RemoveListener(HandleNewRoadInstance);
+        }
+
+        private void HandleNewRoadInstance(GameObject road)
+        {
+            if (!_shouldSpawnObject)
+                return;
+
+            _shouldSpawnObject = false;
+            float roadWidth = road.transform.localScale.x;
+            GameObject obstacle = Instantiate(obstaclePrefab, road.transform, false);
+
+            obstacle.transform.localPosition = new Vector3(Random.Range(-roadWidth / 2, roadWidth / 2), obstacle.transform.localPosition.y, 0);
+
             if (spawnCoroutine != null)
                 StopCoroutine(SpawnObjectCoroutine());
 
             spawnCoroutine = StartCoroutine(SpawnObjectCoroutine());
         }
-    }
 
-    private void OnDestroy()
-    {
-        onRoadInstantiatedEvent?.onGameObjectEvent.RemoveListener(HandleNewRoadInstance);
-    }
-
-    private void HandleNewRoadInstance(GameObject road)
-    {
-        _shouldSpawnObject = false;
-        GameObject obstacle = Instantiate(obstaclePrefab, road.transform, false);
-    }
-
-    private IEnumerator SpawnObjectCoroutine()
-    {
-        yield return new WaitForSeconds(spawnCoolDown);
-        _shouldSpawnObject = true;
+        private IEnumerator SpawnObjectCoroutine()
+        {
+            yield return new WaitForSeconds(spawnCoolDown);
+            _shouldSpawnObject = true;
+        }
     }
 }

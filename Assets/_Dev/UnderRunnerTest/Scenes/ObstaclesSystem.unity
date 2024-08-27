@@ -1731,7 +1731,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onRoadInstantiatedEvent: {fileID: 11400000, guid: 9a17af58b63bd434bad0073e1d20336e, type: 2}
-  spawnCoolDown: 2
+  spawnCoolDown: 0.5
   obstaclePrefab: {fileID: 5681849922222461501, guid: 3dbc3ab4d26536149bafa22531e00aed, type: 3}
 --- !u!1 &851543395
 GameObject:
