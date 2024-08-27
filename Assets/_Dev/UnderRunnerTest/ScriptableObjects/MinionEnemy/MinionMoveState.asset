@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfdcd29910b03fe4bbeae77aaec63eff, type: 3}
+  m_Name: MinionMoveState
+  m_EditorClassIdentifier: 
+  transitions:
+  - {fileID: 11400000, guid: 6f58ea75d503fb3488f4ab4c7b98fb16, type: 2}
+  - {fileID: 11400000, guid: 4db1867591b680346a79cc18974ad83e, type: 2}
+  onEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  onExit:
+    m_PersistentCalls:
+      m_Calls: []
+  agentTransform: {fileID: 0}
+  target: {fileID: 0}
+  speed: 2
+  minDistance: 3
