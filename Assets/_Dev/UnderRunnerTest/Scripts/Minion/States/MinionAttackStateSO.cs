@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using _Dev.UnderRunnerTest.Scripts.Events;
+using _Dev.UnderRunnerTest.Scripts.Health;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -9,18 +11,32 @@ namespace _Dev.UnderRunnerTest.Scripts.Minion.States
     public class MinionAttackStateSO : MinionStateSO
     {
         [SerializeField] private float preparationDuration;
+        [SerializeField] private int attackDamage;
         [SerializeField] private float ChargeLength;
         [SerializeField] private float ChargeSpeed;
+
+        [SerializeField] private Material defaultMat;
+        [SerializeField] private Material chargeMat;
+        [SerializeField] private GameObjectEventChannelSO onCollidePlayerEventChannel;
 
         private Vector3 _dir;
 
         private LineRenderer _aimLine;
+
 
         public override void Enter()
         {
             base.Enter();
             _aimLine = agentTransform.Find("AimLine").gameObject.GetComponent<LineRenderer>();
             CallCoroutine(AttackCoroutine());
+
+            onCollidePlayerEventChannel.onGameObjectEvent.AddListener(DealDamage);
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+            onCollidePlayerEventChannel.onGameObjectEvent.RemoveListener(DealDamage);
         }
 
         private IEnumerator AttackCoroutine()
@@ -51,6 +67,8 @@ namespace _Dev.UnderRunnerTest.Scripts.Minion.States
             timer = 0;
             float chargeDuration = ChargeLength / ChargeSpeed;
             startTime = Time.time;
+            agentTransform.GetComponent<HealthPoints>().SetCanTakeDamage(false);
+            agentTransform.GetComponent<MeshRenderer>().material = chargeMat;
 
             while (timer < chargeDuration)
             {
@@ -58,6 +76,15 @@ namespace _Dev.UnderRunnerTest.Scripts.Minion.States
                 agentTransform.position = Vector3.Lerp(startPosition, destination, timer / chargeDuration);
                 yield return null;
             }
+
+            agentTransform.GetComponent<HealthPoints>().SetCanTakeDamage(true);
+            agentTransform.GetComponent<MeshRenderer>().material = defaultMat;
+        }
+
+        private void DealDamage(GameObject target)
+        {
+            target.gameObject.TryGetComponent(out ITakeDamage playerHealth);
+            playerHealth.TakeDamage(attackDamage);
         }
     }
 }

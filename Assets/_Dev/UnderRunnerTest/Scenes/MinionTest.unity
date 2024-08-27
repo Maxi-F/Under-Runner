@@ -1355,7 +1355,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2677738976719943602, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4780633370198621073, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
       propertyPath: m_Name
@@ -1904,6 +1904,7 @@ MonoBehaviour:
   config: {fileID: 11400000, guid: 4f770b62a3f261b41aeb7b76943262f2, type: 2}
   timeBetweenStates: 3
   player: {fileID: 1059696745}
+  onCollidePlayerEventChannel: {fileID: 11400000, guid: 94a2de087d2d288459b928f536c58af1, type: 2}
 --- !u!4 &899408264
 Transform:
   m_ObjectHideFlags: 0

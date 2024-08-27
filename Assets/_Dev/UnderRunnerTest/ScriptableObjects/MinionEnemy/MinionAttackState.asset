@@ -27,5 +27,9 @@ MonoBehaviour:
   agentTransform: {fileID: 0}
   target: {fileID: 0}
   preparationDuration: 0.75
+  attackDamage: 15
   ChargeLength: 7
   ChargeSpeed: 15
+  defaultMat: {fileID: 2100000, guid: 2c91222ac69cae14dbe043ea63d8db24, type: 2}
+  chargeMat: {fileID: 2100000, guid: b6e57729629dad24ea2d4bf4aa9a75ea, type: 2}
+  onCollidePlayerEventChannel: {fileID: 11400000, guid: 94a2de087d2d288459b928f536c58af1, type: 2}

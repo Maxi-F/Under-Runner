@@ -8,6 +8,7 @@ using _Dev.UnderRunnerTest.Scripts.Minion.States;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace _Dev.UnderRunnerTest.Scripts.Minion
@@ -17,7 +18,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Minion
         [SerializeField] private float timeBetweenStates;
 
         [SerializeField] private GameObject player;
-
+        [SerializeField] private GameObjectEventChannelSO onCollidePlayerEventChannel;
         protected override void Awake()
         {
             base.Awake();
@@ -83,6 +84,14 @@ namespace _Dev.UnderRunnerTest.Scripts.Minion
         private void Die()
         {
             Destroy(this.gameObject);
+        }
+
+        private void OnCollisionEnter(Collision other)
+        {
+            if (other.gameObject.CompareTag("Player"))
+            {
+                onCollidePlayerEventChannel?.RaiseEvent(other.gameObject);
+            }
         }
     }
 }
