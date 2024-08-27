@@ -14,9 +14,12 @@ namespace _Dev.UnderRunnerTest.Scripts.Minion.States
 
         private Vector3 _dir;
 
+        private LineRenderer _aimLine;
+
         public override void Enter()
         {
             base.Enter();
+            _aimLine = agentTransform.Find("AimLine").gameObject.GetComponent<LineRenderer>();
             CallCoroutine(AttackCoroutine());
         }
 
@@ -24,6 +27,9 @@ namespace _Dev.UnderRunnerTest.Scripts.Minion.States
         {
             float timer = 0;
             float startTime = Time.time;
+            _aimLine.SetPosition(0, agentTransform.position);
+            _aimLine.SetPosition(1, agentTransform.position);
+            _aimLine.enabled = true;
 
             Debug.Log("Start preparation");
             while (timer < preparationDuration)
@@ -31,9 +37,13 @@ namespace _Dev.UnderRunnerTest.Scripts.Minion.States
                 timer = Time.time - startTime;
                 _dir = target.transform.position - agentTransform.position;
                 _dir.y = 0;
+
+                Vector3 aimPosition = Vector3.Lerp(agentTransform.position, agentTransform.position + _dir.normalized * ChargeLength, timer / preparationDuration);
+                _aimLine.SetPosition(1, aimPosition);
                 yield return null;
             }
 
+            _aimLine.enabled = false;
             Debug.Log("Start Charge");
 
             Vector3 destination = agentTransform.position + _dir.normalized * ChargeLength;
