@@ -1,12 +1,9 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using _Dev.UnderRunnerTest.Scripts.Events;
 using _Dev.UnderRunnerTest.Scripts.Health;
 using _Dev.UnderRunnerTest.Scripts.ObstacleSystem;
-using Microsoft.Win32.SafeHandles;
 using UnityEngine;
-using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class LevelLoopManager : MonoBehaviour
 {
@@ -15,6 +12,9 @@ public class LevelLoopManager : MonoBehaviour
     [SerializeField] private ObstaclesSpawner obstaclesSpawner;
     [SerializeField] private GameObject enemy;
     [SerializeField] private GameObject minionEnemy;
+
+    [Header("UI")]
+    [SerializeField] private Slider progressBar;
 
     private void Start()
     {
@@ -38,8 +38,19 @@ public class LevelLoopManager : MonoBehaviour
 
     private IEnumerator ObstaclesCoroutine()
     {
+        float timer = 0;
+        float startTime = Time.time;
+
         obstaclesSpawner.gameObject.SetActive(true);
-        yield return new WaitForSeconds(obstaclesDuration);
+        while (timer < obstaclesDuration)
+        {
+            timer = Time.time - startTime;
+            progressBar.value = Mathf.Lerp(0, progressBar.maxValue, timer / obstaclesDuration);
+            yield return null;
+        }
+
+        progressBar.gameObject.SetActive(false);
+
         obstaclesSpawner.Disable();
     }
 
