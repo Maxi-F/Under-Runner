@@ -58,8 +58,6 @@ namespace _Dev.UnderRunnerTest.Scripts.ObstacleSystem
             if (!_shouldSpawnObject)
                 return;
 
-            Debug.Log("Spawn");
-
             _shouldSpawnObject = false;
             float roadWidth = road.transform.localScale.x;
             GameObject obstacle = Instantiate(obstaclePrefab, road.transform, false);
@@ -74,7 +72,6 @@ namespace _Dev.UnderRunnerTest.Scripts.ObstacleSystem
 
         private IEnumerator SpawnObjectCoroutine()
         {
-            Debug.Log("Spawn CoolDown");
             yield return new WaitForSeconds(spawnCoolDown);
             _shouldSpawnObject = true;
         }
