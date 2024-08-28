@@ -2805,7 +2805,7 @@ GameObject:
   - component: {fileID: 1839552626}
   - component: {fileID: 1839552625}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: LevelSequenceManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3503,6 +3503,6 @@ SceneRoots:
   - {fileID: 682774517}
   - {fileID: 1677826147}
   - {fileID: 2821679351351829282}
-  - {fileID: 1839552626}
   - {fileID: 8087466391122380314}
   - {fileID: 5196684937898791214}
+  - {fileID: 1839552626}
