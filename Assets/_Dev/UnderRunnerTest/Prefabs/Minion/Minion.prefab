@@ -127,6 +127,7 @@ MonoBehaviour:
   health: {fileID: 5575126865424349212}
   slider: {fileID: 5135750954969982833}
   onTakeDamage: {fileID: 11400000, guid: d7c92d4ecc5578245b7e8d6eca51d765, type: 2}
+  shouldStartHided: 1
 --- !u!1 &3481237237909825566
 GameObject:
   m_ObjectHideFlags: 0

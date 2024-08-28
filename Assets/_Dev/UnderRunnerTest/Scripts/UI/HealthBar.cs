@@ -11,14 +11,19 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private HealthPoints health;
     [SerializeField] private Slider slider;
     [SerializeField] private IntEventChannelSO onTakeDamage;
-
+    [SerializeField] private bool shouldStartHided;
     private bool _wasTriggered = false;
 
     void Start()
     {
-        slider.gameObject.SetActive(false);
-        _wasTriggered = false;
+        if (shouldStartHided)
+        {
+            slider.gameObject.SetActive(false);
+            _wasTriggered = false;
+        }
+
         slider.maxValue = health.MaxHealth;
+        slider.value = health.MaxHealth;
 
         onTakeDamage.onIntEvent.AddListener(HandleTakeDamage);
     }

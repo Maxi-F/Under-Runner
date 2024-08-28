@@ -11,6 +11,7 @@ public class LevelLoopManager : MonoBehaviour
     [SerializeField] private float obstaclesDuration;
     [SerializeField] private ObstaclesSpawner obstaclesSpawner;
     [SerializeField] private GameObject enemy;
+    [SerializeField] private GameObject enemyHealthBar;
     [SerializeField] private GameObject minionEnemy;
 
     [Header("UI")]
@@ -20,6 +21,7 @@ public class LevelLoopManager : MonoBehaviour
     {
         obstaclesSpawner.gameObject.SetActive(false);
         enemy.SetActive(false);
+        enemyHealthBar.SetActive(false);
         minionEnemy.SetActive(false);
 
         minionEnemy.GetComponent<HealthPoints>().OnDeathEvent.onEvent.AddListener(StartBossBattle);
@@ -63,5 +65,6 @@ public class LevelLoopManager : MonoBehaviour
     {
         minionEnemy.SetActive(false);
         enemy.SetActive(true);
+        enemyHealthBar.SetActive(true);
     }
 }
