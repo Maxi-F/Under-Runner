@@ -3662,6 +3662,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1059696745}
+    - target: {fileID: 2471551734327558049, guid: 454833c9036f8164b92e7c7279a2b863, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3429272450400946337, guid: 454833c9036f8164b92e7c7279a2b863, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.05
@@ -3702,10 +3706,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5575126865424349212, guid: 454833c9036f8164b92e7c7279a2b863, type: 3}
-      propertyPath: onDeathEvent
-      value: 
-      objectReference: {fileID: 11400000, guid: c865da2c04eab7440a28ab0a5cad2306, type: 2}
+    - target: {fileID: 5189660947594440459, guid: 454833c9036f8164b92e7c7279a2b863, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7302038323870200571, guid: 454833c9036f8164b92e7c7279a2b863, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8215497170384526746, guid: 454833c9036f8164b92e7c7279a2b863, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8215497170384526746, guid: 454833c9036f8164b92e7c7279a2b863, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8215497170384526746, guid: 454833c9036f8164b92e7c7279a2b863, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.00000059604645
+      objectReference: {fileID: 0}
     - target: {fileID: 9068004531541268373, guid: 454833c9036f8164b92e7c7279a2b863, type: 3}
       propertyPath: m_Name
       value: Minion

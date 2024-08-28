@@ -13,6 +13,11 @@ namespace _Dev.UnderRunnerTest.Scripts.Health
         [Header("events")] [SerializeField] private VoidEventChannelSO onDeathEvent;
         [SerializeField] private IntEventChannelSO onTakeDamageEvent;
 
+        public int MaxHealth
+        {
+            get { return maxHealth; }
+        }
+
         public VoidEventChannelSO OnDeathEvent
         {
             get { return onDeathEvent; }
