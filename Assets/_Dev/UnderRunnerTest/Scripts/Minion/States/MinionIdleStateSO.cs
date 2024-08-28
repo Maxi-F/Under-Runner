@@ -1,6 +1,3 @@
-using _Dev.UnderRunnerTest.Scripts.FSM;
-using UnityEditor.Experimental;
-using UnityEditor.Timeline.Actions;
 using UnityEngine;
 
 namespace _Dev.UnderRunnerTest.Scripts.Minion.States
