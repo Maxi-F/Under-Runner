@@ -1423,6 +1423,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2677738976719943602, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3471723417962381595, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4780633370198621073, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
       propertyPath: m_Name
       value: Player
@@ -2824,7 +2832,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onObstaclesSystemDisabled: {fileID: 11400000, guid: 9b61d8e3cffb1c84f98d7d4315aa3c7f, type: 2}
-  obstaclesDuration: 10
+  obstaclesDuration: 3
   obstaclesSpawner: {fileID: 910727726}
   enemy: {fileID: 1224237589}
   minionEnemy: {fileID: 759632310}

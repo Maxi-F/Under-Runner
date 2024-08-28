@@ -69,7 +69,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Minion.States
             startTime = Time.time;
             agentTransform.GetComponent<HealthPoints>().SetCanTakeDamage(false);
             agentTransform.GetComponent<MeshRenderer>().material = chargeMat;
-
+            agentTransform.GetComponent<Collider>().isTrigger = true;
             while (timer < chargeDuration)
             {
                 timer = Time.time - startTime;
@@ -79,6 +79,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Minion.States
 
             agentTransform.GetComponent<HealthPoints>().SetCanTakeDamage(true);
             agentTransform.GetComponent<MeshRenderer>().material = defaultMat;
+            agentTransform.GetComponent<Collider>().isTrigger = false;
         }
 
         private void DealDamage(GameObject target)

@@ -89,7 +89,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Minion
             Destroy(this.gameObject);
         }
 
-        private void OnCollisionEnter(Collision other)
+        private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.CompareTag("Player"))
             {
