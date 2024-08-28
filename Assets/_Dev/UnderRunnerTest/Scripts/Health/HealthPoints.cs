@@ -13,7 +13,10 @@ namespace _Dev.UnderRunnerTest.Scripts.Health
         [Header("events")] [SerializeField] private VoidEventChannelSO onDeathEvent;
         [SerializeField] private IntEventChannelSO onTakeDamageEvent;
 
-        public event Action onDeath;
+        public VoidEventChannelSO OnDeathEvent
+        {
+            get { return onDeathEvent; }
+        }
 
         private bool _isInvincible = false;
 
@@ -22,6 +25,12 @@ namespace _Dev.UnderRunnerTest.Scripts.Health
         void Start()
         {
             CurrentHp = initHealth;
+        }
+
+        private void OnDestroy()
+        {
+            if (onDeathEvent != null)
+                onDeathEvent.onEvent?.RemoveAllListeners();
         }
 
         public void SetCanTakeDamage(bool value)
@@ -54,7 +63,6 @@ namespace _Dev.UnderRunnerTest.Scripts.Health
             if (IsDead())
             {
                 onDeathEvent?.RaiseEvent();
-                onDeath?.Invoke();
             }
             else
             {
