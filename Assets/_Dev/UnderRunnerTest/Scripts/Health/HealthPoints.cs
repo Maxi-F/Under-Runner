@@ -1,3 +1,4 @@
+using System;
 using _Dev.UnderRunnerTest.Scripts.Events;
 using UnityEngine;
 
@@ -8,12 +9,17 @@ namespace _Dev.UnderRunnerTest.Scripts.Health
         [SerializeField] private int maxHealth = 100;
         [SerializeField] private int initHealth = 100;
         [SerializeField] private bool canTakeDamage = true;
-        
+
         [Header("events")] [SerializeField] private VoidEventChannelSO onDeathEvent;
         [SerializeField] private IntEventChannelSO onTakeDamageEvent;
 
+        public VoidEventChannelSO OnDeathEvent
+        {
+            get { return onDeathEvent; }
+        }
+
         private bool _isInvincible = false;
-        
+
         public int CurrentHp { get; private set; }
 
         void Start()
@@ -21,11 +27,17 @@ namespace _Dev.UnderRunnerTest.Scripts.Health
             CurrentHp = initHealth;
         }
 
+        private void OnDestroy()
+        {
+            if (onDeathEvent != null)
+                onDeathEvent.onEvent?.RemoveAllListeners();
+        }
+
         public void SetCanTakeDamage(bool value)
         {
             canTakeDamage = value;
         }
-        
+
         // Is invincible =/= can take damage.
         // isInvincible is used for attacks That can be avoidable.
         // canTakeDamage is used if the entity just cant take damage in any way.
@@ -33,18 +45,19 @@ namespace _Dev.UnderRunnerTest.Scripts.Health
         {
             _isInvincible = value;
         }
-        
+
         public void ResetHitPoints()
         {
             CurrentHp = maxHealth;
         }
-        
+
         public void TakeDamage(int damage)
         {
             if (!canTakeDamage)
             {
                 return;
             }
+
             CurrentHp -= damage;
 
             if (IsDead())
