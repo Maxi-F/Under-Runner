@@ -17,7 +17,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Attacks.ParryProjectile
     
     public class ParryProjectile : MonoBehaviour, IDeflectable
     {
-        [Header("Second Force Properties")] 
+        [Header("Second Force Properties")]
         [SerializeField] private float secondForceAcceleration;
         [SerializeField] private float secondsInFollowForce;
         [SerializeField] private float yConstantForce = 0.25f;
@@ -37,6 +37,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Attacks.ParryProjectile
 
         private float _timeApplyingFollowForce = 0f;
         private bool _isStarted = false;
+        private float _followForceVelocity;
 
         public void SetFirstForce(ParryProjectileFirstForce config)
         {
@@ -72,6 +73,8 @@ namespace _Dev.UnderRunnerTest.Scripts.Attacks.ParryProjectile
                 yield return new WaitForFixedUpdate();
             }
 
+            _followForceVelocity = _rigidbody.velocity.magnitude;
+            Debug.Log(_followForceVelocity);
             StartCoroutine(ApplyFollowForce());
         }
 
@@ -80,11 +83,13 @@ namespace _Dev.UnderRunnerTest.Scripts.Attacks.ParryProjectile
             while (_timeApplyingFollowForce < secondsInFollowForce)
             {
                 Vector3 direction = GetDirection(_objectToFollow.gameObject.transform.position);
-                _rigidbody.AddForce(direction * secondForceAcceleration, ForceMode.Acceleration);
+                _rigidbody.velocity = direction * _followForceVelocity * Time.deltaTime;
 
-                _timeApplyingFollowForce += Time.fixedDeltaTime;
+                _timeApplyingFollowForce += Time.deltaTime;
+                _followForceVelocity += secondForceAcceleration * Time.deltaTime;
+
                 
-                yield return new WaitForFixedUpdate();
+                yield return null;
             }
             
             gameObject.SetActive(false);
@@ -136,9 +141,14 @@ namespace _Dev.UnderRunnerTest.Scripts.Attacks.ParryProjectile
         private Vector3 GetDirection(Vector3 to)
         {
             Vector3 direction = (to - gameObject.transform.position).normalized;
-            direction.y = direction.y < 0f ? -yConstantForce : yConstantForce;
             
             return direction;
+        }
+
+        private void OnDrawGizmos()
+        {
+            if(_rigidbody != null)
+                Gizmos.DrawLine(transform.position, _rigidbody.velocity);
         }
     }
 }
