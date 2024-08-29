@@ -85,5 +85,17 @@ namespace _Dev.UnderRunnerTest.Scripts.Health
             if (_isInvincible) return;
             TakeDamage(damage);
         }
+
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        public void ToggleInvulnerability()
+        {
+            canTakeDamage = !canTakeDamage;
+        }
+
+        public void ToggleInvulnerability(bool value)
+        {
+            canTakeDamage = value;
+        }
+#endif
     }
 }
