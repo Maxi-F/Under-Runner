@@ -61,7 +61,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
             float lateralAngle = Mathf.Asin(normalizedDir.x) * Mathf.Rad2Deg;
             lateralAngle = Mathf.Clamp(lateralAngle, -maxTiltAngles.x, maxTiltAngles.x);
 
-            float frontalAngle = normalizedDir.y < 0 ? Mathf.Asin(normalizedDir.y) * Mathf.Rad2Deg : 0;
+            float frontalAngle = Mathf.Asin(normalizedDir.y) * Mathf.Rad2Deg;
             frontalAngle = Mathf.Clamp(frontalAngle, -maxTiltAngles.y, maxTiltAngles.y);
 
             bikeBody.transform.rotation = Quaternion.Euler(frontalAngle, 0, -lateralAngle);
