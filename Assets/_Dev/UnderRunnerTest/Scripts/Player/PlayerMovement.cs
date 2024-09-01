@@ -14,10 +14,11 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
         [Header("Movement Config")] [SerializeField]
         private float speed;
 
-        [Header("Look Config")] [SerializeField]
-        private Vector2 maxLookAngles;
+        [Header("Look Config")]
+        [SerializeField] private Vector2 maxTiltAngles;
 
         [SerializeField] private GameObject visor;
+        [SerializeField] private GameObject bikeBody;
         [SerializeField] private GameObject attackPointPivot;
 
         private Vector3 currentDir;
@@ -51,20 +52,19 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
             currentDir.x = dir.x;
             currentDir.y = 0;
             currentDir.z = dir.y;
-            LookAround(dir);
+            TiltAround(dir);
         }
-
-        private void LookAround(Vector2 dir)
+        private void TiltAround(Vector2 dir)
         {
             Vector2 normalizedDir = dir.normalized;
-            float xAngle = Mathf.Asin(normalizedDir.x) * Mathf.Rad2Deg;
-            xAngle = Mathf.Clamp(xAngle, -maxLookAngles.x, maxLookAngles.x);
 
-            float yAngle = normalizedDir.y < 0 ? Mathf.Asin(normalizedDir.y) * Mathf.Rad2Deg : 0;
-            yAngle = Mathf.Clamp(yAngle, -maxLookAngles.y, maxLookAngles.y);
+            float lateralAngle = Mathf.Asin(normalizedDir.x) * Mathf.Rad2Deg;
+            lateralAngle = Mathf.Clamp(lateralAngle, -maxTiltAngles.x, maxTiltAngles.x);
 
-            visor.transform.rotation = Quaternion.Euler(yAngle, xAngle, 0);
-            attackPointPivot.transform.rotation = Quaternion.Euler(yAngle, xAngle, 0);
+            float frontalAngle = Mathf.Asin(normalizedDir.y) * Mathf.Rad2Deg;
+            frontalAngle = Mathf.Clamp(frontalAngle, -maxTiltAngles.y, maxTiltAngles.y);
+
+            bikeBody.transform.rotation = Quaternion.Euler(frontalAngle, 0, -lateralAngle);
         }
     }
 }

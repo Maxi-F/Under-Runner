@@ -1,0 +1,34 @@
+{
+    "name": "DebugActions",
+    "maps": [
+        {
+            "name": "Cheats",
+            "id": "0b59a3ca-7d31-44d5-a7aa-18ef2d306627",
+            "actions": [
+                {
+                    "name": "Invencibility",
+                    "type": "Button",
+                    "id": "2d8f658d-65a0-4f62-bb0f-514705f0606a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "55d062bf-3654-4118-9d94-f0c2bd00927e",
+                    "path": "<Keyboard>/f9",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Invencibility",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
