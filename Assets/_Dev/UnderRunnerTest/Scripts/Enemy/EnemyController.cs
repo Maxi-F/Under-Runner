@@ -55,11 +55,15 @@ namespace _Dev.UnderRunnerTest.Scripts.Enemy
             
             shieldObject.SetActive(isActive);
             _healthPoints.SetCanTakeDamage(!isActive);
-            
-            if(!isActive)
+
+            if (!isActive)
+            {
                 onEnemyParriedEvent?.RaiseEvent(isActive);
+            }
             else
+            {
                 shieldPoints.ResetHitPoints();
+            }
             
             StartCoroutine(Fly(isActive));
         }
@@ -72,10 +76,14 @@ namespace _Dev.UnderRunnerTest.Scripts.Enemy
 
             _shouldFly = false;
 
-            if(!isActive)
+            if (!isActive)
+            {
                 StartCoroutine(ReactivateShield());
-            else 
+            }
+            else
+            {
                 onEnemyParriedEvent?.RaiseEvent(isActive);
+            }
         }
 
         private IEnumerator ReactivateShield()

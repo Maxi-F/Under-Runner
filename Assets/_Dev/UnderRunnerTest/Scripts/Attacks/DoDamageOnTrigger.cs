@@ -14,7 +14,6 @@ namespace _Dev.UnderRunnerTest.Scripts.Attacks
         {
             if (other.CompareTag(entityDamageTaker))
             {
-                Debug.Log($"Collided with: {other.gameObject.name}");
                 ITakeDamage damageTaker = other.GetComponent<ITakeDamage>();
 
                 yield return null;

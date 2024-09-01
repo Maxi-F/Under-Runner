@@ -21,7 +21,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Enemy.Attacks
         private bool _isEnemyParried = false;
         private IEnemyAttack[] _attacks;
         
-        void Start()
+        void OnEnable()
         {
             _attacks ??= GetComponents<IEnemyAttack>();
             

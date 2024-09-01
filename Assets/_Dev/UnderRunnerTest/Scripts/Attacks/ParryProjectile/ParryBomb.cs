@@ -120,7 +120,6 @@ namespace _Dev.UnderRunnerTest.Scripts.Attacks.ParryProjectile
 
         public void SetObjectToFollow(GameObject newObjectToFollow)
         {
-            Debug.Log($"{newObjectToFollow.name}: {newObjectToFollow.transform.position}");
             _objectToFollow = newObjectToFollow;
         }
         
