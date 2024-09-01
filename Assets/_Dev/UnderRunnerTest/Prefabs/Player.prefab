@@ -598,6 +598,49 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   dashPredictionLine: {fileID: 6903081473081757918}
+  bulletTimeVariationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.3
+      value: 0.5
+      inSlope: 0.00053216895
+      outSlope: 0.00053216895
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.6204843
+      outWeight: 0.49639833
+    - serializedVersion: 3
+      time: 0.79428005
+      value: 0.85118806
+      inSlope: 1.9562334
+      outSlope: 1.9562334
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.04850583
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  bulletTimeDuration: 1.2
 --- !u!114 &6481343404815373606
 MonoBehaviour:
   m_ObjectHideFlags: 0

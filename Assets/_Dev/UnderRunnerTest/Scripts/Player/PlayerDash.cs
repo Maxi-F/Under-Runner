@@ -12,13 +12,18 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
     {
         [SerializeField] private InputHandlerSO inputHandler;
 
-        [FormerlySerializedAs("dashLength")] [Header("Dash Configuration")] [SerializeField]
-        private float dashSpeed;
+        [Header("Dash Configuration")]
+        [SerializeField] private float dashSpeed;
 
         [SerializeField] private float dashDuration;
         [SerializeField] private float dashCoolDown;
         [SerializeField] private AnimationCurve speedCurve;
+
+        [Header("Bullet Time Dash")]
         [SerializeField] private DashPredictionLine dashPredictionLine;
+
+        [SerializeField] private AnimationCurve bulletTimeVariationCurve;
+        [SerializeField] private float bulletTimeDuration;
 
         private PlayerMovement _movement;
         private CharacterController _characterController;
@@ -26,6 +31,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
 
         private bool _canDash = true;
         private Coroutine _dashCoroutine = null;
+        private Coroutine _bulletTimeCoroutine = null;
 
         private void Awake()
         {
@@ -65,8 +71,10 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
             if (!_canDash)
                 return;
 
-            Time.timeScale = 0.5f;
-            dashPredictionLine.ToggleVisibility(true);
+            if (_bulletTimeCoroutine != null)
+                StopCoroutine(_bulletTimeCoroutine);
+
+            _bulletTimeCoroutine = StartCoroutine(BulletTimeCoroutine());
         }
 
         public void HandleBulletTimeDashFinish()
@@ -74,6 +82,8 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
             if (!_canDash || Time.timeScale == 1)
                 return;
 
+            if (_bulletTimeCoroutine != null)
+                StopCoroutine(_bulletTimeCoroutine);
             Time.timeScale = 1f;
 
             if (_dashCoroutine != null)
@@ -110,6 +120,24 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
         private IEnumerator CoolDownCoroutine()
         {
             yield return new WaitForSeconds(dashCoolDown);
+        }
+
+        private IEnumerator BulletTimeCoroutine()
+        {
+            float timer = 0;
+            float startTime = Time.time;
+            dashPredictionLine.ToggleVisibility(true);
+
+            while (timer < bulletTimeDuration)
+            {
+                timer = Time.time - startTime;
+                float timerProgress = Mathf.Lerp(0, 1, timer / bulletTimeDuration);
+                Time.timeScale = bulletTimeVariationCurve.Evaluate(timerProgress);
+                yield return null;
+            }
+
+            dashPredictionLine.ToggleVisibility(false);
+            Time.timeScale = 1;
         }
     }
 }
