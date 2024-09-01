@@ -15,12 +15,11 @@ namespace _Dev.UnderRunnerTest.Scripts.Attacks.ParryProjectile
         public float secondsInAngularVelocity;
     }
     
-    public class ParryProjectile : MonoBehaviour, IDeflectable
+    public class ParryBomb : MonoBehaviour, IDeflectable
     {
         [Header("Second Force Properties")]
         [SerializeField] private float secondForceAcceleration;
         [SerializeField] private float secondsInFollowForce;
-        [SerializeField] private float yConstantForce = 0.25f;
         
         [Header("Damage properties")]
         [SerializeField] private int damage = 5;
@@ -73,8 +72,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Attacks.ParryProjectile
                 yield return new WaitForFixedUpdate();
             }
 
-            _followForceVelocity = _rigidbody.velocity.magnitude;
-            Debug.Log(_followForceVelocity);
+            _followForceVelocity = (_rigidbody.velocity.magnitude * Time.deltaTime) / Time.fixedDeltaTime;
             StartCoroutine(ApplyFollowForce());
         }
 
@@ -83,11 +81,11 @@ namespace _Dev.UnderRunnerTest.Scripts.Attacks.ParryProjectile
             while (_timeApplyingFollowForce < secondsInFollowForce)
             {
                 Vector3 direction = GetDirection(_objectToFollow.gameObject.transform.position);
-                _rigidbody.velocity = direction * _followForceVelocity * Time.deltaTime;
 
+                transform.position = Vector3.MoveTowards(transform.position, _objectToFollow.gameObject.transform.position, _followForceVelocity * Time.deltaTime);
+                
                 _timeApplyingFollowForce += Time.deltaTime;
                 _followForceVelocity += secondForceAcceleration * Time.deltaTime;
-
                 
                 yield return null;
             }
@@ -122,6 +120,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Attacks.ParryProjectile
 
         public void SetObjectToFollow(GameObject newObjectToFollow)
         {
+            Debug.Log($"{newObjectToFollow.name}: {newObjectToFollow.transform.position}");
             _objectToFollow = newObjectToFollow;
         }
         
