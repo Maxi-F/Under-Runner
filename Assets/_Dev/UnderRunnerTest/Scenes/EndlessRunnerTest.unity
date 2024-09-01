@@ -931,7 +931,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 673461572015972428, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.91
+      value: 0.95
       objectReference: {fileID: 0}
     - target: {fileID: 673461572015972428, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
       propertyPath: m_LocalPosition.z
@@ -965,18 +965,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2073324618396084509, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
-      propertyPath: onAttackExecutedEvent
-      value: 
-      objectReference: {fileID: 11400000, guid: 322e70b8667e7784fae7bc03f04b1528, type: 2}
     - target: {fileID: 2162685059267034076, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 1059696745}
     - target: {fileID: 2162685059267034076, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
-      propertyPath: onAnotherAttackExecuted
+      propertyPath: firstForces.Array.data[0].startImpulse.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2162685059267034076, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: firstForces.Array.data[1].startImpulse.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5362483775112485171, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: shieldModel
       value: 
-      objectReference: {fileID: 11400000, guid: 322e70b8667e7784fae7bc03f04b1528, type: 2}
+      objectReference: {fileID: 1893954061}
     - target: {fileID: 8961736479340173517, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
       propertyPath: m_Name
       value: Enemy
@@ -2839,6 +2843,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 401449196481155113, guid: e948c734f10036549926b6886c929788, type: 3}
   m_PrefabInstance: {fileID: 1857963559}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1893954061 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 453574315884602139, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+  m_PrefabInstance: {fileID: 324373034}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1924909080
 GameObject:

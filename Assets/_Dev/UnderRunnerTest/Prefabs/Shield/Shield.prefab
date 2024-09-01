@@ -42,6 +42,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5270040451623364020}
+  - component: {fileID: 2472405120409522921}
+  - component: {fileID: 4991249550616943721}
   m_Layer: 0
   m_Name: ShieldLogic
   m_TagString: Untagged
@@ -64,6 +66,40 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7759332051241287578}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2472405120409522921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6657953638011216389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04cb3bb3ce8700649b43a4c9b6a29908, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 2
+  initHealth: 2
+  canTakeDamage: 1
+  onDeathEvent: {fileID: 0}
+  onTakeDamageEvent: {fileID: 0}
+--- !u!114 &4991249550616943721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6657953638011216389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fc8b58be7e46f54d96dfa5d850e97da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activatingShieldMaterial: {fileID: 2100000, guid: 8168d0dd628f5e2439352f83e8b8e109, type: 2}
+  translucentMaterial: {fileID: 2100000, guid: ac200a83c714d3b4f8a296ac1937a7cf, type: 2}
+  activeMaterial: {fileID: 2100000, guid: 673557615c277e54692b034e0a1e4fb6, type: 2}
+  twinkleSeconds: 0.5
+  shieldObject: {fileID: 1168559037796139576}
 --- !u!1001 &7480000416205087738
 PrefabInstance:
   m_ObjectHideFlags: 0
