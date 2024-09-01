@@ -1,6 +1,8 @@
 using System.Collections;
 using _Dev.UnderRunnerTest.Scripts.Health;
 using _Dev.UnderRunnerTest.Scripts.Input;
+using UnityEditor.Rendering;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -15,7 +17,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
 
         [SerializeField] private float dashDuration;
         [SerializeField] private float dashCoolDown;
-
+        [SerializeField] private AnimationCurve speedCurve;
 
         private PlayerMovement _movement;
         private CharacterController _characterController;
@@ -56,7 +58,6 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
 
         private void Dash(Vector3 dir)
         {
-            _characterController.Move(dir * (dashSpeed * Time.deltaTime));
         }
 
         private IEnumerator DashCoroutine()
@@ -65,13 +66,18 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
             float timer = 0;
             _canDash = false;
 
+            Vector3 dashDir = _movement.CurrentDir;
+            _movement.ToggleMoveability(false);
             while (timer < dashDuration)
             {
-                Dash(_movement.CurrentDir);
+                float dashTime = Mathf.Lerp(0, 1, timer / dashDuration);
+                _characterController.Move(dashDir * (dashSpeed * speedCurve.Evaluate(dashTime) * Time.deltaTime));
+               // _characterController.Move(dashDir * (dashSpeed * Time.deltaTime));
                 timer = Time.time - startTime;
                 yield return null;
             }
-            
+
+            _movement.ToggleMoveability(true);
             _healthPoints.SetIsInvincible(false);
             yield return CoolDownCoroutine();
             _canDash = true;

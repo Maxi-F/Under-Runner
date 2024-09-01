@@ -336,7 +336,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
@@ -382,7 +382,6 @@ MonoBehaviour:
   inputHandler: {fileID: 11400000, guid: 4902f51743585ca40aec021ece06aa06, type: 2}
   onPlayerNewPositionEvent: {fileID: 11400000, guid: 1edae3268f02d1c4190e82ddfa3be357, type: 2}
   speed: 7.5
-  maxLookAngles: {x: 45, y: 45}
   maxTiltAngles: {x: 10, y: 5}
   visor: {fileID: 0}
   bikeBody: {fileID: 2048089531738271742}
@@ -400,9 +399,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputHandler: {fileID: 11400000, guid: 4902f51743585ca40aec021ece06aa06, type: 2}
-  dashSpeed: 12
+  dashSpeed: 15
   dashDuration: 0.2
   dashCoolDown: 1
+  speedCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.0036964417
+      value: 1.0028381
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.37006086
+      value: 1.6932985
+      inSlope: 3.58279
+      outSlope: 3.58279
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.219885
+      outWeight: 0.09038564
+    - serializedVersion: 3
+      time: 0.86410415
+      value: 1.0417917
+      inSlope: -5.00335
+      outSlope: -5.00335
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.0687698
+      outWeight: 0.8036514
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: -0.76782787
+      outSlope: -0.76782787
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 1
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &6481343404815373606
 MonoBehaviour:
   m_ObjectHideFlags: 0
