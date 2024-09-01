@@ -297,6 +297,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeBetweenAttacks: 2
   onEnemyParriedEvent: {fileID: 11400000, guid: 2560c5f78509b5141b8e058e758dd606, type: 2}
+  onAttackExecutedEvent: {fileID: 11400000, guid: 322e70b8667e7784fae7bc03f04b1528, type: 2}
 --- !u!114 &2162685059267034076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,6 +313,7 @@ MonoBehaviour:
   parryProjectile: {fileID: 3647964052860360875, guid: 48bea42002bf10540a71e54ce9228159, type: 3}
   player: {fileID: 0}
   offset: {x: 0, y: 0, z: -2}
+  attacksBeforeParryCanExecute: 3
   firstForces:
   - startImpulse: {x: -15, y: -0.5, z: -5}
     angularForce: {x: 20, y: 0, z: 0}
@@ -322,6 +324,7 @@ MonoBehaviour:
   - startImpulse: {x: 0, y: -0.5, z: -5}
     angularForce: {x: 0, y: 0, z: 0}
     secondsInAngularVelocity: 1
+  onAnotherAttackExecuted: {fileID: 11400000, guid: 322e70b8667e7784fae7bc03f04b1528, type: 2}
 --- !u!114 &5219174360119938913
 MonoBehaviour:
   m_ObjectHideFlags: 0
