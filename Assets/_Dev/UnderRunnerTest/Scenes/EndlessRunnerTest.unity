@@ -414,6 +414,7 @@ MonoBehaviour:
   maxRoads: 9
   onNewRoadTriggerEvent: {fileID: 11400000, guid: e9f150e4cef40854bb3ad229e1d7be90, type: 2}
   onRoadDeleteTriggerEvent: {fileID: 11400000, guid: c12f0b33b59636546b1a291eda430689, type: 2}
+  onRoadInstantiatedEvent: {fileID: 0}
 --- !u!1001 &117404253
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -964,18 +965,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2073324618396084509, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
-      propertyPath: onAttackExecutedEvent
-      value: 
-      objectReference: {fileID: 11400000, guid: 322e70b8667e7784fae7bc03f04b1528, type: 2}
     - target: {fileID: 2162685059267034076, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 1059696745}
-    - target: {fileID: 2162685059267034076, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
-      propertyPath: onAnotherAttackExecuted
-      value: 
-      objectReference: {fileID: 11400000, guid: 322e70b8667e7784fae7bc03f04b1528, type: 2}
     - target: {fileID: 8961736479340173517, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
       propertyPath: m_Name
       value: Enemy

@@ -19,7 +19,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Enemy.Attacks
 
         [Header("Events")] [SerializeField] private VoidEventChannelSO onAnotherAttackExecuted;
         
-        private Scripts.Attacks.ParryProjectile.ParryProjectile _parryProjectile;
+        private ParryBomb _parryBomb;
         private int _executedAttacksQuantity;
 
         private void OnEnable()
@@ -49,16 +49,16 @@ namespace _Dev.UnderRunnerTest.Scripts.Enemy.Attacks
             GameObject parryProjectileInstance = Instantiate(parryProjectile);
             parryProjectileInstance.transform.position = transform.position + offset;
             
-            _parryProjectile = parryProjectileInstance.GetComponent<Scripts.Attacks.ParryProjectile.ParryProjectile>();
+            _parryBomb = parryProjectileInstance.GetComponent<ParryBomb>();
             
-            _parryProjectile.SetFirstForce(firstForces[Random.Range(0, firstForces.Count)]);
-            _parryProjectile.SetObjectToFollow(player);
-            _parryProjectile.SetFirstObjectToFollow(player);
+            _parryBomb.SetFirstForce(firstForces[Random.Range(0, firstForces.Count)]);
+            _parryBomb.SetObjectToFollow(player);
+            _parryBomb.SetFirstObjectToFollow(player);
         }
 
         public bool IsExecuting()
         {
-            return _parryProjectile.gameObject.activeInHierarchy;
+            return _parryBomb.gameObject.activeInHierarchy;
         }
     }
 }

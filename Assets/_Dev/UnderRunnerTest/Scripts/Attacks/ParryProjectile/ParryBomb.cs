@@ -15,12 +15,11 @@ namespace _Dev.UnderRunnerTest.Scripts.Attacks.ParryProjectile
         public float secondsInAngularVelocity;
     }
     
-    public class ParryProjectile : MonoBehaviour, IDeflectable
+    public class ParryBomb : MonoBehaviour, IDeflectable
     {
-        [Header("Second Force Properties")] 
+        [Header("Second Force Properties")]
         [SerializeField] private float secondForceAcceleration;
         [SerializeField] private float secondsInFollowForce;
-        [SerializeField] private float yConstantForce = 0.25f;
         
         [Header("Damage properties")]
         [SerializeField] private int damage = 5;
@@ -37,6 +36,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Attacks.ParryProjectile
 
         private float _timeApplyingFollowForce = 0f;
         private bool _isStarted = false;
+        private float _followForceVelocity;
 
         public void SetFirstForce(ParryProjectileFirstForce config)
         {
@@ -72,6 +72,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Attacks.ParryProjectile
                 yield return new WaitForFixedUpdate();
             }
 
+            _followForceVelocity = (_rigidbody.velocity.magnitude * Time.deltaTime) / Time.fixedDeltaTime;
             StartCoroutine(ApplyFollowForce());
         }
 
@@ -80,11 +81,13 @@ namespace _Dev.UnderRunnerTest.Scripts.Attacks.ParryProjectile
             while (_timeApplyingFollowForce < secondsInFollowForce)
             {
                 Vector3 direction = GetDirection(_objectToFollow.gameObject.transform.position);
-                _rigidbody.AddForce(direction * secondForceAcceleration, ForceMode.Acceleration);
 
-                _timeApplyingFollowForce += Time.fixedDeltaTime;
+                transform.position = Vector3.MoveTowards(transform.position, _objectToFollow.gameObject.transform.position, _followForceVelocity * Time.deltaTime);
                 
-                yield return new WaitForFixedUpdate();
+                _timeApplyingFollowForce += Time.deltaTime;
+                _followForceVelocity += secondForceAcceleration * Time.deltaTime;
+                
+                yield return null;
             }
             
             gameObject.SetActive(false);
@@ -117,6 +120,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Attacks.ParryProjectile
 
         public void SetObjectToFollow(GameObject newObjectToFollow)
         {
+            Debug.Log($"{newObjectToFollow.name}: {newObjectToFollow.transform.position}");
             _objectToFollow = newObjectToFollow;
         }
         
@@ -136,9 +140,14 @@ namespace _Dev.UnderRunnerTest.Scripts.Attacks.ParryProjectile
         private Vector3 GetDirection(Vector3 to)
         {
             Vector3 direction = (to - gameObject.transform.position).normalized;
-            direction.y = direction.y < 0f ? -yConstantForce : yConstantForce;
             
             return direction;
+        }
+
+        private void OnDrawGizmos()
+        {
+            if(_rigidbody != null)
+                Gizmos.DrawLine(transform.position, _rigidbody.velocity);
         }
     }
 }
