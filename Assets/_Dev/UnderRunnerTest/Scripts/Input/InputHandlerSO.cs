@@ -10,6 +10,9 @@ namespace _Dev.UnderRunnerTest.Scripts.Input
         public UnityEvent<Vector2> onPlayerMove;
         public UnityEvent onPlayerDash;
         public UnityEvent onPlayerAttack;
+        
+        public UnityEvent onPlayerDashStarted;
+        public UnityEvent onPlayerDashFinished;
 
         public void HandleMovement(InputAction.CallbackContext context)
         {
@@ -20,8 +23,14 @@ namespace _Dev.UnderRunnerTest.Scripts.Input
 
         public void HandleDash(InputAction.CallbackContext context)
         {
-            if (context.started)
-                onPlayerDash?.Invoke();
+            // if (context.started)
+            //     onPlayerDash?.Invoke();
+            
+            if(context.started)
+                onPlayerDashStarted?.Invoke();
+            
+            if(context.canceled)
+                onPlayerDashFinished?.Invoke();
         }
 
         public void HandleAttack(InputAction.CallbackContext context)

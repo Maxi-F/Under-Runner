@@ -18,6 +18,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
         [SerializeField] private float dashDuration;
         [SerializeField] private float dashCoolDown;
         [SerializeField] private AnimationCurve speedCurve;
+        [SerializeField] private DashPredictionLine dashPredictionLine;
 
         private PlayerMovement _movement;
         private CharacterController _characterController;
@@ -37,6 +38,9 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
         private void OnEnable()
         {
             inputHandler.onPlayerDash.AddListener(HandleDash);
+
+            inputHandler.onPlayerDashStarted.AddListener(HandleBulletTimeDashStart);
+            inputHandler.onPlayerDashFinished.AddListener(HandleBulletTimeDashFinish);
         }
 
         private void OnDisable()
@@ -56,8 +60,28 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
             _dashCoroutine = StartCoroutine(DashCoroutine());
         }
 
-        private void Dash(Vector3 dir)
+        public void HandleBulletTimeDashStart()
         {
+            if (!_canDash)
+                return;
+
+            Time.timeScale = 0.5f;
+            dashPredictionLine.ToggleVisibility(true);
+        }
+
+        public void HandleBulletTimeDashFinish()
+        {
+            if (!_canDash || Time.timeScale == 1)
+                return;
+
+            Time.timeScale = 1f;
+
+            if (_dashCoroutine != null)
+                StopCoroutine(_dashCoroutine);
+
+            dashPredictionLine.ToggleVisibility(false);
+            _healthPoints.SetIsInvincible(true);
+            _dashCoroutine = StartCoroutine(DashCoroutine());
         }
 
         private IEnumerator DashCoroutine()
@@ -72,7 +96,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
             {
                 float dashTime = Mathf.Lerp(0, 1, timer / dashDuration);
                 _characterController.Move(dashDir * (dashSpeed * speedCurve.Evaluate(dashTime) * Time.deltaTime));
-               // _characterController.Move(dashDir * (dashSpeed * Time.deltaTime));
+                // _characterController.Move(dashDir * (dashSpeed * Time.deltaTime));
                 timer = Time.time - startTime;
                 yield return null;
             }
