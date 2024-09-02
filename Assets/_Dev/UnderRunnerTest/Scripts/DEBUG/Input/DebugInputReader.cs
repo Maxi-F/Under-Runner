@@ -9,27 +9,26 @@ namespace _Dev.UnderRunnerTest.Scripts.DEBUG.Input
     {
 #if UNITY_EDITOR || DEVELOPMENT_BUILD || ENABLE_CHEATS
         private DebugActions _debugInput;
+        public event Action OnOpenCheatsMenu;
 
-        public event Action OnInvencibilityCheat;
-        
         private void Start()
         {
             _debugInput = new DebugActions();
             _debugInput.Enable();
 
-            _debugInput.Cheats.Invencibility.performed += HandleInvencibilityCheat;
+            _debugInput.Cheats.OpenMenu.performed += HandleOpenMenu;
         }
 
         private void OnDestroy()
         {
-            _debugInput.Cheats.Invencibility.performed -= HandleInvencibilityCheat;
+            if (_debugInput != null)
+                _debugInput.Cheats.OpenMenu.performed -= HandleOpenMenu;
         }
 
-        private void HandleInvencibilityCheat(InputAction.CallbackContext context)
+        private void HandleOpenMenu(InputAction.CallbackContext context)
         {
-            OnInvencibilityCheat?.Invoke();
+            OnOpenCheatsMenu?.Invoke();
         }
-
 #endif
     }
 }
