@@ -3,6 +3,7 @@ using System.Collections;
 using _Dev.UnderRunnerTest.Scripts.Health;
 using _Dev.UnderRunnerTest.Scripts.Input;
 using _Dev.UnderRunnerTest.Scripts.ParryProjectile;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace _Dev.UnderRunnerTest.Scripts.Player
@@ -11,21 +12,18 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
     {
         [SerializeField] private InputHandlerSO inputHandler;
 
-        [Header("Attack Configuration")] [SerializeField]
-        private int attackDamage;
+        [Header("Attack Configuration")]
+        [SerializeField] private float attackAmplitude;
 
-        [SerializeField] private GameObject attackSphere;
+        [SerializeField] private GameObject meleeWeapon;
         [SerializeField] private float attackRadius;
         [SerializeField] private float attackDuration;
         [SerializeField] private float attackCoolDown;
-        [SerializeField] private Transform attackPoint;
         [SerializeField] private LayerMask layers;
 
-        [Header("Enemy")] [SerializeField] private GameObject enemy;
-        
         private bool _canAttack = true;
         private Coroutine _attackCoroutine = null;
-        
+
         private void OnEnable()
         {
             inputHandler.onPlayerAttack.AddListener(HandleAttack);
@@ -47,54 +45,31 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
             _attackCoroutine = StartCoroutine(AttackCoroutine());
         }
 
-        private void OnDrawGizmos()
-        {
-            Gizmos.DrawWireSphere(attackPoint.position, attackRadius);
-        }
-        
         private IEnumerator AttackCoroutine()
         {
             _canAttack = false;
-            attackSphere.SetActive(true);
-            
+            float minAngle = 90 - attackAmplitude / 2;
+            float maxAngle = -90 - attackAmplitude / 2;
+            minAngle = -minAngle;
+
+            quaternion startRotation = Quaternion.Euler(0, -(90 - attackAmplitude / 2), 0);
+            quaternion finalRotation = Quaternion.Euler(0, -(90 + attackAmplitude / 2), 0);
+            meleeWeapon.transform.localRotation = startRotation;
+            meleeWeapon.SetActive(true);
+
             float timer = 0;
             float startTime = Time.time;
-            bool hasAttackFinished = false;
 
-            while (timer < attackDuration && !hasAttackFinished)
+            while (timer < attackDuration && meleeWeapon.activeInHierarchy)
             {
                 timer = Time.time - startTime;
-                RaycastHit[] hits = Physics.SphereCastAll(attackPoint.position, attackRadius, attackPoint.forward, 0, layers);
-                
-                foreach (RaycastHit hit in hits)
-                {
-                    if (hit.transform.CompareTag("Deflectable"))
-                    {
-                        if (hit.transform.TryGetComponent<IDeflectable>(out IDeflectable deflectableInterface))
-                        {
-                            deflectableInterface.Deflect(enemy);
-                        }
-
-                        hasAttackFinished = true;
-                        break;
-                    }
-
-                    if (hit.transform.CompareTag("Enemy"))
-                    {
-                        if (hit.transform.TryGetComponent<ITakeDamage>(out ITakeDamage takeDamageInterface))
-                        {
-                            takeDamageInterface.TakeDamage(attackDamage);
-                        }
-
-                        hasAttackFinished = true;
-                        break;
-                    }
-                }
-
+                float yAxisAngle = Mathf.Lerp(minAngle, maxAngle, timer / attackDuration);
+                meleeWeapon.transform.localRotation = Quaternion.Euler(0, yAxisAngle, 0);
+                // meleeWeapon.transform.localRotation = Quaternion.Lerp(startRotation, finalRotation, timer / attackDuration);
                 yield return null;
             }
 
-            attackSphere.SetActive(false);
+            meleeWeapon.SetActive(false);
 
             yield return CoolDownCoroutine();
             _canAttack = true;
