@@ -1,37 +1,37 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using _Dev.UnderRunnerTest.Scripts.Health;
 using _Dev.UnderRunnerTest.Scripts.ParryProjectile;
 using UnityEngine;
 
-public class MeleeWeapon : MonoBehaviour
+namespace _Dev.UnderRunnerTest.Scripts.Player.Weapon
 {
-    [Header("Enemy")]
-    [SerializeField] private GameObject enemy;
-
-    [SerializeField] private int damage;
-
-    private void OnTriggerEnter(Collider other)
+    public class MeleeWeapon : MonoBehaviour
     {
-        if (other.transform.CompareTag("Deflectable"))
+        [Header("Enemy")]
+        [SerializeField] private GameObject enemy;
+
+        [SerializeField] private int damage;
+
+        private void OnTriggerEnter(Collider other)
         {
-            if (other.transform.TryGetComponent<IDeflectable>(out IDeflectable deflectableInterface))
+            if (other.transform.CompareTag("Deflectable"))
             {
-                deflectableInterface.Deflect(enemy);
+                if (other.transform.TryGetComponent<IDeflectable>(out IDeflectable deflectableInterface))
+                {
+                    deflectableInterface.Deflect(enemy);
+                }
+
+                transform.parent.gameObject.SetActive(false);
             }
 
-            transform.parent.gameObject.SetActive(false);
-        }
-
-        if (other.transform.CompareTag("Enemy"))
-        {
-            if (other.transform.TryGetComponent<ITakeDamage>(out ITakeDamage takeDamageInterface))
+            if (other.transform.CompareTag("Enemy"))
             {
-                takeDamageInterface.TakeDamage(damage);
-            }
+                if (other.transform.TryGetComponent<ITakeDamage>(out ITakeDamage takeDamageInterface))
+                {
+                    takeDamageInterface.TakeDamage(damage);
+                }
 
-            transform.parent.gameObject.SetActive(false);
+                transform.parent.gameObject.SetActive(false);
+            }
         }
     }
 }

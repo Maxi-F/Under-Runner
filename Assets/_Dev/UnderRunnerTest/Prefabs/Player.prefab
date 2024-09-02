@@ -519,7 +519,7 @@ MonoBehaviour:
   attackAmplitude: 160
   meleeWeapon: {fileID: 8905774787942367586}
   attackRadius: 0.9
-  attackDuration: 0.25
+  attackDuration: 0.15
   attackCoolDown: 0.25
   layers:
     serializedVersion: 2
@@ -567,8 +567,9 @@ GameObject:
   - component: {fileID: 8786771990195280069}
   - component: {fileID: 2910608714162043841}
   - component: {fileID: 3264810219008562671}
+  - component: {fileID: 4645382247631583565}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: MeleeWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -658,8 +659,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 6.0684066, z: 0.9999999}
+  m_Center: {x: 0, y: -1.7842025, z: 0}
 --- !u!54 &3264810219008562671
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -687,6 +688,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &4645382247631583565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7261930984988719095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 599a25e765b2d7247bd907c200970536, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: {fileID: 0}
+  damage: 2
 --- !u!1 &8905774787942367586
 GameObject:
   m_ObjectHideFlags: 0
