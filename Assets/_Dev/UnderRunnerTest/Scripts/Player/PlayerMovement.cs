@@ -19,7 +19,6 @@ namespace _Dev.UnderRunnerTest.Scripts.Player
 
         [SerializeField] private GameObject visor;
         [SerializeField] private GameObject bikeBody;
-        [SerializeField] private GameObject attackPointPivot;
 
         private bool _canMove = true;
         private Vector3 currentDir;
