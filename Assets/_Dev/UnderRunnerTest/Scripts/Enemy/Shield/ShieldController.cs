@@ -19,7 +19,6 @@ namespace _Dev.UnderRunnerTest.Scripts.Enemy.Shield
         
         private void OnEnable()
         {
-            Debug.Log("hi?");
             _meshRenderer ??= shieldModel.GetComponent<MeshRenderer>();
         }
 
