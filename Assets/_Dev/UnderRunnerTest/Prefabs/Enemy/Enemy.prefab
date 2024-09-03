@@ -363,8 +363,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42edcadc0f8549d4a9fef95c6dca8c71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minMaxYMovement: {x: 0, y: 10}
-  minMaxXMovement: {x: 0, y: 10}
+  minMaxYMovement: {x: 0, y: 0.5}
+  distanceToChangeDirection: 0.2
   enemyObject: {fileID: 8961736479340173517}
 --- !u!1 &8164038194672822623
 GameObject:

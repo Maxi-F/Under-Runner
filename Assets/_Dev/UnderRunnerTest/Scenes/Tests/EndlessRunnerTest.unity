@@ -969,18 +969,6 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1059696745}
-    - target: {fileID: 6744373355359746148, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
-      propertyPath: minMaxXMovement.x
-      value: -0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6744373355359746148, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
-      propertyPath: minMaxXMovement.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6744373355359746148, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
-      propertyPath: minMaxYMovement.y
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 8961736479340173517, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
       propertyPath: m_Name
       value: Enemy
