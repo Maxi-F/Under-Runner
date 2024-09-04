@@ -1418,6 +1418,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5651314687527777499, guid: 50c1969e35b790748b452faf93f0976f, type: 3}
   m_PrefabInstance: {fileID: 1073835680}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1109886477 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7729022489291715360, guid: 425aaabb84ab97a4293bc081359c8be7, type: 3}
+  m_PrefabInstance: {fileID: 2821679351351829282}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7911285fbe39f3f4fb5fa7987bce665d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1224237589 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8961736479340173517, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
@@ -1726,6 +1737,7 @@ MonoBehaviour:
   loopConfigs:
   - {fileID: 11400000, guid: e4e70fa8cf8c3be4cb4196d776da27c6, type: 2}
   - {fileID: 11400000, guid: ba7b00b469716784ea42c2693e0acc6f, type: 2}
+  - {fileID: 11400000, guid: 0c0a4a3b8792776478d27d8d450f575d, type: 2}
   levelLoopManager: {fileID: 1839552625}
   onEnemyDamageEvent: {fileID: 11400000, guid: 41331d8fc0079ac47bec86270d050339, type: 2}
 --- !u!4 &1956952260
@@ -2452,6 +2464,10 @@ PrefabInstance:
       propertyPath: obstaclesSpawner
       value: 
       objectReference: {fileID: 910727726}
+    - target: {fileID: 7635251767426906750, guid: 577b06af20e157d4793910329b73c1dd, type: 3}
+      propertyPath: fallingBlockSpawner
+      value: 
+      objectReference: {fileID: 1109886477}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -19,6 +19,10 @@ namespace _Dev.UnderRunnerTest.Scripts.Enemy.Shield
         
         private void OnEnable()
         {
+            _isActivating = false;
+            _isActive = true;
+            _isInCoroutine = false;
+            
             _meshRenderer ??= shieldModel.GetComponent<MeshRenderer>();
         }
 
