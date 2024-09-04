@@ -15,11 +15,18 @@ namespace _Dev.UnderRunnerTest.Scripts.LevelManagement
     {
         public Vector3 roadVelocity;
     }
+
+    [Serializable]
+    public class BossData
+    {
+        public int hitPointsToNextPhase;
+    }
     
     [CreateAssetMenu(menuName = "Level Loop Config", fileName = "LevelLoopConfig", order = 0)]
     public class LevelLoopSO : ScriptableObject
     {
         public ObstacleData obstacleData;
         public RoadData roadData;
+        public BossData bossData;
     }
 }
