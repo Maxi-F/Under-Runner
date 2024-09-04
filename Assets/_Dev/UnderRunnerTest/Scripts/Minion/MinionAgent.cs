@@ -20,6 +20,8 @@ namespace _Dev.UnderRunnerTest.Scripts.Minion
         [SerializeField] private GameObject player;
         [SerializeField] private GameObjectEventChannelSO onCollidePlayerEventChannel;
 
+        [SerializeField] private HealthPoints _healthPoints;
+        
         protected override void Awake()
         {
             base.Awake();
@@ -32,9 +34,9 @@ namespace _Dev.UnderRunnerTest.Scripts.Minion
                 (state as MinionStateSO).onCoroutineCall += HandleCallCoroutine;
             }
 
-            GetComponent<HealthPoints>().OnDeathEvent.onEvent.AddListener(Die);
+            _healthPoints?.OnDeathEvent.onEvent.AddListener(Die);
         }
-
+        
         private void OnEnable()
         {
             foreach (StateSO state in config.states)
@@ -52,7 +54,8 @@ namespace _Dev.UnderRunnerTest.Scripts.Minion
                 state.onEnter.RemoveListener(StartChangeCoroutine);
             }
 
-            GetComponent<HealthPoints>().OnDeathEvent.onEvent.RemoveListener(Die);
+            _healthPoints?.OnDeathEvent.onEvent.RemoveListener(Die);
+            _healthPoints?.ResetHitPoints();
         }
 
         private void HandleCallCoroutine(IEnumerator coroutine)
