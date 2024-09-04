@@ -24,7 +24,9 @@ namespace _Dev.UnderRunnerTest.Scripts.Enemy.Attacks
         void OnEnable()
         {
             _attacks ??= GetComponents<IEnemyAttack>();
-            
+
+            _shouldExecuteAttack = true;
+            _isEnemyParried = false;
             SelectRandomAttack();
             
             onEnemyParriedEvent?.onBoolEvent.AddListener(HandleEnemyParried);
