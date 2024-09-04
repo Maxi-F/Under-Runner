@@ -11,26 +11,25 @@ namespace _Dev.UnderRunnerTest.Scripts.ObstacleSystem
     {
         [SerializeField] private GameObjectEventChannelSO onRoadInstantiatedEvent;
         [SerializeField] private VoidEventChannelSO onObstaclesDisabled;
-        [SerializeField] private float spawnCoolDown;
         [SerializeField] private GameObject obstaclePrefab;
 
         private bool _shouldSpawnObject;
-        private Coroutine spawnCoroutine;
+        private Coroutine _spawnCoroutine;
 
         private GameObject _lastSpawnedObstacle = null;
-        private bool shouldDisable = false;
+        private bool _shouldDisable = false;
 
+        private float _spawnCoolDown;
+        
         public void OnEnable()
         {
-            shouldDisable = false;
+            _shouldDisable = false;
             onRoadInstantiatedEvent?.onGameObjectEvent.AddListener(HandleNewRoadInstance);
-
-            StartCoroutine(SpawnObjectCoroutine());
         }
 
         private void Update()
         {
-            if (shouldDisable && _lastSpawnedObstacle == null)
+            if (_shouldDisable && _lastSpawnedObstacle == null)
             {
                 onObstaclesDisabled.RaiseEvent();
                 gameObject.SetActive(false);
@@ -40,17 +39,23 @@ namespace _Dev.UnderRunnerTest.Scripts.ObstacleSystem
         private void OnDisable()
         {
             onRoadInstantiatedEvent?.onGameObjectEvent.RemoveListener(HandleNewRoadInstance);
-            if (spawnCoroutine != null)
+            if (_spawnCoroutine != null)
                 StopCoroutine(SpawnObjectCoroutine());
         }
 
         public void Disable()
         {
             onRoadInstantiatedEvent?.onGameObjectEvent.RemoveListener(HandleNewRoadInstance);
-            if (spawnCoroutine != null)
+            if (_spawnCoroutine != null)
                 StopCoroutine(SpawnObjectCoroutine());
 
-            shouldDisable = true;
+            _shouldDisable = true;
+        }
+
+        public void StartWithCooldown(float cooldown)
+        {
+            _spawnCoolDown = cooldown;
+            StartCoroutine(SpawnObjectCoroutine());
         }
 
         private void HandleNewRoadInstance(GameObject road)
@@ -64,15 +69,15 @@ namespace _Dev.UnderRunnerTest.Scripts.ObstacleSystem
             _lastSpawnedObstacle = obstacle;
             obstacle.transform.localPosition = new Vector3(Random.Range(-roadWidth / 2, roadWidth / 2), obstacle.transform.localPosition.y, 0);
 
-            if (spawnCoroutine != null)
+            if (_spawnCoroutine != null)
                 StopCoroutine(SpawnObjectCoroutine());
 
-            spawnCoroutine = StartCoroutine(SpawnObjectCoroutine());
+            _spawnCoroutine = StartCoroutine(SpawnObjectCoroutine());
         }
 
         private IEnumerator SpawnObjectCoroutine()
         {
-            yield return new WaitForSeconds(spawnCoolDown);
+            yield return new WaitForSeconds(_spawnCoolDown);
             _shouldSpawnObject = true;
         }
     }
