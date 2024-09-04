@@ -18,4 +18,9 @@ MonoBehaviour:
   roadData:
     roadVelocity: {x: 0, y: 0, z: -40}
   bossData:
-    hitPointsToNextPhase: -1
+    hitPointsToNextPhase: 50
+    fallingAttackData:
+      spawnRadiusFromPlayer: 1
+      timeBetweenSpawns: 0.25
+      spawnCooldown: 2
+      spawnQuantity: 10

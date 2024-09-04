@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f31f5c6831a5e7e4b8aa05d918252fd8, type: 3}
-  m_Name: FirstLoopConfig
+  m_Name: ThirdLoopConfig
   m_EditorClassIdentifier: 
   obstacleData:
-    obstaclesDuration: 10
-    obstacleCooldown: 0.5
+    obstaclesDuration: 20
+    obstacleCooldown: 0.01
   roadData:
-    roadVelocity: {x: 0, y: 0, z: -20}
+    roadVelocity: {x: 0, y: 0, z: -60}
   bossData:
-    hitPointsToNextPhase: 75
+    hitPointsToNextPhase: -1
     fallingAttackData:
-      spawnRadiusFromPlayer: 2
-      timeBetweenSpawns: 0.5
+      spawnRadiusFromPlayer: 1
+      timeBetweenSpawns: 0.1
       spawnCooldown: 2
-      spawnQuantity: 5
+      spawnQuantity: 20
