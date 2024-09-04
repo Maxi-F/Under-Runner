@@ -5,7 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Dev/UnderRunnerTest/Scenes/BasicLoop.unity
     guid: e3e9513e877404d4698be5600a117416
+  - enabled: 1
+    path: Assets/_Dev/UnderRunnerTest/Scenes/GameLoop.unity
+    guid: 748affaa315e2a14c90fba11374f7559
   m_configObjects: {}
