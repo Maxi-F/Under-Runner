@@ -10,10 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f31f5c6831a5e7e4b8aa05d918252fd8, type: 3}
-  m_Name: LevelLoopConfig
+  m_Name: SecondLoopConfig
   m_EditorClassIdentifier: 
   obstacleData:
-    obstaclesDuration: 20
-    obstacleCooldown: 0.01
+    obstaclesDuration: 15
+    obstacleCooldown: 0.25
   roadData:
-    roadVelocity: {x: 0, y: 0, z: -10}
+    roadVelocity: {x: 0, y: 0, z: -40}
+  bossData:
+    hitPointsToNextPhase: -1
