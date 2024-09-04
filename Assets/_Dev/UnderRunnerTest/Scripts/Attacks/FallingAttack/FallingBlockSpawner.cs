@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using _Dev.UnderRunnerTest.Scripts.Events;
+using _Dev.UnderRunnerTest.Scripts.LevelManagement;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -8,21 +9,16 @@ namespace _Dev.UnderRunnerTest.Scripts.Attacks.FallingAttack
 {
     public class FallingBlockSpawner : MonoBehaviour
     {
-        [Header("Spawning Configuration")]
-        [SerializeField] private float spawnRadiusFromPlayer;
-        [SerializeField] private float timeBetweenSpawns;
-        [SerializeField] private float spawnCooldown;
-        [SerializeField] private int spawnQuantity;
-        
         [Header("Prefab")]
         [SerializeField] private GameObject fallingBlock;
 
         [Header("Events")] 
         [SerializeField] private Vector3EventChannelSO onPlayerPositionChanged;
         [SerializeField] private VoidEventChannelSO onHandleAttack;
-
+        
         private bool _isSpawning = false;
         private Vector3 _playerPosition;
+        private FallingAttackData _fallingAttackData;
         
         private void OnEnable()
         {
@@ -36,6 +32,11 @@ namespace _Dev.UnderRunnerTest.Scripts.Attacks.FallingAttack
             onHandleAttack?.onEvent.RemoveListener(HandleSpawnBlocks);
         }
 
+        public void SetFallingAttackData(FallingAttackData fallingAttackData)
+        {
+            _fallingAttackData = fallingAttackData;
+        }
+        
         public bool IsSpawning()
         {
             return _isSpawning;
@@ -43,7 +44,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Attacks.FallingAttack
 
         private void HandleSpawnBlocks()
         {
-            StartCoroutine(SpawnBlocks(spawnQuantity));
+            StartCoroutine(SpawnBlocks(_fallingAttackData.spawnQuantity));
         }
 
         private void HandleNewPlayerPosition(Vector3 playerPosition)
@@ -70,18 +71,20 @@ namespace _Dev.UnderRunnerTest.Scripts.Attacks.FallingAttack
 
                 fallingBlockInstance.transform.position = fallingBlockPosition;
 
-                yield return new WaitForSeconds(timeBetweenSpawns);
+                yield return new WaitForSeconds(_fallingAttackData.timeBetweenSpawns);
             }
 
-            yield return new WaitForSeconds(spawnCooldown);
+            yield return new WaitForSeconds(_fallingAttackData.spawnCooldown);
 
             _isSpawning = false;
         }
 
         private Vector2 CalculateRandomDistance()
         {
-            float xDistance = Random.Range(_playerPosition.x - spawnRadiusFromPlayer, _playerPosition.x + spawnRadiusFromPlayer);
-            float zDistance = Random.Range(_playerPosition.z - spawnRadiusFromPlayer, _playerPosition.z + spawnRadiusFromPlayer);
+            float xDistance = Random.Range(_playerPosition.x - _fallingAttackData.spawnRadiusFromPlayer, 
+                _playerPosition.x + _fallingAttackData.spawnRadiusFromPlayer);
+            float zDistance = Random.Range(_playerPosition.z - _fallingAttackData.spawnRadiusFromPlayer,
+                _playerPosition.z + _fallingAttackData.spawnRadiusFromPlayer);
 
             return new Vector2(xDistance, zDistance);
         }

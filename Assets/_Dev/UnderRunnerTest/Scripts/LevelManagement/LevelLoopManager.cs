@@ -1,4 +1,5 @@
 using System.Collections;
+using _Dev.UnderRunnerTest.Scripts.Attacks.FallingAttack;
 using _Dev.UnderRunnerTest.Scripts.Events;
 using _Dev.UnderRunnerTest.Scripts.Health;
 using _Dev.UnderRunnerTest.Scripts.ObstacleSystem;
@@ -11,7 +12,9 @@ namespace _Dev.UnderRunnerTest.Scripts.LevelManagement
 {
     public class LevelLoopManager : MonoBehaviour
     {
-        [Header("Managers")] [SerializeField] private RoadManager roadManager;
+        [Header("Managers")] 
+        [SerializeField] private RoadManager roadManager;
+        [SerializeField] private FallingBlockSpawner fallingBlockSpawner;
         
         [Header("Spawners")]
         [SerializeField] private ObstaclesSpawner obstaclesSpawner;
@@ -88,6 +91,7 @@ namespace _Dev.UnderRunnerTest.Scripts.LevelManagement
             enemy.SetActive(false);
             enemyHealthBar.SetActive(false);
             minionEnemy.SetActive(false);
+            fallingBlockSpawner.SetFallingAttackData(_levelConfig.bossData.fallingAttackData);
             
             roadManager.HandleNewVelocity(_levelConfig.roadData.roadVelocity);
             StartCoroutine(ObstaclesCoroutine());
