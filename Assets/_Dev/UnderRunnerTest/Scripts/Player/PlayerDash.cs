@@ -1,10 +1,14 @@
 using System.Collections;
 using _Dev.UnderRunnerTest.Scripts.Health;
 using _Dev.UnderRunnerTest.Scripts.Input;
+#if UNITY_EDITOR
 using UnityEditor.Rendering;
 using UnityEditor.UIElements;
+#endif
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEngine.Serialization;
+#endif
 
 namespace _Dev.UnderRunnerTest.Scripts.Player
 {

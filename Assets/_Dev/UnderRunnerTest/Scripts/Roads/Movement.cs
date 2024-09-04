@@ -1,4 +1,5 @@
 using System;
+using _Dev.UnderRunnerTest.Scripts.Events;
 using UnityEngine;
 
 namespace _Dev.UnderRunnerTest.Scripts.Roads
@@ -7,10 +8,29 @@ namespace _Dev.UnderRunnerTest.Scripts.Roads
     {
         [SerializeField] private Vector3 velocity;
         [SerializeField] private Transform road;
+        [SerializeField] private Vector3EventChannelSO onNewVelocity;
+
+        private Vector3 _velocityToUse;
         
+        private void OnEnable()
+        {
+            _velocityToUse = velocity;
+            onNewVelocity?.onVectorEvent.AddListener(SetVelocity);
+        }
+
+        private void OnDisable()
+        {
+            onNewVelocity?.onVectorEvent.RemoveListener(SetVelocity);
+        }
+
+        public void SetVelocity(Vector3 newVelocity)
+        {
+            _velocityToUse = newVelocity;
+        }
+
         private void Update()
         {
-            road.position += velocity * Time.deltaTime;
+            road.position += _velocityToUse * Time.deltaTime;
         }
     }
 }

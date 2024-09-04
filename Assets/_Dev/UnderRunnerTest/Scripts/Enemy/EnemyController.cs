@@ -29,11 +29,13 @@ namespace _Dev.UnderRunnerTest.Scripts.Enemy
         
         private HealthPoints _healthPoints;
         
-        private void Start()
+        private void OnEnable()
         {
             _healthPoints ??= GetComponent<HealthPoints>();
             
             _healthPoints.SetCanTakeDamage(false);
+            shieldController.SetActive(true);
+            shieldController.SetActiveMaterial();
             
             onEnemyDeathEvent?.onEvent.AddListener(HandleDeath);
         }

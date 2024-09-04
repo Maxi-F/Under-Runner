@@ -10,9 +10,11 @@ namespace _Dev.UnderRunnerTest.Scripts.Health
         [SerializeField] private int initHealth = 100;
         [SerializeField] private bool canTakeDamage = true;
 
-        [Header("events")] [SerializeField] private VoidEventChannelSO onDeathEvent;
+        [Header("events")] 
+        [SerializeField] private VoidEventChannelSO onDeathEvent;
         [SerializeField] private IntEventChannelSO onTakeDamageEvent;
-
+        [SerializeField] private IntEventChannelSO onResetPointsEvent;
+        
         public int MaxHealth
         {
             get { return maxHealth; }
@@ -54,6 +56,7 @@ namespace _Dev.UnderRunnerTest.Scripts.Health
         public void ResetHitPoints()
         {
             CurrentHp = maxHealth;
+            onResetPointsEvent?.RaiseEvent(CurrentHp);
         }
 
         public void TakeDamage(int damage)
