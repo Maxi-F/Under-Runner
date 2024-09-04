@@ -4,15 +4,13 @@ using _Dev.UnderRunnerTest.Scripts.Health;
 using _Dev.UnderRunnerTest.Scripts.ObstacleSystem;
 using _Dev.UnderRunnerTest.Scripts.Roads;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace _Dev.UnderRunnerTest.Scripts.LevelManagement
 {
     public class LevelLoopManager : MonoBehaviour
     {
-        [Header("Level Config")]
-        [SerializeField] private LevelLoopSO levelConfig;
-
         [Header("Managers")] [SerializeField] private RoadManager roadManager;
         
         [Header("Spawners")]
@@ -28,21 +26,13 @@ namespace _Dev.UnderRunnerTest.Scripts.LevelManagement
         
         [Header("UI")]
         [SerializeField] private Slider progressBar;
+        
+        private LevelLoopSO _levelConfig;
 
         private void Start()
         {
-            obstaclesSpawner.gameObject.SetActive(false);
-            enemy.SetActive(false);
-            enemyHealthBar.SetActive(false);
-            minionEnemy.SetActive(false);
-
-            minionEnemy.GetComponent<HealthPoints>().OnDeathEvent.onEvent.AddListener(StartBossBattle);
-            
             onObstaclesSystemDisabled.onEvent.AddListener(StartMinionPhase);
-
-            roadManager.HandleNewVelocity(levelConfig.roadData.roadVelocity);
-
-            StartCoroutine(ObstaclesCoroutine());
+            minionEnemy.GetComponent<HealthPoints>().OnDeathEvent.onEvent.AddListener(StartBossBattle);
         }
 
         private void OnDisable()
@@ -57,11 +47,13 @@ namespace _Dev.UnderRunnerTest.Scripts.LevelManagement
         private IEnumerator ObstaclesCoroutine()
         {
             float timer = 0;
-            float obstaclesDuration = levelConfig.obstacleData.obstaclesDuration;
-            float obstacleCooldown = levelConfig.obstacleData.obstacleCooldown;
+            float obstaclesDuration = _levelConfig.obstacleData.obstaclesDuration;
+            float obstacleCooldown = _levelConfig.obstacleData.obstacleCooldown;
             float startTime = Time.time;
 
             obstaclesSpawner.gameObject.SetActive(true);
+            progressBar.gameObject.SetActive(true);
+
             obstaclesSpawner.StartWithCooldown(obstacleCooldown);
             
             while (timer < obstaclesDuration)
@@ -86,6 +78,19 @@ namespace _Dev.UnderRunnerTest.Scripts.LevelManagement
             minionEnemy.SetActive(false);
             enemy.SetActive(true);
             enemyHealthBar.SetActive(true);
+        }
+        
+        public void StartLoopWithConfig(LevelLoopSO loopConfig)
+        {
+            _levelConfig = loopConfig;
+            
+            obstaclesSpawner.gameObject.SetActive(false);
+            enemy.SetActive(false);
+            enemyHealthBar.SetActive(false);
+            minionEnemy.SetActive(false);
+            
+            roadManager.HandleNewVelocity(_levelConfig.roadData.roadVelocity);
+            StartCoroutine(ObstaclesCoroutine());
         }
     }
 }
