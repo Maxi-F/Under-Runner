@@ -6,23 +6,13 @@ namespace _Dev.UnderRunnerTest.Scripts.DEBUG.Cheats
 {
 #if UNITY_EDITOR || DEVELOPMENT_BUILD || ENABLE_CHEATS
 
-    [RequireComponent(typeof(DebugInputReader))]
     public class InvincibilityCheat : MonoBehaviour
     {
-        [SerializeField] private HealthPoints playerHealth;
+        [SerializeField] private CheatsConfigSO _cheatsConfigSo;
 
-        private DebugInputReader _debugInputReader;
-
-        private void Start()
+        public void SetInvincibilityCheat()
         {
-            _debugInputReader = GetComponent<DebugInputReader>();
-
-            _debugInputReader.OnInvencibilityCheat += SetInvincibilityCheat;
-        }
-
-        private void SetInvincibilityCheat()
-        {
-            playerHealth.ToggleInvulnerability();
+            _cheatsConfigSo.playerHealth.ToggleInvulnerability();
         }
     }
 #endif

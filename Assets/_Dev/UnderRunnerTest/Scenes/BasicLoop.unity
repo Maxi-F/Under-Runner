@@ -477,6 +477,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 401449196481155113, guid: e948c734f10036549926b6886c929788, type: 3}
   m_PrefabInstance: {fileID: 117404253}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &120559730 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 453574315884602139, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+  m_PrefabInstance: {fileID: 324373034}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &134790556
 GameObject:
   m_ObjectHideFlags: 0
@@ -1030,6 +1035,10 @@ PrefabInstance:
       propertyPath: onAnotherAttackExecuted
       value: 
       objectReference: {fileID: 11400000, guid: 322e70b8667e7784fae7bc03f04b1528, type: 2}
+    - target: {fileID: 5362483775112485171, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: shieldModel
+      value: 
+      objectReference: {fileID: 120559730}
     - target: {fileID: 8961736479340173517, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
       propertyPath: m_Name
       value: Enemy
@@ -1229,7 +1238,7 @@ GameObject:
   m_Component:
   - component: {fileID: 365938451}
   - component: {fileID: 365938450}
-  - component: {fileID: 365938449}
+  - component: {fileID: 365938452}
   m_Layer: 0
   m_Name: Cheats
   m_TagString: Untagged
@@ -1237,19 +1246,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &365938449
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 365938448}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b512e9cfb3c8a3a41abd8831b2e6efba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerHealth: {fileID: 1059696746}
 --- !u!114 &365938450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1277,6 +1273,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &365938452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 365938448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fa794346500391479d632e5c62c2026, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiPrefab: {fileID: 7443165596597045508, guid: 9ef0ac0c7ab011245b97701792a9a7ee, type: 3}
+  canvas: {fileID: 682774513}
+  config: {fileID: 11400000, guid: be54c49186e450b4a924ab57a26bf53c, type: 2}
+  playerHealth: {fileID: 1059696746}
 --- !u!1 &402785455
 GameObject:
   m_ObjectHideFlags: 0

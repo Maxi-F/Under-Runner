@@ -28,9 +28,9 @@ public partial class @DebugActions: IInputActionCollection2, IDisposable
             ""id"": ""0b59a3ca-7d31-44d5-a7aa-18ef2d306627"",
             ""actions"": [
                 {
-                    ""name"": ""Invencibility"",
+                    ""name"": ""OpenMenu"",
                     ""type"": ""Button"",
-                    ""id"": ""2d8f658d-65a0-4f62-bb0f-514705f0606a"",
+                    ""id"": ""3b66214f-f2dd-407e-a3b0-965dc7417bc4"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -40,12 +40,12 @@ public partial class @DebugActions: IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""55d062bf-3654-4118-9d94-f0c2bd00927e"",
+                    ""id"": ""77554970-821b-4ed1-a8d7-06ec0986b76a"",
                     ""path"": ""<Keyboard>/f9"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Invencibility"",
+                    ""action"": ""OpenMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -56,7 +56,7 @@ public partial class @DebugActions: IInputActionCollection2, IDisposable
 }");
         // Cheats
         m_Cheats = asset.FindActionMap("Cheats", throwIfNotFound: true);
-        m_Cheats_Invencibility = m_Cheats.FindAction("Invencibility", throwIfNotFound: true);
+        m_Cheats_OpenMenu = m_Cheats.FindAction("OpenMenu", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -118,12 +118,12 @@ public partial class @DebugActions: IInputActionCollection2, IDisposable
     // Cheats
     private readonly InputActionMap m_Cheats;
     private List<ICheatsActions> m_CheatsActionsCallbackInterfaces = new List<ICheatsActions>();
-    private readonly InputAction m_Cheats_Invencibility;
+    private readonly InputAction m_Cheats_OpenMenu;
     public struct CheatsActions
     {
         private @DebugActions m_Wrapper;
         public CheatsActions(@DebugActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Invencibility => m_Wrapper.m_Cheats_Invencibility;
+        public InputAction @OpenMenu => m_Wrapper.m_Cheats_OpenMenu;
         public InputActionMap Get() { return m_Wrapper.m_Cheats; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -133,16 +133,16 @@ public partial class @DebugActions: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_CheatsActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_CheatsActionsCallbackInterfaces.Add(instance);
-            @Invencibility.started += instance.OnInvencibility;
-            @Invencibility.performed += instance.OnInvencibility;
-            @Invencibility.canceled += instance.OnInvencibility;
+            @OpenMenu.started += instance.OnOpenMenu;
+            @OpenMenu.performed += instance.OnOpenMenu;
+            @OpenMenu.canceled += instance.OnOpenMenu;
         }
 
         private void UnregisterCallbacks(ICheatsActions instance)
         {
-            @Invencibility.started -= instance.OnInvencibility;
-            @Invencibility.performed -= instance.OnInvencibility;
-            @Invencibility.canceled -= instance.OnInvencibility;
+            @OpenMenu.started -= instance.OnOpenMenu;
+            @OpenMenu.performed -= instance.OnOpenMenu;
+            @OpenMenu.canceled -= instance.OnOpenMenu;
         }
 
         public void RemoveCallbacks(ICheatsActions instance)
@@ -162,6 +162,6 @@ public partial class @DebugActions: IInputActionCollection2, IDisposable
     public CheatsActions @Cheats => new CheatsActions(this);
     public interface ICheatsActions
     {
-        void OnInvencibility(InputAction.CallbackContext context);
+        void OnOpenMenu(InputAction.CallbackContext context);
     }
 }
