@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BentObstacles
+  m_Name: M_BentObstacles
   m_Shader: {fileID: -6465566751694194690, guid: 390b043d97efa7e42a3e49c1c20207f6, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
