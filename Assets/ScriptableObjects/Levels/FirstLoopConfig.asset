@@ -16,7 +16,7 @@ MonoBehaviour:
     obstaclesDuration: 10
     obstacleCooldown: 0.5
   roadData:
-    roadVelocity: {x: 0, y: 0, z: -60}
+    roadVelocity: {x: 0, y: 0, z: -20}
   bossData:
     hitPointsToNextPhase: 75
     fallingAttackData:

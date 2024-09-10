@@ -54,15 +54,15 @@ namespace Roads
             RoadEnd roadEnd = _lastRoad.GetComponentInChildren<RoadEnd>();
 
             GameObject newLastRoad = RoadObjectPool.Instance?.GetPooledObject();
-            
-            Debug.Log($"SPAWNING OBJECT {newLastRoad.gameObject.GetInstanceID()}");
-            
             if (newLastRoad == null)
             {
                 Debug.LogError("new last road was null!");
                 return;
             }
-            newLastRoad.transform.position = roadEnd.transform.position;
+            Debug.Log($"Road End: {roadEnd.GetRoadEnd().position}");
+            Debug.Log($"Calculated: {roadEnd.GetRoadEnd().position + _roadsVelocity * Time.deltaTime}");
+
+            newLastRoad.transform.position = roadEnd.GetRoadEnd().position + _roadsVelocity * Time.deltaTime;
             newLastRoad.SetActive(true);
             
             Movement roadMovement = newLastRoad.GetComponentInChildren<Movement>();

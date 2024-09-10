@@ -76,7 +76,6 @@ namespace ObstacleSystem
             ObstaclesCollision obstaclesCollision = road.GetComponentInChildren<ObstaclesCollision>();
             
             if (obstaclesCollision == null) return;
-            Debug.Log($"DELETED OBJECT ON {road.GetInstanceID()}");
             Destroy(obstaclesCollision.gameObject);
             _obstaclesCount--;
         }
@@ -92,7 +91,6 @@ namespace ObstacleSystem
             _lastSpawnedObstacle = obstacle;
             obstacle.transform.localPosition = new Vector3(Random.Range(-roadWidth / 2, roadWidth / 2), obstacle.transform.localPosition.y, 0);
             _obstaclesCount++;
-            Debug.Log($"SPAWNED OBJECT ON {road.GetInstanceID()}");
             
             if (_spawnCoroutine != null)
                 StopCoroutine(SpawnObjectCoroutine());
