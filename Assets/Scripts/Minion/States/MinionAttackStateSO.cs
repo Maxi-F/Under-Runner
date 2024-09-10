@@ -68,7 +68,11 @@ namespace Minion.States
             float chargeDuration = ChargeLength / ChargeSpeed;
             startTime = Time.time;
             agentTransform.GetComponent<HealthPoints>().SetCanTakeDamage(false);
-            agentTransform.GetComponent<MeshRenderer>().material = chargeMat;
+            foreach (MeshRenderer meshRenderer in agentTransform.GetComponentsInChildren<MeshRenderer>())
+            {
+                meshRenderer.material = chargeMat;
+            }
+
             agentTransform.GetComponent<Collider>().isTrigger = true;
             while (timer < chargeDuration)
             {
@@ -78,7 +82,12 @@ namespace Minion.States
             }
 
             agentTransform.GetComponent<HealthPoints>().SetCanTakeDamage(true);
-            agentTransform.GetComponent<MeshRenderer>().material = defaultMat;
+
+            foreach (MeshRenderer meshRenderer in agentTransform.GetComponentsInChildren<MeshRenderer>())
+            {
+                meshRenderer.material = defaultMat;
+            }
+
             agentTransform.GetComponent<Collider>().isTrigger = false;
         }
 
