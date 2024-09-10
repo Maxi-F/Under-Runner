@@ -935,7 +935,8 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1856129533111618862, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1462,7 +1463,7 @@ Transform:
   m_GameObject: {fileID: 1160126248}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -14.763022, y: 17.863844, z: 10.689968}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2393,6 +2394,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ObstaclesSpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 3972917326989590876, guid: 800cbe1a710fdb94fa4f38ba4942d228, type: 3}
+      propertyPath: onObstacleTriggeredEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: 7106f5096e05ed54685959ed962a6d12, type: 2}
     - target: {fileID: 8056459542030068338, guid: 800cbe1a710fdb94fa4f38ba4942d228, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

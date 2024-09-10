@@ -11,6 +11,7 @@ namespace ObstacleSystem
     {
         [SerializeField] private GameObjectEventChannelSO onRoadInstantiatedEvent;
         [SerializeField] private GameObjectEventChannelSO onRoadDeletedEvent;
+        [SerializeField] private GameObjectEventChannelSO onObstacleTriggeredEvent;
         [SerializeField] private VoidEventChannelSO onObstaclesDisabled;
         [SerializeField] private GameObject obstaclePrefab;
 
@@ -29,6 +30,7 @@ namespace ObstacleSystem
             _shouldDisable = false;
             onRoadInstantiatedEvent?.onGameObjectEvent.AddListener(HandleNewRoadInstance);
             onRoadDeletedEvent?.onGameObjectEvent.AddListener(HandleDeleteObstacle);
+            onObstacleTriggeredEvent?.onGameObjectEvent.AddListener(HandleDeleteObstacle);
         }
 
         private void Update()
@@ -46,6 +48,7 @@ namespace ObstacleSystem
         {
             onRoadInstantiatedEvent?.onGameObjectEvent.RemoveListener(HandleNewRoadInstance);
             onRoadDeletedEvent?.onGameObjectEvent.RemoveListener(HandleDeleteObstacle);
+            onObstacleTriggeredEvent?.onGameObjectEvent.RemoveListener(HandleDeleteObstacle);
 
             if (_spawnCoroutine != null)
                 StopCoroutine(SpawnObjectCoroutine());

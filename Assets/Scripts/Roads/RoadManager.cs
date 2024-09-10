@@ -14,7 +14,6 @@ namespace Roads
         [SerializeField] private Vector3 roadsInitVelocity = new Vector3(0f, 0f, -20f);
         
         [Header("Events")]
-        [SerializeField] private VoidEventChannelSO onNewRoadTriggerEvent;
         [SerializeField] private GameObjectEventChannelSO onRoadDeleteTriggerEvent;
         [SerializeField] private GameObjectEventChannelSO onRoadInstantiatedEvent;
         [SerializeField] private Vector3EventChannelSO onNewVelocityEvent;

@@ -9,7 +9,7 @@ namespace ObstacleSystem
     public class ObstaclesCollision : MonoBehaviour
     {
         [SerializeField] private int collisionDamage;
-        [SerializeField] private GameObjectEventChannelSO onRoadEndEvent;
+        [SerializeField] private GameObjectEventChannelSO onObstacleTriggeredEvent;
         
         private void OnTriggerEnter(Collider other)
         {
@@ -17,7 +17,7 @@ namespace ObstacleSystem
             {
                 other.TryGetComponent<ITakeDamage>(out ITakeDamage playerHealth);
                 playerHealth.TakeDamage(collisionDamage);
-                onRoadEndEvent.RaiseEvent(gameObject);
+                onObstacleTriggeredEvent.RaiseEvent(gameObject);
             }
         }
     }

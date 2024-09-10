@@ -9,9 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e791e2938e1a3c44b11bda0913d9d6e, type: 3}
-  m_Name: RoadsConfig
+  m_Script: {fileID: 11500000, guid: 111fc7e93d5b9dc43ab4147a5fd61538, type: 3}
+  m_Name: OnObstacleTriggeredEvent
   m_EditorClassIdentifier: 
-  roads:
-  - {fileID: 11400000, guid: 5719a9b7702bf3f47b6393008af1b3f7, type: 2}
-  - {fileID: 11400000, guid: ffb8b24ede81b674f9b8ab334a312d66, type: 2}
+  onEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onGameObjectEvent:
+    m_PersistentCalls:
+      m_Calls: []

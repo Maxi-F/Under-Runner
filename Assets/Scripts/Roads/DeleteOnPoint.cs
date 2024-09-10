@@ -15,6 +15,7 @@ namespace Roads
             if (transform.position.z < pointToDeleteOn.z)
             {
                 onDeleteRoadEvent?.RaiseEvent(roadObject);
+                Debug.Log($"DELETING {roadObject.GetInstanceID()}");
                 RoadObjectPool.Instance?.ReturnToPool(roadObject);
             }
         }
