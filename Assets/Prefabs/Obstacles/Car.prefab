@@ -119,3 +119,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collisionDamage: 15
+  onRoadEndEvent: {fileID: 11400000, guid: 4bc8cfdb79af96847a96a4deec258151, type: 2}
