@@ -20,7 +20,6 @@ namespace Roads
         [SerializeField] private Vector3EventChannelSO onNewVelocityEvent;
         
         private int _roadCount;
-        private int _actualIndex = 0;
         private Vector3 _roadsVelocity;
         private GameObject _lastRoad;
 
@@ -57,6 +56,8 @@ namespace Roads
 
             GameObject newLastRoad = RoadObjectPool.Instance?.GetPooledObject();
             
+            Debug.Log($"SPAWNING OBJECT {newLastRoad.gameObject.GetInstanceID()}");
+            
             if (newLastRoad == null)
             {
                 Debug.LogError("new last road was null!");
@@ -71,10 +72,6 @@ namespace Roads
             onRoadInstantiatedEvent?.RaiseEvent(newLastRoad);
             
             _lastRoad = newLastRoad;
-            
-            _actualIndex++;
-
-            if (_actualIndex >= roads.Length) _actualIndex = 0;
 
             _roadCount++;
         }
