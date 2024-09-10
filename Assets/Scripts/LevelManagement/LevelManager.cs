@@ -35,10 +35,8 @@ namespace LevelManagement
 
         private void HandleNextPhase(int hitPointsLeft)
         {
-            Debug.Log("On Handle Next Phase");
             if (hitPointsLeft < _actualLoopConfig.bossData.hitPointsToNextPhase)
             {
-                Debug.Log("NEXT PHASE!!!!");
                 _loopConfigIndex++;
                 SetActualLoop();
                 levelLoopManager.StartLoopWithConfig(_actualLoopConfig);

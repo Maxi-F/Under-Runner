@@ -97,7 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pointToDeleteOn: {x: 0, y: 0, z: -30}
   roadObject: {fileID: 1735206726054836275}
-  onDeleteRoadEvent: {fileID: 11400000, guid: c12f0b33b59636546b1a291eda430689, type: 2}
+  onDeleteRoadEvent: {fileID: 11400000, guid: 4bc8cfdb79af96847a96a4deec258151, type: 2}
 --- !u!1 &4589379176657220890
 GameObject:
   m_ObjectHideFlags: 0

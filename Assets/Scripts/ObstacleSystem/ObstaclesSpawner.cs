@@ -10,6 +10,8 @@ namespace ObstacleSystem
     public class ObstaclesSpawner : MonoBehaviour
     {
         [SerializeField] private GameObjectEventChannelSO onRoadInstantiatedEvent;
+        [SerializeField] private GameObjectEventChannelSO onRoadDeletedEvent;
+        [SerializeField] private GameObjectEventChannelSO onObstacleTriggeredEvent;
         [SerializeField] private VoidEventChannelSO onObstaclesDisabled;
         [SerializeField] private GameObject obstaclePrefab;
 
@@ -18,6 +20,8 @@ namespace ObstacleSystem
 
         private GameObject _lastSpawnedObstacle = null;
         private bool _shouldDisable = false;
+        private bool _hasBeenDisabled = false;
+        private int _obstaclesCount = 0;
 
         private float _spawnCoolDown;
         
@@ -25,20 +29,27 @@ namespace ObstacleSystem
         {
             _shouldDisable = false;
             onRoadInstantiatedEvent?.onGameObjectEvent.AddListener(HandleNewRoadInstance);
+            onRoadDeletedEvent?.onGameObjectEvent.AddListener(HandleDeleteObstacle);
+            onObstacleTriggeredEvent?.onGameObjectEvent.AddListener(HandleDeleteObstacle);
         }
 
         private void Update()
         {
-            if (_shouldDisable && _lastSpawnedObstacle == null)
+            if (_shouldDisable && _obstaclesCount == 0 && !_hasBeenDisabled)
             {
                 onObstaclesDisabled.RaiseEvent();
-                gameObject.SetActive(false);
+                _hasBeenDisabled = true;
+                if (_spawnCoroutine != null)
+                   StopCoroutine(SpawnObjectCoroutine());
             }
         }
 
         private void OnDisable()
         {
             onRoadInstantiatedEvent?.onGameObjectEvent.RemoveListener(HandleNewRoadInstance);
+            onRoadDeletedEvent?.onGameObjectEvent.RemoveListener(HandleDeleteObstacle);
+            onObstacleTriggeredEvent?.onGameObjectEvent.RemoveListener(HandleDeleteObstacle);
+
             if (_spawnCoroutine != null)
                 StopCoroutine(SpawnObjectCoroutine());
         }
@@ -55,7 +66,18 @@ namespace ObstacleSystem
         public void StartWithCooldown(float cooldown)
         {
             _spawnCoolDown = cooldown;
+            _shouldDisable = false;
+            _hasBeenDisabled = false;
             StartCoroutine(SpawnObjectCoroutine());
+        }
+        
+        private void HandleDeleteObstacle(GameObject road)
+        {
+            ObstaclesCollision obstaclesCollision = road.GetComponentInChildren<ObstaclesCollision>();
+            
+            if (obstaclesCollision == null) return;
+            Destroy(obstaclesCollision.gameObject);
+            _obstaclesCount--;
         }
 
         private void HandleNewRoadInstance(GameObject road)
@@ -68,7 +90,8 @@ namespace ObstacleSystem
             GameObject obstacle = Instantiate(obstaclePrefab, road.transform, false);
             _lastSpawnedObstacle = obstacle;
             obstacle.transform.localPosition = new Vector3(Random.Range(-roadWidth / 2, roadWidth / 2), obstacle.transform.localPosition.y, 0);
-
+            _obstaclesCount++;
+            
             if (_spawnCoroutine != null)
                 StopCoroutine(SpawnObjectCoroutine());
 

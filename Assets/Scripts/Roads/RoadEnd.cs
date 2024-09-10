@@ -1,8 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class RoadEnd : MonoBehaviour
+namespace Roads
 {
-    [SerializeField] private Transform roadEnd;
+    public class RoadEnd : MonoBehaviour
+    {
+        [SerializeField] private Transform roadEnd;
+
+        public Transform GetRoadEnd()
+        {
+            return roadEnd;
+        }
+    }
 }

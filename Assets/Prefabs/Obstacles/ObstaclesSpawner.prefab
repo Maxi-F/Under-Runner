@@ -45,5 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onRoadInstantiatedEvent: {fileID: 11400000, guid: 9a17af58b63bd434bad0073e1d20336e, type: 2}
-  spawnCoolDown: 0.5
+  onRoadDeletedEvent: {fileID: 11400000, guid: 4bc8cfdb79af96847a96a4deec258151, type: 2}
+  onObstaclesDisabled: {fileID: 11400000, guid: 9b61d8e3cffb1c84f98d7d4315aa3c7f, type: 2}
   obstaclePrefab: {fileID: 5681849922222461501, guid: 3dbc3ab4d26536149bafa22531e00aed, type: 3}
