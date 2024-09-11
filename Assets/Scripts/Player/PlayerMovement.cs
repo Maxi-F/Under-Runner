@@ -5,7 +5,6 @@ using UnityEngine.Serialization;
 
 namespace Player
 {
-    [RequireComponent(typeof(CharacterController))]
     public class PlayerMovement : MonoBehaviour
     {
         [Header("Input")] [SerializeField] private InputHandlerSO inputHandler;
@@ -21,14 +20,11 @@ namespace Player
         [SerializeField] private GameObject bikeBody;
 
         private bool _canMove = true;
-        private Vector3 currentDir;
-        private CharacterController _characterController;
-        public Vector3 CurrentDir => currentDir;
 
-        private void Awake()
-        {
-            _characterController = GetComponent<CharacterController>();
-        }
+        private Vector3 currentDir;
+
+        // private CharacterController _characterController;
+        public Vector3 CurrentDir => currentDir;
 
         private void OnEnable()
         {
@@ -40,11 +36,11 @@ namespace Player
             inputHandler.onPlayerMove.RemoveListener(HandleMovement);
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             if (_canMove)
             {
-                _characterController.Move(currentDir * (speed * Time.deltaTime));
+                transform.Translate(currentDir * (speed * Time.deltaTime));
                 onPlayerNewPositionEvent?.RaiseEvent(transform.position);
             }
         }
