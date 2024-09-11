@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Health;
 using Input;
@@ -30,17 +31,21 @@ namespace Player
         [SerializeField] private float bulletTimeDuration;
 
         private PlayerMovement _movement;
-        private CharacterController _characterController;
         private HealthPoints _healthPoints;
 
         private bool _canDash = true;
         private Coroutine _dashCoroutine = null;
         private Coroutine _bulletTimeCoroutine = null;
 
+        private Rigidbody _rb;
+        private bool _isDashing = false;
+        private Vector3 _dashDir;
+        private float _currentDashSpeed;
+
         private void Awake()
         {
             _movement = GetComponent<PlayerMovement>();
-            _characterController = GetComponent<CharacterController>();
+            _rb = GetComponent<Rigidbody>();
 
             _healthPoints ??= GetComponent<HealthPoints>();
         }
@@ -56,6 +61,12 @@ namespace Player
         private void OnDisable()
         {
             inputHandler.onPlayerDash.RemoveListener(HandleDash);
+        }
+
+        private void FixedUpdate()
+        {
+            if (_isDashing)
+                _rb.Move(_rb.position + _dashDir * (_currentDashSpeed * Time.fixedDeltaTime), _rb.rotation);
         }
 
         private void HandleDash()
@@ -104,17 +115,19 @@ namespace Player
             float timer = 0;
             _canDash = false;
 
-            Vector3 dashDir = _movement.CurrentDir;
+            _dashDir = _movement.CurrentDir;
             _movement.ToggleMoveability(false);
+            _isDashing = true;
             while (timer < dashDuration)
             {
                 float dashTime = Mathf.Lerp(0, 1, timer / dashDuration);
-                _characterController.Move(dashDir * (dashSpeed * speedCurve.Evaluate(dashTime) * Time.deltaTime));
-                // _characterController.Move(dashDir * (dashSpeed * Time.deltaTime));
+
+                _currentDashSpeed = dashSpeed * speedCurve.Evaluate(dashTime);
                 timer = Time.time - startTime;
                 yield return null;
             }
 
+            _isDashing = false;
             _movement.ToggleMoveability(true);
             _healthPoints.SetIsInvincible(false);
             yield return CoolDownCoroutine();
@@ -142,6 +155,25 @@ namespace Player
 
             dashPredictionLine.ToggleVisibility(false);
             Time.timeScale = 1;
+        }
+
+        private void OnCollisionEnter(Collision other)
+        {
+            if (!other.gameObject.CompareTag("Wall"))
+                return;
+
+            _isDashing = false;
+
+            // if (other.transform.position.x < 0 || other.transform.position.x > 0)
+            // {
+            //     float newX = transform.position.x - (other.transform.position.x - transform.position.x);
+            //     transform.position = new Vector3(newX, transform.position.y, transform.position.z);
+            // }
+            // else if (other.transform.position.z > 0 || other.transform.position.z < 0)
+            // {
+            //     float newZ = other.transform.position.z - transform.position.z;
+            //     transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - newZ);
+            // }
         }
     }
 }
