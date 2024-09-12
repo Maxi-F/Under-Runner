@@ -387,7 +387,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputHandler: {fileID: 11400000, guid: 4902f51743585ca40aec021ece06aa06, type: 2}
-  dashSpeed: 15
+  dashSpeed: 90
   dashDuration: 0.2
   dashCoolDown: 1
   speedCurve:

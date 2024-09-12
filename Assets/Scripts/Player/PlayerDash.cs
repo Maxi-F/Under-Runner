@@ -66,7 +66,8 @@ namespace Player
         private void FixedUpdate()
         {
             if (_isDashing)
-                _rb.Move(_rb.position + _dashDir * (_currentDashSpeed * Time.fixedDeltaTime), _rb.rotation);
+                _rb.AddForce(_dashDir * (_currentDashSpeed * Time.fixedDeltaTime), ForceMode.VelocityChange);
+            //_rb.Move(_rb.position + _dashDir * (_currentDashSpeed * Time.fixedDeltaTime), _rb.rotation);
         }
 
         private void HandleDash()
@@ -128,6 +129,7 @@ namespace Player
             }
 
             _isDashing = false;
+            _rb.velocity = Vector3.zero;
             _movement.ToggleMoveability(true);
             _healthPoints.SetIsInvincible(false);
             yield return CoolDownCoroutine();
@@ -163,6 +165,7 @@ namespace Player
                 return;
 
             _isDashing = false;
+            _rb.velocity = Vector3.zero;
 
             // if (other.transform.position.x < 0 || other.transform.position.x > 0)
             // {
