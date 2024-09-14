@@ -1,4 +1,5 @@
 using System;
+using Attacks.FallingAttack;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -12,23 +13,33 @@ namespace Attacks.FallingBlock
         [SerializeField] private float acceleration = 10.0f;
 
         private Rigidbody _rigidbody;
-        void Start()
+        private void Start()
         {
             _rigidbody ??= GetComponent<Rigidbody>();
             
+            SetHeight();
+        }
+        
+        private void Update()
+        {
+            if (transform.position.y < heightToDestroy)
+            {
+                SetHeight();
+                _rigidbody.velocity = Vector3.zero;
+                FallingBlockObjectPool.Instance?.ReturnToPool(parentObject);
+            }
+        }
+
+        private void FixedUpdate()
+        {
+            _rigidbody.AddForce(Vector3.down * acceleration, ForceMode.Force);
+        }
+
+        private void SetHeight()
+        {
             Vector3 newPosition = transform.position;
             newPosition.y = Random.Range(initialHeightRange.x, initialHeightRange.y);
             transform.position = newPosition;
-        }
-        
-        void Update()
-        {
-            _rigidbody.AddForce(Vector3.down * acceleration, ForceMode.Force);
-            
-            if (transform.position.y < heightToDestroy)
-            {
-                Destroy(parentObject);
-            }
         }
     }
 }
