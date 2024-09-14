@@ -5,14 +5,14 @@ using Random = UnityEngine.Random;
 
 namespace Attacks.FallingBlock
 {
-    public class FallingBlock : MonoBehaviour
+    public class FallingAttack : MonoBehaviour
     {
         [SerializeField] private Vector2 initialHeightRange = new Vector2(10.0f, 15.0f);
         [SerializeField] private float heightToDestroy = -1f;
         [SerializeField] private GameObject parentObject;
-        [SerializeField] private float acceleration = 10.0f;
 
         private Rigidbody _rigidbody;
+        private float _acceleration;
         private void Start()
         {
             _rigidbody ??= GetComponent<Rigidbody>();
@@ -30,9 +30,14 @@ namespace Attacks.FallingBlock
             }
         }
 
+        public void SetAcceleration(float newAcceleration)
+        {
+            _acceleration = newAcceleration;
+        }
+        
         private void FixedUpdate()
         {
-            _rigidbody.AddForce(Vector3.down * acceleration, ForceMode.Force);
+            _rigidbody.AddForce(Vector3.down * _acceleration, ForceMode.Force);
         }
 
         private void SetHeight()

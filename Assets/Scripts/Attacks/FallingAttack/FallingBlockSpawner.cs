@@ -78,6 +78,12 @@ namespace Attacks.FallingAttack
                 );
 
                 fallingBlockInstance.transform.position = fallingBlockPosition;
+
+                FallingBlock.FallingAttack fallingAttackScript =
+                    fallingBlockInstance.GetComponentInChildren<FallingBlock.FallingAttack>();
+                
+                fallingAttackScript.SetAcceleration(_fallingAttackData.acceleration);
+                
                 fallingBlockInstance.SetActive(true);
                 yield return new WaitForSeconds(_fallingAttackData.timeBetweenSpawns);
             }
