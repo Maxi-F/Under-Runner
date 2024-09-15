@@ -59,8 +59,6 @@ namespace Roads
                 Debug.LogError("new last road was null!");
                 return;
             }
-            Debug.Log($"Road End: {roadEnd.GetRoadEnd().position}");
-            Debug.Log($"Calculated: {roadEnd.GetRoadEnd().position + _roadsVelocity * Time.deltaTime}");
 
             newLastRoad.transform.position = roadEnd.GetRoadEnd().position + _roadsVelocity * Time.deltaTime;
             newLastRoad.SetActive(true);

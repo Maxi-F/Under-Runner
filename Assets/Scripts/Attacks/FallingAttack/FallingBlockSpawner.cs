@@ -11,7 +11,7 @@ namespace Attacks.FallingAttack
     {
         [Header("Prefab")]
         [SerializeField] private GameObject fallingBlock;
-
+        
         [Header("Events")] 
         [SerializeField] private Vector3EventChannelSO onPlayerPositionChanged;
         [SerializeField] private VoidEventChannelSO onHandleAttack;
@@ -60,7 +60,15 @@ namespace Attacks.FallingAttack
 
             for (int i = 0; i < quantity; i++)
             {
-                GameObject fallingBlockInstance = Instantiate(fallingBlock, transform);
+                GameObject fallingBlockInstance = FallingBlockObjectPool.Instance?.GetPooledObject();
+                
+                if (fallingBlockInstance == null)
+                {
+                    Debug.LogError("Falling block instance null");
+                    yield return new WaitForSeconds(_fallingAttackData.timeBetweenSpawns);
+                    continue;
+                }
+                
                 Vector2 distance = CalculateRandomDistance();
                 
                 Vector3 fallingBlockPosition = new Vector3(
@@ -71,6 +79,12 @@ namespace Attacks.FallingAttack
 
                 fallingBlockInstance.transform.position = fallingBlockPosition;
 
+                FallingBlock.FallingAttack fallingAttackScript =
+                    fallingBlockInstance.GetComponentInChildren<FallingBlock.FallingAttack>();
+                
+                fallingAttackScript.SetAcceleration(_fallingAttackData.acceleration);
+                
+                fallingBlockInstance.SetActive(true);
                 yield return new WaitForSeconds(_fallingAttackData.timeBetweenSpawns);
             }
 

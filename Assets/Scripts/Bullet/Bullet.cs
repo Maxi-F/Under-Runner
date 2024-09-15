@@ -18,7 +18,6 @@ namespace Bullet
 
         private void OnTriggerEnter(Collider other)
         {
-            Debug.Log("Triggered!");
             if (other.CompareTag("Enemy"))
             {
                 ITakeDamage enemy = other.GetComponentInChildren<ITakeDamage>();

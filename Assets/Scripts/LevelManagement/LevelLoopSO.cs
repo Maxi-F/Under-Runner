@@ -30,6 +30,7 @@ namespace LevelManagement
         public float timeBetweenSpawns;
         public float spawnCooldown;
         public int spawnQuantity;
+        public float acceleration;
     }
     
     [CreateAssetMenu(menuName = "Level Loop Config", fileName = "LevelLoopConfig", order = 0)]
