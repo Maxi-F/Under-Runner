@@ -1,14 +1,11 @@
-using System;
 using System.Collections;
 using Health;
 using Input;
-#if UNITY_EDITOR
-using UnityEditor.Rendering;
-using UnityEditor.UIElements;
-#endif
 using UnityEngine;
 #if UNITY_EDITOR
-using UnityEngine.Serialization;
+#endif
+
+#if UNITY_EDITOR
 #endif
 
 namespace Player
@@ -30,6 +27,11 @@ namespace Player
         [SerializeField] private AnimationCurve bulletTimeVariationCurve;
         [SerializeField] private float bulletTimeDuration;
 
+        [SerializeField] private GameObject leftWall;
+        [SerializeField] private GameObject rightWall;
+        [SerializeField] private GameObject farWall;
+        [SerializeField] private GameObject nearWall;
+
         private PlayerMovement _movement;
         private HealthPoints _healthPoints;
 
@@ -37,16 +39,14 @@ namespace Player
         private Coroutine _dashCoroutine = null;
         private Coroutine _bulletTimeCoroutine = null;
 
-        private Rigidbody _rb;
-        private bool _isDashing = false;
+        private Collider _playerCollider;
         private Vector3 _dashDir;
         private float _currentDashSpeed;
 
         private void Awake()
         {
             _movement = GetComponent<PlayerMovement>();
-            _rb = GetComponent<Rigidbody>();
-
+            _playerCollider = GetComponent<Collider>();
             _healthPoints ??= GetComponent<HealthPoints>();
         }
 
@@ -61,13 +61,6 @@ namespace Player
         private void OnDisable()
         {
             inputHandler.onPlayerDash.RemoveListener(HandleDash);
-        }
-
-        private void FixedUpdate()
-        {
-            if (_isDashing)
-                _rb.AddForce(_dashDir * (_currentDashSpeed * Time.fixedDeltaTime), ForceMode.VelocityChange);
-            //_rb.Move(_rb.position + _dashDir * (_currentDashSpeed * Time.fixedDeltaTime), _rb.rotation);
         }
 
         private void HandleDash()
@@ -118,18 +111,26 @@ namespace Player
 
             _dashDir = _movement.CurrentDir;
             _movement.ToggleMoveability(false);
-            _isDashing = true;
             while (timer < dashDuration)
             {
                 float dashTime = Mathf.Lerp(0, 1, timer / dashDuration);
 
                 _currentDashSpeed = dashSpeed * speedCurve.Evaluate(dashTime);
+
+                Vector3 newPosition = transform.position + (_dashDir * (_currentDashSpeed * Time.deltaTime));
+
+                float playerHalfWidth = _playerCollider.bounds.size.x / 2;
+                float playerHalfLength = _playerCollider.bounds.size.z / 2;
+
+                newPosition.x = Mathf.Clamp(newPosition.x, leftWall.transform.position.x + playerHalfWidth, rightWall.transform.position.x - playerHalfWidth);
+                newPosition.y = transform.position.y;
+                newPosition.z = Mathf.Clamp(newPosition.z, nearWall.transform.position.z + playerHalfLength, farWall.transform.position.z - playerHalfLength);
+
+                transform.position = newPosition;
                 timer = Time.time - startTime;
                 yield return null;
             }
 
-            _isDashing = false;
-            _rb.velocity = Vector3.zero;
             _movement.ToggleMoveability(true);
             _healthPoints.SetIsInvincible(false);
             yield return CoolDownCoroutine();
@@ -157,26 +158,6 @@ namespace Player
 
             dashPredictionLine.ToggleVisibility(false);
             Time.timeScale = 1;
-        }
-
-        private void OnCollisionEnter(Collision other)
-        {
-            if (!other.gameObject.CompareTag("Wall"))
-                return;
-
-            _isDashing = false;
-            _rb.velocity = Vector3.zero;
-
-            // if (other.transform.position.x < 0 || other.transform.position.x > 0)
-            // {
-            //     float newX = transform.position.x - (other.transform.position.x - transform.position.x);
-            //     transform.position = new Vector3(newX, transform.position.y, transform.position.z);
-            // }
-            // else if (other.transform.position.z > 0 || other.transform.position.z < 0)
-            // {
-            //     float newZ = other.transform.position.z - transform.position.z;
-            //     transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - newZ);
-            // }
         }
     }
 }
