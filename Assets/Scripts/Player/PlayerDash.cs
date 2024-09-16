@@ -16,7 +16,7 @@ namespace Player
         [Header("Input")]
         [SerializeField] private InputHandlerSO inputHandler;
 
-        [Header("BoundsConfig")]
+        [Header("MapBounds")]
         [SerializeField] private MapBoundsSO boundsConfig;
 
         [Header("Dash Configuration")]
@@ -119,15 +119,8 @@ namespace Player
                 _currentDashSpeed = dashSpeed * speedCurve.Evaluate(dashTime);
 
                 Vector3 newPosition = transform.position + (_dashDir * (_currentDashSpeed * Time.deltaTime));
+                transform.position = boundsConfig.ClampPosition(newPosition, _playerCollider.bounds.size);
 
-                float playerHalfWidth = _playerCollider.bounds.size.x / 2;
-                float playerHalfLength = _playerCollider.bounds.size.z / 2;
-
-                newPosition.x = Mathf.Clamp(newPosition.x, boundsConfig.horizontalBounds.min + playerHalfWidth, boundsConfig.horizontalBounds.max - playerHalfWidth);
-                newPosition.y = transform.position.y;
-                newPosition.z = Mathf.Clamp(newPosition.z, boundsConfig.depthBounds.min + playerHalfLength, boundsConfig.depthBounds.max - playerHalfLength);
-
-                transform.position = newPosition;
                 timer = Time.time - startTime;
                 yield return null;
             }
