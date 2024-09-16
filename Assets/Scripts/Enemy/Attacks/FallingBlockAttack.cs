@@ -7,15 +7,16 @@ namespace Enemy.Attacks
     public class FallingBlockAttack : MonoBehaviour, IEnemyAttack
     {
         [SerializeField] private VoidEventChannelSO onHandleAttack;
-
+        
         public bool CanExecute()
         {
             return true;
         }
 
-        public void Execute()
+        public IEnumerator Execute()
         {
             onHandleAttack?.RaiseEvent();
+            yield return null;
         }
 
         public bool IsExecuting()

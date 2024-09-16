@@ -214,6 +214,7 @@ MonoBehaviour:
   canTakeDamage: 1
   onDeathEvent: {fileID: 11400000, guid: 36bbe8a4a81fcf74da11d75999d01f40, type: 2}
   onTakeDamageEvent: {fileID: 11400000, guid: 41331d8fc0079ac47bec86270d050339, type: 2}
+  onResetPointsEvent: {fileID: 0}
 --- !u!54 &6798069371061175657
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -351,6 +352,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   swing: {fileID: 36413983023915259}
+  bodyMeshRenderer: {fileID: 2637695399838873969}
+  laserAttackMaterial: {fileID: 2100000, guid: 03b28fbc54a14fa4bb978cdc5c17b1f5, type: 2}
 --- !u!114 &6744373355359746148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -594,5 +597,10 @@ PrefabInstance:
 --- !u!4 &627575254589284255 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6031930716831445958, guid: d8a3bde4ce9fab64d9142bec7875e2b4, type: 3}
+  m_PrefabInstance: {fileID: 6557277724411423833}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &2637695399838873969 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 9194899790331909416, guid: d8a3bde4ce9fab64d9142bec7875e2b4, type: 3}
   m_PrefabInstance: {fileID: 6557277724411423833}
   m_PrefabAsset: {fileID: 0}

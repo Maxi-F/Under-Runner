@@ -1,41 +1,57 @@
+using System;
 using System.Collections;
 using Attacks.Swing;
 using UnityEngine;
+using Utils;
 
 namespace Enemy.Attacks
 {
     public class SwingAttack : MonoBehaviour, IEnemyAttack
     {
         [SerializeField] private Swing swing;
-
-        private bool _isExecuting;
+        [SerializeField] private MeshRenderer bodyMeshRenderer;
+        [SerializeField] private Material laserAttackMaterial;
+        
+        private bool _canStartAttack;
+        private Material _startBodyMaterial;
+        
+        public void OnEnable()
+        {
+            _startBodyMaterial = bodyMeshRenderer.material;
+        }
 
         public bool CanExecute()
         {
             return true;
         }
 
-        public void Execute()
+        public IEnumerator Execute()
         {
-            _isExecuting = true;
-
-            StartCoroutine(StartAttack());
+            yield return CreateLaserSequence().Execute();
         }
 
-        public bool IsExecuting()
+        private Sequence CreateLaserSequence()
         {
-            return _isExecuting;
+            Sequence laserSequence = new Sequence();
+            
+            laserSequence.AddPreAction(ChangeBodyMaterial(laserAttackMaterial));
+            laserSequence.SetAction(StartAttack());
+            laserSequence.AddPostAction(ChangeBodyMaterial(_startBodyMaterial));
+
+            return laserSequence;
         }
-    
+
+        private IEnumerator ChangeBodyMaterial(Material newMaterial)
+        {
+            bodyMeshRenderer.material = newMaterial;
+            yield return null;
+        }
+        
         private IEnumerator StartAttack()
         {
-            // TODO fix this encapsulation problem
-        
             swing.gameObject.SetActive(true);
 
-            yield return new WaitUntil(() => swing.gameObject.activeInHierarchy);
-
-            _isExecuting = false;
+            yield return new WaitUntil(() => !swing.gameObject.activeInHierarchy);
         }
     }
 }
