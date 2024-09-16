@@ -19,8 +19,6 @@ namespace Player.Weapon
                 {
                     deflectableInterface.Deflect(enemy);
                 }
-
-                transform.parent.gameObject.SetActive(false);
             }
 
             if (other.transform.CompareTag("Enemy"))
@@ -29,8 +27,6 @@ namespace Player.Weapon
                 {
                     takeDamageInterface.TakeDamage(damage);
                 }
-
-                transform.parent.gameObject.SetActive(false);
             }
         }
     }
