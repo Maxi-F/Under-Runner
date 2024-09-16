@@ -786,72 +786,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2677738976719943602, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2910608714162043841, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
-      propertyPath: m_Size.x
-      value: 1.1664673
-      objectReference: {fileID: 0}
-    - target: {fileID: 2910608714162043841, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
-      propertyPath: m_Size.y
-      value: 15.078555
-      objectReference: {fileID: 0}
-    - target: {fileID: 2910608714162043841, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
-      propertyPath: m_Center.x
-      value: -0.07022118
-      objectReference: {fileID: 0}
-    - target: {fileID: 2910608714162043841, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
-      propertyPath: m_Center.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3471723417962381595, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
-      propertyPath: m_ExcludeLayers.m_Bits
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4645382247631583565, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
       propertyPath: enemy
       value: 
       objectReference: {fileID: 1224237589}
-    - target: {fileID: 4699157676241342615, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
-      propertyPath: farWall
-      value: 
-      objectReference: {fileID: 1655229944}
-    - target: {fileID: 4699157676241342615, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
-      propertyPath: leftWall
-      value: 
-      objectReference: {fileID: 37636852}
-    - target: {fileID: 4699157676241342615, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
-      propertyPath: nearWall
-      value: 
-      objectReference: {fileID: 1148369417}
-    - target: {fileID: 4699157676241342615, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
-      propertyPath: dashSpeed
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 4699157676241342615, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
-      propertyPath: rightWall
-      value: 
-      objectReference: {fileID: 807719619}
     - target: {fileID: 4780633370198621073, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 6481343404815373606, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
-      propertyPath: enemy
-      value: 
-      objectReference: {fileID: 1224237589}
-    - target: {fileID: 7261930984988719095, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8905774787942367586, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1856129533111618862, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

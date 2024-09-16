@@ -387,7 +387,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputHandler: {fileID: 11400000, guid: 4902f51743585ca40aec021ece06aa06, type: 2}
-  dashSpeed: 90
+  dashSpeed: 15
   dashDuration: 0.2
   dashCoolDown: 1
   speedCurve:
@@ -476,6 +476,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   bulletTimeDuration: 1.2
+  boundsConfig: {fileID: 11400000, guid: ec9fc6062f1b51d4596422a3e4f7f265, type: 2}
 --- !u!114 &6481343404815373606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -633,8 +634,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 6.0684066, z: 0.9999999}
-  m_Center: {x: 0, y: -1.7842025, z: 0}
+  m_Size: {x: 1.1664673, y: 15.078555, z: 0.9999999}
+  m_Center: {x: -0.07022118, y: 0, z: 0}
 --- !u!54 &3264810219008562671
 Rigidbody:
   m_ObjectHideFlags: 0

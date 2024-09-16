@@ -1,6 +1,7 @@
 using System.Collections;
 using Health;
 using Input;
+using MapBounds;
 using UnityEngine;
 #if UNITY_EDITOR
 #endif
@@ -12,7 +13,11 @@ namespace Player
 {
     public class PlayerDash : MonoBehaviour
     {
+        [Header("Input")]
         [SerializeField] private InputHandlerSO inputHandler;
+
+        [Header("BoundsConfig")]
+        [SerializeField] private MapBoundsSO boundsConfig;
 
         [Header("Dash Configuration")]
         [SerializeField] private float dashSpeed;
@@ -27,10 +32,6 @@ namespace Player
         [SerializeField] private AnimationCurve bulletTimeVariationCurve;
         [SerializeField] private float bulletTimeDuration;
 
-        [SerializeField] private GameObject leftWall;
-        [SerializeField] private GameObject rightWall;
-        [SerializeField] private GameObject farWall;
-        [SerializeField] private GameObject nearWall;
 
         private PlayerMovement _movement;
         private HealthPoints _healthPoints;
@@ -122,9 +123,9 @@ namespace Player
                 float playerHalfWidth = _playerCollider.bounds.size.x / 2;
                 float playerHalfLength = _playerCollider.bounds.size.z / 2;
 
-                newPosition.x = Mathf.Clamp(newPosition.x, leftWall.transform.position.x + playerHalfWidth, rightWall.transform.position.x - playerHalfWidth);
+                newPosition.x = Mathf.Clamp(newPosition.x, boundsConfig.horizontalBounds.min + playerHalfWidth, boundsConfig.horizontalBounds.max - playerHalfWidth);
                 newPosition.y = transform.position.y;
-                newPosition.z = Mathf.Clamp(newPosition.z, nearWall.transform.position.z + playerHalfLength, farWall.transform.position.z - playerHalfLength);
+                newPosition.z = Mathf.Clamp(newPosition.z, boundsConfig.depthBounds.min + playerHalfLength, boundsConfig.depthBounds.max - playerHalfLength);
 
                 transform.position = newPosition;
                 timer = Time.time - startTime;
