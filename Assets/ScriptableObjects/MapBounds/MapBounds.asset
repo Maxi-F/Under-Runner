@@ -16,5 +16,5 @@ MonoBehaviour:
     min: -5.4
     max: 5.4
   depthBounds:
-    min: -3.8
-    max: 8.5
+    min: -4
+    max: 8
