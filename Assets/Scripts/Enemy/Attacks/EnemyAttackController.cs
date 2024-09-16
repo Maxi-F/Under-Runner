@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Events;
 using UnityEngine;
@@ -59,10 +60,9 @@ namespace Enemy.Attacks
 
         IEnumerator ExecuteAttack()
         {
-            _actualAttack.Execute();
-            onAttackExecutedEvent?.RaiseEvent();
+            yield return _actualAttack.Execute();
             
-            yield return new WaitUntil(() => !_actualAttack.IsExecuting());
+            onAttackExecutedEvent?.RaiseEvent();
             
             yield return new WaitForSeconds(timeBetweenAttacks);
 

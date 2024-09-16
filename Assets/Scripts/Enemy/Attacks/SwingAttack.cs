@@ -1,41 +1,44 @@
+using System;
 using System.Collections;
 using Attacks.Swing;
 using UnityEngine;
+using Utils;
 
 namespace Enemy.Attacks
 {
     public class SwingAttack : MonoBehaviour, IEnemyAttack
     {
         [SerializeField] private Swing swing;
-
-        private bool _isExecuting;
+        private bool _canStartAttack;
+        
+        public void OnEnable()
+        {
+        }
 
         public bool CanExecute()
         {
             return true;
         }
 
-        public void Execute()
+        public IEnumerator Execute()
         {
-            _isExecuting = true;
-
-            StartCoroutine(StartAttack());
+            yield return CreateLaserSequence().Execute();
         }
 
-        public bool IsExecuting()
+        private Sequence CreateLaserSequence()
         {
-            return _isExecuting;
+            Sequence laserSequence = new Sequence();
+            
+            laserSequence.SetAction(StartAttack());
+
+            return laserSequence;
         }
-    
+        
         private IEnumerator StartAttack()
         {
-            // TODO fix this encapsulation problem
-        
             swing.gameObject.SetActive(true);
 
             yield return new WaitUntil(() => swing.gameObject.activeInHierarchy);
-
-            _isExecuting = false;
         }
     }
 }
