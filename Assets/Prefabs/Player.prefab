@@ -370,6 +370,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputHandler: {fileID: 11400000, guid: 4902f51743585ca40aec021ece06aa06, type: 2}
   onPlayerNewPositionEvent: {fileID: 11400000, guid: 1edae3268f02d1c4190e82ddfa3be357, type: 2}
+  boundsConfig: {fileID: 11400000, guid: ec9fc6062f1b51d4596422a3e4f7f265, type: 2}
   speed: 7.5
   maxTiltAngles: {x: 10, y: 5}
   visor: {fileID: 0}
@@ -387,6 +388,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputHandler: {fileID: 11400000, guid: 4902f51743585ca40aec021ece06aa06, type: 2}
+  boundsConfig: {fileID: 11400000, guid: ec9fc6062f1b51d4596422a3e4f7f265, type: 2}
   dashSpeed: 15
   dashDuration: 0.2
   dashCoolDown: 1
@@ -476,7 +478,6 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   bulletTimeDuration: 1.2
-  boundsConfig: {fileID: 11400000, guid: ec9fc6062f1b51d4596422a3e4f7f265, type: 2}
 --- !u!114 &6481343404815373606
 MonoBehaviour:
   m_ObjectHideFlags: 0

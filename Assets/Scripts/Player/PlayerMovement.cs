@@ -1,7 +1,7 @@
 using Events;
 using Input;
+using MapBounds;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Player
 {
@@ -10,8 +10,11 @@ namespace Player
         [Header("Input")] [SerializeField] private InputHandlerSO inputHandler;
         [SerializeField] private Vector3EventChannelSO onPlayerNewPositionEvent;
 
-        [Header("Movement Config")] [SerializeField]
-        private float speed;
+        [Header("MapBounds")]
+        [SerializeField] private MapBoundsSO boundsConfig;
+
+        [Header("Movement Config")]
+        [SerializeField] private float speed;
 
         [Header("Look Config")]
         [SerializeField] private Vector2 maxTiltAngles;
@@ -19,9 +22,10 @@ namespace Player
         [SerializeField] private GameObject visor;
         [SerializeField] private GameObject bikeBody;
 
-        private bool _canMove = true;
-
         private Vector3 currentDir;
+
+        private bool _canMove = true;
+        private Collider _playerCollider;
 
         // private CharacterController _characterController;
         public Vector3 CurrentDir => currentDir;
@@ -36,11 +40,16 @@ namespace Player
             inputHandler.onPlayerMove.RemoveListener(HandleMovement);
         }
 
-        private void FixedUpdate()
+        private void Awake()
+        {
+            _playerCollider = GetComponent<Collider>();
+        }
+
+        private void Update()
         {
             if (_canMove)
             {
-                transform.Translate(currentDir * (speed * Time.deltaTime));
+                transform.position = boundsConfig.ClampPosition(transform.position + currentDir * (speed * Time.deltaTime), _playerCollider.bounds.size);
                 onPlayerNewPositionEvent?.RaiseEvent(transform.position);
             }
         }
