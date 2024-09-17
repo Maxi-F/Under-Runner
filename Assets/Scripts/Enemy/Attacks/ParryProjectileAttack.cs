@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Attacks.ParryProjectile;
 using Events;
@@ -42,7 +43,7 @@ namespace Enemy.Attacks
             return _executedAttacksQuantity >= attacksBeforeParryCanExecute;
         }
 
-        public void Execute()
+        public IEnumerator Execute()
         {
             _executedAttacksQuantity = 0;
             
@@ -54,11 +55,8 @@ namespace Enemy.Attacks
             _parryBomb.SetFirstForce(firstForces[Random.Range(0, firstForces.Count)]);
             _parryBomb.SetObjectToFollow(player);
             _parryBomb.SetFirstObjectToFollow(player);
-        }
 
-        public bool IsExecuting()
-        {
-            return _parryBomb.gameObject.activeInHierarchy;
+            yield return new WaitUntil(() => !_parryBomb.gameObject.activeInHierarchy);
         }
     }
 }

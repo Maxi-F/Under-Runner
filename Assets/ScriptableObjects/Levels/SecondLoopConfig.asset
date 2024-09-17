@@ -24,3 +24,4 @@ MonoBehaviour:
       timeBetweenSpawns: 0.25
       spawnCooldown: 2
       spawnQuantity: 10
+      acceleration: 30
