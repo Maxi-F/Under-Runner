@@ -1248,6 +1248,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   amountToPool: 20
   objectConfig: {fileID: 11400000, guid: c238e0116bc003b43b7eb17d8d07366b, type: 2}
+  _amountOfObjects: 0
+  _pooledObjects: []
 --- !u!4 &893244743
 Transform:
   m_ObjectHideFlags: 0
@@ -2154,6 +2156,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3459552188508349539, guid: e08135b68c9cb3a42b0a227c2ef17ac2, type: 3}
+      propertyPath: health
+      value: 
+      objectReference: {fileID: 1059696746}
     - target: {fileID: 5139981227853380654, guid: e08135b68c9cb3a42b0a227c2ef17ac2, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -2289,6 +2295,21 @@ PrefabInstance:
     - target: {fileID: 7396195700046777641, guid: e08135b68c9cb3a42b0a227c2ef17ac2, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+    - target: {fileID: 6275413232166653521, guid: e08135b68c9cb3a42b0a227c2ef17ac2, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6275413232166653521, guid: e08135b68c9cb3a42b0a227c2ef17ac2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6581484984316679297, guid: e08135b68c9cb3a42b0a227c2ef17ac2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009945050609195404, guid: e08135b68c9cb3a42b0a227c2ef17ac2, type: 3}
+      propertyPath: m_TargetGraphic
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 9046747844906158258, guid: e08135b68c9cb3a42b0a227c2ef17ac2, type: 3}
       propertyPath: health

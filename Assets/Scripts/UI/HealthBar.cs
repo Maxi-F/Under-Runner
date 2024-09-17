@@ -49,6 +49,7 @@ public class HealthBar : MonoBehaviour
             _wasTriggered = true;
         }
 
+        Debug.Log(health.CurrentHp);
         slider.value = health.CurrentHp;
     }
 }
