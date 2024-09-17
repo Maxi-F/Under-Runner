@@ -21,7 +21,6 @@ namespace LevelManagement
         
         [Header("Game Objects")]
         [SerializeField] private GameObject enemy;
-        [SerializeField] private GameObject enemyHealthBar;
         [SerializeField] private GameObject minionEnemy;
 
         [Header("Events")]
@@ -80,7 +79,6 @@ namespace LevelManagement
         {
             minionEnemy.SetActive(false);
             enemy.SetActive(true);
-            enemyHealthBar.SetActive(true);
         }
         
         public void StartLoopWithConfig(LevelLoopSO loopConfig)
@@ -89,7 +87,6 @@ namespace LevelManagement
             
             obstaclesSpawner.gameObject.SetActive(false);
             enemy.SetActive(false);
-            enemyHealthBar.SetActive(false);
             minionEnemy.SetActive(false);
             fallingBlockSpawner.SetFallingAttackData(_levelConfig.bossData.fallingAttackData);
             
