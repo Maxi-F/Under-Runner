@@ -1,18 +1,20 @@
 using Events;
 using Input;
+using MapBounds;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Player
 {
-    [RequireComponent(typeof(CharacterController))]
     public class PlayerMovement : MonoBehaviour
     {
         [Header("Input")] [SerializeField] private InputHandlerSO inputHandler;
         [SerializeField] private Vector3EventChannelSO onPlayerNewPositionEvent;
 
-        [Header("Movement Config")] [SerializeField]
-        private float speed;
+        [Header("MapBounds")]
+        [SerializeField] private MapBoundsSO boundsConfig;
+
+        [Header("Movement Config")]
+        [SerializeField] private float speed;
 
         [Header("Look Config")]
         [SerializeField] private Vector2 maxTiltAngles;
@@ -20,15 +22,12 @@ namespace Player
         [SerializeField] private GameObject visor;
         [SerializeField] private GameObject bikeBody;
 
-        private bool _canMove = true;
         private Vector3 currentDir;
-        private CharacterController _characterController;
-        public Vector3 CurrentDir => currentDir;
 
-        private void Awake()
-        {
-            _characterController = GetComponent<CharacterController>();
-        }
+        private bool _canMove = true;
+        private Collider _playerCollider;
+
+        public Vector3 CurrentDir => currentDir;
 
         private void OnEnable()
         {
@@ -40,11 +39,16 @@ namespace Player
             inputHandler.onPlayerMove.RemoveListener(HandleMovement);
         }
 
+        private void Awake()
+        {
+            _playerCollider = GetComponent<Collider>();
+        }
+
         private void Update()
         {
             if (_canMove)
             {
-                _characterController.Move(currentDir * (speed * Time.deltaTime));
+                transform.position = boundsConfig.ClampPosition(transform.position + currentDir * (speed * Time.deltaTime), _playerCollider.bounds.size);
                 onPlayerNewPositionEvent?.RaiseEvent(transform.position);
             }
         }

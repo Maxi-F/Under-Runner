@@ -278,7 +278,6 @@ GameObject:
   - component: {fileID: 936739446926610039}
   - component: {fileID: 2493683512251800416}
   - component: {fileID: 1792199589205503695}
-  - component: {fileID: 3471723417962381595}
   - component: {fileID: 6487825136179884570}
   - component: {fileID: 4699157676241342615}
   - component: {fileID: 6481343404815373606}
@@ -326,7 +325,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1.5, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
@@ -357,32 +356,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!143 &3471723417962381595
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4780633370198621073}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6487825136179884570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -397,6 +370,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputHandler: {fileID: 11400000, guid: 4902f51743585ca40aec021ece06aa06, type: 2}
   onPlayerNewPositionEvent: {fileID: 11400000, guid: 1edae3268f02d1c4190e82ddfa3be357, type: 2}
+  boundsConfig: {fileID: 11400000, guid: ec9fc6062f1b51d4596422a3e4f7f265, type: 2}
   speed: 7.5
   maxTiltAngles: {x: 10, y: 5}
   visor: {fileID: 0}
@@ -414,6 +388,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputHandler: {fileID: 11400000, guid: 4902f51743585ca40aec021ece06aa06, type: 2}
+  boundsConfig: {fileID: 11400000, guid: ec9fc6062f1b51d4596422a3e4f7f265, type: 2}
   dashSpeed: 15
   dashDuration: 0.2
   dashCoolDown: 1
@@ -660,8 +635,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 6.0684066, z: 0.9999999}
-  m_Center: {x: 0, y: -1.7842025, z: 0}
+  m_Size: {x: 1.1664673, y: 15.078555, z: 0.9999999}
+  m_Center: {x: -0.07022118, y: 0, z: 0}
 --- !u!54 &3264810219008562671
 Rigidbody:
   m_ObjectHideFlags: 0
