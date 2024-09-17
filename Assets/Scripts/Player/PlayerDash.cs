@@ -1,4 +1,5 @@
 using System.Collections;
+using Events;
 using Health;
 using Input;
 #if UNITY_EDITOR
@@ -29,6 +30,11 @@ namespace Player
         [SerializeField] private AnimationCurve bulletTimeVariationCurve;
         [SerializeField] private float bulletTimeDuration;
 
+        [Header("Events")] 
+        [SerializeField] private FloatEventChannelSO onDashRechargeEvent;
+        [SerializeField] private VoidEventChannelSO onDashRechargedEvent;
+        [SerializeField] private VoidEventChannelSO onDashUsedEvent;
+        
         private PlayerMovement _movement;
         private CharacterController _characterController;
         private HealthPoints _healthPoints;
@@ -106,6 +112,7 @@ namespace Player
 
             Vector3 dashDir = _movement.CurrentDir;
             _movement.ToggleMoveability(false);
+            onDashUsedEvent.RaiseEvent();
             while (timer < dashDuration)
             {
                 float dashTime = Mathf.Lerp(0, 1, timer / dashDuration);
@@ -123,7 +130,14 @@ namespace Player
 
         private IEnumerator CoolDownCoroutine()
         {
-            yield return new WaitForSeconds(dashCoolDown);
+            float timeInCooldown = 0f;
+            while (timeInCooldown <= dashCoolDown)
+            {
+                onDashRechargeEvent.RaiseEvent(timeInCooldown);
+                yield return null;
+                timeInCooldown += Time.deltaTime;
+            }
+            onDashRechargedEvent.RaiseEvent();
         }
 
         private IEnumerator BulletTimeCoroutine()
