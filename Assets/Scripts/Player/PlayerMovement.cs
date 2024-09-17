@@ -27,7 +27,6 @@ namespace Player
         private bool _canMove = true;
         private Collider _playerCollider;
 
-        // private CharacterController _characterController;
         public Vector3 CurrentDir => currentDir;
 
         private void OnEnable()
