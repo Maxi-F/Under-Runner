@@ -3,8 +3,10 @@ using System.Collections;
 using Health;
 using Input;
 using ParryProjectile;
+using Player.Weapon;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Player
 {
@@ -15,7 +17,8 @@ namespace Player
         [Header("Attack Configuration")]
         [SerializeField] private float attackAmplitude;
 
-        [SerializeField] private GameObject meleeWeapon;
+        [SerializeField] private GameObject meleeWeaponPivot;
+        [SerializeField] private MeleeWeapon meleeWeapon;
         [SerializeField] private float attackRadius;
         [SerializeField] private float attackDuration;
         [SerializeField] private float attackCoolDown;
@@ -54,23 +57,23 @@ namespace Player
 
             quaternion startRotation = Quaternion.Euler(0, -(90 - attackAmplitude / 2), 0);
             quaternion finalRotation = Quaternion.Euler(0, -(90 + attackAmplitude / 2), 0);
-            meleeWeapon.transform.localRotation = startRotation;
-            meleeWeapon.SetActive(true);
+            meleeWeaponPivot.transform.localRotation = startRotation;
+            meleeWeaponPivot.SetActive(true);
 
             float timer = 0;
             float startTime = Time.time;
 
-            while (timer < attackDuration && meleeWeapon.activeInHierarchy)
+            while (timer < attackDuration && meleeWeaponPivot.activeInHierarchy)
             {
                 timer = Time.time - startTime;
                 float yAxisAngle = Mathf.Lerp(minAngle, maxAngle, timer / attackDuration);
-                meleeWeapon.transform.localRotation = Quaternion.Euler(0, yAxisAngle, 0);
+                meleeWeaponPivot.transform.localRotation = Quaternion.Euler(0, yAxisAngle, 0);
                 // meleeWeapon.transform.localRotation = Quaternion.Lerp(startRotation, finalRotation, timer / attackDuration);
                 yield return null;
             }
 
-            meleeWeapon.SetActive(false);
-
+            meleeWeaponPivot.SetActive(false);
+            meleeWeapon.GetComponent<MeleeWeapon>().ResetHittedEnemiesBuffer();
             yield return CoolDownCoroutine();
             _canAttack = true;
         }

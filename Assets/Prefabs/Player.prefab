@@ -517,7 +517,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputHandler: {fileID: 11400000, guid: 4902f51743585ca40aec021ece06aa06, type: 2}
   attackAmplitude: 160
-  meleeWeapon: {fileID: 8905774787942367586}
+  meleeWeaponPivot: {fileID: 8905774787942367586}
+  meleeWeapon: {fileID: 4645382247631583565}
   attackRadius: 0.9
   attackDuration: 0.15
   attackCoolDown: 0.25

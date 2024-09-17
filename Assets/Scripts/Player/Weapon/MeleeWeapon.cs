@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Health;
 using ParryProjectile;
 using UnityEngine;
@@ -11,14 +12,21 @@ namespace Player.Weapon
 
         [SerializeField] private int damage;
 
+        private List<Collider> hittedEnemies = new List<Collider>();
+
         private void OnTriggerEnter(Collider other)
         {
+            if (hittedEnemies.Contains(other))
+                return;
+
             if (other.transform.CompareTag("Deflectable"))
             {
                 if (other.transform.TryGetComponent<IDeflectable>(out IDeflectable deflectableInterface))
                 {
                     deflectableInterface.Deflect(enemy);
                 }
+
+                hittedEnemies.Add(other);
             }
 
             if (other.transform.CompareTag("Enemy"))
@@ -27,7 +35,14 @@ namespace Player.Weapon
                 {
                     takeDamageInterface.TakeDamage(damage);
                 }
+
+                hittedEnemies.Add(other);
             }
+        }
+
+        public void ResetHittedEnemiesBuffer()
+        {
+            hittedEnemies.Clear();
         }
     }
 }
