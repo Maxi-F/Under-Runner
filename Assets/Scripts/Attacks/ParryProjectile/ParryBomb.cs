@@ -30,6 +30,7 @@ namespace Attacks.ParryProjectile
         private float startVelocityInParry;
 
         private GameObject _firstObjectToFollow;
+        private bool _isTargetingPlayer;
         private GameObject _objectToFollow;
         private Rigidbody _rigidbody;
         private ParryProjectileFirstForce _parryProjectileConfig;
@@ -46,6 +47,7 @@ namespace Attacks.ParryProjectile
         private void Start()
         {
             _rigidbody ??= GetComponent<Rigidbody>();
+            _isTargetingPlayer = true;
         }
 
         private void FixedUpdate()
@@ -95,7 +97,7 @@ namespace Attacks.ParryProjectile
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Enemy"))
+            if (other.CompareTag("Enemy") && !_isTargetingPlayer)
             {
                 EnemyController enemy = other.GetComponentInChildren<EnemyController>();
 
@@ -109,7 +111,7 @@ namespace Attacks.ParryProjectile
                 return;
             } 
             
-            if (other.CompareTag("Player"))
+            if (other.CompareTag("Player") && _isTargetingPlayer)
             {
                 ITakeDamage damageTaker = other.GetComponent<ITakeDamage>();
                 
@@ -121,11 +123,13 @@ namespace Attacks.ParryProjectile
         public void SetObjectToFollow(GameObject newObjectToFollow)
         {
             _objectToFollow = newObjectToFollow;
+            _isTargetingPlayer = false;
         }
         
         public void SetFirstObjectToFollow(GameObject newFirstObjectToFollow)
         {
             _firstObjectToFollow = newFirstObjectToFollow;
+            _isTargetingPlayer = true;
         }
 
         public void Deflect(GameObject newObjectToFollow)
