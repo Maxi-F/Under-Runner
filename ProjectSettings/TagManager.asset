@@ -10,6 +10,7 @@ TagManager:
   - Deflectable
   - Attack
   - Floor
+  - Wall
   layers:
   - Default
   - TransparentFX

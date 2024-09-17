@@ -2,20 +2,23 @@ using System.Collections;
 using Events;
 using Health;
 using Input;
-#if UNITY_EDITOR
-using UnityEditor.Rendering;
-using UnityEditor.UIElements;
-#endif
+using MapBounds;
 using UnityEngine;
 #if UNITY_EDITOR
-using UnityEngine.Serialization;
+#endif
+
+#if UNITY_EDITOR
 #endif
 
 namespace Player
 {
     public class PlayerDash : MonoBehaviour
     {
+        [Header("Input")]
         [SerializeField] private InputHandlerSO inputHandler;
+
+        [Header("MapBounds")]
+        [SerializeField] private MapBoundsSO boundsConfig;
 
         [Header("Dash Configuration")]
         [SerializeField] private float dashSpeed;
@@ -36,18 +39,20 @@ namespace Player
         [SerializeField] private VoidEventChannelSO onDashUsedEvent;
         
         private PlayerMovement _movement;
-        private CharacterController _characterController;
         private HealthPoints _healthPoints;
 
         private bool _canDash = true;
         private Coroutine _dashCoroutine = null;
         private Coroutine _bulletTimeCoroutine = null;
 
+        private Collider _playerCollider;
+        private Vector3 _dashDir;
+        private float _currentDashSpeed;
+
         private void Awake()
         {
             _movement = GetComponent<PlayerMovement>();
-            _characterController = GetComponent<CharacterController>();
-
+            _playerCollider = GetComponent<Collider>();
             _healthPoints ??= GetComponent<HealthPoints>();
         }
 
@@ -110,14 +115,18 @@ namespace Player
             float timer = 0;
             _canDash = false;
 
-            Vector3 dashDir = _movement.CurrentDir;
+            _dashDir = _movement.CurrentDir;
             _movement.ToggleMoveability(false);
             onDashUsedEvent.RaiseEvent();
             while (timer < dashDuration)
             {
                 float dashTime = Mathf.Lerp(0, 1, timer / dashDuration);
-                _characterController.Move(dashDir * (dashSpeed * speedCurve.Evaluate(dashTime) * Time.deltaTime));
-                // _characterController.Move(dashDir * (dashSpeed * Time.deltaTime));
+
+                _currentDashSpeed = dashSpeed * speedCurve.Evaluate(dashTime);
+
+                Vector3 newPosition = transform.position + (_dashDir * (_currentDashSpeed * Time.deltaTime));
+                transform.position = boundsConfig.ClampPosition(newPosition, _playerCollider.bounds.size);
+
                 timer = Time.time - startTime;
                 yield return null;
             }
