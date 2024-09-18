@@ -1729,17 +1729,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37e620cf96e451f41b519466a46d5168, type: 3}
---- !u!114 &1731362701 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3169284061463772375, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
-  m_PrefabInstance: {fileID: 324373034}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04cb3bb3ce8700649b43a4c9b6a29908, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1839552625 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7635251767426906750, guid: 577b06af20e157d4793910329b73c1dd, type: 3}
@@ -2130,14 +2119,6 @@ PrefabInstance:
       propertyPath: health
       value: 
       objectReference: {fileID: 1059696746}
-    - target: {fileID: 5139981227853380654, guid: e08135b68c9cb3a42b0a227c2ef17ac2, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5139981227853380654, guid: e08135b68c9cb3a42b0a227c2ef17ac2, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5287080644504039742, guid: e08135b68c9cb3a42b0a227c2ef17ac2, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -2149,10 +2130,6 @@ PrefabInstance:
     - target: {fileID: 5945041438210384587, guid: e08135b68c9cb3a42b0a227c2ef17ac2, type: 3}
       propertyPath: m_Name
       value: Canvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 5945041438210384587, guid: e08135b68c9cb3a42b0a227c2ef17ac2, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6001333156768450283, guid: e08135b68c9cb3a42b0a227c2ef17ac2, type: 3}
       propertyPath: m_Pivot.x
@@ -2246,13 +2223,8 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9046747844906158258, guid: e08135b68c9cb3a42b0a227c2ef17ac2, type: 3}
-      propertyPath: health
-      value: 
-      objectReference: {fileID: 1731362701}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 472275309295499858, guid: e08135b68c9cb3a42b0a227c2ef17ac2, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e08135b68c9cb3a42b0a227c2ef17ac2, type: 3}
