@@ -799,6 +799,9 @@ GameObject:
   - component: {fileID: 6283988101934533380}
   - component: {fileID: 938812201743576552}
   - component: {fileID: 5575126865424349212}
+  - component: {fileID: 4310436236341836283}
+  - component: {fileID: 4389868529216407606}
+  - component: {fileID: 154755272736235517}
   m_Layer: 6
   m_Name: Minion
   m_TagString: Enemy
@@ -857,11 +860,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3915ca53d56c23b44bd662973a6a792f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  config: {fileID: 11400000, guid: 4f770b62a3f261b41aeb7b76943262f2, type: 2}
   timeBetweenStates: 3
   player: {fileID: 0}
   onCollidePlayerEventChannel: {fileID: 11400000, guid: 94a2de087d2d288459b928f536c58af1, type: 2}
-  _healthPoints: {fileID: 5575126865424349212}
+  healthPoints: {fileID: 5575126865424349212}
+  minionIdleController: {fileID: 4389868529216407606}
+  minionMoveController: {fileID: 154755272736235517}
+  minionAttackController: {fileID: 4310436236341836283}
 --- !u!114 &5575126865424349212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -880,6 +885,62 @@ MonoBehaviour:
   onDeathEvent: {fileID: 11400000, guid: c865da2c04eab7440a28ab0a5cad2306, type: 2}
   onTakeDamageEvent: {fileID: 11400000, guid: d7c92d4ecc5578245b7e8d6eca51d765, type: 2}
   onResetPointsEvent: {fileID: 11400000, guid: abe3ae86baf3a6143af44a83fa066bee, type: 2}
+--- !u!114 &4310436236341836283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9068004531541268373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2ab10fd0c2aefc478e274736e2bc442, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentTransform: {fileID: 0}
+  target: {fileID: 0}
+  preparationDuration: 0.75
+  attackDamage: 15
+  ChargeLength: 7
+  ChargeSpeed: 15
+  defaultMat: {fileID: 2100000, guid: 2c91222ac69cae14dbe043ea63d8db24, type: 2}
+  chargeMat: {fileID: 2100000, guid: b6e57729629dad24ea2d4bf4aa9a75ea, type: 2}
+  onCollidePlayerEventChannel: {fileID: 11400000, guid: 94a2de087d2d288459b928f536c58af1, type: 2}
+  minionAgent: {fileID: 938812201743576552}
+--- !u!114 &4389868529216407606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9068004531541268373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 529793d8130055747aa180cb15de81c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentTransform: {fileID: 0}
+  target: {fileID: 0}
+  timeInIdle: 4
+  minionAgent: {fileID: 938812201743576552}
+--- !u!114 &154755272736235517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9068004531541268373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfdcd29910b03fe4bbeae77aaec63eff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentTransform: {fileID: 0}
+  target: {fileID: 0}
+  timeMoving: 4
+  speed: 2
+  minDistance: 3
+  minionAgent: {fileID: 938812201743576552}
 --- !u!1001 &6599575667949523276
 PrefabInstance:
   m_ObjectHideFlags: 0
