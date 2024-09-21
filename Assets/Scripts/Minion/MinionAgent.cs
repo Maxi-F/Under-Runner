@@ -1,15 +1,11 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Events;
 using FSM;
 using Health;
 using Minion.States;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
-using UnityEngine.Serialization;
-using Random = UnityEngine.Random;
+using UnityEngine.Events;
 
 namespace Minion
 {
@@ -20,71 +16,93 @@ namespace Minion
         [SerializeField] private GameObject player;
         [SerializeField] private GameObjectEventChannelSO onCollidePlayerEventChannel;
 
-        [SerializeField] private HealthPoints _healthPoints;
+        [SerializeField] private HealthPoints healthPoints;
         
-        protected override void Awake()
+        [SerializeField] private MinionIdleController minionIdleController;
+        [SerializeField] private MinionMoveController minionMoveController;
+        [SerializeField] private MinionAttackController minionAttackController;
+
+        private State _idleState;
+        private State _moveState;
+        private State _attackState;
+
+        protected void Awake()
         {
-            base.Awake();
-            StartChangeCoroutine();
-
-            foreach (StateSO state in config.states)
+            List<MinionController> controllers = new List<MinionController>()
             {
-                (state as MinionStateSO).target = player;
-                (state as MinionStateSO).agentTransform = transform;
-                (state as MinionStateSO).onCoroutineCall += HandleCallCoroutine;
-            }
+                minionIdleController,
+                minionMoveController,
+                minionAttackController
+            };
 
-            _healthPoints?.OnDeathEvent.onEvent.AddListener(Die);
+            foreach (MinionController controller in controllers)
+            {
+                controller.target = player;
+                controller.agentTransform = transform;
+            }
         }
         
-        private void OnEnable()
+        protected override void OnEnable()
         {
-            foreach (StateSO state in config.states)
-            {
-                state.onEnter.AddListener(StartChangeCoroutine);
-            }
-
-            StartChangeCoroutine();
+            base.OnEnable();
+            
+            healthPoints?.OnDeathEvent.onEvent.AddListener(Die);
         }
 
-        private void OnDisable()
+        protected void OnDisable()
         {
-            foreach (StateSO state in config.states)
-            {
-                state.onEnter.RemoveListener(StartChangeCoroutine);
-            }
-
-            _healthPoints?.OnDeathEvent.onEvent.RemoveListener(Die);
-            _healthPoints?.ResetHitPoints();
+            healthPoints?.OnDeathEvent.onEvent.RemoveListener(Die);
+            healthPoints?.ResetHitPoints();
         }
 
-        private void HandleCallCoroutine(IEnumerator coroutine)
+        public void ChangeStateToMove()
         {
-            StartCoroutine(coroutine);
+            Fsm.ChangeState(_moveState);
         }
 
-        private void StartChangeCoroutine()
+        public void ChangeStateToAttack()
         {
-            StartCoroutine(ChangeStateCoroutine());
+            Fsm.ChangeState(_attackState);
         }
 
-        private IEnumerator ChangeStateCoroutine()
+        public void ChangeStateToIdle()
         {
-            yield return new WaitForSeconds(timeBetweenStates);
-            int randomIndex = Random.Range(0, config.states.Count);
-            fsm.ChangeState(config.states[randomIndex]);
+             Fsm.ChangeState(_idleState);
         }
-
-        [ContextMenu("Move")]
-        private void ChangeToMoveState()
+        
+        protected override List<State> GetStates()
         {
-            fsm.ChangeState(fsm.FindState<MinionMoveStateSO>());
-        }
+            _idleState = new State();
+            _idleState.EnterAction += minionIdleController.Enter;
+            _idleState.UpdateAction += minionIdleController.OnUpdate;
+            _idleState.ExitAction += minionIdleController.Exit;
+            
+            _moveState = new State();
+            _moveState.EnterAction += minionMoveController.Enter;
+            _moveState.UpdateAction += minionMoveController.OnUpdate;
+            _moveState.ExitAction += minionMoveController.Exit;
+                
+            _attackState = new State();
+            _attackState.EnterAction += minionAttackController.Enter;
+            _attackState.UpdateAction += minionAttackController.OnUpdate;
+            _attackState.ExitAction += minionAttackController.Exit;
 
-        [ContextMenu("Idle")]
-        private void ChangeToIdleState()
-        {
-            fsm.ChangeState(fsm.FindState<MinionIdleStateSO>());
+            Transition idleToMoveTransition = new Transition(_idleState, _moveState);
+            _idleState.AddTransition(idleToMoveTransition);
+
+            Transition moveToAttackTransition = new Transition(_moveState, _attackState);
+            _moveState.AddTransition(moveToAttackTransition);
+
+            Transition attackToIdleTransition = new Transition(_attackState, _idleState);
+            _attackState.AddTransition(attackToIdleTransition);
+            
+            return new List<State>
+                ()
+                {
+                    _idleState,
+                    _moveState,
+                    _attackState
+                };
         }
 
         private void Die()
