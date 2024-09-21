@@ -6,9 +6,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace Minion.States
-{
-    [CreateAssetMenu(fileName = "MinionAttackState", menuName = "Minion/AttackState", order = 0)]
-    public class MinionAttackStateSO : MinionStateSO
+{ public class MinionAttackController : MinionController
     {
         [SerializeField] private float preparationDuration;
         [SerializeField] private int attackDamage;
@@ -19,6 +17,8 @@ namespace Minion.States
         [SerializeField] private Material chargeMat;
         [SerializeField] private GameObjectEventChannelSO onCollidePlayerEventChannel;
 
+        [SerializeField] private MinionAgent minionAgent;
+        
         private Vector3 _dir;
 
         private LineRenderer _aimLine;
@@ -26,16 +26,19 @@ namespace Minion.States
 
         public override void Enter()
         {
-            base.Enter();
             _aimLine = agentTransform.Find("AimLine").gameObject.GetComponent<LineRenderer>();
-            CallCoroutine(AttackCoroutine());
 
             onCollidePlayerEventChannel.onGameObjectEvent.AddListener(DealDamage);
+
+            StartCoroutine(AttackCoroutine());
+        }
+
+        public override void OnUpdate()
+        {
         }
 
         public override void Exit()
         {
-            base.Exit();
             onCollidePlayerEventChannel.onGameObjectEvent.RemoveListener(DealDamage);
         }
 
@@ -89,6 +92,8 @@ namespace Minion.States
             }
 
             agentTransform.GetComponent<Collider>().isTrigger = false;
+            
+            minionAgent.ChangeStateToIdle();
         }
 
         private void DealDamage(GameObject target)

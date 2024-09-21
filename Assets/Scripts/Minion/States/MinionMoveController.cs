@@ -12,12 +12,7 @@ namespace Minion.States
         [SerializeField] private float minDistance;
 
         private Vector3 _dir;
-
-        public override void Enter()
-        {
-            base.Enter();
-        }
-
+        
         public override void Update()
         {
             base.Update();
@@ -29,11 +24,6 @@ namespace Minion.States
 
             _dir.y = 0;
             agentTransform.Translate(_dir * (speed * Time.deltaTime));
-        }
-
-        public override void Exit()
-        {
-            base.Exit();
         }
     }
 }
