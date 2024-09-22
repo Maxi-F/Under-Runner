@@ -55,7 +55,7 @@ jobs:
         uses: robpc/itchio-upload-action@v1
         with:
           path: build/StandaloneWindows
-          project: ${{ secret.ITCHIO_PROJECT }}
+          project: ${{ secrets.ITCHIO_PROJECT }}
           channel: ${{ env.itchio_channel }}
           version: ${{ github.event.release.tag_name }}
           api-key: ${{ secrets.ITCHIO_API_KEY }}
