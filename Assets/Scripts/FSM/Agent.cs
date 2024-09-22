@@ -17,7 +17,7 @@ namespace FSM
             Fsm = new FSM(GetStates());
         }
 
-        protected void Update()
+        protected virtual void Update()
         {
             Fsm.Update();
         }
