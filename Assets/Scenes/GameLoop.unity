@@ -680,6 +680,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 511427776780302466, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 511427776780302466, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 673461572015972428, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -727,6 +735,10 @@ PrefabInstance:
     - target: {fileID: 8961736479340173517, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 8961736479340173517, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -857,6 +869,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 9068004531541268373, guid: 454833c9036f8164b92e7c7279a2b863, type: 3}
   m_PrefabInstance: {fileID: 8087466391122380314}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &759632316 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 938812201743576552, guid: 454833c9036f8164b92e7c7279a2b863, type: 3}
+  m_PrefabInstance: {fileID: 8087466391122380314}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 759632310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3915ca53d56c23b44bd662973a6a792f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &807719619
 GameObject:
   m_ObjectHideFlags: 0
@@ -2419,6 +2442,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ObstaclesSpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 3591356576662942099, guid: 800cbe1a710fdb94fa4f38ba4942d228, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3972917326989590876, guid: 800cbe1a710fdb94fa4f38ba4942d228, type: 3}
       propertyPath: onObstacleTriggeredEvent
       value: 
@@ -2520,6 +2547,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelSequenceManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4988299967854156078, guid: 577b06af20e157d4793910329b73c1dd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7635251767426906750, guid: 577b06af20e157d4793910329b73c1dd, type: 3}
       propertyPath: enemy
       value: 
@@ -2565,6 +2596,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1059696745}
+    - target: {fileID: 2562709963566903697, guid: 454833c9036f8164b92e7c7279a2b863, type: 3}
+      propertyPath: minionAgent
+      value: 
+      objectReference: {fileID: 759632316}
     - target: {fileID: 3429272450400946337, guid: 454833c9036f8164b92e7c7279a2b863, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.05
@@ -2604,6 +2639,10 @@ PrefabInstance:
     - target: {fileID: 3429272450400946337, guid: 454833c9036f8164b92e7c7279a2b863, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4310436236341836283, guid: 454833c9036f8164b92e7c7279a2b863, type: 3}
+      propertyPath: preparationDuration
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 8215497170384526746, guid: 454833c9036f8164b92e7c7279a2b863, type: 3}
       propertyPath: m_AnchorMax.x
