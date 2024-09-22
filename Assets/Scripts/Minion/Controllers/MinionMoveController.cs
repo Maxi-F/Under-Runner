@@ -1,10 +1,7 @@
 using System.Collections;
-using System.Diagnostics;
-using FSM;
 using UnityEngine;
-using Debug = UnityEngine.Debug;
 
-namespace Minion.States
+namespace Minion.Controllers
 {
     public class MinionMoveController : MinionController
     {
@@ -14,7 +11,7 @@ namespace Minion.States
 
         [SerializeField] private MinionAgent minionAgent;
 
-        private Vector3 _dir;
+        private Vector3 _moveDir;
         
         public override void Enter()
         {
@@ -24,18 +21,18 @@ namespace Minion.States
         private IEnumerator HandleChangeState()
         {
             yield return new WaitForSeconds(timeMoving);
-            minionAgent.ChangeStateToAttack();
+            minionAgent.ChangeStateToChargeAttack();
         }
 
         public override void OnUpdate()
         {
             if (Vector3.Distance(transform.position, target.transform.position) < minDistance)
-                _dir = transform.position - target.transform.position;
+                _moveDir = transform.position - target.transform.position;
             else
-                _dir = target.transform.position - transform.position;
+                _moveDir = target.transform.position - transform.position;
             
-            _dir.y = 0;
-            transform.Translate(_dir * (speed * Time.deltaTime));
+            _moveDir.y = 0;
+            transform.Translate(_moveDir * (speed * Time.deltaTime));
         }
 
         public override void Exit()

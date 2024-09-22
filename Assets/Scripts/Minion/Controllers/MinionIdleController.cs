@@ -1,8 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace Minion.States
+namespace Minion.Controllers
 { 
     public class MinionIdleController : MinionController
     {
@@ -11,18 +10,13 @@ namespace Minion.States
         
         public override void Enter()
         {
-            Debug.Log("Enter minion idle");
+            transform.rotation = Quaternion.identity;
             StartCoroutine(HandleIdleTime());
         }
 
         private IEnumerator HandleIdleTime()
         {
-            Debug.Log(Time.timeScale);
-            yield return null;
-            Debug.Log("maybe?");
-            Debug.Log(timeInIdle);
             yield return new WaitForSeconds(timeInIdle);
-            Debug.Log("HERE!");
             minionAgent.ChangeStateToMove();
         }
 
