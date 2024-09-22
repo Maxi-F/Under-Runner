@@ -1,8 +1,8 @@
 name: Build project
 
 env:
-  itchio_project: undermakersinteractive/underrunner
   itchio_channel: windows
+  BuildName: UnderRunner ${{ github.event.release.tag_name }}
 
 on:
   release:
@@ -31,11 +31,11 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           targetPlatform: StandaloneWindows
-          buildName: UnderRunner ${{ github.event.release.tag_name }}
+          buildName: env.BuildName
       - uses: actions/upload-artifact@v4
         with:
-          name: UnderRunner ${{ github.event.release.tag_name }}
-          path: build/UnderRunner
+          name: env.BuildName
+          path: build/StandaloneWindows
   deploy:
     needs: buildForWindows
     name: Deploy to Itch.io
@@ -49,13 +49,13 @@ jobs:
       - name: Download Build Artifact
         uses: actions/download-artifact@v4
         with:
-          name: UnderRunner ${{ github.event.release.tag_name }}
-          path: build/UnderRunner
+          name: env.BuildName
+          path: build/StandaloneWindows
       - name: Upload Build to itch.io project
         uses: robpc/itchio-upload-action@v1
         with:
-          path: build/UnderRunner
-          project: ${{ env.itchio_project }}
+          path: build/StandaloneWindows
+          project: ${{ secret.ITCHIO_PROJECT }}
           channel: ${{ env.itchio_channel }}
           version: ${{ github.event.release.tag_name }}
           api-key: ${{ secrets.ITCHIO_API_KEY }}
