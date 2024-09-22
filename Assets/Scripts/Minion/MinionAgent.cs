@@ -18,6 +18,7 @@ namespace Minion
 
         [SerializeField] private HealthPoints healthPoints;
         
+        [Header("Controllers")]
         [SerializeField] private MinionIdleController minionIdleController;
         [SerializeField] private MinionMoveController minionMoveController;
         [SerializeField] private MinionAttackController minionAttackController;
@@ -38,7 +39,6 @@ namespace Minion
             foreach (MinionController controller in controllers)
             {
                 controller.target = player;
-                controller.agentTransform = transform;
             }
         }
         

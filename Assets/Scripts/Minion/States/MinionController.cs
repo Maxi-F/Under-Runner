@@ -7,7 +7,6 @@ namespace Minion.States
 {
     public abstract class MinionController : MonoBehaviour
     {
-        [HideInInspector] public Transform agentTransform;
         [HideInInspector] public GameObject target;
 
         public abstract void Enter();

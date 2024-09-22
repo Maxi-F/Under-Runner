@@ -29,13 +29,13 @@ namespace Minion.States
 
         public override void OnUpdate()
         {
-            if (Vector3.Distance(agentTransform.position, target.transform.position) < minDistance)
-                _dir = agentTransform.position - target.transform.position;
+            if (Vector3.Distance(transform.position, target.transform.position) < minDistance)
+                _dir = transform.position - target.transform.position;
             else
-                _dir = target.transform.position - agentTransform.position;
+                _dir = target.transform.position - transform.position;
             
             _dir.y = 0;
-            agentTransform.Translate(_dir * (speed * Time.deltaTime));
+            transform.Translate(_dir * (speed * Time.deltaTime));
         }
 
         public override void Exit()
