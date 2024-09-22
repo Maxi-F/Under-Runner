@@ -31,6 +31,7 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           targetPlatform: StandaloneWindows
+          buildName: UnderRunner ${{ github.event.release.tag_name }}
       - uses: actions/upload-artifact@v4
         with:
           name: UnderRunner ${{ github.event.release.tag_name }}
