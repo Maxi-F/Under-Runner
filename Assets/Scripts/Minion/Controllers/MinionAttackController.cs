@@ -5,22 +5,12 @@ namespace Minion.Controllers
 {
     public class MinionAttackController : MinionController
     {
-        [SerializeField] private MinionAgent minionAgent;
-        
         [SerializeField] private float ChargeLength;
         [SerializeField] private float ChargeSpeed;
         
-        public override void Enter()
+        public void Enter()
         {
             StartCoroutine(StartCharge());
-        }
-
-        public override void OnUpdate()
-        {
-        }
-
-        public override void Exit()
-        {
         }
         
         private IEnumerator StartCharge()
@@ -45,7 +35,7 @@ namespace Minion.Controllers
             }
             _healthPoints.SetCanTakeDamage(true);
             
-            minionAgent.ChangeStateToIdle();
+            MinionAgent.ChangeStateToIdle();
         }
     }
 }

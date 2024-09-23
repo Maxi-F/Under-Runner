@@ -9,11 +9,10 @@ namespace Minion.Controllers
         [SerializeField] private float speed;
         [SerializeField] private float minDistance;
 
-        [SerializeField] private MinionAgent minionAgent;
 
         private Vector3 _moveDir;
         
-        public override void Enter()
+        public void Enter()
         {
             StartCoroutine(HandleChangeState());
         }
@@ -21,11 +20,12 @@ namespace Minion.Controllers
         private IEnumerator HandleChangeState()
         {
             yield return new WaitForSeconds(timeMoving);
-            minionAgent.ChangeStateToChargeAttack();
+            MinionAgent.ChangeStateToChargeAttack();
         }
 
-        public override void OnUpdate()
+        public void OnUpdate()
         {
+            Debug.Log(target);
             if (Vector3.Distance(transform.position, target.transform.position) < minDistance)
                 _moveDir = transform.position - target.transform.position;
             else
@@ -33,10 +33,6 @@ namespace Minion.Controllers
             
             _moveDir.y = 0;
             transform.Translate(_moveDir * (speed * Time.deltaTime));
-        }
-
-        public override void Exit()
-        {
         }
     }
 }

@@ -11,14 +11,12 @@ namespace Minion.Controllers
         [SerializeField] private float ChargeLength;
 
         [SerializeField] private GameObjectEventChannelSO onCollidePlayerEventChannel;
-
-        [SerializeField] private MinionAgent minionAgent;
         
         private LineRenderer _aimLine;
         private Vector3 _dir;
         private bool _isCharging;
         
-        public override void Enter()
+        public void Enter()
         {
             _aimLine ??= gameObject.transform.Find("AimLine").gameObject.GetComponent<LineRenderer>();
 
@@ -26,15 +24,6 @@ namespace Minion.Controllers
             onCollidePlayerEventChannel.onGameObjectEvent.AddListener(DealDamage);
 
             StartCoroutine(AttackCoroutine());
-        }
-
-        public override void OnUpdate()
-        {
-        }
-
-        public override void Exit()
-        {
-            onCollidePlayerEventChannel.onGameObjectEvent.RemoveListener(DealDamage);
         }
 
         private void StartAimLine()
@@ -70,7 +59,7 @@ namespace Minion.Controllers
             _aimLine.enabled = false;
             Debug.Log("Start Charge");
             
-            minionAgent.ChangeStateToAttack();
+            MinionAgent.ChangeStateToAttack();
         }
 
         private void DealDamage(GameObject target)

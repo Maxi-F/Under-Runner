@@ -4,11 +4,9 @@ using UnityEngine;
 namespace Minion.Controllers
 { 
     public class MinionIdleController : MinionController
-    {
+    {//asd
         [SerializeField] private float timeInIdle;
-        [SerializeField] private MinionAgent minionAgent;
-        
-        public override void Enter()
+        public void Enter()
         {
             transform.rotation = Quaternion.identity;
             StartCoroutine(HandleIdleTime());
@@ -17,15 +15,7 @@ namespace Minion.Controllers
         private IEnumerator HandleIdleTime()
         {
             yield return new WaitForSeconds(timeInIdle);
-            minionAgent.ChangeStateToMove();
-        }
-
-        public override void OnUpdate()
-        {
-        }
-
-        public override void Exit()
-        {
+            MinionAgent.ChangeStateToMove();
         }
     }
 }
