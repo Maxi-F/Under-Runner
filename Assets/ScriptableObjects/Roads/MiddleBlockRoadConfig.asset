@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4baaabe733abc5147bd39fccd3df3355, type: 3}
-  m_Name: SecondRoadConfig
+  m_Name: MiddleBlockRoadConfig
   m_EditorClassIdentifier: 
-  roadSection: {fileID: 6046938452802903233, guid: e948c734f10036549926b6886c929788, type: 3}
+  roadSection: {fileID: 1735206726054836275, guid: 50c1969e35b790748b452faf93f0976f, type: 3}
   startRotation: {x: 0, y: 0, z: 0, w: 1}
