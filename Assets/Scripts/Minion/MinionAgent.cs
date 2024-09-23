@@ -1,15 +1,12 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Events;
 using FSM;
 using Health;
-using Minion.States;
-using UnityEditor;
+using Minion.Controllers;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
+using UnityEngine.Events;
 using UnityEngine.Serialization;
-using Random = UnityEngine.Random;
 
 namespace Minion
 {
@@ -18,73 +15,129 @@ namespace Minion
         [SerializeField] private float timeBetweenStates;
 
         [SerializeField] private GameObject player;
+        [SerializeField] private GameObject model;
         [SerializeField] private GameObjectEventChannelSO onCollidePlayerEventChannel;
 
-        [SerializeField] private HealthPoints _healthPoints;
+        [SerializeField] private HealthPoints healthPoints;
+
         
-        protected override void Awake()
+        [Header("Controllers")]
+        [SerializeField] private MinionAnimationController minionAnimationController;
+        
+        [SerializeField] private MinionIdleController minionIdleController;
+        [SerializeField] private MinionMoveController minionMoveController;
+        [SerializeField] private MinionChargeAttackController minionChargeAttackController;
+        [SerializeField] private MinionAttackController minionAttackController;
+        
+        private State _idleState;
+        private State _moveState;
+        private State _chargeAttackState;
+        private State _attackState;
+
+        protected void Awake()
         {
-            base.Awake();
-            StartChangeCoroutine();
-
-            foreach (StateSO state in config.states)
+            List<MinionController> controllers = new List<MinionController>()
             {
-                (state as MinionStateSO).target = player;
-                (state as MinionStateSO).agentTransform = transform;
-                (state as MinionStateSO).onCoroutineCall += HandleCallCoroutine;
-            }
+                minionIdleController,
+                minionMoveController,
+                minionChargeAttackController,
+                minionAttackController
+            };
 
-            _healthPoints?.OnDeathEvent.onEvent.AddListener(Die);
+            foreach (MinionController controller in controllers)
+            {
+                controller.target = player;
+            }
+        }
+
+        protected override void Update()
+        {
+            Vector3 rotation = Quaternion.LookRotation(player.transform.position).eulerAngles;
+            rotation.x = 0f;
+            rotation.z = 0f;
+            
+            model.transform.rotation = Quaternion.Euler(rotation);
+            base.Update();
         }
         
-        private void OnEnable()
+        protected override void OnEnable()
         {
-            foreach (StateSO state in config.states)
-            {
-                state.onEnter.AddListener(StartChangeCoroutine);
-            }
-
-            StartChangeCoroutine();
+            base.OnEnable();
+            
+            healthPoints?.OnDeathEvent.onEvent.AddListener(Die);
         }
 
-        private void OnDisable()
+        protected void OnDisable()
         {
-            foreach (StateSO state in config.states)
-            {
-                state.onEnter.RemoveListener(StartChangeCoroutine);
-            }
-
-            _healthPoints?.OnDeathEvent.onEvent.RemoveListener(Die);
-            _healthPoints?.ResetHitPoints();
+            healthPoints?.OnDeathEvent.onEvent.RemoveListener(Die);
+            healthPoints?.ResetHitPoints();
         }
 
-        private void HandleCallCoroutine(IEnumerator coroutine)
+        public void ChangeStateToMove()
         {
-            StartCoroutine(coroutine);
+            Fsm.ChangeState(_moveState);
         }
 
-        private void StartChangeCoroutine()
+        public void ChangeStateToAttack()
         {
-            StartCoroutine(ChangeStateCoroutine());
+            Fsm.ChangeState(_attackState);
+        }
+        
+        public void ChangeStateToChargeAttack()
+        {
+            Fsm.ChangeState(_chargeAttackState);
         }
 
-        private IEnumerator ChangeStateCoroutine()
+        public void ChangeStateToIdle()
         {
-            yield return new WaitForSeconds(timeBetweenStates);
-            int randomIndex = Random.Range(0, config.states.Count);
-            fsm.ChangeState(config.states[randomIndex]);
+             Fsm.ChangeState(_idleState);
         }
-
-        [ContextMenu("Move")]
-        private void ChangeToMoveState()
+        
+        protected override List<State> GetStates()
         {
-            fsm.ChangeState(fsm.FindState<MinionMoveStateSO>());
-        }
+            _idleState = new State();
+            _idleState.EnterAction += minionIdleController.Enter;
+            _idleState.UpdateAction += minionIdleController.OnUpdate;
+            _idleState.ExitAction += minionIdleController.Exit;
+            
+            _moveState = new State();
+            _moveState.EnterAction += minionMoveController.Enter;
+            _moveState.EnterAction += minionAnimationController.Aim;
+            _moveState.UpdateAction += minionMoveController.OnUpdate;
+            _moveState.ExitAction += minionMoveController.Exit;
+                
+            _chargeAttackState = new State();
+            _chargeAttackState.EnterAction += minionChargeAttackController.Enter;
+            _chargeAttackState.EnterAction += minionAnimationController.PrepareAttack;
+            _chargeAttackState.UpdateAction += minionChargeAttackController.OnUpdate;
+            _chargeAttackState.ExitAction += minionChargeAttackController.Exit;
+            
+            _attackState = new State();
+            _attackState.EnterAction += minionAttackController.Enter;
+            _attackState.EnterAction += minionAnimationController.Attack;
+            _attackState.UpdateAction += minionAttackController.OnUpdate;
+            _attackState.ExitAction += minionAttackController.Exit;
 
-        [ContextMenu("Idle")]
-        private void ChangeToIdleState()
-        {
-            fsm.ChangeState(fsm.FindState<MinionIdleStateSO>());
+            Transition idleToMoveTransition = new Transition(_idleState, _moveState);
+            _idleState.AddTransition(idleToMoveTransition);
+
+            Transition moveToChargeAttackTransition = new Transition(_moveState, _chargeAttackState);
+            _moveState.AddTransition(moveToChargeAttackTransition);
+
+            Transition chargeAttackToAttackTransition = new Transition(_chargeAttackState, _attackState);
+            _chargeAttackState.AddTransition(chargeAttackToAttackTransition);
+
+            Transition attackToIdleTransition = new Transition(_attackState, _idleState);
+            _attackState.AddTransition(attackToIdleTransition);
+            
+            return new List<State>
+                ()
+                {
+                    _idleState,
+                    _moveState,
+                    _chargeAttackState,
+                    _attackState
+                };
         }
 
         private void Die()
