@@ -163,9 +163,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: {fileID: 5575126865424349212}
   slider: {fileID: 5135750954969982833}
-  onTakeDamage: {fileID: 11400000, guid: d7c92d4ecc5578245b7e8d6eca51d765, type: 2}
-  onResetDamage: {fileID: 11400000, guid: abe3ae86baf3a6143af44a83fa066bee, type: 2}
   shouldStartHided: 0
+  onTakeDamage: {fileID: 11400000, guid: d7c92d4ecc5578245b7e8d6eca51d765, type: 2}
+  onResetDamage: {fileID: 0}
 --- !u!1 &3481237237909825566
 GameObject:
   m_ObjectHideFlags: 0
@@ -862,10 +862,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3915ca53d56c23b44bd662973a6a792f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
   model: {fileID: 8240765325717695887}
   onCollidePlayerEventChannel: {fileID: 11400000, guid: 94a2de087d2d288459b928f536c58af1, type: 2}
   healthPoints: {fileID: 5575126865424349212}
+  onMinionDeletedEvent: {fileID: 11400000, guid: d0b8cbd5af6d2924ea50203f22ee5183, type: 2}
   idleEvents:
     onEnter:
       m_PersistentCalls:
@@ -1042,9 +1042,39 @@ MonoBehaviour:
   maxHealth: 6
   initHealth: 6
   canTakeDamage: 1
-  onDeathEvent: {fileID: 11400000, guid: c865da2c04eab7440a28ab0a5cad2306, type: 2}
+  onDeathEvent: {fileID: 0}
   onTakeDamageEvent: {fileID: 11400000, guid: d7c92d4ecc5578245b7e8d6eca51d765, type: 2}
-  onResetPointsEvent: {fileID: 11400000, guid: abe3ae86baf3a6143af44a83fa066bee, type: 2}
+  onResetPointsEvent: {fileID: 0}
+  onInternalDeathEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 938812201743576552}
+        m_TargetAssemblyTypeName: Minion.MinionAgent, Assembly-CSharp
+        m_MethodName: Die
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onInternalResetEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4749338615536808895}
+        m_TargetAssemblyTypeName: UI.HealthBar, Assembly-CSharp
+        m_MethodName: HandleReset
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &4310436236341836283
 MonoBehaviour:
   m_ObjectHideFlags: 0
