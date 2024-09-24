@@ -2,6 +2,7 @@ using System.Collections;
 using Attacks.FallingAttack;
 using Events;
 using Health;
+using Minion.Manager;
 using ObstacleSystem;
 using Roads;
 using UnityEngine;
@@ -15,16 +16,17 @@ namespace LevelManagement
         [Header("Managers")] 
         [SerializeField] private RoadManager roadManager;
         [SerializeField] private FallingBlockSpawner fallingBlockSpawner;
+        [SerializeField] private MinionManager minionManager;
         
         [Header("Spawners")]
         [SerializeField] private ObstaclesSpawner obstaclesSpawner;
         
         [Header("Game Objects")]
         [SerializeField] private GameObject enemy;
-        [SerializeField] private GameObject minionEnemy;
 
         [Header("Events")]
         [SerializeField] private VoidEventChannelSO onObstaclesSystemDisabled;
+        [SerializeField] private VoidEventChannelSO onAllMinionsDestroyedEvent;
         
         [Header("UI")]
         [SerializeField] private Slider progressBar;
@@ -34,16 +36,15 @@ namespace LevelManagement
         private void Start()
         {
             onObstaclesSystemDisabled.onEvent.AddListener(StartMinionPhase);
-            minionEnemy.GetComponent<HealthPoints>().OnDeathEvent.onEvent.AddListener(StartBossBattle);
+            onAllMinionsDestroyedEvent.onEvent.AddListener(StartBossBattle);
         }
 
         private void OnDisable()
         {
-            if (minionEnemy != null)
-                minionEnemy.GetComponent<HealthPoints>().OnDeathEvent.onEvent.RemoveListener(StartBossBattle);
-
             if (obstaclesSpawner != null)
                 onObstaclesSystemDisabled.onEvent.RemoveListener(StartMinionPhase);
+            if(minionManager != null)
+                onAllMinionsDestroyedEvent.onEvent.RemoveListener(StartBossBattle);
         }
 
         private IEnumerator ObstaclesCoroutine()
@@ -72,12 +73,12 @@ namespace LevelManagement
 
         private void StartMinionPhase()
         {
-            minionEnemy.SetActive(true);
+            minionManager.gameObject.SetActive(true);
         }
 
         private void StartBossBattle()
         {
-            minionEnemy.SetActive(false);
+            minionManager.gameObject.SetActive(false);
             enemy.SetActive(true);
         }
         
@@ -87,7 +88,7 @@ namespace LevelManagement
             
             obstaclesSpawner.gameObject.SetActive(false);
             enemy.SetActive(false);
-            minionEnemy.SetActive(false);
+            minionManager.gameObject.SetActive(false);
             fallingBlockSpawner.SetFallingAttackData(_levelConfig.bossData.fallingAttackData);
             
             roadManager.HandleNewVelocity(_levelConfig.roadData.roadVelocity);

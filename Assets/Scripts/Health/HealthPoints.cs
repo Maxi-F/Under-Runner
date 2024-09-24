@@ -1,6 +1,7 @@
 using System;
 using Events;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Health
 {
@@ -14,6 +15,11 @@ namespace Health
         [SerializeField] private VoidEventChannelSO onDeathEvent;
         [SerializeField] private IntEventChannelSO onTakeDamageEvent;
         [SerializeField] private IntEventChannelSO onResetPointsEvent;
+
+        [Header("Internal events")] 
+        [SerializeField] private UnityEvent onInternalDeathEvent;
+
+        [SerializeField] private UnityEvent<int> onInternalResetEvent;
         
         public int MaxHealth
         {
@@ -57,6 +63,7 @@ namespace Health
         {
             CurrentHp = maxHealth;
             onResetPointsEvent?.RaiseEvent(CurrentHp);
+            onInternalResetEvent?.Invoke(CurrentHp);
         }
 
         public void TakeDamage(int damage)
@@ -71,6 +78,7 @@ namespace Health
             if (IsDead())
             {
                 onDeathEvent?.RaiseEvent();
+                onInternalDeathEvent?.Invoke();
             }
             else
             {
