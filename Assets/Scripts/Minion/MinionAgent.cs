@@ -8,18 +8,21 @@ namespace Minion
 {
     public class MinionAgent : Agent
     {
-        [SerializeField] private GameObject player;
         [SerializeField] private GameObject model;
         [SerializeField] private GameObjectEventChannelSO onCollidePlayerEventChannel;
 
         [SerializeField] private HealthPoints healthPoints;
 
-        [Header("Events")]
+        [Header("Events")] 
+        [SerializeField] private GameObjectEventChannelSO onMinionDeletedEvent;
+        
+        [Header("Internal Events")]
         [SerializeField] private ActionEventsWrapper idleEvents;
         [SerializeField] private ActionEventsWrapper moveEvents;
         [SerializeField] private ActionEventsWrapper chargeAttackEvents;
         [SerializeField] private ActionEventsWrapper attackEvents;
         
+        private GameObject _player;
         private State _idleState;
         private State _moveState;
         private State _chargeAttackState;
@@ -27,31 +30,23 @@ namespace Minion
 
         protected override void Update()
         {
-            Vector3 rotation = Quaternion.LookRotation(player.transform.position).eulerAngles;
+            Vector3 rotation = Quaternion.LookRotation(_player.transform.position).eulerAngles;
             rotation.x = 0f;
             rotation.z = 0f;
             
             model.transform.rotation = Quaternion.Euler(rotation);
             base.Update();
         }
-        
-        protected override void OnEnable()
-        {
-            base.OnEnable();
-            
-            healthPoints?.OnDeathEvent.onEvent.AddListener(Die);
-        }
 
         protected void OnDisable()
         {
-            healthPoints?.OnDeathEvent.onEvent.RemoveListener(Die);
             healthPoints?.ResetHitPoints();
         }
 
         public GameObject GetPlayer()
         {
             Debug.Log($"PLAYER IN");
-            return player;
+            return _player;
         }
 
         public void ChangeStateToMove()
@@ -72,6 +67,11 @@ namespace Minion
         public void ChangeStateToIdle()
         {
              Fsm.ChangeState(_idleState);
+        }
+        
+        public void SetPlayer(GameObject player)
+        {
+            _player = player;
         }
         
         protected override List<State> GetStates()
@@ -118,9 +118,10 @@ namespace Minion
                 };
         }
 
-        private void Die()
+        public void Die()
         {
-            Destroy(this.gameObject);
+            if(healthPoints.CurrentHp <= 0)
+                onMinionDeletedEvent?.RaiseEvent(gameObject);
         }
 
         private void OnTriggerEnter(Collider other)
@@ -130,5 +131,6 @@ namespace Minion
                 onCollidePlayerEventChannel?.RaiseEvent(other.gameObject);
             }
         }
+        
     }
 }
