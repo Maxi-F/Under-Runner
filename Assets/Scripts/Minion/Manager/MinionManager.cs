@@ -37,6 +37,7 @@ namespace Minion.Manager
             
             _minions.Remove(deletedMinion);
 
+            Debug.Log($"MINIONS COUNT: {_minions.Count}, IS SPAWNING: {_isSpawning}");
             if (_minions.Count == 0 && !_isSpawning)
             {
                 onAllMinionsDestroyedEvent?.RaiseEvent();
@@ -50,6 +51,8 @@ namespace Minion.Manager
 
             for (int i = 0; i < minionSpawnerConfig.minionsToSpawn; i++)
             {
+                if(i != 0) yield return new WaitForSeconds(minionSpawnerConfig.timeBetweenSpawns);
+                
                 GameObject minion = MinionObjectPool.Instance?.GetPooledObject();
                 if (minion == null)
                 {
@@ -64,7 +67,6 @@ namespace Minion.Manager
                 minion.SetActive(true);
 
                 _minions.Add(minion);
-                yield return new WaitForSeconds(minionSpawnerConfig.timeBetweenSpawns);
             }
 
             _isSpawning = false;
