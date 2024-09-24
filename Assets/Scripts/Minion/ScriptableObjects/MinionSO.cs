@@ -37,6 +37,7 @@ namespace Minion.ScriptableObjects
     [CreateAssetMenu(menuName = "Minions/Config")]
     public class MinionSO : ScriptableObject
     {
+        public GameObject minionPrefab;
         public ChargeAttack chargeAttackData;
         public Attack attackData;
         public Idle idleData;
