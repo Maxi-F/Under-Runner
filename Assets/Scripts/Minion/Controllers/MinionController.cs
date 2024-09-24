@@ -13,16 +13,13 @@ namespace Minion.Controllers
         protected HealthPoints _healthPoints;
         protected Collider _collider;
         
-        private void Start()
+        private void OnEnable()
         {
             _healthPoints ??= GetComponent<HealthPoints>();
             _collider ??= GetComponent<Collider>();
             MinionAgent ??= GetComponent<MinionAgent>();
             
-            Debug.Log($"test {MinionAgent}");
             target = MinionAgent.GetPlayer();
-            
-            Debug.Log($"target {target}");
         }
     }
 }
