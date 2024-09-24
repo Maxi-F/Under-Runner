@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67be235d0bf30ba4db3981595b613a41, type: 3}
   m_Name: MinionConfig
   m_EditorClassIdentifier: 
+  minionPrefab: {fileID: 9068004531541268373, guid: 454833c9036f8164b92e7c7279a2b863, type: 3}
   chargeAttackData:
     duration: 0.75
     length: 7
