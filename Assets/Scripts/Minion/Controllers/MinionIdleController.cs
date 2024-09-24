@@ -1,11 +1,12 @@
 using System.Collections;
+using Minion.ScriptableObjects;
 using UnityEngine;
 
 namespace Minion.Controllers
 { 
     public class MinionIdleController : MinionController
-    {//asd
-        [SerializeField] private float timeInIdle;
+    {
+        [SerializeField] private MinionSO minionConfig;
         public void Enter()
         {
             transform.rotation = Quaternion.identity;
@@ -14,7 +15,7 @@ namespace Minion.Controllers
 
         private IEnumerator HandleIdleTime()
         {
-            yield return new WaitForSeconds(timeInIdle);
+            yield return new WaitForSeconds(minionConfig.GetRandomIdleTime());
             MinionAgent.ChangeStateToMove();
         }
     }

@@ -1,26 +1,32 @@
 using System.Collections;
+using Events;
+using Health;
+using Minion.ScriptableObjects;
 using UnityEngine;
 
 namespace Minion.Controllers
 {
     public class MinionAttackController : MinionController
     {
-        [SerializeField] private float ChargeLength;
-        [SerializeField] private float ChargeSpeed;
+        [SerializeField] private MinionSO minionConfig;
+
+        [SerializeField] private GameObjectEventChannelSO onCollidePlayerEventChannel;
         
         public void Enter()
         {
             StartCoroutine(StartCharge());
+            
+            onCollidePlayerEventChannel.onGameObjectEvent.AddListener(DealDamage);
         }
         
         private IEnumerator StartCharge()
         {
             float timer = 0;
-            float chargeDuration = ChargeLength / ChargeSpeed;
+            float chargeDuration = minionConfig.chargeAttackData.length / minionConfig.attackData.speed;
             float startTime = Time.time;
             Vector3 dir = target.transform.position - transform.position;
             
-            Vector3 destination = transform.position + dir.normalized * ChargeLength;
+            Vector3 destination = transform.position + dir.normalized * minionConfig.chargeAttackData.length;
             Vector3 startPosition = transform.position;
             destination.y = startPosition.y;
             
@@ -36,6 +42,12 @@ namespace Minion.Controllers
             _healthPoints.SetCanTakeDamage(true);
             
             MinionAgent.ChangeStateToIdle();
+        }
+        
+        private void DealDamage(GameObject target)
+        {
+            target.gameObject.TryGetComponent(out ITakeDamage playerHealth);
+            playerHealth.TakeDamage(minionConfig.attackData.damage);
         }
     }
 }
