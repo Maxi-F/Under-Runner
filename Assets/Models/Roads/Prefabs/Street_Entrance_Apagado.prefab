@@ -1194,7 +1194,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2368229332819283354}
   m_Layer: 0
-  m_Name: Street_Entrance
+  m_Name: Street_Entrance_Apagado
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
