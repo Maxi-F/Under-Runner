@@ -24,7 +24,6 @@ namespace Minion.Controllers
 
         public void OnUpdate()
         {
-            Debug.Log(target);
             if (Vector3.Distance(transform.position, target.transform.position) < minionConfig.moveData.minDistance)
                 _moveDir = transform.position - target.transform.position;
             else

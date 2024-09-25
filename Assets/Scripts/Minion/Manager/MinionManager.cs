@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Events;
 using Minion.ScriptableObjects;
 using UnityEngine;
@@ -14,6 +15,7 @@ namespace Minion.Manager
         [Header("Events")]
         [SerializeField] private GameObjectEventChannelSO onMinionDeletedEvent;
         [SerializeField] private VoidEventChannelSO onAllMinionsDestroyedEvent;
+        [SerializeField] private VoidEventChannelSO onPlayerDeathEvent;
         
         private List<GameObject> _minions;
         private bool _isSpawning;
@@ -23,14 +25,25 @@ namespace Minion.Manager
         {
             _spawnCoroutine = StartCoroutine(SpawnMinions());
             onMinionDeletedEvent?.onGameObjectEvent.AddListener(HandleDeletedEvent);
+            onPlayerDeathEvent?.onEvent.AddListener(RemoveAllMinions);
         }
 
         protected void OnDisable()
         {
             onMinionDeletedEvent?.onGameObjectEvent.RemoveListener(HandleDeletedEvent);
+            onPlayerDeathEvent?.onEvent.RemoveListener(RemoveAllMinions);
             StopCoroutine(_spawnCoroutine);
         }
-        
+
+        private void RemoveAllMinions()
+        {
+            foreach (var minion in _minions.ToList())
+            {
+                _minions.Remove(minion);
+                MinionObjectPool.Instance?.ReturnToPool(minion);
+            }
+        }
+
         private void HandleDeletedEvent(GameObject deletedMinion)
         {
             MinionObjectPool.Instance?.ReturnToPool(deletedMinion);
