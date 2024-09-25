@@ -45,7 +45,6 @@ namespace Minion
 
         public GameObject GetPlayer()
         {
-            Debug.Log($"PLAYER IN");
             return _player;
         }
 
