@@ -90,7 +90,6 @@ namespace Attacks.ParryProjectile
 
             while (_timeApplyingFollowForce < secondsInFollowForce)
             {
-                // transform.position = Vector3.MoveTowards(transform.position, _objectToFollow.gameObject.transform.position, _followForceVelocity * Time.deltaTime);
                 transform.position += _direction * (_followForceVelocity * Time.deltaTime);
 
                 _timeApplyingFollowForce += Time.deltaTime;
