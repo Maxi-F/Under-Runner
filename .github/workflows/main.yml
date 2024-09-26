@@ -64,10 +64,11 @@ jobs:
     name: Discord Notification
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - name: Check out repository 
+        uses: actions/checkout@master
       - name: send custom message with args
         uses: appleboy/discord-action@master
         with:
           webhook_id: ${{ secrets.WEBHOOK_ID }}
           webhook_token: ${{ secrets.WEBHOOK_TOKEN }}
-          message: '@'here ${{ env.BuildName }}
+          message: "@here ${{ env.BuildName }}"
