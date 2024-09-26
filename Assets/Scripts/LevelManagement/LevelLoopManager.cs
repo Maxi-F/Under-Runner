@@ -8,6 +8,7 @@ using Roads;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+using Utils;
 
 namespace LevelManagement
 {
@@ -27,72 +28,114 @@ namespace LevelManagement
         [Header("Events")]
         [SerializeField] private VoidEventChannelSO onObstaclesSystemDisabled;
         [SerializeField] private VoidEventChannelSO onAllMinionsDestroyedEvent;
-        
-        [Header("UI")]
-        [SerializeField] private Slider progressBar;
+
+        [Header("Sequences")]
+        [SerializeField] private ObstacleSequence obstacleSequence;
         
         private LevelLoopSO _levelConfig;
+        private bool _isObstacleSystemDisabled;
+        private bool _areAllMinionsDestroyed;
 
         private void Start()
         {
-            onObstaclesSystemDisabled.onEvent.AddListener(StartMinionPhase);
-            onAllMinionsDestroyedEvent.onEvent.AddListener(StartBossBattle);
+            onObstaclesSystemDisabled.onEvent.AddListener(HandleObstacleSystemDisabled);
+            onAllMinionsDestroyedEvent.onEvent.AddListener(HandleAllMinionsDestroyed);
         }
 
         private void OnDisable()
         {
             if (obstaclesSpawner != null)
-                onObstaclesSystemDisabled.onEvent.RemoveListener(StartMinionPhase);
+                onObstaclesSystemDisabled.onEvent.RemoveListener(HandleObstacleSystemDisabled);
             if(minionManager != null)
-                onAllMinionsDestroyedEvent.onEvent.RemoveListener(StartBossBattle);
+                onAllMinionsDestroyedEvent.onEvent.RemoveListener(HandleAllMinionsDestroyed);
         }
 
-        private IEnumerator ObstaclesCoroutine()
+        private void HandleAllMinionsDestroyed()
         {
-            float timer = 0;
-            float obstaclesDuration = _levelConfig.obstacleData.obstaclesDuration;
-            float obstacleCooldown = _levelConfig.obstacleData.obstacleCooldown;
-            float startTime = Time.time;
-
-            obstaclesSpawner.gameObject.SetActive(true);
-            progressBar.gameObject.SetActive(true);
-
-            obstaclesSpawner.StartWithCooldown(obstacleCooldown);
-            
-            while (timer < obstaclesDuration)
-            {
-                timer = Time.time - startTime;
-                progressBar.value = Mathf.Lerp(0, progressBar.maxValue, timer / obstaclesDuration);
-                yield return null;
-            }
-
-            progressBar.gameObject.SetActive(false);
-
-            obstaclesSpawner.Disable();
+            _areAllMinionsDestroyed = true;
         }
 
-        private void StartMinionPhase()
+        private IEnumerator SetMinionManager(bool value)
         {
-            minionManager.gameObject.SetActive(true);
+            minionManager.gameObject.SetActive(value);
+
+            yield return new WaitUntil(() => _areAllMinionsDestroyed);
         }
 
-        private void StartBossBattle()
+        private IEnumerator MinionSequencePreActions()
         {
-            minionManager.gameObject.SetActive(false);
+            _areAllMinionsDestroyed = false;
+
+            yield return null;
+        }
+
+        private IEnumerator StartMinionPhase()
+        {
+            Sequence minionSequence = new Sequence();
+
+            minionSequence.AddPreAction(MinionSequencePreActions());
+            minionSequence.SetAction(SetMinionManager(true));
+            minionSequence.AddPostAction(SetMinionManager(false));
+            minionSequence.AddPostAction(StartBossBattle());
+
+            return minionSequence.Execute();
+        }
+
+        private void HandleObstacleSystemDisabled()
+        {
+            _isObstacleSystemDisabled = true;
+        }
+
+        private IEnumerator BossBattleAction()
+        {
             enemy.SetActive(true);
+            yield return null;
         }
-        
-        public void StartLoopWithConfig(LevelLoopSO loopConfig)
+
+        private IEnumerator StartBossBattle()
+        {
+            Sequence sequence = new Sequence();
+
+            sequence.SetAction(BossBattleAction());
+
+            return sequence.Execute();
+        }
+
+        private IEnumerator LevelCoroutine(Sequence sequence)
+        {
+            return sequence.Execute();
+        }
+
+        public void StartLevelSequence(LevelLoopSO loopConfig)
+        {
+            Sequence sequence = new Sequence();
+
+            sequence.AddPreAction(SetupLevelLoop(loopConfig));
+            sequence.SetAction(StartLoopWithConfig());
+
+            StartCoroutine(LevelCoroutine(sequence));
+        }
+
+        private IEnumerator SetupLevelLoop(LevelLoopSO loopConfig)
         {
             _levelConfig = loopConfig;
-            
+
+            obstacleSequence.SetLevelConfig(_levelConfig);
+            obstacleSequence.SetPostAction(StartMinionPhase());
+
             obstaclesSpawner.gameObject.SetActive(false);
             enemy.SetActive(false);
             minionManager.gameObject.SetActive(false);
             fallingBlockSpawner.SetFallingAttackData(_levelConfig.bossData.fallingAttackData);
-            
+
             roadManager.HandleNewVelocity(_levelConfig.roadData.roadVelocity);
-            StartCoroutine(ObstaclesCoroutine());
+
+            yield return null;
+        }
+        
+        public IEnumerator StartLoopWithConfig()
+        {
+            yield return obstacleSequence.GetObstacleSequence().Execute();
         }
     }
 }
