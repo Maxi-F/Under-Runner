@@ -804,6 +804,7 @@ GameObject:
   - component: {fileID: 154755272736235517}
   - component: {fileID: 2562709963566903697}
   - component: {fileID: 4870043625586772548}
+  - component: {fileID: 1977581406877134975}
   - component: {fileID: 4097841218994226417}
   m_Layer: 6
   m_Name: Minion
@@ -1152,6 +1153,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   minionConfig: {fileID: 11400000, guid: 0a4091bb2b815e646b3a1f5e68314944, type: 2}
+  onPlayerMovedEvent: {fileID: 11400000, guid: 6a4bb4062610c7b4fa1d1458d1248c67, type: 2}
+  onDashMovementEvent: {fileID: 11400000, guid: bbb7d509b23dc6e44a57ecc08ccba7b3, type: 2}
 --- !u!114 &2562709963566903697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1181,6 +1184,20 @@ MonoBehaviour:
   target: {fileID: 0}
   minionBounds: {fileID: 11400000, guid: 0cd70dbec5e60324ab8d0c7e1a758b09, type: 2}
   moveVelocity: 5
+--- !u!114 &1977581406877134975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9068004531541268373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 138147d3b66208c43b3f9e587903e698, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  yStartPlusPosition: 7
+  yVelocity: 2
 --- !u!114 &4097841218994226417
 MonoBehaviour:
   m_ObjectHideFlags: 0
