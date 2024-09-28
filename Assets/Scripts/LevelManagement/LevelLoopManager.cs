@@ -33,7 +33,6 @@ namespace LevelManagement
         [SerializeField] private ObstacleSequence obstacleSequence;
         
         private LevelLoopSO _levelConfig;
-        private bool _isObstacleSystemDisabled;
         private bool _areAllMinionsDestroyed;
 
         private void Start()
@@ -83,7 +82,7 @@ namespace LevelManagement
 
         private void HandleObstacleSystemDisabled()
         {
-            _isObstacleSystemDisabled = true;
+            obstacleSequence.SetObstacleSequenceAsDisabled();
         }
 
         private IEnumerator BossBattleAction()
@@ -135,7 +134,7 @@ namespace LevelManagement
         
         public IEnumerator StartLoopWithConfig()
         {
-            yield return obstacleSequence.GetObstacleSequence().Execute();
+            yield return obstacleSequence.Execute();
         }
     }
 }
