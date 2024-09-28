@@ -1,6 +1,7 @@
 using System.Collections;
 using Events;
 using ObstacleSystem;
+using Roads;
 using UnityEngine;
 using UnityEngine.UI;
 using Utils;
@@ -9,6 +10,8 @@ namespace LevelManagement
 {
     public class ObstacleSequence : MonoBehaviour
     {
+        [SerializeField] private RoadManager roadManager;
+        
         [Header("Spawners")]
         [SerializeField] private ObstaclesSpawner obstaclesSpawner;
 
@@ -33,6 +36,12 @@ namespace LevelManagement
                 onObstaclesSystemDisabled.onEvent.RemoveListener(HandleObstacleSystemDisabled);
         }
 
+        public void SetupSequence(RoadData roadData)
+        {
+            obstaclesSpawner.gameObject.SetActive(false);
+            roadManager.HandleNewVelocity(roadData.roadVelocity);
+        }
+        
         private void HandleObstacleSystemDisabled()
         {
             _isObstacleSystemDisabled = true;
@@ -62,7 +71,6 @@ namespace LevelManagement
             obstacleSequence.SetAction(ObstaclesAction());
             obstacleSequence.AddPostAction(ObstaclesPostActions());
             obstacleSequence.AddPostAction(_postAction);
-            Debug.Log(_postAction);
             
             return obstacleSequence;
         }

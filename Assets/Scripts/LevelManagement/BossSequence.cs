@@ -1,18 +1,36 @@
 using System.Collections;
-using System.Collections.Generic;
+using Attacks.FallingAttack;
 using UnityEngine;
+using Utils;
 
-public class BossSequence : MonoBehaviour
+namespace LevelManagement
 {
-    // Start is called before the first frame update
-    void Start()
+    public class BossSequence : MonoBehaviour
     {
+        [SerializeField] private FallingBlockSpawner fallingBlockSpawner;
         
-    }
+        [Header("Game Objects")]
+        [SerializeField] private GameObject boss;
 
-    // Update is called once per frame
-    void Update()
-    {
+        public void SetupSequence(BossData bossData)
+        {
+            boss.SetActive(false);
+            fallingBlockSpawner.SetFallingAttackData(bossData.fallingAttackData);
+        }
         
+        public IEnumerator StartBossBattle()
+        {
+            Sequence sequence = new Sequence();
+
+            sequence.SetAction(BossBattleAction());
+
+            return sequence.Execute();
+        }
+        
+        private IEnumerator BossBattleAction()
+        {
+            yield return null;
+            boss.SetActive(true);
+        }
     }
 }

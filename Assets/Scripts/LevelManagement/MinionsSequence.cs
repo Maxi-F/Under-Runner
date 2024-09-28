@@ -7,7 +7,7 @@ using Utils;
 
 namespace LevelManagement
 {
-    public class MinionSequence : MonoBehaviour
+    public class MinionsSequence : MonoBehaviour
     {
         [SerializeField] private MinionManager minionManager;
 
@@ -30,7 +30,12 @@ namespace LevelManagement
         {
             _postAction = postAction;
         }
-        
+
+        public void SetupSequence()
+        {
+            minionManager.gameObject.SetActive(false);
+        }
+
         private IEnumerator MinionSequencePreActions()
         {
             _areAllMinionsDestroyed = false;

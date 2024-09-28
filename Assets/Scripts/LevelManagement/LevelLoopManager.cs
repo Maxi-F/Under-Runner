@@ -1,50 +1,20 @@
 using System.Collections;
-using Attacks.FallingAttack;
-using Events;
-using Health;
-using Minion.Manager;
 using ObstacleSystem;
-using Roads;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
-using Utils;
 
 namespace LevelManagement
 {
     public class LevelLoopManager : MonoBehaviour
     {
-        [Header("Managers")] 
-        [SerializeField] private RoadManager roadManager;
-        [SerializeField] private FallingBlockSpawner fallingBlockSpawner;
-        [SerializeField] private MinionManager minionManager;
-        
         [Header("Spawners")]
         [SerializeField] private ObstaclesSpawner obstaclesSpawner;
-        
-        [Header("Game Objects")]
-        [SerializeField] private GameObject enemy;
 
         [Header("Sequences")]
         [SerializeField] private ObstacleSequence obstacleSequence;
-        [SerializeField] private MinionSequence minionSequence;
+        [SerializeField] private MinionsSequence minionsSequence;
+        [SerializeField] private BossSequence bossSequence;
         
         private LevelLoopSO _levelConfig;
-
-        private IEnumerator BossBattleAction()
-        {
-            yield return null;
-            enemy.SetActive(true);
-        }
-
-        private IEnumerator StartBossBattle()
-        {
-            Sequence sequence = new Sequence();
-
-            sequence.SetAction(BossBattleAction());
-
-            return sequence.Execute();
-        }
 
         public void StartLevelSequence(LevelLoopSO loopConfig)
         {
@@ -56,16 +26,13 @@ namespace LevelManagement
         {
             _levelConfig = loopConfig;
 
+            obstacleSequence.SetupSequence(_levelConfig.roadData);
+            minionsSequence.SetupSequence();
+            bossSequence.SetupSequence(_levelConfig.bossData);
+            
             obstacleSequence.SetLevelConfig(_levelConfig);
-            minionSequence.SetPostAction(StartBossBattle());
-            obstacleSequence.SetPostAction(minionSequence.StartMinionPhase());
-
-            obstaclesSpawner.gameObject.SetActive(false);
-            enemy.SetActive(false);
-            minionManager.gameObject.SetActive(false);
-            fallingBlockSpawner.SetFallingAttackData(_levelConfig.bossData.fallingAttackData);
-
-            roadManager.HandleNewVelocity(_levelConfig.roadData.roadVelocity);
+            minionsSequence.SetPostAction(bossSequence.StartBossBattle());
+            obstacleSequence.SetPostAction(minionsSequence.StartMinionPhase());
         }
 
         private IEnumerator StartLoopWithConfig()
