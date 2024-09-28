@@ -1,18 +1,68 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
+using Events;
+using Minion.Manager;
 using UnityEngine;
+using Utils;
 
-public class MinionSequence : MonoBehaviour
+namespace LevelManagement
 {
-    // Start is called before the first frame update
-    void Start()
+    public class MinionSequence : MonoBehaviour
     {
-        
-    }
+        [SerializeField] private MinionManager minionManager;
 
-    // Update is called once per frame
-    void Update()
-    {
+        [Header("Events")] [SerializeField] private VoidEventChannelSO onAllMinionsDestroyedEvent;
+        
+        private bool _areAllMinionsDestroyed;
+        private IEnumerator _postAction;
+        
+        private void OnEnable()
+        {
+            onAllMinionsDestroyedEvent?.onEvent.AddListener(HandleAllMinionsDestroyed);
+        }
+
+        private void OnDisable()
+        {
+            onAllMinionsDestroyedEvent?.onEvent.RemoveListener(HandleAllMinionsDestroyed);
+        }
+
+        public void SetPostAction(IEnumerator postAction)
+        {
+            _postAction = postAction;
+        }
+        
+        private IEnumerator MinionSequencePreActions()
+        {
+            _areAllMinionsDestroyed = false;
+            Debug.Log("eh?");
+
+            yield return null;
+        }
+        
+        private void HandleAllMinionsDestroyed()
+        {
+            _areAllMinionsDestroyed = true;
+        }
+
+        private IEnumerator SetMinionManager(bool value)
+        {
+            minionManager.gameObject.SetActive(value);
+
+            yield return new WaitUntil(() => _areAllMinionsDestroyed);
+        }
+
+        public IEnumerator StartMinionPhase()
+        {
+            Sequence minionSequence = new Sequence();
+
+            minionSequence.AddPreAction(MinionSequencePreActions());
+            minionSequence.SetAction(SetMinionManager(true));
+            minionSequence.AddPostAction(SetMinionManager(false));
+            minionSequence.AddPostAction(_postAction);
+
+            return minionSequence.Execute();
+        }
+        
         
     }
 }

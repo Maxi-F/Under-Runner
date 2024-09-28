@@ -1551,6 +1551,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstaclesSpawner: {fileID: 910727726}
   progressBar: {fileID: 635145717}
+  onObstaclesSystemDisabled: {fileID: 11400000, guid: 9b61d8e3cffb1c84f98d7d4315aa3c7f, type: 2}
+--- !u!114 &1839552628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1055734852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 542c1c7e4d4d8c84aa48daee69cc2b54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minionManager: {fileID: 169517789}
+  onAllMinionsDestroyedEvent: {fileID: 11400000, guid: f39644c8bb7ad1d4bbb9e63f25300263, type: 2}
 --- !u!1001 &1862578654
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2419,6 +2434,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7635251767426906750, guid: 577b06af20e157d4793910329b73c1dd, type: 3}
+      propertyPath: minionSequence
+      value: 
+      objectReference: {fileID: 1839552628}
+    - target: {fileID: 7635251767426906750, guid: 577b06af20e157d4793910329b73c1dd, type: 3}
       propertyPath: obstacleSequence
       value: 
       objectReference: {fileID: 1839552627}
@@ -2441,6 +2460,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4988299967854156078, guid: 577b06af20e157d4793910329b73c1dd, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1839552627}
+    - targetCorrespondingSourceObject: {fileID: 4988299967854156078, guid: 577b06af20e157d4793910329b73c1dd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1839552628}
   m_SourcePrefab: {fileID: 100100000, guid: 577b06af20e157d4793910329b73c1dd, type: 3}
 --- !u!1001 &8933589425644651686
 PrefabInstance:

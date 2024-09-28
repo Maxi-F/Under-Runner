@@ -1,4 +1,5 @@
 using System.Collections;
+using Events;
 using ObstacleSystem;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,6 +18,26 @@ namespace LevelManagement
         private bool _isObstacleSystemDisabled;
         private LevelLoopSO _levelConfig;
         private IEnumerator _postAction;
+        
+        [Header("Events")]
+        [SerializeField] private VoidEventChannelSO onObstaclesSystemDisabled;
+        
+        private void OnEnable()
+        {
+            onObstaclesSystemDisabled.onEvent.AddListener(HandleObstacleSystemDisabled);
+        }
+
+        private void OnDisable()
+        {
+            if (obstaclesSpawner != null)
+                onObstaclesSystemDisabled.onEvent.RemoveListener(HandleObstacleSystemDisabled);
+        }
+
+        private void HandleObstacleSystemDisabled()
+        {
+            _isObstacleSystemDisabled = true;
+        }
+        
         public IEnumerator Execute()
         {
             return GetObstacleSequence().Execute();
@@ -30,6 +51,7 @@ namespace LevelManagement
         public void SetPostAction(IEnumerator postAction)
         {
             _postAction = postAction;
+            Debug.Log(_postAction);
         }
 
         private Sequence GetObstacleSequence()
@@ -40,7 +62,8 @@ namespace LevelManagement
             obstacleSequence.SetAction(ObstaclesAction());
             obstacleSequence.AddPostAction(ObstaclesPostActions());
             obstacleSequence.AddPostAction(_postAction);
-
+            Debug.Log(_postAction);
+            
             return obstacleSequence;
         }
 
@@ -77,11 +100,6 @@ namespace LevelManagement
         private IEnumerator ObstaclesPostActions()
         {
             yield return new WaitUntil(() => _isObstacleSystemDisabled);
-        }
-
-        public void SetObstacleSequenceAsDisabled()
-        {
-            _isObstacleSystemDisabled = true;
         }
     }
 }

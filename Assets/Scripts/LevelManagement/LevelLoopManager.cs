@@ -25,70 +25,16 @@ namespace LevelManagement
         [Header("Game Objects")]
         [SerializeField] private GameObject enemy;
 
-        [Header("Events")]
-        [SerializeField] private VoidEventChannelSO onObstaclesSystemDisabled;
-        [SerializeField] private VoidEventChannelSO onAllMinionsDestroyedEvent;
-
         [Header("Sequences")]
         [SerializeField] private ObstacleSequence obstacleSequence;
+        [SerializeField] private MinionSequence minionSequence;
         
         private LevelLoopSO _levelConfig;
-        private bool _areAllMinionsDestroyed;
-
-        private void Start()
-        {
-            onObstaclesSystemDisabled.onEvent.AddListener(HandleObstacleSystemDisabled);
-            onAllMinionsDestroyedEvent.onEvent.AddListener(HandleAllMinionsDestroyed);
-        }
-
-        private void OnDisable()
-        {
-            if (obstaclesSpawner != null)
-                onObstaclesSystemDisabled.onEvent.RemoveListener(HandleObstacleSystemDisabled);
-            if(minionManager != null)
-                onAllMinionsDestroyedEvent.onEvent.RemoveListener(HandleAllMinionsDestroyed);
-        }
-
-        private void HandleAllMinionsDestroyed()
-        {
-            _areAllMinionsDestroyed = true;
-        }
-
-        private IEnumerator SetMinionManager(bool value)
-        {
-            minionManager.gameObject.SetActive(value);
-
-            yield return new WaitUntil(() => _areAllMinionsDestroyed);
-        }
-
-        private IEnumerator MinionSequencePreActions()
-        {
-            _areAllMinionsDestroyed = false;
-
-            yield return null;
-        }
-
-        private IEnumerator StartMinionPhase()
-        {
-            Sequence minionSequence = new Sequence();
-
-            minionSequence.AddPreAction(MinionSequencePreActions());
-            minionSequence.SetAction(SetMinionManager(true));
-            minionSequence.AddPostAction(SetMinionManager(false));
-            minionSequence.AddPostAction(StartBossBattle());
-
-            return minionSequence.Execute();
-        }
-
-        private void HandleObstacleSystemDisabled()
-        {
-            obstacleSequence.SetObstacleSequenceAsDisabled();
-        }
 
         private IEnumerator BossBattleAction()
         {
-            enemy.SetActive(true);
             yield return null;
+            enemy.SetActive(true);
         }
 
         private IEnumerator StartBossBattle()
@@ -100,27 +46,19 @@ namespace LevelManagement
             return sequence.Execute();
         }
 
-        private IEnumerator LevelCoroutine(Sequence sequence)
-        {
-            return sequence.Execute();
-        }
-
         public void StartLevelSequence(LevelLoopSO loopConfig)
         {
-            Sequence sequence = new Sequence();
-
-            sequence.AddPreAction(SetupLevelLoop(loopConfig));
-            sequence.SetAction(StartLoopWithConfig());
-
-            StartCoroutine(LevelCoroutine(sequence));
+            SetupLevelLoop(loopConfig);
+            StartCoroutine(StartLoopWithConfig());
         }
 
-        private IEnumerator SetupLevelLoop(LevelLoopSO loopConfig)
+        private void SetupLevelLoop(LevelLoopSO loopConfig)
         {
             _levelConfig = loopConfig;
 
             obstacleSequence.SetLevelConfig(_levelConfig);
-            obstacleSequence.SetPostAction(StartMinionPhase());
+            minionSequence.SetPostAction(StartBossBattle());
+            obstacleSequence.SetPostAction(minionSequence.StartMinionPhase());
 
             obstaclesSpawner.gameObject.SetActive(false);
             enemy.SetActive(false);
@@ -128,13 +66,11 @@ namespace LevelManagement
             fallingBlockSpawner.SetFallingAttackData(_levelConfig.bossData.fallingAttackData);
 
             roadManager.HandleNewVelocity(_levelConfig.roadData.roadVelocity);
-
-            yield return null;
         }
-        
-        public IEnumerator StartLoopWithConfig()
+
+        private IEnumerator StartLoopWithConfig()
         {
-            yield return obstacleSequence.Execute();
+            return obstacleSequence.Execute();
         }
     }
 }
