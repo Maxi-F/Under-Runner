@@ -39,7 +39,6 @@ namespace LevelManagement
         private IEnumerator MinionSequencePreActions()
         {
             _areAllMinionsDestroyed = false;
-            Debug.Log("eh?");
 
             yield return null;
         }
