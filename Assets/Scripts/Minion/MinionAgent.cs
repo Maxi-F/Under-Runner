@@ -16,6 +16,7 @@ namespace Minion
 
         [Header("Events")] 
         [SerializeField] private GameObjectEventChannelSO onMinionDeletedEvent;
+        [SerializeField] private VoidEventChannelSO onMinionAttackedEvent;
         
         [Header("Internal Events")] 
         [SerializeField] private ActionEventsWrapper idleEvents;
@@ -31,6 +32,8 @@ namespace Minion
         private State _attackState;
         private State _fallbackState;
 
+        private bool _isInAttackStates;
+
         protected override void Update()
         {
             Vector3 rotation = Quaternion.LookRotation(_player.transform.position).eulerAngles;
@@ -41,11 +44,28 @@ namespace Minion
             base.Update();
         }
 
-        protected void OnDisable()
+        protected override void OnDisable()
         {
             healthPoints?.ResetHitPoints();
+
+            if (_isInAttackStates)
+            {
+                onMinionAttackedEvent?.RaiseEvent();
+            }
+            
+            base.OnDisable();
         }
 
+        public void SetIsNotInAttackState()
+        {
+            _isInAttackStates = false;
+        }
+
+        public void SetIsInAttackState()
+        {
+            _isInAttackStates = true;
+        }
+        
         public GameObject GetPlayer()
         {
             return _player;

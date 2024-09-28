@@ -17,6 +17,11 @@ namespace FSM
             Fsm = new FSM(GetStates());
         }
 
+        protected virtual void OnDisable()
+        {
+            Fsm.Disable();
+        }
+
         protected virtual void Update()
         {
             Fsm.Update();

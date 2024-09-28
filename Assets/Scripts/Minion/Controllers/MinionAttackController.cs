@@ -9,7 +9,8 @@ namespace Minion.Controllers
     public class MinionAttackController : MinionController
     {
         [SerializeField] private MinionSO minionConfig;
-
+        [SerializeField] private VoidEventChannelSO onMinionAttackedEvent;
+        
         private bool _isAttacking;
         public void Enter()
         {
@@ -46,7 +47,8 @@ namespace Minion.Controllers
         public void Exit()
         {
             _isAttacking = false;
-            Debug.Log("Exited");
+            MinionAgent.SetIsNotInAttackState();
+            onMinionAttackedEvent?.RaiseEvent();
         }
         
         private void OnTriggerEnter(Collider other)
