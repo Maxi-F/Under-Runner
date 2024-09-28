@@ -3,6 +3,7 @@ name: Build project
 env:
   itchio_channel: windows
   BuildName: UnderRunner ${{ github.event.release.tag_name }}
+  ReleaseBody: ${{github.event.release.body}}
 
 on:
   release:
@@ -59,3 +60,16 @@ jobs:
           channel: ${{ env.itchio_channel }}
           version: ${{ github.event.release.tag_name }}
           api-key: ${{ secrets.ITCHIO_API_KEY }}
+  discordMessage:
+    needs: deploy
+    name: Discord Notification
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository 
+        uses: actions/checkout@master
+      - name: send custom message with args
+        uses: appleboy/discord-action@master
+        with:
+          webhook_id: ${{ secrets.WEBHOOK_ID }}
+          webhook_token: ${{ secrets.WEBHOOK_TOKEN }}
+          message: "@here ${{ env.BuildName }} is out on https://undermakersinteractive.itch.io/underrunner \n ${{ env.ReleaseBody }} "
