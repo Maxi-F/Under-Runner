@@ -9,7 +9,8 @@ namespace Player
     {
         [Header("Input")] [SerializeField] private InputHandlerSO inputHandler;
         [SerializeField] private Vector3EventChannelSO onPlayerNewPositionEvent;
-
+        [SerializeField] private Vector3EventChannelSO onPlayerMovementEvent;
+        
         [Header("MapBounds")]
         [SerializeField] private MapBoundsSO boundsConfig;
 
@@ -48,8 +49,13 @@ namespace Player
         {
             if (_canMove)
             {
-                transform.position = boundsConfig.ClampPosition(transform.position + currentDir * (speed * Time.deltaTime), _playerCollider.bounds.size);
+                Vector3 movement = currentDir * (speed * Time.deltaTime);
+                Vector3 previousPosition = transform.position;
+                transform.position = boundsConfig.ClampPosition(transform.position + movement, _playerCollider.bounds.size);
                 onPlayerNewPositionEvent?.RaiseEvent(transform.position);
+                
+                if((transform.position - previousPosition).magnitude > float.Epsilon)
+                    onPlayerMovementEvent?.RaiseEvent(movement);
             }
         }
 

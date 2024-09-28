@@ -50,7 +50,6 @@ namespace Minion.Manager
             
             _minions.Remove(deletedMinion);
 
-            Debug.Log($"MINIONS COUNT: {_minions.Count}, IS SPAWNING: {_isSpawning}");
             if (_minions.Count == 0 && !_isSpawning)
             {
                 onAllMinionsDestroyedEvent?.RaiseEvent();
