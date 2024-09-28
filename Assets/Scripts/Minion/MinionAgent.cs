@@ -3,30 +3,33 @@ using Events;
 using FSM;
 using Health;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace Minion
 {
     public class MinionAgent : Agent
     {
         [SerializeField] private GameObject model;
-        [SerializeField] private GameObjectEventChannelSO onCollidePlayerEventChannel;
 
         [SerializeField] private HealthPoints healthPoints;
 
         [Header("Events")] 
         [SerializeField] private GameObjectEventChannelSO onMinionDeletedEvent;
         
-        [Header("Internal Events")]
+        [Header("Internal Events")] 
         [SerializeField] private ActionEventsWrapper idleEvents;
         [SerializeField] private ActionEventsWrapper moveEvents;
         [SerializeField] private ActionEventsWrapper chargeAttackEvents;
         [SerializeField] private ActionEventsWrapper attackEvents;
+        [SerializeField] private ActionEventsWrapper fallbackEvents;
         
         private GameObject _player;
         private State _idleState;
         private State _moveState;
         private State _chargeAttackState;
         private State _attackState;
+        private State _fallbackState;
 
         protected override void Update()
         {
@@ -67,6 +70,11 @@ namespace Minion
         {
              Fsm.ChangeState(_idleState);
         }
+
+        public void ChangeStateToFallingBack()
+        {
+            Fsm.ChangeState(_fallbackState);
+        }
         
         public void SetPlayer(GameObject player)
         {
@@ -75,25 +83,11 @@ namespace Minion
         
         protected override List<State> GetStates()
         {
-            _idleState = new State();
-            _idleState.EnterAction += idleEvents.ExecuteOnEnter;
-            _idleState.UpdateAction += idleEvents.ExecuteOnUpdate;
-            _idleState.ExitAction += idleEvents.ExecuteOnExit;
-            
-            _moveState = new State();
-            _moveState.EnterAction += moveEvents.ExecuteOnEnter;
-            _moveState.UpdateAction += moveEvents.ExecuteOnUpdate;
-            _moveState.ExitAction += moveEvents.ExecuteOnExit;
-                
-            _chargeAttackState = new State();
-            _chargeAttackState.EnterAction += chargeAttackEvents.ExecuteOnEnter;
-            _chargeAttackState.UpdateAction += chargeAttackEvents.ExecuteOnUpdate;
-            _chargeAttackState.ExitAction += chargeAttackEvents.ExecuteOnExit;
-            
-            _attackState = new State();
-            _attackState.EnterAction += attackEvents.ExecuteOnEnter;
-            _attackState.UpdateAction += attackEvents.ExecuteOnUpdate;
-            _attackState.ExitAction += attackEvents.ExecuteOnExit;
+            _idleState = CreateStateWithEvents(idleEvents);
+            _moveState = CreateStateWithEvents(moveEvents);
+            _chargeAttackState = CreateStateWithEvents(chargeAttackEvents);
+            _attackState = CreateStateWithEvents(attackEvents);
+            _fallbackState = CreateStateWithEvents(fallbackEvents);
 
             Transition idleToMoveTransition = new Transition(_idleState, _moveState);
             _idleState.AddTransition(idleToMoveTransition);
@@ -104,8 +98,11 @@ namespace Minion
             Transition chargeAttackToAttackTransition = new Transition(_chargeAttackState, _attackState);
             _chargeAttackState.AddTransition(chargeAttackToAttackTransition);
 
-            Transition attackToIdleTransition = new Transition(_attackState, _idleState);
-            _attackState.AddTransition(attackToIdleTransition);
+            Transition attackToFallbackTransition = new Transition(_attackState, _fallbackState);
+            _attackState.AddTransition(attackToFallbackTransition);
+            
+            Transition fallbackToIdleTransition = new Transition(_fallbackState, _idleState);
+            _fallbackState.AddTransition(fallbackToIdleTransition);
             
             return new List<State>
                 ()
@@ -117,19 +114,20 @@ namespace Minion
                 };
         }
 
+        private State CreateStateWithEvents(ActionEventsWrapper eventsWrapper)
+        {
+            State state = new State();
+            state.EnterAction += eventsWrapper.ExecuteOnEnter;
+            state.UpdateAction += eventsWrapper.ExecuteOnUpdate;
+            state.ExitAction += eventsWrapper.ExecuteOnExit;
+
+            return state;
+        }
+
         public void Die()
         {
             if(healthPoints.CurrentHp <= 0)
                 onMinionDeletedEvent?.RaiseEvent(gameObject);
         }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.gameObject.CompareTag("Player"))
-            {
-                onCollidePlayerEventChannel?.RaiseEvent(other.gameObject);
-            }
-        }
-        
     }
 }

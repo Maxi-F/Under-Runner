@@ -803,6 +803,7 @@ GameObject:
   - component: {fileID: 4389868529216407606}
   - component: {fileID: 154755272736235517}
   - component: {fileID: 2562709963566903697}
+  - component: {fileID: 4870043625586772548}
   - component: {fileID: 4097841218994226417}
   m_Layer: 6
   m_Name: Minion
@@ -863,7 +864,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 8240765325717695887}
-  onCollidePlayerEventChannel: {fileID: 11400000, guid: 94a2de087d2d288459b928f536c58af1, type: 2}
   healthPoints: {fileID: 5575126865424349212}
   onMinionDeletedEvent: {fileID: 11400000, guid: d0b8cbd5af6d2924ea50203f22ee5183, type: 2}
   idleEvents:
@@ -1026,6 +1026,41 @@ MonoBehaviour:
         m_Calls: []
     onExit:
       m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2562709963566903697}
+          m_TargetAssemblyTypeName: Minion.Controllers.MinionAttackController, Assembly-CSharp
+          m_MethodName: Exit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  fallbackEvents:
+    onEnter:
+      m_PersistentCalls:
+        m_Calls: []
+    onUpdate:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4870043625586772548}
+          m_TargetAssemblyTypeName: Minion.Controllers.MinionFallbackController,
+            Assembly-CSharp
+          m_MethodName: MoveToBounds
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    onExit:
+      m_PersistentCalls:
         m_Calls: []
 --- !u!114 &5575126865424349212
 MonoBehaviour:
@@ -1131,7 +1166,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   minionConfig: {fileID: 11400000, guid: 0a4091bb2b815e646b3a1f5e68314944, type: 2}
-  onCollidePlayerEventChannel: {fileID: 11400000, guid: 94a2de087d2d288459b928f536c58af1, type: 2}
+--- !u!114 &4870043625586772548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9068004531541268373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c10371e078ccf7449b9939a8d75f03b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  minionBounds: {fileID: 11400000, guid: 0cd70dbec5e60324ab8d0c7e1a758b09, type: 2}
+  moveVelocity: 5
 --- !u!114 &4097841218994226417
 MonoBehaviour:
   m_ObjectHideFlags: 0
