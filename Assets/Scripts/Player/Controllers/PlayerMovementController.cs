@@ -1,11 +1,12 @@
 using Events;
 using Input;
 using MapBounds;
+using Player.Controllers;
 using UnityEngine;
 
 namespace Player
 {
-    public class PlayerMovement : MonoBehaviour
+    public class PlayerMovementController : PlayerController
     {
         [Header("Input")] [SerializeField] private InputHandlerSO inputHandler;
         [SerializeField] private Vector3EventChannelSO onPlayerNewPositionEvent;
@@ -26,12 +27,12 @@ namespace Player
         private Vector3 currentDir;
 
         private bool _canMove = true;
-        private Collider _playerCollider;
 
         public Vector3 CurrentDir => currentDir;
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
             inputHandler.onPlayerMove.AddListener(HandleMovement);
         }
 
@@ -40,18 +41,13 @@ namespace Player
             inputHandler.onPlayerMove.RemoveListener(HandleMovement);
         }
 
-        private void Awake()
-        {
-            _playerCollider = GetComponent<Collider>();
-        }
-
-        private void Update()
+        public void OnUpdate()
         {
             if (_canMove)
             {
                 Vector3 movement = currentDir * (speed * Time.deltaTime);
                 Vector3 previousPosition = transform.position;
-                transform.position = boundsConfig.ClampPosition(transform.position + movement, _playerCollider.bounds.size);
+                transform.position = boundsConfig.ClampPosition(transform.position + movement, playerCollider.bounds.size);
                 onPlayerNewPositionEvent?.RaiseEvent(transform.position);
                 
                 if((transform.position - previousPosition).magnitude > float.Epsilon)
@@ -61,15 +57,19 @@ namespace Player
 
         private void HandleMovement(Vector2 dir)
         {
+            if (currentDir == Vector3.zero && _canMove)
+                playerAgent.ChangeStateToMove();
+            else if (dir == Vector2.zero && _canMove)
+                playerAgent.ChangeStateToIdle();
+
             currentDir.x = dir.x;
             currentDir.y = 0;
             currentDir.z = dir.y;
-            TiltAround(dir);
         }
 
-        private void TiltAround(Vector2 dir)
+        public void TiltAround()
         {
-            Vector2 normalizedDir = dir.normalized;
+            Vector2 normalizedDir = new Vector2(currentDir.x, currentDir.z).normalized;
 
             float lateralAngle = Mathf.Asin(normalizedDir.x) * Mathf.Rad2Deg;
             lateralAngle = Mathf.Clamp(lateralAngle, -maxTiltAngles.x, maxTiltAngles.x);
