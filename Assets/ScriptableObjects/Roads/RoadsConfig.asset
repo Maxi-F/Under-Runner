@@ -15,4 +15,5 @@ MonoBehaviour:
   roads:
   - {fileID: 11400000, guid: ffb8b24ede81b674f9b8ab334a312d66, type: 2}
   - {fileID: 11400000, guid: dcacc056ab32382448eac1855dab08d7, type: 2}
+  - {fileID: 11400000, guid: f26674aa3f0549b46bcd92254b9061bc, type: 2}
   - {fileID: 11400000, guid: 5719a9b7702bf3f47b6393008af1b3f7, type: 2}
