@@ -134,11 +134,11 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.47472408, g: 0.6458684, b: 0.7924528, a: 1}
+    - _BaseColor: {r: 0.395, g: 0.5661667, b: 0.79, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _LightDirectionRotation: {r: 0, g: 0, b: 0.89, a: 0}
-    - _PolkaDotsColor: {r: 0.20803666, g: 0.21894306, b: 0.5188679, a: 0}
+    - _PolkaDotsColor: {r: 0.19800001, g: 0.34466672, b: 0.55, a: 0}
     - _ShadowColor: {r: 0.08664116, g: 0.0927338, b: 0.31132078, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _TilingTrama: {r: 2, g: 2, b: 0, a: 0}
