@@ -3,6 +3,7 @@ using Events;
 using Health;
 using Input;
 using MapBounds;
+using Player.Controllers;
 using UnityEngine;
 #if UNITY_EDITOR
 #endif
@@ -12,7 +13,7 @@ using UnityEngine;
 
 namespace Player
 {
-    public class PlayerDash : MonoBehaviour
+    public class PlayerDashController : PlayerController
     {
         [Header("Input")]
         [SerializeField] private InputHandlerSO inputHandler;
@@ -33,31 +34,30 @@ namespace Player
         [SerializeField] private AnimationCurve bulletTimeVariationCurve;
         [SerializeField] private float bulletTimeDuration;
 
-        [Header("Events")] 
+        [Header("Events")]
         [SerializeField] private FloatEventChannelSO onDashRechargeEvent;
         [SerializeField] private VoidEventChannelSO onDashRechargedEvent;
         [SerializeField] private VoidEventChannelSO onDashUsedEvent;
-        
-        private PlayerMovement _movement;
+
+        private PlayerMovementController _movementController;
         private HealthPoints _healthPoints;
 
         private bool _canDash = true;
         private Coroutine _dashCoroutine = null;
         private Coroutine _bulletTimeCoroutine = null;
 
-        private Collider _playerCollider;
         private Vector3 _dashDir;
         private float _currentDashSpeed;
 
         private void Awake()
         {
-            _movement = GetComponent<PlayerMovement>();
-            _playerCollider = GetComponent<Collider>();
+            _movementController = GetComponent<PlayerMovementController>();
             _healthPoints ??= GetComponent<HealthPoints>();
         }
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
             inputHandler.onPlayerDash.AddListener(HandleDash);
 
             inputHandler.onPlayerDashStarted.AddListener(HandleBulletTimeDashStart);
@@ -115,8 +115,8 @@ namespace Player
             float timer = 0;
             _canDash = false;
 
-            _dashDir = _movement.CurrentDir;
-            _movement.ToggleMoveability(false);
+            _dashDir = _movementController.CurrentDir;
+            _movementController.ToggleMoveability(false);
             onDashUsedEvent.RaiseEvent();
             while (timer < dashDuration)
             {
@@ -125,13 +125,13 @@ namespace Player
                 _currentDashSpeed = dashSpeed * speedCurve.Evaluate(dashTime);
 
                 Vector3 newPosition = transform.position + (_dashDir * (_currentDashSpeed * Time.deltaTime));
-                transform.position = boundsConfig.ClampPosition(newPosition, _playerCollider.bounds.size);
+                transform.position = boundsConfig.ClampPosition(newPosition, playerCollider.bounds.size);
 
                 timer = Time.time - startTime;
                 yield return null;
             }
 
-            _movement.ToggleMoveability(true);
+            _movementController.ToggleMoveability(true);
             _healthPoints.SetIsInvincible(false);
             yield return CoolDownCoroutine();
             _canDash = true;
@@ -146,6 +146,7 @@ namespace Player
                 yield return null;
                 timeInCooldown += Time.deltaTime;
             }
+
             onDashRechargedEvent.RaiseEvent();
         }
 
