@@ -232,7 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d2f19c3df9a06a4180b7610bbcd51e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movement: {fileID: 6487825136179884570}
+  movementController: {fileID: 6487825136179884570}
   renderer: {fileID: 4952904161031093577}
   lineLength: 2
 --- !u!1 &4301167805528877879
@@ -278,6 +278,7 @@ GameObject:
   - component: {fileID: 936739446926610039}
   - component: {fileID: 2493683512251800416}
   - component: {fileID: 1792199589205503695}
+  - component: {fileID: 2923836183902203749}
   - component: {fileID: 6487825136179884570}
   - component: {fileID: 4699157676241342615}
   - component: {fileID: 6481343404815373606}
@@ -356,6 +357,145 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &2923836183902203749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4780633370198621073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23d80cbda60d4042983d055faaeda50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthPoints: {fileID: 4004944892389013156}
+  idleEvents:
+    onEnter:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6487825136179884570}
+          m_TargetAssemblyTypeName: Player.PlayerMovementController, Assembly-CSharp
+          m_MethodName: TiltAround
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    onUpdate:
+      m_PersistentCalls:
+        m_Calls: []
+    onExit:
+      m_PersistentCalls:
+        m_Calls: []
+  moveEvents:
+    onEnter:
+      m_PersistentCalls:
+        m_Calls: []
+    onUpdate:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6487825136179884570}
+          m_TargetAssemblyTypeName: Player.PlayerMovementController, Assembly-CSharp
+          m_MethodName: OnUpdate
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 6487825136179884570}
+          m_TargetAssemblyTypeName: Player.PlayerMovementController, Assembly-CSharp
+          m_MethodName: TiltAround
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    onExit:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6487825136179884570}
+          m_TargetAssemblyTypeName: Player.PlayerMovementController, Assembly-CSharp
+          m_MethodName: TiltAround
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  dashEvents:
+    onEnter:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6487825136179884570}
+          m_TargetAssemblyTypeName: Player.PlayerMovementController, Assembly-CSharp
+          m_MethodName: ToggleMoveability
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 4004944892389013156}
+          m_TargetAssemblyTypeName: Health.HealthPoints, Assembly-CSharp
+          m_MethodName: SetCanTakeDamage
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    onUpdate:
+      m_PersistentCalls:
+        m_Calls: []
+    onExit:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6487825136179884570}
+          m_TargetAssemblyTypeName: Player.PlayerMovementController, Assembly-CSharp
+          m_MethodName: ToggleMoveability
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 4004944892389013156}
+          m_TargetAssemblyTypeName: Health.HealthPoints, Assembly-CSharp
+          m_MethodName: SetCanTakeDamage
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
 --- !u!114 &6487825136179884570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -478,6 +618,9 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   bulletTimeDuration: 1.2
+  onDashRechargeEvent: {fileID: 11400000, guid: 3e281a7f78b52ac4ca6dfe9670c23833, type: 2}
+  onDashRechargedEvent: {fileID: 11400000, guid: b24f4335f7210144ebd127ad26fa2a6f, type: 2}
+  onDashUsedEvent: {fileID: 11400000, guid: 314cc26a951a7f445b33baca6dc46fc9, type: 2}
 --- !u!114 &6481343404815373606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -531,6 +674,12 @@ MonoBehaviour:
   onDeathEvent: {fileID: 11400000, guid: 1609b932e078810448a25604c23359d3, type: 2}
   onTakeDamageEvent: {fileID: 11400000, guid: 703652f7737657e41ba9437afd9a0117, type: 2}
   onResetPointsEvent: {fileID: 0}
+  onInternalDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onInternalResetEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &7261930984988719095
 GameObject:
   m_ObjectHideFlags: 0

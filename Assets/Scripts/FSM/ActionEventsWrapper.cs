@@ -1,7 +1,7 @@
 using System;
 using UnityEngine.Events;
 
-namespace Minion
+namespace FSM
 {
     [Serializable]
     public class ActionEventsWrapper
