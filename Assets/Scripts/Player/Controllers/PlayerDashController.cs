@@ -119,13 +119,12 @@ namespace Player
 
                 _currentDashSpeed = dashSpeed * speedCurve.Evaluate(dashTime);
 
-                Vector3 dashMovement = (_dashDir * (_currentDashSpeed * Time.deltaTime));
+                Vector3 dashMovement = _dashDir * (_currentDashSpeed * Time.deltaTime);
                 Vector3 previousPosition = transform.position;
                 Vector3 newPosition = transform.position + dashMovement;
                 
                 transform.position = boundsConfig.ClampPosition(newPosition, playerCollider.bounds.size);
-                if((transform.position - previousPosition).magnitude > float.Epsilon)
-                    onDashMovementEvent?.RaiseEvent(dashMovement);
+                onDashMovementEvent?.RaiseEvent(transform.position - previousPosition);
                 
                 timer = Time.time - startTime;
                 yield return null;

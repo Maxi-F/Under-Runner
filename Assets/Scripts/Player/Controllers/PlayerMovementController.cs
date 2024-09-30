@@ -45,13 +45,11 @@ namespace Player
         {
             if (_canMove)
             {
-                Vector3 movement = currentDir * (speed * Time.deltaTime);
                 Vector3 previousPosition = transform.position;
-                transform.position = boundsConfig.ClampPosition(transform.position + movement, playerCollider.bounds.size);
+                transform.position = boundsConfig.ClampPosition(transform.position + currentDir * (speed * Time.deltaTime), playerCollider.bounds.size);
                 onPlayerNewPositionEvent?.RaiseEvent(transform.position);
                 
-                if((transform.position - previousPosition).magnitude > float.Epsilon)
-                    onPlayerMovementEvent?.RaiseEvent(movement);
+                onPlayerMovementEvent?.RaiseEvent(transform.position - previousPosition);
             }
         }
 
