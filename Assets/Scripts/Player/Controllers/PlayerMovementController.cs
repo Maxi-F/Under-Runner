@@ -51,9 +51,9 @@ namespace Player
 
         private void HandleMovement(Vector2 dir)
         {
-            if (currentDir == Vector3.zero)
+            if (currentDir == Vector3.zero && _canMove)
                 playerAgent.ChangeStateToMove();
-            else if (dir == Vector2.zero)
+            else if (dir == Vector2.zero && _canMove)
                 playerAgent.ChangeStateToIdle();
 
             currentDir.x = dir.x;

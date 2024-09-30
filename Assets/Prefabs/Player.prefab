@@ -373,7 +373,19 @@ MonoBehaviour:
   idleEvents:
     onEnter:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 6487825136179884570}
+          m_TargetAssemblyTypeName: Player.PlayerMovementController, Assembly-CSharp
+          m_MethodName: TiltAround
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     onUpdate:
       m_PersistentCalls:
         m_Calls: []
@@ -429,13 +441,61 @@ MonoBehaviour:
   dashEvents:
     onEnter:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 6487825136179884570}
+          m_TargetAssemblyTypeName: Player.PlayerMovementController, Assembly-CSharp
+          m_MethodName: ToggleMoveability
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 4004944892389013156}
+          m_TargetAssemblyTypeName: Health.HealthPoints, Assembly-CSharp
+          m_MethodName: SetCanTakeDamage
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     onUpdate:
       m_PersistentCalls:
         m_Calls: []
     onExit:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 6487825136179884570}
+          m_TargetAssemblyTypeName: Player.PlayerMovementController, Assembly-CSharp
+          m_MethodName: ToggleMoveability
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 4004944892389013156}
+          m_TargetAssemblyTypeName: Health.HealthPoints, Assembly-CSharp
+          m_MethodName: SetCanTakeDamage
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
 --- !u!114 &6487825136179884570
 MonoBehaviour:
   m_ObjectHideFlags: 0

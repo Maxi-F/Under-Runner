@@ -5,11 +5,6 @@ using Input;
 using MapBounds;
 using Player.Controllers;
 using UnityEngine;
-#if UNITY_EDITOR
-#endif
-
-#if UNITY_EDITOR
-#endif
 
 namespace Player
 {
@@ -105,7 +100,6 @@ namespace Player
                 StopCoroutine(_dashCoroutine);
 
             dashPredictionLine.ToggleVisibility(false);
-            _healthPoints.SetIsInvincible(true);
             _dashCoroutine = StartCoroutine(DashCoroutine());
         }
 
@@ -116,7 +110,7 @@ namespace Player
             _canDash = false;
 
             _dashDir = _movementController.CurrentDir;
-            _movementController.ToggleMoveability(false);
+            playerAgent.ChangeStateToDash();
             onDashUsedEvent.RaiseEvent();
             while (timer < dashDuration)
             {
@@ -131,8 +125,11 @@ namespace Player
                 yield return null;
             }
 
-            _movementController.ToggleMoveability(true);
-            _healthPoints.SetIsInvincible(false);
+            if (_movementController.CurrentDir == Vector3.zero)
+                playerAgent.ChangeStateToIdle();
+            else
+                playerAgent.ChangeStateToMove();
+
             yield return CoolDownCoroutine();
             _canDash = true;
         }
