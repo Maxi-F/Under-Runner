@@ -1046,6 +1046,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3423951907766093668, guid: d957465b2e7726a4f980339c50cb59cc, type: 3}
   m_PrefabInstance: {fileID: 4005572945810339548}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1055734852 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4988299967854156078, guid: 577b06af20e157d4793910329b73c1dd, type: 3}
+  m_PrefabInstance: {fileID: 6486249538830984660}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1059696745 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4780633370198621073, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
@@ -1521,7 +1526,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7635251767426906750, guid: 577b06af20e157d4793910329b73c1dd, type: 3}
   m_PrefabInstance: {fileID: 6486249538830984660}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1055734852}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cae6419c380900949ab0dfa7f4d3f68e, type: 3}
@@ -1532,6 +1537,35 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 396650924192947144, guid: 577b06af20e157d4793910329b73c1dd, type: 3}
   m_PrefabInstance: {fileID: 6486249538830984660}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1839552627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1055734852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9abc4e77051dbf8469932908f26f93a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstaclesSpawner: {fileID: 910727726}
+  progressBar: {fileID: 635145717}
+  onObstaclesSystemDisabled: {fileID: 11400000, guid: 9b61d8e3cffb1c84f98d7d4315aa3c7f, type: 2}
+--- !u!114 &1839552628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1055734852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 542c1c7e4d4d8c84aa48daee69cc2b54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minionManager: {fileID: 169517789}
+  onAllMinionsDestroyedEvent: {fileID: 11400000, guid: f39644c8bb7ad1d4bbb9e63f25300263, type: 2}
 --- !u!1001 &1862578654
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2400,6 +2434,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7635251767426906750, guid: 577b06af20e157d4793910329b73c1dd, type: 3}
+      propertyPath: minionSequence
+      value: 
+      objectReference: {fileID: 1839552628}
+    - target: {fileID: 7635251767426906750, guid: 577b06af20e157d4793910329b73c1dd, type: 3}
+      propertyPath: obstacleSequence
+      value: 
+      objectReference: {fileID: 1839552627}
+    - target: {fileID: 7635251767426906750, guid: 577b06af20e157d4793910329b73c1dd, type: 3}
       propertyPath: obstaclesSpawner
       value: 
       objectReference: {fileID: 910727726}
@@ -2414,7 +2456,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4988299967854156078, guid: 577b06af20e157d4793910329b73c1dd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1839552627}
+    - targetCorrespondingSourceObject: {fileID: 4988299967854156078, guid: 577b06af20e157d4793910329b73c1dd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1839552628}
   m_SourcePrefab: {fileID: 100100000, guid: 577b06af20e157d4793910329b73c1dd, type: 3}
 --- !u!1001 &8933589425644651686
 PrefabInstance:

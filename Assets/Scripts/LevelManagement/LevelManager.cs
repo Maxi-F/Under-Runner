@@ -29,7 +29,7 @@ namespace LevelManagement
             bossHealthPoints.ResetHitPoints();
             
             SetActualLoop();
-            levelLoopManager.StartLoopWithConfig(_actualLoopConfig);
+            levelLoopManager.StartLevelSequence(_actualLoopConfig);
         }
 
         private void OnEnable()
@@ -55,7 +55,7 @@ namespace LevelManagement
             {
                 _loopConfigIndex++;
                 SetActualLoop();
-                levelLoopManager.StartLoopWithConfig(_actualLoopConfig);
+                levelLoopManager.StartLevelSequence(_actualLoopConfig);
             }
         }
 
