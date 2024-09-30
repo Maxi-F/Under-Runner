@@ -9,14 +9,14 @@ namespace Minion.Controllers
     public class MinionAttackController : MinionController
     {
         [SerializeField] private MinionSO minionConfig;
-
-        [SerializeField] private GameObjectEventChannelSO onCollidePlayerEventChannel;
+        [SerializeField] private VoidEventChannelSO onMinionAttackedEvent;
         
+        private bool _isAttacking;
         public void Enter()
         {
             StartCoroutine(StartCharge());
-            
-            onCollidePlayerEventChannel.onGameObjectEvent.AddListener(DealDamage);
+
+            _isAttacking = true;
         }
         
         private IEnumerator StartCharge()
@@ -41,7 +41,22 @@ namespace Minion.Controllers
             }
             _healthPoints.SetCanTakeDamage(true);
             
-            MinionAgent.ChangeStateToIdle();
+            MinionAgent.ChangeStateToFallingBack();
+        }
+
+        public void Exit()
+        {
+            _isAttacking = false;
+            MinionAgent.SetIsNotInAttackState();
+            onMinionAttackedEvent?.RaiseEvent();
+        }
+        
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.CompareTag("Player") && _isAttacking)
+            {
+                DealDamage(other.gameObject);
+            }
         }
         
         private void DealDamage(GameObject target)

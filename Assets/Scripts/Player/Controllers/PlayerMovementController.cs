@@ -10,7 +10,8 @@ namespace Player
     {
         [Header("Input")] [SerializeField] private InputHandlerSO inputHandler;
         [SerializeField] private Vector3EventChannelSO onPlayerNewPositionEvent;
-
+        [SerializeField] private Vector3EventChannelSO onPlayerMovementEvent;
+        
         [Header("MapBounds")]
         [SerializeField] private MapBoundsSO boundsConfig;
 
@@ -44,8 +45,11 @@ namespace Player
         {
             if (_canMove)
             {
+                Vector3 previousPosition = transform.position;
                 transform.position = boundsConfig.ClampPosition(transform.position + currentDir * (speed * Time.deltaTime), playerCollider.bounds.size);
                 onPlayerNewPositionEvent?.RaiseEvent(transform.position);
+                
+                onPlayerMovementEvent?.RaiseEvent(transform.position - previousPosition);
             }
         }
 

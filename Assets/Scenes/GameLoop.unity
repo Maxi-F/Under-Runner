@@ -455,10 +455,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minionSpawnerConfig: {fileID: 11400000, guid: 243747caa98ab304da81a7d8e918fbe4, type: 2}
+  minionManagerConfig: {fileID: 11400000, guid: 91033f8a42d6eca46a3415f50b958ebf, type: 2}
   player: {fileID: 1059696745}
   onMinionDeletedEvent: {fileID: 11400000, guid: d0b8cbd5af6d2924ea50203f22ee5183, type: 2}
   onAllMinionsDestroyedEvent: {fileID: 11400000, guid: f39644c8bb7ad1d4bbb9e63f25300263, type: 2}
   onPlayerDeathEvent: {fileID: 11400000, guid: 1609b932e078810448a25604c23359d3, type: 2}
+  onMinionAttackingEvent: {fileID: 11400000, guid: d6da21df9a9d4484da77989d28c8a5d5, type: 2}
+  onMinionAttackedEvent: {fileID: 11400000, guid: 20923ddabbecbfe47a88ee16889782dd, type: 2}
 --- !u!1 &198335778
 GameObject:
   m_ObjectHideFlags: 0
@@ -812,6 +815,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 314cc26a951a7f445b33baca6dc46fc9, type: 2}
     - target: {fileID: 4699157676241342615, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
+      propertyPath: onDashMovementEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: bbb7d509b23dc6e44a57ecc08ccba7b3, type: 2}
+    - target: {fileID: 4699157676241342615, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
       propertyPath: onDashRechargeEvent
       value: 
       objectReference: {fileID: 11400000, guid: 3e281a7f78b52ac4ca6dfe9670c23833, type: 2}
@@ -823,6 +830,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6487825136179884570, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
+      propertyPath: onPlayerMovementEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: 6a4bb4062610c7b4fa1d1458d1248c67, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1549,6 +1560,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9abc4e77051dbf8469932908f26f93a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roadManager: {fileID: 71325708}
   obstaclesSpawner: {fileID: 910727726}
   progressBar: {fileID: 635145717}
   onObstaclesSystemDisabled: {fileID: 11400000, guid: 9b61d8e3cffb1c84f98d7d4315aa3c7f, type: 2}
@@ -1566,6 +1578,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minionManager: {fileID: 169517789}
   onAllMinionsDestroyedEvent: {fileID: 11400000, guid: f39644c8bb7ad1d4bbb9e63f25300263, type: 2}
+--- !u!114 &1839552629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1055734852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc26e5f7826558542bb91c9a597fdcb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fallingBlockSpawner: {fileID: 1109886477}
+  boss: {fileID: 1224237589}
 --- !u!1001 &1862578654
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2426,6 +2452,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 71325708}
     - target: {fileID: 7635251767426906750, guid: 577b06af20e157d4793910329b73c1dd, type: 3}
+      propertyPath: bossSequence
+      value: 
+      objectReference: {fileID: 1839552629}
+    - target: {fileID: 7635251767426906750, guid: 577b06af20e157d4793910329b73c1dd, type: 3}
       propertyPath: minionManager
       value: 
       objectReference: {fileID: 169517789}
@@ -2435,6 +2465,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7635251767426906750, guid: 577b06af20e157d4793910329b73c1dd, type: 3}
       propertyPath: minionSequence
+      value: 
+      objectReference: {fileID: 1839552628}
+    - target: {fileID: 7635251767426906750, guid: 577b06af20e157d4793910329b73c1dd, type: 3}
+      propertyPath: minionsSequence
       value: 
       objectReference: {fileID: 1839552628}
     - target: {fileID: 7635251767426906750, guid: 577b06af20e157d4793910329b73c1dd, type: 3}
@@ -2463,6 +2497,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4988299967854156078, guid: 577b06af20e157d4793910329b73c1dd, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1839552628}
+    - targetCorrespondingSourceObject: {fileID: 4988299967854156078, guid: 577b06af20e157d4793910329b73c1dd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1839552629}
   m_SourcePrefab: {fileID: 100100000, guid: 577b06af20e157d4793910329b73c1dd, type: 3}
 --- !u!1001 &8933589425644651686
 PrefabInstance:

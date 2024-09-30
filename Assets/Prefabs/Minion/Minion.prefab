@@ -803,6 +803,8 @@ GameObject:
   - component: {fileID: 4389868529216407606}
   - component: {fileID: 154755272736235517}
   - component: {fileID: 2562709963566903697}
+  - component: {fileID: 4870043625586772548}
+  - component: {fileID: 1977581406877134975}
   - component: {fileID: 4097841218994226417}
   m_Layer: 6
   m_Name: Minion
@@ -863,9 +865,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 8240765325717695887}
-  onCollidePlayerEventChannel: {fileID: 11400000, guid: 94a2de087d2d288459b928f536c58af1, type: 2}
   healthPoints: {fileID: 5575126865424349212}
   onMinionDeletedEvent: {fileID: 11400000, guid: d0b8cbd5af6d2924ea50203f22ee5183, type: 2}
+  onMinionAttackedEvent: {fileID: 11400000, guid: 20923ddabbecbfe47a88ee16889782dd, type: 2}
   idleEvents:
     onEnter:
       m_PersistentCalls:
@@ -1026,6 +1028,41 @@ MonoBehaviour:
         m_Calls: []
     onExit:
       m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2562709963566903697}
+          m_TargetAssemblyTypeName: Minion.Controllers.MinionAttackController, Assembly-CSharp
+          m_MethodName: Exit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  fallbackEvents:
+    onEnter:
+      m_PersistentCalls:
+        m_Calls: []
+    onUpdate:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4870043625586772548}
+          m_TargetAssemblyTypeName: Minion.Controllers.MinionFallbackController,
+            Assembly-CSharp
+          m_MethodName: MoveToBounds
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    onExit:
+      m_PersistentCalls:
         m_Calls: []
 --- !u!114 &5575126865424349212
 MonoBehaviour:
@@ -1103,6 +1140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   minionConfig: {fileID: 11400000, guid: 0a4091bb2b815e646b3a1f5e68314944, type: 2}
+  onMinionAttackingEvent: {fileID: 11400000, guid: d6da21df9a9d4484da77989d28c8a5d5, type: 2}
 --- !u!114 &154755272736235517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1117,6 +1155,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   minionConfig: {fileID: 11400000, guid: 0a4091bb2b815e646b3a1f5e68314944, type: 2}
+  onPlayerMovedEvent: {fileID: 11400000, guid: 6a4bb4062610c7b4fa1d1458d1248c67, type: 2}
+  onDashMovementEvent: {fileID: 11400000, guid: bbb7d509b23dc6e44a57ecc08ccba7b3, type: 2}
 --- !u!114 &2562709963566903697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1131,7 +1171,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   minionConfig: {fileID: 11400000, guid: 0a4091bb2b815e646b3a1f5e68314944, type: 2}
-  onCollidePlayerEventChannel: {fileID: 11400000, guid: 94a2de087d2d288459b928f536c58af1, type: 2}
+  onMinionAttackedEvent: {fileID: 11400000, guid: 20923ddabbecbfe47a88ee16889782dd, type: 2}
+--- !u!114 &4870043625586772548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9068004531541268373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c10371e078ccf7449b9939a8d75f03b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  minionBounds: {fileID: 11400000, guid: 0cd70dbec5e60324ab8d0c7e1a758b09, type: 2}
+  moveVelocity: 5
+--- !u!114 &1977581406877134975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9068004531541268373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 138147d3b66208c43b3f9e587903e698, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  yStartPlusPosition: 7
+  yVelocity: 2
 --- !u!114 &4097841218994226417
 MonoBehaviour:
   m_ObjectHideFlags: 0

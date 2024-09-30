@@ -33,7 +33,8 @@ namespace Player
         [SerializeField] private FloatEventChannelSO onDashRechargeEvent;
         [SerializeField] private VoidEventChannelSO onDashRechargedEvent;
         [SerializeField] private VoidEventChannelSO onDashUsedEvent;
-
+        [SerializeField] private Vector3EventChannelSO onDashMovementEvent;
+        
         private PlayerMovementController _movementController;
         private HealthPoints _healthPoints;
 
@@ -118,9 +119,13 @@ namespace Player
 
                 _currentDashSpeed = dashSpeed * speedCurve.Evaluate(dashTime);
 
-                Vector3 newPosition = transform.position + (_dashDir * (_currentDashSpeed * Time.deltaTime));
+                Vector3 dashMovement = _dashDir * (_currentDashSpeed * Time.deltaTime);
+                Vector3 previousPosition = transform.position;
+                Vector3 newPosition = transform.position + dashMovement;
+                
                 transform.position = boundsConfig.ClampPosition(newPosition, playerCollider.bounds.size);
-
+                onDashMovementEvent?.RaiseEvent(transform.position - previousPosition);
+                
                 timer = Time.time - startTime;
                 yield return null;
             }
