@@ -13,7 +13,7 @@ namespace Minion.Controllers
         protected HealthPoints _healthPoints;
         protected Collider _collider;
         
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
             _healthPoints ??= GetComponent<HealthPoints>();
             _collider ??= GetComponent<Collider>();

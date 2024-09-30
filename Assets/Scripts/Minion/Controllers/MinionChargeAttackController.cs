@@ -12,11 +12,17 @@ namespace Minion.Controllers
         private LineRenderer _aimLine;
         private Vector3 _dir;
         private bool _isCharging;
+
+        protected override void OnEnable()
+        {
+            _aimLine ??= gameObject.transform.Find("AimLine").gameObject.GetComponent<LineRenderer>();
+            _aimLine.enabled = false;
+            
+            base.OnEnable();
+        }
         
         public void Enter()
         {
-            _aimLine ??= gameObject.transform.Find("AimLine").gameObject.GetComponent<LineRenderer>();
-            
             StartCoroutine(AttackCoroutine());
         }
 
