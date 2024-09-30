@@ -23,9 +23,6 @@ namespace Input
 
         public void HandleDash(InputAction.CallbackContext context)
         {
-            // if (context.started)
-            //     onPlayerDash?.Invoke();
-            
             if(context.started)
                 onPlayerDashStarted?.Invoke();
             

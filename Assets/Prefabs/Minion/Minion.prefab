@@ -163,9 +163,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: {fileID: 5575126865424349212}
   slider: {fileID: 5135750954969982833}
-  onTakeDamage: {fileID: 11400000, guid: d7c92d4ecc5578245b7e8d6eca51d765, type: 2}
-  onResetDamage: {fileID: 11400000, guid: abe3ae86baf3a6143af44a83fa066bee, type: 2}
   shouldStartHided: 0
+  onTakeDamage: {fileID: 11400000, guid: d7c92d4ecc5578245b7e8d6eca51d765, type: 2}
+  onResetDamage: {fileID: 0}
 --- !u!1 &3481237237909825566
 GameObject:
   m_ObjectHideFlags: 0
@@ -799,6 +799,13 @@ GameObject:
   - component: {fileID: 6283988101934533380}
   - component: {fileID: 938812201743576552}
   - component: {fileID: 5575126865424349212}
+  - component: {fileID: 4310436236341836283}
+  - component: {fileID: 4389868529216407606}
+  - component: {fileID: 154755272736235517}
+  - component: {fileID: 2562709963566903697}
+  - component: {fileID: 4870043625586772548}
+  - component: {fileID: 1977581406877134975}
+  - component: {fileID: 4097841218994226417}
   m_Layer: 6
   m_Name: Minion
   m_TagString: Enemy
@@ -857,11 +864,206 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3915ca53d56c23b44bd662973a6a792f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  config: {fileID: 11400000, guid: 4f770b62a3f261b41aeb7b76943262f2, type: 2}
-  timeBetweenStates: 3
-  player: {fileID: 0}
-  onCollidePlayerEventChannel: {fileID: 11400000, guid: 94a2de087d2d288459b928f536c58af1, type: 2}
-  _healthPoints: {fileID: 5575126865424349212}
+  model: {fileID: 8240765325717695887}
+  healthPoints: {fileID: 5575126865424349212}
+  onMinionDeletedEvent: {fileID: 11400000, guid: d0b8cbd5af6d2924ea50203f22ee5183, type: 2}
+  onMinionAttackedEvent: {fileID: 11400000, guid: 20923ddabbecbfe47a88ee16889782dd, type: 2}
+  idleEvents:
+    onEnter:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4389868529216407606}
+          m_TargetAssemblyTypeName: Minion.Controllers.MinionIdleController, Assembly-CSharp
+          m_MethodName: Enter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    onUpdate:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: 
+          m_MethodName: 
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: 
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    onExit:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: 
+          m_MethodName: 
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: 
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  moveEvents:
+    onEnter:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 154755272736235517}
+          m_TargetAssemblyTypeName: Minion.Controllers.MinionMoveController, Assembly-CSharp
+          m_MethodName: Enter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 4097841218994226417}
+          m_TargetAssemblyTypeName: Minion.MinionAnimationController, Assembly-CSharp
+          m_MethodName: Aim
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    onUpdate:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 154755272736235517}
+          m_TargetAssemblyTypeName: Minion.Controllers.MinionMoveController, Assembly-CSharp
+          m_MethodName: OnUpdate
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    onExit:
+      m_PersistentCalls:
+        m_Calls: []
+  chargeAttackEvents:
+    onEnter:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4310436236341836283}
+          m_TargetAssemblyTypeName: Minion.Controllers.MinionChargeAttackController,
+            Assembly-CSharp
+          m_MethodName: Enter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 4097841218994226417}
+          m_TargetAssemblyTypeName: Minion.MinionAnimationController, Assembly-CSharp
+          m_MethodName: PrepareAttack
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    onUpdate:
+      m_PersistentCalls:
+        m_Calls: []
+    onExit:
+      m_PersistentCalls:
+        m_Calls: []
+  attackEvents:
+    onEnter:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2562709963566903697}
+          m_TargetAssemblyTypeName: Minion.Controllers.MinionAttackController, Assembly-CSharp
+          m_MethodName: Enter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 4097841218994226417}
+          m_TargetAssemblyTypeName: Minion.MinionAnimationController, Assembly-CSharp
+          m_MethodName: Attack
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    onUpdate:
+      m_PersistentCalls:
+        m_Calls: []
+    onExit:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2562709963566903697}
+          m_TargetAssemblyTypeName: Minion.Controllers.MinionAttackController, Assembly-CSharp
+          m_MethodName: Exit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  fallbackEvents:
+    onEnter:
+      m_PersistentCalls:
+        m_Calls: []
+    onUpdate:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4870043625586772548}
+          m_TargetAssemblyTypeName: Minion.Controllers.MinionFallbackController,
+            Assembly-CSharp
+          m_MethodName: MoveToBounds
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    onExit:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!114 &5575126865424349212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -877,9 +1079,145 @@ MonoBehaviour:
   maxHealth: 6
   initHealth: 6
   canTakeDamage: 1
-  onDeathEvent: {fileID: 11400000, guid: c865da2c04eab7440a28ab0a5cad2306, type: 2}
+  onDeathEvent: {fileID: 0}
   onTakeDamageEvent: {fileID: 11400000, guid: d7c92d4ecc5578245b7e8d6eca51d765, type: 2}
-  onResetPointsEvent: {fileID: 11400000, guid: abe3ae86baf3a6143af44a83fa066bee, type: 2}
+  onResetPointsEvent: {fileID: 0}
+  onInternalDeathEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 938812201743576552}
+        m_TargetAssemblyTypeName: Minion.MinionAgent, Assembly-CSharp
+        m_MethodName: Die
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onInternalResetEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4749338615536808895}
+        m_TargetAssemblyTypeName: UI.HealthBar, Assembly-CSharp
+        m_MethodName: HandleReset
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &4310436236341836283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9068004531541268373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2ab10fd0c2aefc478e274736e2bc442, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  minionConfig: {fileID: 11400000, guid: 0a4091bb2b815e646b3a1f5e68314944, type: 2}
+--- !u!114 &4389868529216407606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9068004531541268373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 529793d8130055747aa180cb15de81c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  minionConfig: {fileID: 11400000, guid: 0a4091bb2b815e646b3a1f5e68314944, type: 2}
+  onMinionAttackingEvent: {fileID: 11400000, guid: d6da21df9a9d4484da77989d28c8a5d5, type: 2}
+--- !u!114 &154755272736235517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9068004531541268373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfdcd29910b03fe4bbeae77aaec63eff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  minionConfig: {fileID: 11400000, guid: 0a4091bb2b815e646b3a1f5e68314944, type: 2}
+  onPlayerMovedEvent: {fileID: 11400000, guid: 6a4bb4062610c7b4fa1d1458d1248c67, type: 2}
+  onDashMovementEvent: {fileID: 11400000, guid: bbb7d509b23dc6e44a57ecc08ccba7b3, type: 2}
+--- !u!114 &2562709963566903697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9068004531541268373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9073bb33d3a38f340bb21b890d7c2026, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  minionConfig: {fileID: 11400000, guid: 0a4091bb2b815e646b3a1f5e68314944, type: 2}
+  onMinionAttackedEvent: {fileID: 11400000, guid: 20923ddabbecbfe47a88ee16889782dd, type: 2}
+--- !u!114 &4870043625586772548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9068004531541268373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c10371e078ccf7449b9939a8d75f03b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  minionBounds: {fileID: 11400000, guid: 0cd70dbec5e60324ab8d0c7e1a758b09, type: 2}
+  moveVelocity: 5
+--- !u!114 &1977581406877134975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9068004531541268373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 138147d3b66208c43b3f9e587903e698, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  yStartPlusPosition: 7
+  yVelocity: 2
+--- !u!114 &4097841218994226417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9068004531541268373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfd5cded5352132459787c4b99bcf973, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 791774486863146205}
+  aim: AIM
+  prepareAttack: PREPARE_ATTACK
+  attack: ATTACK
+  getHit: GET_HIT
 --- !u!1001 &6599575667949523276
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -941,6 +1279,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc94f73a95433a841b45cce9b619a6a0, type: 3}
+--- !u!95 &791774486863146205 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: cc94f73a95433a841b45cce9b619a6a0, type: 3}
+  m_PrefabInstance: {fileID: 6599575667949523276}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6637424488605300391 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: cc94f73a95433a841b45cce9b619a6a0, type: 3}

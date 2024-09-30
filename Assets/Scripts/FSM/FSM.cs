@@ -1,51 +1,45 @@
+using System.Collections;
 using System.Collections.Generic;
 
 namespace FSM
 {
     public class FSM
     {
-        private List<StateSO> states;
-        private StateSO _currentStateSo;
+        private List<State> _states;
+        private State _currentStateSo;
 
-        public FSM(List<StateSO> states)
+        private bool _isDisabled;
+        
+        public FSM(List<State> states)
         {
-            this.states = states;
+            _isDisabled = false;
+            _states = states;
             _currentStateSo = states[0];
             _currentStateSo.Enter();
         }
-
+        
         public void Update()
         {
             _currentStateSo.Update();
         }
-
-        public void ChangeState(StateSO to)
+        
+        public void ChangeState(State to)
         {
+            if (_isDisabled) return;
             if (_currentStateSo == to)
             {
                 _currentStateSo.Exit();
                 _currentStateSo.Enter();
-                return;
-            }
-
-            if (_currentStateSo.TryGetTransition(to, out TransitionSO transition))
+            }  else if (_currentStateSo.TryGetTransition(to, out Transition transition))
             {
                 _currentStateSo = to;
                 transition.Do();
             }
         }
-        
-        public StateSO FindState<T>() where T : StateSO
-        {
-            foreach (StateSO state in states)
-            {
-                if (state as T != null)
-                {
-                    return state;
-                }
-            }
 
-            return null;
+        public void Disable()
+        {
+            _isDisabled = true;
         }
     }
 }

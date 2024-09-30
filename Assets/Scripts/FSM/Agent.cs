@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,18 +7,24 @@ namespace FSM
 {
     public abstract class Agent : MonoBehaviour
     {
-        [SerializeField] protected AgentConfigSO config;
+        protected FSM Fsm;
+        private Coroutine _updateCoroutine;
+        
+        protected abstract List<State> GetStates();
 
-        protected FSM fsm;
+        protected virtual void OnEnable()
+        { 
+            Fsm = new FSM(GetStates());
+        }
 
-        protected virtual void Awake()
+        protected virtual void OnDisable()
         {
-            fsm = new FSM(config.states);
+            Fsm.Disable();
         }
 
         protected virtual void Update()
         {
-            fsm.Update();
+            Fsm.Update();
         }
     }
 }

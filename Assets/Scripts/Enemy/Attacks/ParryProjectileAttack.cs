@@ -53,7 +53,6 @@ namespace Enemy.Attacks
             _parryBomb = parryProjectileInstance.GetComponent<ParryBomb>();
             
             _parryBomb.SetFirstForce(firstForces[Random.Range(0, firstForces.Count)]);
-            _parryBomb.SetObjectToFollow(player);
             _parryBomb.SetFirstObjectToFollow(player);
 
             yield return new WaitUntil(() => !_parryBomb.gameObject.activeInHierarchy);

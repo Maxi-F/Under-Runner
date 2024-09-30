@@ -438,6 +438,12 @@ MonoBehaviour:
   onDeathEvent: {fileID: 11400000, guid: 36bbe8a4a81fcf74da11d75999d01f40, type: 2}
   onTakeDamageEvent: {fileID: 11400000, guid: 41331d8fc0079ac47bec86270d050339, type: 2}
   onResetPointsEvent: {fileID: 0}
+  onInternalDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onInternalResetEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!54 &6798069371061175657
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -541,12 +547,15 @@ MonoBehaviour:
   firstForces:
   - startImpulse: {x: -12, y: 0, z: -5}
     angularForce: {x: 20, y: 0, z: 0}
+    finalPosition: {x: 5, y: 0, z: -15}
     secondsInAngularVelocity: 1
   - startImpulse: {x: 12, y: 0, z: -5}
     angularForce: {x: -20, y: 0, z: 0}
+    finalPosition: {x: -5, y: 0, z: -15}
     secondsInAngularVelocity: 1
   - startImpulse: {x: 0, y: 0, z: -5}
     angularForce: {x: 0, y: 0, z: 0}
+    finalPosition: {x: 0, y: 0, z: -15}
     secondsInAngularVelocity: 1
   onAnotherAttackExecuted: {fileID: 11400000, guid: 322e70b8667e7784fae7bc03f04b1528, type: 2}
 --- !u!114 &5219174360119938913
@@ -807,9 +816,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: {fileID: 3169284061463772375}
   slider: {fileID: 3773848267877794157}
+  shouldStartHided: 0
   onTakeDamage: {fileID: 11400000, guid: 41331d8fc0079ac47bec86270d050339, type: 2}
   onResetDamage: {fileID: 0}
-  shouldStartHided: 0
 --- !u!1 &7583453860486606742
 GameObject:
   m_ObjectHideFlags: 0
