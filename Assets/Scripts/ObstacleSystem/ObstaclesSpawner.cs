@@ -13,6 +13,7 @@ namespace ObstacleSystem
         [SerializeField] private GameObjectEventChannelSO onRoadDeletedEvent;
         [SerializeField] private GameObjectEventChannelSO onObstacleTriggeredEvent;
         [SerializeField] private VoidEventChannelSO onObstaclesDisabled;
+        [SerializeField] private GameObjectEventChannelSO onObstacleDestroyed;
         [SerializeField] private GameObject obstaclePrefab;
 
         private bool _shouldSpawnObject;
@@ -31,6 +32,7 @@ namespace ObstacleSystem
             onRoadInstantiatedEvent?.onGameObjectEvent.AddListener(HandleNewRoadInstance);
             onRoadDeletedEvent?.onGameObjectEvent.AddListener(HandleDeleteObstacle);
             onObstacleTriggeredEvent?.onGameObjectEvent.AddListener(HandleDeleteObstacle);
+            onObstacleDestroyed?.onGameObjectEvent.AddListener(DeleteObstacle);
         }
 
         private void Update()
@@ -49,6 +51,7 @@ namespace ObstacleSystem
             onRoadInstantiatedEvent?.onGameObjectEvent.RemoveListener(HandleNewRoadInstance);
             onRoadDeletedEvent?.onGameObjectEvent.RemoveListener(HandleDeleteObstacle);
             onObstacleTriggeredEvent?.onGameObjectEvent.RemoveListener(HandleDeleteObstacle);
+            onObstacleDestroyed?.onGameObjectEvent.RemoveListener(DeleteObstacle);
 
             if (_spawnCoroutine != null)
                 StopCoroutine(SpawnObjectCoroutine());
@@ -76,7 +79,12 @@ namespace ObstacleSystem
             ObstaclesCollision obstaclesCollision = road.GetComponentInChildren<ObstaclesCollision>();
             
             if (obstaclesCollision == null) return;
-            Destroy(obstaclesCollision.gameObject);
+            DeleteObstacle(obstaclesCollision.gameObject);
+        }
+
+        private void DeleteObstacle(GameObject obstacle)
+        {
+            Destroy(obstacle);
             _obstaclesCount--;
         }
 
