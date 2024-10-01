@@ -14,7 +14,7 @@ namespace ObstacleSystem
         [SerializeField] private GameObjectEventChannelSO onObstacleTriggeredEvent;
         [SerializeField] private VoidEventChannelSO onObstaclesDisabled;
         [SerializeField] private GameObjectEventChannelSO onObstacleDestroyed;
-        [SerializeField] private GameObject obstaclePrefab;
+        [SerializeField] private GameObject[] obstaclesPrefabs;
 
         private bool _shouldSpawnObject;
         private Coroutine _spawnCoroutine;
@@ -88,6 +88,11 @@ namespace ObstacleSystem
             _obstaclesCount--;
         }
 
+        private GameObject GetRandomObstacle()
+        {
+            return obstaclesPrefabs[Random.Range(0, obstaclesPrefabs.Length)];
+        }
+        
         private void HandleNewRoadInstance(GameObject road)
         {
             if (!_shouldSpawnObject)
@@ -95,7 +100,7 @@ namespace ObstacleSystem
 
             _shouldSpawnObject = false;
             float roadWidth = road.transform.localScale.x;
-            GameObject obstacle = Instantiate(obstaclePrefab, road.transform, false);
+            GameObject obstacle = Instantiate(GetRandomObstacle(), road.transform, false);
             _lastSpawnedObstacle = obstacle;
             obstacle.transform.localPosition = new Vector3(Random.Range(-roadWidth / 2, roadWidth / 2), obstacle.transform.localPosition.y, 0);
             _obstaclesCount++;
