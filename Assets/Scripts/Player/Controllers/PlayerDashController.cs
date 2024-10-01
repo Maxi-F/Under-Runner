@@ -21,6 +21,7 @@ namespace Player
 
         [SerializeField] private float dashDuration;
         [SerializeField] private float dashCoolDown;
+        [SerializeField] private float phantomDuration;
         [SerializeField] private AnimationCurve speedCurve;
 
         [Header("Bullet Time Dash")]
@@ -34,7 +35,7 @@ namespace Player
         [SerializeField] private VoidEventChannelSO onDashRechargedEvent;
         [SerializeField] private VoidEventChannelSO onDashUsedEvent;
         [SerializeField] private Vector3EventChannelSO onDashMovementEvent;
-        
+
         private PlayerMovementController _movementController;
         private HealthPoints _healthPoints;
 
@@ -45,6 +46,8 @@ namespace Player
         private Vector3 _dashDir;
         private float _currentDashSpeed;
 
+        private Bounds _playerColliderBounds;
+
         private void Awake()
         {
             _movementController = GetComponent<PlayerMovementController>();
@@ -54,6 +57,7 @@ namespace Player
         protected override void OnEnable()
         {
             base.OnEnable();
+            _playerColliderBounds = playerCollider.bounds;
             inputHandler.onPlayerDash.AddListener(HandleDash);
 
             inputHandler.onPlayerDashStarted.AddListener(HandleBulletTimeDashStart);
@@ -104,6 +108,17 @@ namespace Player
             _dashCoroutine = StartCoroutine(DashCoroutine());
         }
 
+        public void HandlePhantomCoroutine()
+        {
+            StartCoroutine(PhantomCoroutine());
+        }
+
+        private void TurnInvulnerable(bool value)
+        {
+            playerCollider.isTrigger = value;
+            _healthPoints.SetCanTakeDamage(!value);
+        }
+
         private IEnumerator DashCoroutine()
         {
             float startTime = Time.time;
@@ -122,10 +137,10 @@ namespace Player
                 Vector3 dashMovement = _dashDir * (_currentDashSpeed * Time.deltaTime);
                 Vector3 previousPosition = transform.position;
                 Vector3 newPosition = transform.position + dashMovement;
-                
-                transform.position = boundsConfig.ClampPosition(newPosition, playerCollider.bounds.size);
+
+                transform.position = boundsConfig.ClampPosition(newPosition, _playerColliderBounds.size);
                 onDashMovementEvent?.RaiseEvent(transform.position - previousPosition);
-                
+
                 timer = Time.time - startTime;
                 yield return null;
             }
@@ -168,6 +183,13 @@ namespace Player
 
             dashPredictionLine.ToggleVisibility(false);
             Time.timeScale = 1;
+        }
+
+        private IEnumerator PhantomCoroutine()
+        {
+            TurnInvulnerable(true);
+            yield return new WaitForSeconds(phantomDuration);
+            TurnInvulnerable(false);
         }
     }
 }
