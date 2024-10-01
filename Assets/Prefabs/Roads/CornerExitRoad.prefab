@@ -13,8 +13,16 @@ PrefabInstance:
       value: CornerExitRoad
       objectReference: {fileID: 0}
     - target: {fileID: 4231125283452259492, guid: 50c1969e35b790748b452faf93f0976f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4231125283452259492, guid: 50c1969e35b790748b452faf93f0976f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.110223e-16
+      objectReference: {fileID: 0}
+    - target: {fileID: 4231125283452259492, guid: 50c1969e35b790748b452faf93f0976f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 40
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 5651314687527777499, guid: 50c1969e35b790748b452faf93f0976f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -57,8 +65,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8788477155641790780, guid: 50c1969e35b790748b452faf93f0976f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8788477155641790780, guid: 50c1969e35b790748b452faf93f0976f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.110223e-16
+      objectReference: {fileID: 0}
+    - target: {fileID: 8788477155641790780, guid: 50c1969e35b790748b452faf93f0976f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 40
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -96,7 +112,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5021233201291882101, guid: c53ea210755fdb443942303ce137d25b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 17.5
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 5021233201291882101, guid: c53ea210755fdb443942303ce137d25b, type: 3}
       propertyPath: m_LocalRotation.w
