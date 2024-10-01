@@ -665,6 +665,7 @@ MonoBehaviour:
   onDeathEvent: {fileID: 11400000, guid: 1609b932e078810448a25604c23359d3, type: 2}
   onTakeDamageEvent: {fileID: 11400000, guid: 703652f7737657e41ba9437afd9a0117, type: 2}
   onResetPointsEvent: {fileID: 0}
+  onDamageAvoidedEvent: {fileID: 11400000, guid: 4f9416a5c19eeda4e9b3e6a791d2b357, type: 2}
   onInternalDeathEvent:
     m_PersistentCalls:
       m_Calls: []

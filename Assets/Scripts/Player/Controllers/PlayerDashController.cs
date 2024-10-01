@@ -113,12 +113,6 @@ namespace Player
             StartCoroutine(PhantomCoroutine());
         }
 
-        private void TurnInvulnerable(bool value)
-        {
-            playerCollider.isTrigger = value;
-            _healthPoints.SetCanTakeDamage(!value);
-        }
-
         private IEnumerator DashCoroutine()
         {
             float startTime = Time.time;
@@ -187,9 +181,9 @@ namespace Player
 
         private IEnumerator PhantomCoroutine()
         {
-            TurnInvulnerable(true);
+            _healthPoints.SetCanTakeDamage(false);
             yield return new WaitForSeconds(phantomDuration);
-            TurnInvulnerable(false);
+            _healthPoints.SetCanTakeDamage(true);
         }
     }
 }

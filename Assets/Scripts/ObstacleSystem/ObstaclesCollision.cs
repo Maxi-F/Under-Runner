@@ -13,11 +13,11 @@ namespace ObstacleSystem
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player") && !other.isTrigger)
+            if (other.CompareTag("Player"))
             {
                 other.TryGetComponent<ITakeDamage>(out ITakeDamage playerHealth);
-                playerHealth.TakeDamage(collisionDamage);
-                onObstacleTriggeredEvent.RaiseEvent(gameObject);
+                if (playerHealth.TakeDamage(collisionDamage))
+                    onObstacleTriggeredEvent.RaiseEvent(gameObject);
             }
         }
     }
