@@ -13,7 +13,8 @@ namespace ObstacleSystem
         [SerializeField] private GameObjectEventChannelSO onRoadDeletedEvent;
         [SerializeField] private GameObjectEventChannelSO onObstacleTriggeredEvent;
         [SerializeField] private VoidEventChannelSO onObstaclesDisabled;
-        [SerializeField] private GameObject obstaclePrefab;
+        [SerializeField] private GameObjectEventChannelSO onObstacleDestroyed;
+        [SerializeField] private GameObject[] obstaclesPrefabs;
 
         private bool _shouldSpawnObject;
         private Coroutine _spawnCoroutine;
@@ -31,6 +32,7 @@ namespace ObstacleSystem
             onRoadInstantiatedEvent?.onGameObjectEvent.AddListener(HandleNewRoadInstance);
             onRoadDeletedEvent?.onGameObjectEvent.AddListener(HandleDeleteObstacle);
             onObstacleTriggeredEvent?.onGameObjectEvent.AddListener(HandleDeleteObstacle);
+            onObstacleDestroyed?.onGameObjectEvent.AddListener(DeleteObstacle);
         }
 
         private void Update()
@@ -49,6 +51,7 @@ namespace ObstacleSystem
             onRoadInstantiatedEvent?.onGameObjectEvent.RemoveListener(HandleNewRoadInstance);
             onRoadDeletedEvent?.onGameObjectEvent.RemoveListener(HandleDeleteObstacle);
             onObstacleTriggeredEvent?.onGameObjectEvent.RemoveListener(HandleDeleteObstacle);
+            onObstacleDestroyed?.onGameObjectEvent.RemoveListener(DeleteObstacle);
 
             if (_spawnCoroutine != null)
                 StopCoroutine(SpawnObjectCoroutine());
@@ -76,10 +79,20 @@ namespace ObstacleSystem
             ObstaclesCollision obstaclesCollision = road.GetComponentInChildren<ObstaclesCollision>();
             
             if (obstaclesCollision == null) return;
-            Destroy(obstaclesCollision.gameObject);
+            DeleteObstacle(obstaclesCollision.gameObject);
+        }
+
+        private void DeleteObstacle(GameObject obstacle)
+        {
+            Destroy(obstacle);
             _obstaclesCount--;
         }
 
+        private GameObject GetRandomObstacle()
+        {
+            return obstaclesPrefabs[Random.Range(0, obstaclesPrefabs.Length)];
+        }
+        
         private void HandleNewRoadInstance(GameObject road)
         {
             if (!_shouldSpawnObject)
@@ -87,7 +100,7 @@ namespace ObstacleSystem
 
             _shouldSpawnObject = false;
             float roadWidth = road.transform.localScale.x;
-            GameObject obstacle = Instantiate(obstaclePrefab, road.transform, false);
+            GameObject obstacle = Instantiate(GetRandomObstacle(), road.transform, false);
             _lastSpawnedObstacle = obstacle;
             obstacle.transform.localPosition = new Vector3(Random.Range(-roadWidth / 2, roadWidth / 2), obstacle.transform.localPosition.y, 0);
             _obstaclesCount++;
