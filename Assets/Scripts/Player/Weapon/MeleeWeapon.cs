@@ -33,7 +33,7 @@ namespace Player.Weapon
             {
                 if (other.transform.TryGetComponent<ITakeDamage>(out ITakeDamage takeDamageInterface))
                 {
-                    takeDamageInterface.TakeDamage(damage);
+                    takeDamageInterface.TryTakeDamage(damage);
                 }
 
                 hittedEnemies.Add(other);

@@ -10,14 +10,14 @@ namespace ObstacleSystem
     {
         [SerializeField] private int collisionDamage;
         [SerializeField] private GameObjectEventChannelSO onObstacleTriggeredEvent;
-        
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
             {
                 other.TryGetComponent<ITakeDamage>(out ITakeDamage playerHealth);
-                playerHealth.TakeDamage(collisionDamage);
-                onObstacleTriggeredEvent.RaiseEvent(gameObject);
+                if (playerHealth.TryTakeDamage(collisionDamage))
+                    onObstacleTriggeredEvent.RaiseEvent(gameObject);
             }
         }
     }

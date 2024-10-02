@@ -284,6 +284,7 @@ GameObject:
   - component: {fileID: 6481343404815373606}
   - component: {fileID: 1856129533111618862}
   - component: {fileID: 4004944892389013156}
+  - component: {fileID: -3657109322286029522}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -454,10 +455,10 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 4004944892389013156}
-          m_TargetAssemblyTypeName: Health.HealthPoints, Assembly-CSharp
-          m_MethodName: SetCanTakeDamage
-          m_Mode: 6
+        - m_Target: {fileID: 4699157676241342615}
+          m_TargetAssemblyTypeName: Player.PlayerDashController, Assembly-CSharp
+          m_MethodName: HandlePhantomCoroutine
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -484,18 +485,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
-        - m_Target: {fileID: 4004944892389013156}
-          m_TargetAssemblyTypeName: Health.HealthPoints, Assembly-CSharp
-          m_MethodName: SetCanTakeDamage
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
 --- !u!114 &6487825136179884570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -510,6 +499,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputHandler: {fileID: 11400000, guid: 4902f51743585ca40aec021ece06aa06, type: 2}
   onPlayerNewPositionEvent: {fileID: 11400000, guid: 1edae3268f02d1c4190e82ddfa3be357, type: 2}
+  onPlayerMovementEvent: {fileID: 0}
   boundsConfig: {fileID: 11400000, guid: ec9fc6062f1b51d4596422a3e4f7f265, type: 2}
   speed: 7.5
   maxTiltAngles: {x: 10, y: 5}
@@ -532,6 +522,7 @@ MonoBehaviour:
   dashSpeed: 15
   dashDuration: 0.2
   dashCoolDown: 1
+  phantomDuration: 0.25
   speedCurve:
     serializedVersion: 2
     m_Curve:
@@ -621,6 +612,7 @@ MonoBehaviour:
   onDashRechargeEvent: {fileID: 11400000, guid: 3e281a7f78b52ac4ca6dfe9670c23833, type: 2}
   onDashRechargedEvent: {fileID: 11400000, guid: b24f4335f7210144ebd127ad26fa2a6f, type: 2}
   onDashUsedEvent: {fileID: 11400000, guid: 314cc26a951a7f445b33baca6dc46fc9, type: 2}
+  onDashMovementEvent: {fileID: 0}
 --- !u!114 &6481343404815373606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -674,12 +666,69 @@ MonoBehaviour:
   onDeathEvent: {fileID: 11400000, guid: 1609b932e078810448a25604c23359d3, type: 2}
   onTakeDamageEvent: {fileID: 11400000, guid: 703652f7737657e41ba9437afd9a0117, type: 2}
   onResetPointsEvent: {fileID: 0}
+  onDamageAvoidedEvent: {fileID: 11400000, guid: 4f9416a5c19eeda4e9b3e6a791d2b357, type: 2}
   onInternalDeathEvent:
     m_PersistentCalls:
       m_Calls: []
   onInternalResetEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &-3657109322286029522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4780633370198621073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f507dd90f8775bb48bcbbe4e0007bc6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onDodgeEvent: {fileID: 11400000, guid: 4f9416a5c19eeda4e9b3e6a791d2b357, type: 2}
+  bulletTimeDuration: 0.3
+  bulletTimeVariationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.16796552
+      value: 0.5307146
+      inSlope: -0.02296781
+      outSlope: -0.02296781
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 1
+      outWeight: 0.2733883
+    - serializedVersion: 3
+      time: 0.7859571
+      value: 0.60460085
+      inSlope: 0.36229655
+      outSlope: 0.36229655
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.24539973
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &7261930984988719095
 GameObject:
   m_ObjectHideFlags: 0

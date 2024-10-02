@@ -11,16 +11,17 @@ namespace Health
         [SerializeField] private int initHealth = 100;
         [SerializeField] private bool canTakeDamage = true;
 
-        [Header("events")] 
+        [Header("events")]
         [SerializeField] private VoidEventChannelSO onDeathEvent;
         [SerializeField] private IntEventChannelSO onTakeDamageEvent;
         [SerializeField] private IntEventChannelSO onResetPointsEvent;
+        [SerializeField] private VoidEventChannelSO onDamageAvoidedEvent;
 
-        [Header("Internal events")] 
+        [Header("Internal events")]
         [SerializeField] private UnityEvent onInternalDeathEvent;
 
         [SerializeField] private UnityEvent<int> onInternalResetEvent;
-        
+
         public int MaxHealth
         {
             get { return maxHealth; }
@@ -66,11 +67,12 @@ namespace Health
             onInternalResetEvent?.Invoke(CurrentHp);
         }
 
-        public void TakeDamage(int damage)
+        public bool TryTakeDamage(int damage)
         {
             if (!canTakeDamage)
             {
-                return;
+                onDamageAvoidedEvent?.RaiseEvent();
+                return false;
             }
 
             CurrentHp -= damage;
@@ -84,6 +86,8 @@ namespace Health
             {
                 onTakeDamageEvent?.RaiseEvent(CurrentHp);
             }
+
+            return true;
         }
 
         public bool IsDead()
@@ -94,7 +98,7 @@ namespace Health
         public void TryTakeAvoidableDamage(int damage)
         {
             if (_isInvincible) return;
-            TakeDamage(damage);
+            TryTakeDamage(damage);
         }
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD

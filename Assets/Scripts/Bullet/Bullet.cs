@@ -22,7 +22,7 @@ namespace Bullet
             {
                 ITakeDamage enemy = other.GetComponentInChildren<ITakeDamage>();
                 
-                enemy?.TakeDamage(damage);
+                enemy?.TryTakeDamage(damage);
                 
                 Destroy(gameObject);
             }
