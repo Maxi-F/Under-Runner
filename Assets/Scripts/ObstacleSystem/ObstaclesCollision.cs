@@ -16,7 +16,7 @@ namespace ObstacleSystem
             if (other.CompareTag("Player"))
             {
                 other.TryGetComponent<ITakeDamage>(out ITakeDamage playerHealth);
-                if (playerHealth.TakeDamage(collisionDamage))
+                if (playerHealth.TryTakeDamage(collisionDamage))
                     onObstacleTriggeredEvent.RaiseEvent(gameObject);
             }
         }

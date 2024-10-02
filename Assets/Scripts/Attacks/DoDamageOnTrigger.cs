@@ -20,7 +20,7 @@ namespace Attacks
                 if(isAvoidable)
                     damageTaker.TryTakeAvoidableDamage(damage);
                 else 
-                    damageTaker.TakeDamage(damage);
+                    damageTaker.TryTakeDamage(damage);
             }
         }
     }

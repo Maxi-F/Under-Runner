@@ -67,7 +67,7 @@ namespace Health
             onInternalResetEvent?.Invoke(CurrentHp);
         }
 
-        public bool TakeDamage(int damage)
+        public bool TryTakeDamage(int damage)
         {
             if (!canTakeDamage)
             {
@@ -98,7 +98,7 @@ namespace Health
         public void TryTakeAvoidableDamage(int damage)
         {
             if (_isInvincible) return;
-            TakeDamage(damage);
+            TryTakeDamage(damage);
         }
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD

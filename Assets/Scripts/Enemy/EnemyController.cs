@@ -84,7 +84,7 @@ namespace Enemy
 
         public bool TryDestroyShield(int parryDamage)
         {
-            shieldPoints.TakeDamage(parryDamage);
+            shieldPoints.TryTakeDamage(parryDamage);
 
             if (shieldPoints.IsDead())
             {

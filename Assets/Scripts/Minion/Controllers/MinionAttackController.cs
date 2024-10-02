@@ -62,7 +62,7 @@ namespace Minion.Controllers
         private void DealDamage(GameObject target)
         {
             target.gameObject.TryGetComponent(out ITakeDamage playerHealth);
-            playerHealth.TakeDamage(minionConfig.attackData.damage);
+            playerHealth.TryTakeDamage(minionConfig.attackData.damage);
         }
     }
 }
