@@ -654,6 +654,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1059696745}
+    - target: {fileID: 5219174360119938913, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: onFinishSpawningBlocks
+      value: 
+      objectReference: {fileID: 11400000, guid: cfa0964e0735edd48b4aa4868148bc0c, type: 2}
     - target: {fileID: 8961736479340173517, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
       propertyPath: m_Name
       value: Enemy
@@ -2338,10 +2342,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7729022489291715360, guid: 425aaabb84ab97a4293bc081359c8be7, type: 3}
-      propertyPath: onHandleAttack
-      value: 
-      objectReference: {fileID: 11400000, guid: b7beabe1d50e1c046bb77491b247d49b, type: 2}
     - target: {fileID: 8166373747105330268, guid: 425aaabb84ab97a4293bc081359c8be7, type: 3}
       propertyPath: m_Name
       value: FallingAttackSpawner
@@ -2457,6 +2457,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3972917326989590876, guid: 800cbe1a710fdb94fa4f38ba4942d228, type: 3}
+      propertyPath: mapBounds
+      value: 
+      objectReference: {fileID: 11400000, guid: ec9fc6062f1b51d4596422a3e4f7f265, type: 2}
     - target: {fileID: 3972917326989590876, guid: 800cbe1a710fdb94fa4f38ba4942d228, type: 3}
       propertyPath: obstaclePrefab
       value: 

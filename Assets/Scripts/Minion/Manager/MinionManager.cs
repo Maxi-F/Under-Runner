@@ -51,7 +51,7 @@ namespace Minion.Manager
         {
             _minionsAttackingCount++;
 
-            // Debug.Log(_minionsAttackingCount);
+            Debug.Log($"Add Attacking Minion. Minions Count: {_minionsAttackingCount}");
             if (_minionsAttackingCount >= minionManagerConfig.maxMinionsAttackingAtSameTime)
             {
                 CanAttack = false;
@@ -61,6 +61,7 @@ namespace Minion.Manager
         private void RemoveAttackingMinion()
         {
             _minionsAttackingCount--;
+            Debug.Log($"Remove Attacking Minion. Minions Count: {_minionsAttackingCount}");
 
             if (_minionsAttackingCount < minionManagerConfig.maxMinionsAttackingAtSameTime)
             {

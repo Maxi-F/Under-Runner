@@ -17,7 +17,8 @@ namespace Minion
         [Header("Events")] 
         [SerializeField] private GameObjectEventChannelSO onMinionDeletedEvent;
         [SerializeField] private VoidEventChannelSO onMinionAttackedEvent;
-        
+        [SerializeField] private VoidEventChannelSO onMinionAttackingEvent;
+
         [Header("Internal Events")] 
         [SerializeField] private ActionEventsWrapper idleEvents;
         [SerializeField] private ActionEventsWrapper moveEvents;
@@ -32,7 +33,7 @@ namespace Minion
         private State _attackState;
         private State _fallbackState;
 
-        private bool _isInAttackStates;
+        private bool _isAttacking;
 
         protected override void Update()
         {
@@ -48,24 +49,29 @@ namespace Minion
         {
             healthPoints?.ResetHitPoints();
 
-            if (_isInAttackStates)
+            if(_isAttacking)
             {
+                Debug.Log($"{gameObject.GetInstanceID()}: Raising attacked event on disable");
                 onMinionAttackedEvent?.RaiseEvent();
             }
-            
+
             base.OnDisable();
         }
 
         public void SetIsNotInAttackState()
         {
-            _isInAttackStates = false;
+            _isAttacking = false;
+            Debug.Log($"{gameObject.GetInstanceID()}: Raising attacked event");
+            onMinionAttackedEvent?.RaiseEvent();
         }
 
         public void SetIsInAttackState()
         {
-            _isInAttackStates = true;
+            _isAttacking = true;
+            Debug.Log($"{gameObject.GetInstanceID()}: Raising attacking event");
+            onMinionAttackingEvent?.RaiseEvent();
         }
-        
+
         public GameObject GetPlayer()
         {
             return _player;
@@ -123,13 +129,14 @@ namespace Minion
             
             Transition fallbackToIdleTransition = new Transition(_fallbackState, _idleState);
             _fallbackState.AddTransition(fallbackToIdleTransition);
-            
+
             return new List<State>
                 ()
                 {
                     _idleState,
                     _moveState,
                     _chargeAttackState,
+                    _fallbackState,
                     _attackState
                 };
         }
