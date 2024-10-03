@@ -307,7 +307,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 840522403494077163, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
       propertyPath: growDuration
-      value: 0.4
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 840522403494077163, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
       propertyPath: swingDuration
@@ -330,24 +330,96 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 840522403494077163, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: swingCurve.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 840522403494077163, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
       propertyPath: laserGrowCurve.m_Curve.Array.size
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 840522403494077163, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: swingCurve.m_Curve.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 840522403494077163, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: swingCurve.m_Curve.Array.data[1].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 840522403494077163, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: swingCurve.m_Curve.Array.data[0].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 840522403494077163, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: swingCurve.m_Curve.Array.data[1].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 840522403494077163, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
       propertyPath: laserGrowCurve.m_Curve.Array.data[0].time
-      value: -0.008341797
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 840522403494077163, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
       propertyPath: laserGrowCurve.m_Curve.Array.data[1].time
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 840522403494077163, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: laserGrowCurve.m_Curve.Array.data[2].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 840522403494077163, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: swingCurve.m_Curve.Array.data[0].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 840522403494077163, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: swingCurve.m_Curve.Array.data[1].inWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 840522403494077163, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: swingCurve.m_Curve.Array.data[1].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 840522403494077163, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
       propertyPath: laserGrowCurve.m_Curve.Array.data[0].value
-      value: 0.000010762131
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 840522403494077163, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
       propertyPath: laserGrowCurve.m_Curve.Array.data[1].value
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 840522403494077163, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: laserGrowCurve.m_Curve.Array.data[2].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 840522403494077163, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: swingCurve.m_Curve.Array.data[0].outWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 840522403494077163, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: swingCurve.m_Curve.Array.data[1].outWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 840522403494077163, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: laserGrowCurve.m_Curve.Array.data[1].inSlope
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 840522403494077163, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: laserGrowCurve.m_Curve.Array.data[1].inWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 840522403494077163, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: laserGrowCurve.m_Curve.Array.data[1].outSlope
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 840522403494077163, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: swingCurve.m_Curve.Array.data[0].weightedMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 840522403494077163, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: swingCurve.m_Curve.Array.data[1].weightedMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 840522403494077163, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: laserGrowCurve.m_Curve.Array.data[1].outWeight
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1613840298990837420, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
       propertyPath: m_LocalScale.x

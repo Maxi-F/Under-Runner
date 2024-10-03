@@ -1,14 +1,15 @@
+using System;
 using System.Collections;
 using Events;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Utils;
 
 namespace Attacks.Swing
 {
     public class Swing : MonoBehaviour
     {
-        [Header("Events")]
-        [SerializeField] private VoidEventChannelSO onSwingEndEvent;
+        [Header("References")]
         [SerializeField] private GameObject swingPivot;
         [SerializeField] private GameObject laserObject;
         [SerializeField] private Vector3 initialLaserLocalPosition;
@@ -29,23 +30,37 @@ namespace Attacks.Swing
         private Quaternion _startingRotation;
         private Quaternion _finishingRotation;
 
-        private void OnEnable()
-        {
-            onSwingEndEvent?.onEvent.AddListener(HandleSwingEndEvent);
-        }
-
-        private void OnDisable()
-        {
-            onSwingEndEvent?.onEvent.RemoveListener(HandleSwingEndEvent);
-        }
+        private Sequence _swingSequence;
+        private Coroutine swingCoroutine;
 
         [ContextMenu("Swing")]
         public void RunSwing()
         {
-            StartCoroutine(SwingSequence());
+            SetSequence();
+            if (swingCoroutine != null)
+                StopCoroutine(swingCoroutine);
+
+            swingCoroutine = StartCoroutine(_swingSequence.Execute());
+        }
+
+        private void SetSequence()
+        {
+            _swingSequence = new Sequence();
+            _swingSequence.AddPreAction(SwingSetup());
+            _swingSequence.AddPreAction(LaserGrowCoroutine());
+            _swingSequence.SetAction(SwingingCoroutine());
+            _swingSequence.AddPostAction(SwingEnd());
         }
 
         public IEnumerator SwingSequence()
+        {
+            yield return LaserGrowCoroutine();
+            yield return SwingingCoroutine();
+
+            swingPivot.SetActive(false);
+        }
+
+        private IEnumerator SwingSetup()
         {
             swingPivot.SetActive(true);
 
@@ -56,25 +71,7 @@ namespace Attacks.Swing
             laserObject.transform.localPosition = initialLaserLocalPosition;
 
             swingPivot.transform.localRotation = _startingRotation;
-
-            yield return LaserGrowCoroutine();
-            yield return SwingingCoroutine();
-
-            swingPivot.SetActive(false);
-        }
-
-        private IEnumerator SwingingCoroutine()
-        {
-            float timer = 0;
-            float startingTime = Time.time;
-
-            while (timer < swingDuration)
-            {
-                timer = Time.time - startingTime;
-                float swingValue = swingCurve.Evaluate(timer / swingDuration);
-                swingPivot.transform.localRotation = Quaternion.Slerp(_startingRotation, _finishingRotation, swingValue);
-                yield return null;
-            }
+            yield break;
         }
 
         private IEnumerator LaserGrowCoroutine()
@@ -96,9 +93,24 @@ namespace Attacks.Swing
             }
         }
 
-        private void HandleSwingEndEvent()
+        private IEnumerator SwingingCoroutine()
         {
-            gameObject.SetActive(false);
+            float timer = 0;
+            float startingTime = Time.time;
+
+            while (timer < swingDuration)
+            {
+                timer = Time.time - startingTime;
+                float swingValue = swingCurve.Evaluate(timer / swingDuration);
+                swingPivot.transform.localRotation = Quaternion.Slerp(_startingRotation, _finishingRotation, swingValue);
+                yield return null;
+            }
+        }
+
+        private IEnumerator SwingEnd()
+        {
+            swingPivot.SetActive(false);
+            yield break;
         }
     }
 }
