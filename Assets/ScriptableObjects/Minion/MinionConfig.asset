@@ -20,10 +20,10 @@ MonoBehaviour:
     damage: 15
     speed: 10
   idleData:
-    minIdleTime: 2
-    maxIdleTime: 4
+    minIdleTime: 0.5
+    maxIdleTime: 1
   moveData:
-    minMovingTime: 2
-    maxMovingTime: 4
+    minMovingTime: 0.05
+    maxMovingTime: 0.1
     speed: 4
     minDistance: 3
