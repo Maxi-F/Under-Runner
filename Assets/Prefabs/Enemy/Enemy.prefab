@@ -1044,37 +1044,28 @@ MonoBehaviour:
   laserObject: {fileID: 5948675016384544887}
   initialLaserLocalPosition: {x: 2, y: 0, z: 0}
   initialLaserScale: {x: 0, y: 1, z: 1}
-  growDuration: 1
-  swingDuration: 1.5
+  growDuration: 0.75
+  swingDuration: 1
   swingCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: -0.00603593
-      outSlope: -0.00603593
-      tangentMode: 0
-      weightedMode: 2
-      inWeight: 0
-      outWeight: 0.50683004
-    - serializedVersion: 3
-      time: 0.579976
-      value: 0.13408685
-      inSlope: 1.2904304
-      outSlope: 1.2904304
-      tangentMode: 0
-      weightedMode: 3
-      inWeight: 0.1937071
-      outWeight: 0.5397723
-    - serializedVersion: 3
-      time: 1
-      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
+      weightedMode: 2
+      inWeight: 0
+      outWeight: 0.75
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: -0.0031621496
+      outSlope: -0.0031621496
+      tangentMode: 0
       weightedMode: 1
-      inWeight: 0.52787054
+      inWeight: 0.74583334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
