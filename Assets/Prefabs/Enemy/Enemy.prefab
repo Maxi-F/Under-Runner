@@ -1039,65 +1039,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae4757ea59408148a1660bf32a4d5b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onSwingEndEvent: {fileID: 11400000, guid: 056420fa0a25c8e409edfdf5fc635015, type: 2}
   swingPivot: {fileID: 5982544777939341962}
   laserObject: {fileID: 5948675016384544887}
-  initialLaserLocalPosition: {x: 2, y: 0, z: 0}
-  initialLaserScale: {x: 0, y: 1, z: 1}
-  growDuration: 0.75
-  swingDuration: 1
-  swingCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 2
-      inWeight: 0
-      outWeight: 0.75
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: -0.0031621496
-      outSlope: -0.0031621496
-      tangentMode: 0
-      weightedMode: 1
-      inWeight: 0.74583334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  startingDegreesY: 0
-  finishingDegreesY: 180
-  laserGrowCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  startingSize: 0
-  finishingSize: 15
+  swingConfigSo: {fileID: 11400000, guid: 5ded94f39775e2d45b3c8ec6bc876b42, type: 2}
 --- !u!1 &8961736479340173517
 GameObject:
   m_ObjectHideFlags: 0

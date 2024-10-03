@@ -49,7 +49,7 @@ namespace Enemy.Attacks
         
         private IEnumerator StartAttack()
         {
-            yield return swing.SwingSequence();
+            yield return swing.RunSwing();
         }
     }
 }
