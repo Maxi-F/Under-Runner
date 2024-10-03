@@ -438,6 +438,7 @@ MonoBehaviour:
   onDeathEvent: {fileID: 11400000, guid: 36bbe8a4a81fcf74da11d75999d01f40, type: 2}
   onTakeDamageEvent: {fileID: 11400000, guid: 41331d8fc0079ac47bec86270d050339, type: 2}
   onResetPointsEvent: {fileID: 0}
+  onDamageAvoidedEvent: {fileID: 0}
   onInternalDeathEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -571,6 +572,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onHandleAttack: {fileID: 11400000, guid: b7beabe1d50e1c046bb77491b247d49b, type: 2}
+  onFinishSpawningBlocks: {fileID: 11400000, guid: cfa0964e0735edd48b4aa4868148bc0c, type: 2}
 --- !u!114 &5666759384207404707
 MonoBehaviour:
   m_ObjectHideFlags: 0
