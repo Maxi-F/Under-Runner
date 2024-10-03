@@ -609,7 +609,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  bulletTimeDuration: 1.2
+  bulletTimeDuration: 0.25
   onDashRechargeEvent: {fileID: 11400000, guid: 3e281a7f78b52ac4ca6dfe9670c23833, type: 2}
   onDashRechargedEvent: {fileID: 11400000, guid: b24f4335f7210144ebd127ad26fa2a6f, type: 2}
   onDashUsedEvent: {fileID: 11400000, guid: 314cc26a951a7f445b33baca6dc46fc9, type: 2}
