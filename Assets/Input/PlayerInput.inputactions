@@ -135,8 +135,19 @@
                 },
                 {
                     "name": "",
-                    "id": "ba924964-c319-4e4d-bf59-c44d3bc906f1",
+                    "id": "1e0358cf-5e71-4b85-a9a6-cbd9782cf6ab",
                     "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9808dc8d-ef2d-4ce3-a95d-59615fe90af3",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -146,8 +157,8 @@
                 },
                 {
                     "name": "",
-                    "id": "9808dc8d-ef2d-4ce3-a95d-59615fe90af3",
-                    "path": "<Gamepad>/buttonWest",
+                    "id": "92a4fc28-2ad5-4afc-b22f-b2f5eaa576f8",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
