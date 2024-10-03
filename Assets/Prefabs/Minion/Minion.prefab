@@ -1082,6 +1082,7 @@ MonoBehaviour:
   onDeathEvent: {fileID: 0}
   onTakeDamageEvent: {fileID: 11400000, guid: d7c92d4ecc5578245b7e8d6eca51d765, type: 2}
   onResetPointsEvent: {fileID: 0}
+  onDamageAvoidedEvent: {fileID: 0}
   onInternalDeathEvent:
     m_PersistentCalls:
       m_Calls:
@@ -1200,7 +1201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   yStartPlusPosition: 7
-  yVelocity: 2
+  yVelocity: 10
 --- !u!114 &4097841218994226417
 MonoBehaviour:
   m_ObjectHideFlags: 0
