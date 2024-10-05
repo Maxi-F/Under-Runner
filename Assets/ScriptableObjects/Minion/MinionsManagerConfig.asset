@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: MinionsManagerConfig
   m_EditorClassIdentifier: 
   maxMinionsAttackingAtSameTime: 1
-  maxMinionsAtSameTime: 3
+  maxMinionsAtSameTime: 2
