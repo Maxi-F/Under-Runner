@@ -1,5 +1,6 @@
 using System;
 using Attacks.FallingAttack;
+using Events;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -10,6 +11,9 @@ namespace Attacks.FallingBlock
         [SerializeField] private Vector2 initialHeightRange = new Vector2(10.0f, 15.0f);
         [SerializeField] private float heightToDestroy = -1f;
         [SerializeField] private GameObject parentObject;
+
+        [Header("Events")]
+        [SerializeField] private GameObjectEventChannelSO onFallingBlockDisabledEvent;
 
         private Rigidbody _rigidbody;
         private float _acceleration;
@@ -26,6 +30,7 @@ namespace Attacks.FallingBlock
             {
                 SetHeight();
                 _rigidbody.velocity = Vector3.zero;
+                onFallingBlockDisabledEvent?.RaiseEvent(parentObject);
                 FallingBlockObjectPool.Instance?.ReturnToPool(parentObject);
             }
         }
