@@ -17,53 +17,50 @@ namespace Minion.Manager
         [SerializeField] private GameObjectEventChannelSO onMinionDeletedEvent;
         [SerializeField] private VoidEventChannelSO onAllMinionsDestroyedEvent;
         [SerializeField] private VoidEventChannelSO onPlayerDeathEvent;
-        [SerializeField] private VoidEventChannelSO onMinionAttackingEvent;
-        [SerializeField] private VoidEventChannelSO onMinionAttackedEvent;
+        [SerializeField] private GameObjectEventChannelSO onMinionAttackingEvent;
+        [SerializeField] private GameObjectEventChannelSO onMinionAttackedEvent;
         
         public static bool CanAttack { get; private set; }
 
         private List<GameObject> _minions;
         private bool _isSpawning;
         private Coroutine _spawnCoroutine;
-        private int _minionsAttackingCount;
+        private List<GameObject> _attackingMinions;
     
         protected void OnEnable()
         {
-            _minionsAttackingCount = 0;
             CanAttack = true;
             _spawnCoroutine = StartCoroutine(SpawnMinions());
             onMinionDeletedEvent?.onGameObjectEvent.AddListener(HandleDeletedEvent);
             onPlayerDeathEvent?.onEvent.AddListener(RemoveAllMinions);
-            onMinionAttackingEvent?.onEvent.AddListener(AddAttackingMinion);
-            onMinionAttackedEvent?.onEvent.AddListener(RemoveAttackingMinion);
+            onMinionAttackingEvent?.onGameObjectEvent.AddListener(AddAttackingMinion);
+            onMinionAttackedEvent?.onGameObjectEvent.AddListener(RemoveAttackingMinion);
         }
 
         protected void OnDisable()
         {
             onMinionDeletedEvent?.onGameObjectEvent.RemoveListener(HandleDeletedEvent);
             onPlayerDeathEvent?.onEvent.RemoveListener(RemoveAllMinions);
-            onMinionAttackingEvent?.onEvent.RemoveListener(AddAttackingMinion);
-            onMinionAttackedEvent?.onEvent.RemoveListener(RemoveAttackingMinion);
+            onMinionAttackingEvent?.onGameObjectEvent.RemoveListener(AddAttackingMinion);
+            onMinionAttackedEvent?.onGameObjectEvent.RemoveListener(RemoveAttackingMinion);
             StopCoroutine(_spawnCoroutine);
         }
 
-        private void AddAttackingMinion()
+        private void AddAttackingMinion(GameObject minion)
         {
-            _minionsAttackingCount++;
+            _attackingMinions.Add(minion);
 
-            Debug.Log($"Add Attacking Minion. Minions Count: {_minionsAttackingCount}");
-            if (_minionsAttackingCount >= minionManagerConfig.maxMinionsAttackingAtSameTime)
+            if (_attackingMinions.Count >= minionManagerConfig.maxMinionsAttackingAtSameTime)
             {
                 CanAttack = false;
             }
         }
 
-        private void RemoveAttackingMinion()
+        private void RemoveAttackingMinion(GameObject minion)
         {
-            _minionsAttackingCount--;
-            Debug.Log($"Remove Attacking Minion. Minions Count: {_minionsAttackingCount}");
+            _attackingMinions.Remove(minion);
 
-            if (_minionsAttackingCount < minionManagerConfig.maxMinionsAttackingAtSameTime)
+            if (_attackingMinions.Count < minionManagerConfig.maxMinionsAttackingAtSameTime)
             {
                 CanAttack = true;
             }
@@ -83,7 +80,13 @@ namespace Minion.Manager
             MinionObjectPool.Instance?.ReturnToPool(deletedMinion);
             
             _minions.Remove(deletedMinion);
+            _attackingMinions.Remove(deletedMinion);
 
+            if (_attackingMinions.Count < minionManagerConfig.maxMinionsAttackingAtSameTime)
+            {
+                CanAttack = true;
+            }
+            
             if (_minions.Count == 0 && !_isSpawning)
             {
                 onAllMinionsDestroyedEvent?.RaiseEvent();
@@ -94,6 +97,7 @@ namespace Minion.Manager
         {
             _isSpawning = true;
             _minions = new List<GameObject>();
+            _attackingMinions = new List<GameObject>();
 
             int minionsSpawned = 0;
             while(minionsSpawned < minionSpawnerConfig.minionsToSpawn)
