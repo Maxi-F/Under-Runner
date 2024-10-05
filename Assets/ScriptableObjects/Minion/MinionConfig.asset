@@ -23,7 +23,7 @@ MonoBehaviour:
     minIdleTime: 0.25
     maxIdleTime: 1
   moveData:
-    minMovingTime: 2
-    maxMovingTime: 4
+    minMovingTime: 0.05
+    maxMovingTime: 0.1
     speed: 4
     minDistance: 3

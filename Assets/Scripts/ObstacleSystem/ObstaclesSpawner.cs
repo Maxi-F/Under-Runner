@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Events;
+using MapBounds;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -14,6 +15,7 @@ namespace ObstacleSystem
         [SerializeField] private GameObjectEventChannelSO onObstacleTriggeredEvent;
         [SerializeField] private VoidEventChannelSO onObstaclesDisabled;
         [SerializeField] private GameObjectEventChannelSO onObstacleDestroyed;
+        [SerializeField] private MapBoundsSO mapBounds;
         [SerializeField] private GameObject[] obstaclesPrefabs;
 
         private bool _shouldSpawnObject;
@@ -99,7 +101,7 @@ namespace ObstacleSystem
                 return;
 
             _shouldSpawnObject = false;
-            float roadWidth = road.transform.localScale.x;
+            float roadWidth = mapBounds.horizontalBounds.max - mapBounds.horizontalBounds.min;
             GameObject obstacle = Instantiate(GetRandomObstacle(), road.transform, false);
             _lastSpawnedObstacle = obstacle;
             obstacle.transform.localPosition = new Vector3(Random.Range(-roadWidth / 2, roadWidth / 2), obstacle.transform.localPosition.y, 0);
