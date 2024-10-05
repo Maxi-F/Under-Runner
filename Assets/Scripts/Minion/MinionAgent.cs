@@ -16,8 +16,8 @@ namespace Minion
 
         [Header("Events")] 
         [SerializeField] private GameObjectEventChannelSO onMinionDeletedEvent;
-        [SerializeField] private VoidEventChannelSO onMinionAttackedEvent;
-        [SerializeField] private VoidEventChannelSO onMinionAttackingEvent;
+        [SerializeField] private GameObjectEventChannelSO onMinionAttackedEvent;
+        [SerializeField] private GameObjectEventChannelSO onMinionAttackingEvent;
 
         [Header("Internal Events")] 
         [SerializeField] private ActionEventsWrapper idleEvents;
@@ -32,9 +32,7 @@ namespace Minion
         private State _chargeAttackState;
         private State _attackState;
         private State _fallbackState;
-
-        private bool _isAttacking;
-
+        
         protected override void Update()
         {
             Vector3 rotation = Quaternion.LookRotation(_player.transform.position).eulerAngles;
@@ -49,27 +47,17 @@ namespace Minion
         {
             healthPoints?.ResetHitPoints();
 
-            if(_isAttacking)
-            {
-                Debug.Log($"{gameObject.GetInstanceID()}: Raising attacked event on disable");
-                onMinionAttackedEvent?.RaiseEvent();
-            }
-
             base.OnDisable();
         }
 
         public void SetIsNotInAttackState()
         {
-            _isAttacking = false;
-            Debug.Log($"{gameObject.GetInstanceID()}: Raising attacked event");
-            onMinionAttackedEvent?.RaiseEvent();
+            onMinionAttackedEvent?.RaiseEvent(gameObject);
         }
 
         public void SetIsInAttackState()
         {
-            _isAttacking = true;
-            Debug.Log($"{gameObject.GetInstanceID()}: Raising attacking event");
-            onMinionAttackingEvent?.RaiseEvent();
+            onMinionAttackingEvent?.RaiseEvent(gameObject);
         }
 
         public GameObject GetPlayer()
