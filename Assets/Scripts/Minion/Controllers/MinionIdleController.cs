@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Events;
 using Minion.Manager;
@@ -10,10 +11,20 @@ namespace Minion.Controllers
     {
         [SerializeField] private MinionSO minionConfig;
 
+        private Coroutine _idleTime;
+        
+        private void OnDisable()
+        {
+            Exit();
+        }
+
         public void Enter()
         {
             transform.rotation = Quaternion.identity;
-            StartCoroutine(HandleIdleTime());
+            if (_idleTime == null)
+            {
+                _idleTime = StartCoroutine(HandleIdleTime());
+            }
         }
 
         private IEnumerator HandleIdleTime()
@@ -22,6 +33,11 @@ namespace Minion.Controllers
             yield return new WaitUntil(() => MinionManager.CanAttack);
             MinionAgent.SetIsInAttackState();
             MinionAgent.ChangeStateToMove();
+        }
+        
+        public void Exit()
+        {
+            _idleTime = null;
         }
     }
 }
