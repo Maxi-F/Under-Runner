@@ -49,9 +49,7 @@ namespace Enemy.Attacks
         
         private IEnumerator StartAttack()
         {
-            swing.gameObject.SetActive(true);
-
-            yield return new WaitUntil(() => !swing.gameObject.activeInHierarchy);
+            yield return swing.RunSwing();
         }
     }
 }
