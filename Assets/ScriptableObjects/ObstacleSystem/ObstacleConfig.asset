@@ -9,12 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65d7935ffdf03374c9d69b2ab3131ef7, type: 3}
-  m_Name: MapBounds
+  m_Script: {fileID: 11500000, guid: 5aca2369d2ac4453a5e61cd5c7058961, type: 3}
+  m_Name: ObstacleConfig
   m_EditorClassIdentifier: 
-  horizontalBounds:
-    min: -9.5
-    max: 9.5
-  depthBounds:
-    min: -4
-    max: 8
+  prefabs:
+  - {fileID: 5681849922222461501, guid: 3dbc3ab4d26536149bafa22531e00aed, type: 3}
+  - {fileID: 4250984852401542567, guid: 264d1f94f6e70034a895125e1d40329c, type: 3}
