@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Tests/BasicLoop.unity
     guid: e3e9513e877404d4698be5600a117416
   - enabled: 1
+    path: Assets/Scenes/Boot.unity
+    guid: e1e77e1e941789c4292002a83b288c51
+  - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
