@@ -13,9 +13,30 @@ MonoBehaviour:
   m_Name: ScenesConfig
   m_EditorClassIdentifier: 
   scenes:
+  - sceneName: Boot
+    sceneGuid: e1e77e1e941789c4292002a83b288c51
+    index: 0
+    OnLoad:
+      m_PersistentCalls:
+        m_Calls: []
+    OnUnload:
+      m_PersistentCalls:
+        m_Calls: []
   - sceneName: MainMenu
     sceneGuid: 9fc0d4010bbf28b4594072e72b8655ab
-    index: 0
+    index: 1
+    OnLoad:
+      m_PersistentCalls:
+        m_Calls: []
+    OnUnload:
+      m_PersistentCalls:
+        m_Calls: []
   - sceneName: GameLoop
     sceneGuid: 748affaa315e2a14c90fba11374f7559
-    index: 1
+    index: 2
+    OnLoad:
+      m_PersistentCalls:
+        m_Calls: []
+    OnUnload:
+      m_PersistentCalls:
+        m_Calls: []
