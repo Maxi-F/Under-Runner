@@ -88,7 +88,6 @@ namespace ObstacleSystem
             {
                 DeleteObstacle(collision.gameObject);
             }
-            Debug.Log(_obstaclesCount);
         }
 
         private void DeleteObstacle(GameObject obstacle)
