@@ -44,6 +44,8 @@ GameObject:
   - component: {fileID: 7690232631043357084}
   - component: {fileID: 4999864128464341414}
   - component: {fileID: 5496920550933813449}
+  - component: {fileID: 580101771174567560}
+  - component: {fileID: 9081163370198414225}
   m_Layer: 0
   m_Name: RoadLogic
   m_TagString: Untagged
@@ -98,6 +100,39 @@ MonoBehaviour:
   pointToDeleteOn: {x: 0, y: 0, z: -45}
   roadObject: {fileID: 1735206726054836275}
   onDeleteRoadEvent: {fileID: 11400000, guid: 4bc8cfdb79af96847a96a4deec258151, type: 2}
+--- !u!65 &580101771174567560
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843104115858823503}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 34.17769}
+  m_Center: {x: 0, y: 0, z: 17.197258}
+--- !u!114 &9081163370198414225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843104115858823503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e35326966c09d64687fe1fab3ab8ab0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4589379176657220890
 GameObject:
   m_ObjectHideFlags: 0
