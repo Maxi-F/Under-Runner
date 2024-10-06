@@ -15,10 +15,15 @@ namespace Scenes
         private void OnEnable()
         {
             _sceneryManager = FindObjectOfType<SceneryManager>();
-
+            if (_sceneryManager == null)
+            {
+                Debug.Log("Scenery manager is null. Will not load optional scenes.");
+                return;
+            }
+            
             foreach (var optionalScene in optionalScenes)
             {
-                _sceneryManager.LoadScene(optionalScene);
+                _sceneryManager?.LoadScene(optionalScene);
             }
 
             SubscribeToActions();
@@ -26,6 +31,11 @@ namespace Scenes
 
         private void OnDisable()
         {
+            if (_sceneryManager == null)
+            {
+                Debug.Log("Scenery manager is null. Will not unsubscribe from actions.");
+                return;
+            }
             UnsubscribeToActions();
         }
 
@@ -36,7 +46,7 @@ namespace Scenes
         {
             Array.ForEach(scenesToSubscribeTo, (aSceneName) =>
             {
-                _sceneryManager.SubscribeEventToAddScene(aSceneName, UnloadScene);
+                _sceneryManager?.SubscribeEventToAddScene(aSceneName, UnloadScene);
             });
         }
         
@@ -47,7 +57,7 @@ namespace Scenes
         {
             Array.ForEach(scenesToSubscribeTo, (aSceneName) =>
             {
-                _sceneryManager.UnsubscribeEventToAddScene(aSceneName, UnloadScene);
+                _sceneryManager?.UnsubscribeEventToAddScene(aSceneName, UnloadScene);
             });
         }
         
@@ -56,11 +66,11 @@ namespace Scenes
         /// </summary>
         private void UnloadScene()
         {
-            _sceneryManager.UnloadScene(sceneName);
+            _sceneryManager?.UnloadScene(sceneName);
 
             foreach (var optionalScene in optionalScenes)
             {
-                _sceneryManager.UnloadScene(optionalScene);
+                _sceneryManager?.UnloadScene(optionalScene);
             }
         }
     }
