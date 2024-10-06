@@ -8,7 +8,6 @@ namespace Input
     public class InputHandlerSO : ScriptableObject
     {
         public UnityEvent<Vector2> onPlayerMove;
-        public UnityEvent onPlayerDash;
         public UnityEvent onPlayerAttack;
         
         public UnityEvent onPlayerDashStarted;

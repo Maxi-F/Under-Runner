@@ -357,7 +357,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!114 &2923836183902203749
 MonoBehaviour:
@@ -687,7 +687,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onDodgeEvent: {fileID: 11400000, guid: 4f9416a5c19eeda4e9b3e6a791d2b357, type: 2}
-  bulletTimeDuration: 0.3
+  bulletTimeDuration: 0.2
   bulletTimeVariationCurve:
     serializedVersion: 2
     m_Curve:
@@ -701,8 +701,8 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.16796552
-      value: 0.5307146
+      time: 0.13741106
+      value: 0.10890597
       inSlope: -0.02296781
       outSlope: -0.02296781
       tangentMode: 0
@@ -710,13 +710,13 @@ MonoBehaviour:
       inWeight: 1
       outWeight: 0.2733883
     - serializedVersion: 3
-      time: 0.7859571
-      value: 0.60460085
-      inSlope: 0.36229655
-      outSlope: 0.36229655
+      time: 0.59386325
+      value: 0.3935743
+      inSlope: 1.7675278
+      outSlope: 1.7675278
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.24539973
+      inWeight: 0.07461092
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
