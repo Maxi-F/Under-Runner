@@ -58,15 +58,12 @@ namespace Player
         {
             base.OnEnable();
             _playerColliderBounds = playerCollider.bounds;
-            inputHandler.onPlayerDash.AddListener(HandleDash);
-
-            inputHandler.onPlayerDashStarted.AddListener(HandleBulletTimeDashStart);
-            inputHandler.onPlayerDashFinished.AddListener(HandleBulletTimeDashFinish);
+            inputHandler.onPlayerDashStarted.AddListener(HandleDash);
         }
 
         private void OnDisable()
         {
-            inputHandler.onPlayerDash.RemoveListener(HandleDash);
+            inputHandler.onPlayerDashStarted.RemoveListener(HandleDash);
         }
 
         private void HandleDash()
