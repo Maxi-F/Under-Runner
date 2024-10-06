@@ -1847,6 +1847,7 @@ MonoBehaviour:
   - MainMenu
   sceneName: GameLoop
   optionalScenes: []
+  setAsActiveOnBoot: 1
 --- !u!4 &1956952260 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9200447392731979298, guid: 997a42626b659814cb0aa0d749e0b092, type: 3}

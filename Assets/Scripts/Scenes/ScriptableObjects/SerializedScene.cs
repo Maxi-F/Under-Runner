@@ -1,5 +1,6 @@
 using System;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace Scenes.ScriptableObjects
 {
@@ -10,7 +11,7 @@ namespace Scenes.ScriptableObjects
         public string sceneGuid;
         public int index;
 
-        public UnityEvent OnLoad;
-        public UnityEvent OnUnload;
+        public UnityEvent onLoad = new UnityEvent();
+        public UnityEvent onUnload = new UnityEvent();
     }
 }

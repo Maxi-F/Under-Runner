@@ -43,6 +43,7 @@ namespace Scenes.ScriptableObjects
                         index = index,
                         sceneName = sceneName,
                         sceneGuid = editorBuildSettingsScene.guid.ToString()
+                        
                     };
                         
                     scenes.Add(serializedScene);

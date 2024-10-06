@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Managers;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ namespace Scenes
         [SerializeField] private string[] scenesToSubscribeTo;
         [Tooltip("Current scene name")] [SerializeField] private string sceneName;
         [Tooltip("Optional scenes to activate with the current scene")] [SerializeField] private string[] optionalScenes = new string[] {};
+        [SerializeField] private bool setAsActiveOnBoot = false;
         
         private SceneryManager _sceneryManager;
         
@@ -26,6 +28,11 @@ namespace Scenes
                 _sceneryManager?.LoadScene(optionalScene);
             }
 
+            if (setAsActiveOnBoot)
+            {
+                StartCoroutine(SetSceneAsActiveScene());
+            }
+            
             SubscribeToActions();
         }
 
@@ -39,6 +46,14 @@ namespace Scenes
             UnsubscribeToActions();
         }
 
+        private IEnumerator SetSceneAsActiveScene()
+        {
+            // returns a yield null as it needs a frame to load the scene, then it can be set
+            // as active.
+            yield return null;
+            _sceneryManager?.SetActiveScene(sceneName);
+        }
+        
         /// <summary>
         /// Subscribes to add scene event of the scenes to subscribe to.
         /// </summary>
@@ -46,6 +61,7 @@ namespace Scenes
         {
             Array.ForEach(scenesToSubscribeTo, (aSceneName) =>
             {
+                Debug.Log(aSceneName);
                 _sceneryManager?.SubscribeEventToAddScene(aSceneName, UnloadScene);
             });
         }

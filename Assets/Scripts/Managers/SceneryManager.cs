@@ -55,7 +55,7 @@ namespace Managers
 
             SerializedScene scene = scenesDataConfig.GetSerializedScene(sceneName);
             
-            scene.OnLoad?.Invoke();
+            scene.onLoad?.Invoke();
             AddScene(scene);
         }
 
@@ -70,7 +70,7 @@ namespace Managers
             if (_activeScenes.Exists(scene => scene.sceneName == aScene.sceneName))
             {
                 SceneManager.UnloadSceneAsync(aScene.index);
-                aScene.OnUnload?.Invoke();
+                aScene.onUnload?.Invoke();
                 _activeScenes.RemoveAt(_activeScenes.FindIndex(scene => scene.sceneName == aScene.sceneName));
             }
             else
@@ -97,8 +97,8 @@ namespace Managers
         public void SubscribeEventToAddScene(string sceneName, UnityAction action)
         {
             SerializedScene aScene = scenesDataConfig.GetSerializedScene(sceneName);
-
-            aScene.OnLoad.AddListener(action);
+            Debug.Log(aScene.onLoad);
+            aScene.onLoad.AddListener(action);
         }
         
         /// <summary>
@@ -110,7 +110,14 @@ namespace Managers
         {
             SerializedScene aScene = scenesDataConfig.GetSerializedScene(sceneName);
 
-            aScene.OnLoad.RemoveListener(action);
+            aScene.onLoad.RemoveListener(action);
+        }
+
+        public void SetActiveScene(string sceneName)
+        {
+            SerializedScene aScene = scenesDataConfig.GetSerializedScene(sceneName);
+            
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName(aScene.sceneName));
         }
     }
 }
