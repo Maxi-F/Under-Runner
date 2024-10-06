@@ -8,6 +8,7 @@ namespace LevelManagement
     {
         public float obstaclesDuration;
         public float obstacleCooldown;
+        public float minDistance;
     }
 
     [Serializable]
