@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Events;
 using LevelManagement;
 using UnityEngine;
@@ -15,35 +16,36 @@ namespace Attacks.FallingAttack
         [Header("Events")] 
         [SerializeField] private Vector3EventChannelSO onPlayerPositionChanged;
         [SerializeField] private VoidEventChannelSO onHandleAttack;
-        
-        private bool _isSpawning = false;
+        [SerializeField] private VoidEventChannelSO onFinishSpawningBlocks;
+        [SerializeField] private GameObjectEventChannelSO onFallingBlockDisabledEvent;
+
         private Vector3 _playerPosition;
+        private bool _isSpawning;
+        private List<GameObject> _fallingBlocks;
         private FallingAttackData _fallingAttackData;
         
         private void OnEnable()
         {
             onPlayerPositionChanged?.onVectorEvent.AddListener(HandleNewPlayerPosition);
             onHandleAttack?.onEvent.AddListener(HandleSpawnBlocks);
+            onFallingBlockDisabledEvent?.onGameObjectEvent.AddListener(HandleFallingBlockDisabled);
         }
         
         private void OnDisable()
         {
             onPlayerPositionChanged?.onVectorEvent.RemoveListener(HandleNewPlayerPosition);
             onHandleAttack?.onEvent.RemoveListener(HandleSpawnBlocks);
+            onFallingBlockDisabledEvent?.onGameObjectEvent.RemoveListener(HandleFallingBlockDisabled);
         }
 
         public void SetFallingAttackData(FallingAttackData fallingAttackData)
         {
             _fallingAttackData = fallingAttackData;
         }
-        
-        public bool IsSpawning()
-        {
-            return _isSpawning;
-        }
 
         private void HandleSpawnBlocks()
         {
+            _fallingBlocks = new List<GameObject>();
             StartCoroutine(SpawnBlocks(_fallingAttackData.spawnQuantity));
         }
 
@@ -53,11 +55,8 @@ namespace Attacks.FallingAttack
         }
 
         private IEnumerator SpawnBlocks(int quantity)
-        {
-            if (_isSpawning) yield break;
-            
+        {            
             _isSpawning = true;
-
             for (int i = 0; i < quantity; i++)
             {
                 GameObject fallingBlockInstance = FallingBlockObjectPool.Instance?.GetPooledObject();
@@ -85,12 +84,24 @@ namespace Attacks.FallingAttack
                 fallingAttackScript.SetAcceleration(_fallingAttackData.acceleration);
                 
                 fallingBlockInstance.SetActive(true);
+                _fallingBlocks.Add(fallingBlockInstance);
                 yield return new WaitForSeconds(_fallingAttackData.timeBetweenSpawns);
             }
-
-            yield return new WaitForSeconds(_fallingAttackData.spawnCooldown);
-
             _isSpawning = false;
+        }
+
+        private void HandleFallingBlockDisabled(GameObject fallingBlock)
+        {
+            _fallingBlocks.Remove(fallingBlock);
+            Debug.Log("HandleFallingBlockDisabled");
+
+            if (_fallingBlocks.Count > 0 || _isSpawning)
+            {
+                Debug.Log($"falling blocks count {_fallingBlocks.Count}, Is Spawning {_isSpawning}");
+                return;
+            }
+
+            onFinishSpawningBlocks?.RaiseEvent();
         }
 
         private Vector2 CalculateRandomDistance()

@@ -9,7 +9,6 @@ namespace Minion.Controllers
     public class MinionAttackController : MinionController
     {
         [SerializeField] private MinionSO minionConfig;
-        [SerializeField] private VoidEventChannelSO onMinionAttackedEvent;
         
         private bool _isAttacking;
         public void Enter()
@@ -40,15 +39,15 @@ namespace Minion.Controllers
                 yield return null;
             }
             _healthPoints.SetCanTakeDamage(true);
-            
+
             MinionAgent.ChangeStateToFallingBack();
         }
 
         public void Exit()
         {
+            Debug.Log($"{gameObject.GetInstanceID()}: Exiting attack state");
             _isAttacking = false;
             MinionAgent.SetIsNotInAttackState();
-            onMinionAttackedEvent?.RaiseEvent();
         }
         
         private void OnTriggerEnter(Collider other)

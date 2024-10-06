@@ -235,8 +235,6 @@ GameObject:
   - component: {fileID: 3187618647365868429}
   - component: {fileID: 6476511416302059327}
   - component: {fileID: 8724912761680124530}
-  - component: {fileID: 8070592495172109285}
-  - component: {fileID: 36413983023915259}
   - component: {fileID: 398002594994540393}
   m_Layer: 0
   m_Name: LaserSwing
@@ -244,7 +242,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1613840298990837420
 Transform:
   m_ObjectHideFlags: 0
@@ -253,12 +251,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5948675016384544887}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.93, y: 0, z: 0}
-  m_LocalScale: {x: 15.584627, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 9.7135, y: 0, z: 0}
+  m_LocalScale: {x: 15.011112, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4757184891433056929}
+  m_Father: {fileID: 102279789849903060}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3187618647365868429
 MeshFilter:
@@ -331,40 +329,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!95 &8070592495172109285
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5948675016384544887}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a0f2189e70fadaa4e89c542224ba5304, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!114 &36413983023915259
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5948675016384544887}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cae4757ea59408148a1660bf32a4d5b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onSwingEndEvent: {fileID: 11400000, guid: 056420fa0a25c8e409edfdf5fc635015, type: 2}
 --- !u!114 &398002594994540393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -380,6 +344,38 @@ MonoBehaviour:
   damage: 5
   isAvoidable: 1
   entityDamageTaker: Player
+--- !u!1 &5982544777939341962
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 102279789849903060}
+  m_Layer: 0
+  m_Name: SwingPivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &102279789849903060
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5982544777939341962}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1613840298990837420}
+  m_Father: {fileID: 4757184891433056929}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6797202327773222759
 GameObject:
   m_ObjectHideFlags: 0
@@ -438,6 +434,7 @@ MonoBehaviour:
   onDeathEvent: {fileID: 11400000, guid: 36bbe8a4a81fcf74da11d75999d01f40, type: 2}
   onTakeDamageEvent: {fileID: 11400000, guid: 41331d8fc0079ac47bec86270d050339, type: 2}
   onResetPointsEvent: {fileID: 0}
+  onDamageAvoidedEvent: {fileID: 0}
   onInternalDeathEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -571,6 +568,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onHandleAttack: {fileID: 11400000, guid: b7beabe1d50e1c046bb77491b247d49b, type: 2}
+  onFinishSpawningBlocks: {fileID: 11400000, guid: cfa0964e0735edd48b4aa4868148bc0c, type: 2}
 --- !u!114 &5666759384207404707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -583,7 +581,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5092ec987e0ae784ca2190f7ef8010cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  swing: {fileID: 36413983023915259}
+  swing: {fileID: 840522403494077163}
   bodyMeshRenderer: {fileID: 2637695399838873969}
   laserAttackMaterial: {fileID: 2100000, guid: 03b28fbc54a14fa4bb978cdc5c17b1f5, type: 2}
 --- !u!114 &6744373355359746148
@@ -1006,6 +1004,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4757184891433056929}
+  - component: {fileID: 840522403494077163}
   m_Layer: 0
   m_Name: Attacks
   m_TagString: Untagged
@@ -1026,9 +1025,24 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1613840298990837420}
+  - {fileID: 102279789849903060}
   m_Father: {fileID: 673461572015972428}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &840522403494077163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8164038194672822623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cae4757ea59408148a1660bf32a4d5b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swingPivot: {fileID: 5982544777939341962}
+  laserObject: {fileID: 5948675016384544887}
+  swingConfigSo: {fileID: 11400000, guid: 5ded94f39775e2d45b3c8ec6bc876b42, type: 2}
 --- !u!1 &8961736479340173517
 GameObject:
   m_ObjectHideFlags: 0

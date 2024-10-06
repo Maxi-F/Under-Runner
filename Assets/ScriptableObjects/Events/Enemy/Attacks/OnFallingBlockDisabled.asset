@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 111fc7e93d5b9dc43ab4147a5fd61538, type: 3}
-  m_Name: OnMinionAttackedEvent
+  m_Name: OnFallingBlockDisabled
   m_EditorClassIdentifier: 
   onEvent:
     m_PersistentCalls:
