@@ -66,9 +66,17 @@ namespace Player
             inputHandler.onPlayerDashStarted.RemoveListener(HandleDash);
         }
 
+        private bool CanDash()
+        {
+            if (_movementController.CurrentDir == Vector3.zero)
+                return false;
+
+            return _canDash;
+        }
+
         private void HandleDash()
         {
-            if (!_canDash)
+            if (!CanDash())
                 return;
 
             if (_dashCoroutine != null)
@@ -78,9 +86,10 @@ namespace Player
             _dashCoroutine = StartCoroutine(DashCoroutine());
         }
 
+
         public void HandleBulletTimeDashStart()
         {
-            if (!_canDash)
+            if (!CanDash())
                 return;
 
             if (_bulletTimeCoroutine != null)
@@ -91,7 +100,7 @@ namespace Player
 
         public void HandleBulletTimeDashFinish()
         {
-            if (!_canDash || Time.timeScale == 1)
+            if (!CanDash() || Time.timeScale == 1)
                 return;
 
             if (_bulletTimeCoroutine != null)
