@@ -14,7 +14,7 @@ namespace ObstacleSystem
 
         public GameObject CreateObject()
         {
-            return GameObject.Instantiate(_config.prefab);
+            return GameObject.Instantiate(_config.prefabs[Random.Range(0, _config.prefabs.Length)]);
         }
     }
 }
