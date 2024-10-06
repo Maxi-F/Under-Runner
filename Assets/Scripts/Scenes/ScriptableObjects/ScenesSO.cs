@@ -15,15 +15,14 @@ namespace Scenes.ScriptableObjects
     {
         public List<SerializedScene> scenes;
         
+        public SerializedScene GetSerializedScene(string sceneName)
+        {
+            return scenes.Find(scene => scene.sceneName == sceneName);
+        }
 #if UNITY_EDITOR
         private void OnValidate()
         {
             CheckScenes();
-        }
-
-        public SerializedScene GetSerializedScene(string sceneName)
-        {
-            return scenes.Find(scene => scene.sceneName == sceneName);
         }
         
         /// <summary>
@@ -31,29 +30,22 @@ namespace Scenes.ScriptableObjects
         /// </summary>
         private void CheckScenes()
         {
+            scenes = new List<SerializedScene>();
             foreach (var editorBuildSettingsScene in EditorBuildSettings.scenes)
             {
                 string sceneName = new DirectoryInfo(editorBuildSettingsScene.path).Name.Split('.')[0];
                 if (editorBuildSettingsScene.enabled)
                 {
                     int index = SceneUtility.GetBuildIndexByScenePath(editorBuildSettingsScene.path);
-
-                    if (index < scenes.Count && scenes[index] != null)
-                    {
-                        scenes[index].index = index;
-                    }
-                    else
-                    {
-                        SerializedScene serializedScene = new SerializedScene
-                        {
-                            index = index,
-                            sceneName = sceneName,
-                            sceneGuid = editorBuildSettingsScene.guid.ToString()
-                        };
-                        
-                        scenes.Add(serializedScene);
-                    }
                     
+                    SerializedScene serializedScene = new SerializedScene
+                    {
+                        index = index,
+                        sceneName = sceneName,
+                        sceneGuid = editorBuildSettingsScene.guid.ToString()
+                    };
+                        
+                    scenes.Add(serializedScene);
                 }
             }
         }
