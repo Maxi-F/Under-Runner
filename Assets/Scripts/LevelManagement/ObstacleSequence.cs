@@ -92,7 +92,7 @@ namespace LevelManagement
             float obstacleCooldown = _levelConfig.obstacleData.obstacleCooldown;
             float startTime = Time.time;
 
-            obstaclesSpawner.StartWithCooldown(obstacleCooldown);
+            obstaclesSpawner.StartWithCooldown(obstacleCooldown, _levelConfig.obstacleData.minDistance);
 
             while (timer < obstaclesDuration)
             {
