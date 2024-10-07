@@ -11,7 +11,6 @@ namespace Enemy
     public class EnemyController : MonoBehaviour
     {
         [Header("Properties")] 
-        [SerializeField] private GameObject enemyObject;
         [SerializeField] private ShieldController shieldController;
         [SerializeField] private bool shieldActive;
 
@@ -79,7 +78,7 @@ namespace Enemy
 
         private void HandleDeath()
         {
-            enemyObject.SetActive(false);
+            gameObject.SetActive(false);
         }
 
         public bool TryDestroyShield(int parryDamage)
