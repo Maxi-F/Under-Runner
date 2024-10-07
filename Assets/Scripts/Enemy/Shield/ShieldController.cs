@@ -61,6 +61,7 @@ namespace Enemy.Shield
         public void SetActiveMaterial()
         {
             _isActivating = false;
+            if (!_meshRenderer) return;
             _meshRenderer.material = activeMaterial;
         }
 
