@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstacleData:
     obstaclesDuration: 20
-    obstacleCooldown: 0.1
+    obstacleCooldown: 0.15
     minDistance: 1
   roadData:
-    roadVelocity: {x: 0, y: 0, z: -20}
+    roadVelocity: {x: 0, y: 0, z: -60}
   bossData:
     hitPointsToNextPhase: 75
     fallingAttackData:
