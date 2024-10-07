@@ -9,11 +9,34 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b87e3bcbc3539404089d4680910d62d5, type: 3}
+  m_Script: {fileID: 11500000, guid: 17d2eba9a398a2a40acfc54d8ff5d233, type: 3}
   m_Name: ScenesConfig
   m_EditorClassIdentifier: 
   scenes:
-  - name: MainMenu
+  - sceneName: Boot
+    sceneGuid: e1e77e1e941789c4292002a83b288c51
     index: 0
-  - name: Gameplay
+    OnLoad:
+      m_PersistentCalls:
+        m_Calls: []
+    OnUnload:
+      m_PersistentCalls:
+        m_Calls: []
+  - sceneName: MainMenu
+    sceneGuid: 9fc0d4010bbf28b4594072e72b8655ab
     index: 1
+    OnLoad:
+      m_PersistentCalls:
+        m_Calls: []
+    OnUnload:
+      m_PersistentCalls:
+        m_Calls: []
+  - sceneName: GameLoop
+    sceneGuid: 748affaa315e2a14c90fba11374f7559
+    index: 2
+    OnLoad:
+      m_PersistentCalls:
+        m_Calls: []
+    OnUnload:
+      m_PersistentCalls:
+        m_Calls: []
