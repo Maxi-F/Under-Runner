@@ -25,7 +25,7 @@ namespace Attacks.Swing
             get { return swingConfigSo; }
             set { swingConfigSo = value; }
         }
-
+        
         [ContextMenu("Swing")]
         private void TestRunSwing()
         {

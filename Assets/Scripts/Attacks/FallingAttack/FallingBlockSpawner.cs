@@ -45,6 +45,7 @@ namespace Attacks.FallingAttack
 
         private void HandleSpawnBlocks()
         {
+            if (_fallingAttackData == null) return;
             _fallingBlocks = new List<GameObject>();
             StartCoroutine(SpawnBlocks(_fallingAttackData.spawnQuantity));
         }
@@ -93,11 +94,9 @@ namespace Attacks.FallingAttack
         private void HandleFallingBlockDisabled(GameObject fallingBlock)
         {
             _fallingBlocks.Remove(fallingBlock);
-            Debug.Log("HandleFallingBlockDisabled");
 
             if (_fallingBlocks.Count > 0 || _isSpawning)
             {
-                Debug.Log($"falling blocks count {_fallingBlocks.Count}, Is Spawning {_isSpawning}");
                 return;
             }
 
