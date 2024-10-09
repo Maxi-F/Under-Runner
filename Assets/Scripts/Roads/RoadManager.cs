@@ -9,7 +9,6 @@ namespace Roads
 {
     public class RoadManager : MonoBehaviour
     {
-        [SerializeField] private RoadSO[] roads;
         [SerializeField] private GameObject startingLastRoad;
         [SerializeField] private int initRoadCount = 7;
         [SerializeField] private int maxRoads = 7;
