@@ -32,16 +32,6 @@ namespace Minion
         private State _chargeAttackState;
         private State _attackState;
         private State _fallbackState;
-        
-        protected override void Update()
-        {
-            Vector3 rotation = Quaternion.LookRotation(_player.transform.position).eulerAngles;
-            rotation.x = 0f;
-            rotation.z = 0f;
-            
-            model.transform.rotation = Quaternion.Euler(rotation);
-            base.Update();
-        }
 
         protected override void OnDisable()
         {
@@ -143,6 +133,11 @@ namespace Minion
         {
             if(healthPoints.CurrentHp <= 0)
                 onMinionDeletedEvent?.RaiseEvent(gameObject);
+        }
+
+        public GameObject GetModel()
+        {
+            return model;
         }
     }
 }

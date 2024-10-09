@@ -45,7 +45,6 @@ namespace Minion.Controllers
 
         public void Exit()
         {
-            Debug.Log($"{gameObject.GetInstanceID()}: Exiting attack state");
             _isAttacking = false;
             MinionAgent.SetIsNotInAttackState();
         }

@@ -864,7 +864,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3915ca53d56c23b44bd662973a6a792f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 8240765325717695887}
+  model: {fileID: 249958372189316127}
   healthPoints: {fileID: 5575126865424349212}
   onMinionDeletedEvent: {fileID: 11400000, guid: d0b8cbd5af6d2924ea50203f22ee5183, type: 2}
   onMinionAttackedEvent: {fileID: 11400000, guid: 20923ddabbecbfe47a88ee16889782dd, type: 2}
@@ -946,6 +946,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 154755272736235517}
+          m_TargetAssemblyTypeName: Minion.Controllers.MinionController, Assembly-CSharp
+          m_MethodName: LookAtTarget
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     onExit:
       m_PersistentCalls:
         m_Calls: []
@@ -980,7 +992,19 @@ MonoBehaviour:
           m_CallState: 2
     onUpdate:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 2562709963566903697}
+          m_TargetAssemblyTypeName: Minion.Controllers.MinionController, Assembly-CSharp
+          m_MethodName: LookAtTarget
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     onExit:
       m_PersistentCalls:
         m_Calls: []
@@ -1014,7 +1038,19 @@ MonoBehaviour:
           m_CallState: 2
     onUpdate:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 2562709963566903697}
+          m_TargetAssemblyTypeName: Minion.Controllers.MinionController, Assembly-CSharp
+          m_MethodName: LookAtTarget
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     onExit:
       m_PersistentCalls:
         m_Calls:
@@ -1201,7 +1237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfd5cded5352132459787c4b99bcf973, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
+  animator: {fileID: 7494536653294196201}
   aim: AIM
   prepareAttack: PREPARE_ATTACK
   attack: ATTACK
@@ -1263,8 +1299,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c1ce63360320d342baa8b0d2263d07e, type: 3}
+--- !u!1 &249958372189316127 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6219852571627638867, guid: 5c1ce63360320d342baa8b0d2263d07e, type: 3}
+  m_PrefabInstance: {fileID: 6136538380794655820}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3199304285607527601 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8741323500764360957, guid: 5c1ce63360320d342baa8b0d2263d07e, type: 3}
+  m_PrefabInstance: {fileID: 6136538380794655820}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &7494536653294196201 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4406961651466510757, guid: 5c1ce63360320d342baa8b0d2263d07e, type: 3}
   m_PrefabInstance: {fileID: 6136538380794655820}
   m_PrefabAsset: {fileID: 0}

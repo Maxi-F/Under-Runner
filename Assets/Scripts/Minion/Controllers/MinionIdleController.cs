@@ -12,10 +12,17 @@ namespace Minion.Controllers
         [SerializeField] private MinionSO minionConfig;
 
         private Coroutine _idleTime;
+
+        protected override void OnEnable()
+        {
+            SetIdleCoroutineAsNull();
+            
+            base.OnEnable();
+        }
         
         private void OnDisable()
         {
-            Exit();
+            SetIdleCoroutineAsNull();
         }
 
         public void Enter()
@@ -24,6 +31,10 @@ namespace Minion.Controllers
             if (_idleTime == null)
             {
                 _idleTime = StartCoroutine(HandleIdleTime());
+            }
+            else
+            {
+                Debug.LogError("PLEASEE");
             }
         }
 
@@ -36,6 +47,11 @@ namespace Minion.Controllers
         }
         
         public void Exit()
+        {
+            SetIdleCoroutineAsNull();
+        }
+
+        private void SetIdleCoroutineAsNull()
         {
             _idleTime = null;
         }
