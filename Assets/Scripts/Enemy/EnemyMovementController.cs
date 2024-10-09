@@ -8,8 +8,6 @@ namespace Enemy
         [SerializeField] private Vector2 minMaxYMovement;
         [SerializeField] private float distanceToChangeDirection = 0.2f;
         
-        [SerializeField] private GameObject enemyObject;
-        
         private Vector3 _originPosition;
 
         private bool _shouldGoDown = false;
@@ -23,7 +21,7 @@ namespace Enemy
         {
             Vector3 newPosition = GetHoverPosition();
 
-            enemyObject.transform.position = newPosition;
+            transform.position = newPosition;
         }
 
         Vector3 GetHoverPosition()

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Events;
 using UnityEngine;
@@ -7,7 +8,20 @@ namespace Enemy.Attacks
     public class FallingBlockAttack : MonoBehaviour, IEnemyAttack
     {
         [SerializeField] private VoidEventChannelSO onHandleAttack;
+        [SerializeField] private VoidEventChannelSO onFinishSpawningBlocks;
         
+        private bool _isExecuting;
+
+        private void OnEnable()
+        {
+            onFinishSpawningBlocks?.onEvent.AddListener(HandleFinishSpawningBlocks);
+        }
+
+        private void OnDisable()
+        {
+            onFinishSpawningBlocks?.onEvent.RemoveListener(HandleFinishSpawningBlocks);
+        }
+
         public bool CanExecute()
         {
             return true;
@@ -15,13 +29,16 @@ namespace Enemy.Attacks
 
         public IEnumerator Execute()
         {
+            _isExecuting = true;
+
             onHandleAttack?.RaiseEvent();
-            yield return null;
+            yield return new WaitWhile(() => _isExecuting);
         }
 
-        public bool IsExecuting()
+        private void HandleFinishSpawningBlocks()
         {
-            return false;
+            Debug.Log("FinishSpawningBlocks");
+            _isExecuting = false;
         }
     }
 }

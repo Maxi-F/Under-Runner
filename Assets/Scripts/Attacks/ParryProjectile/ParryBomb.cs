@@ -121,7 +121,7 @@ namespace Attacks.ParryProjectile
             {
                 ITakeDamage damageTaker = other.GetComponent<ITakeDamage>();
 
-                damageTaker.TakeDamage(damage);
+                damageTaker.TryTakeDamage(damage);
                 gameObject.SetActive(false);
             }
         }

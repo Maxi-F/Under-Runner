@@ -21,6 +21,7 @@ namespace Player
 
         [SerializeField] private float dashDuration;
         [SerializeField] private float dashCoolDown;
+        [SerializeField] private float phantomDuration;
         [SerializeField] private AnimationCurve speedCurve;
 
         [Header("Bullet Time Dash")]
@@ -34,7 +35,7 @@ namespace Player
         [SerializeField] private VoidEventChannelSO onDashRechargedEvent;
         [SerializeField] private VoidEventChannelSO onDashUsedEvent;
         [SerializeField] private Vector3EventChannelSO onDashMovementEvent;
-        
+
         private PlayerMovementController _movementController;
         private HealthPoints _healthPoints;
 
@@ -45,6 +46,8 @@ namespace Player
         private Vector3 _dashDir;
         private float _currentDashSpeed;
 
+        private Bounds _playerColliderBounds;
+
         private void Awake()
         {
             _movementController = GetComponent<PlayerMovementController>();
@@ -54,20 +57,26 @@ namespace Player
         protected override void OnEnable()
         {
             base.OnEnable();
-            inputHandler.onPlayerDash.AddListener(HandleDash);
-
-            inputHandler.onPlayerDashStarted.AddListener(HandleBulletTimeDashStart);
-            inputHandler.onPlayerDashFinished.AddListener(HandleBulletTimeDashFinish);
+            _playerColliderBounds = playerCollider.bounds;
+            inputHandler.onPlayerDashStarted.AddListener(HandleDash);
         }
 
         private void OnDisable()
         {
-            inputHandler.onPlayerDash.RemoveListener(HandleDash);
+            inputHandler.onPlayerDashStarted.RemoveListener(HandleDash);
+        }
+
+        private bool CanDash()
+        {
+            if (_movementController.CurrentDir == Vector3.zero)
+                return false;
+
+            return _canDash;
         }
 
         private void HandleDash()
         {
-            if (!_canDash)
+            if (!CanDash())
                 return;
 
             if (_dashCoroutine != null)
@@ -77,9 +86,10 @@ namespace Player
             _dashCoroutine = StartCoroutine(DashCoroutine());
         }
 
+
         public void HandleBulletTimeDashStart()
         {
-            if (!_canDash)
+            if (!CanDash())
                 return;
 
             if (_bulletTimeCoroutine != null)
@@ -90,7 +100,7 @@ namespace Player
 
         public void HandleBulletTimeDashFinish()
         {
-            if (!_canDash || Time.timeScale == 1)
+            if (!CanDash() || Time.timeScale == 1)
                 return;
 
             if (_bulletTimeCoroutine != null)
@@ -102,6 +112,11 @@ namespace Player
 
             dashPredictionLine.ToggleVisibility(false);
             _dashCoroutine = StartCoroutine(DashCoroutine());
+        }
+
+        public void HandlePhantomCoroutine()
+        {
+            StartCoroutine(PhantomCoroutine());
         }
 
         private IEnumerator DashCoroutine()
@@ -122,10 +137,10 @@ namespace Player
                 Vector3 dashMovement = _dashDir * (_currentDashSpeed * Time.deltaTime);
                 Vector3 previousPosition = transform.position;
                 Vector3 newPosition = transform.position + dashMovement;
-                
-                transform.position = boundsConfig.ClampPosition(newPosition, playerCollider.bounds.size);
+
+                transform.position = boundsConfig.ClampPosition(newPosition, _playerColliderBounds.size);
                 onDashMovementEvent?.RaiseEvent(transform.position - previousPosition);
-                
+
                 timer = Time.time - startTime;
                 yield return null;
             }
@@ -168,6 +183,13 @@ namespace Player
 
             dashPredictionLine.ToggleVisibility(false);
             Time.timeScale = 1;
+        }
+
+        private IEnumerator PhantomCoroutine()
+        {
+            _healthPoints.SetCanTakeDamage(false);
+            yield return new WaitForSeconds(phantomDuration);
+            _healthPoints.SetCanTakeDamage(true);
         }
     }
 }

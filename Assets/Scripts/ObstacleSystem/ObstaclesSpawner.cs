@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using Events;
+using MapBounds;
+using Roads;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -13,8 +15,9 @@ namespace ObstacleSystem
         [SerializeField] private GameObjectEventChannelSO onRoadDeletedEvent;
         [SerializeField] private GameObjectEventChannelSO onObstacleTriggeredEvent;
         [SerializeField] private VoidEventChannelSO onObstaclesDisabled;
-        [SerializeField] private GameObject obstaclePrefab;
-
+        [SerializeField] private GameObjectEventChannelSO onObstacleDestroyed;
+        [SerializeField] private MapBoundsSO mapBounds;
+        
         private bool _shouldSpawnObject;
         private Coroutine _spawnCoroutine;
 
@@ -22,8 +25,10 @@ namespace ObstacleSystem
         private bool _shouldDisable = false;
         private bool _hasBeenDisabled = false;
         private int _obstaclesCount = 0;
+        private float _minDistanceBetweenObstacles = 0.1f;
 
         private float _spawnCoolDown;
+        private Vector3 _lastObstacleSpawnPosition;
         
         public void OnEnable()
         {
@@ -31,6 +36,7 @@ namespace ObstacleSystem
             onRoadInstantiatedEvent?.onGameObjectEvent.AddListener(HandleNewRoadInstance);
             onRoadDeletedEvent?.onGameObjectEvent.AddListener(HandleDeleteObstacle);
             onObstacleTriggeredEvent?.onGameObjectEvent.AddListener(HandleDeleteObstacle);
+            onObstacleDestroyed?.onGameObjectEvent.AddListener(DeleteObstacle);
         }
 
         private void Update()
@@ -49,6 +55,7 @@ namespace ObstacleSystem
             onRoadInstantiatedEvent?.onGameObjectEvent.RemoveListener(HandleNewRoadInstance);
             onRoadDeletedEvent?.onGameObjectEvent.RemoveListener(HandleDeleteObstacle);
             onObstacleTriggeredEvent?.onGameObjectEvent.RemoveListener(HandleDeleteObstacle);
+            onObstacleDestroyed?.onGameObjectEvent.RemoveListener(DeleteObstacle);
 
             if (_spawnCoroutine != null)
                 StopCoroutine(SpawnObjectCoroutine());
@@ -63,8 +70,9 @@ namespace ObstacleSystem
             _shouldDisable = true;
         }
 
-        public void StartWithCooldown(float cooldown)
+        public void StartWithCooldown(float cooldown, float minDistance)
         {
+            _minDistanceBetweenObstacles = minDistance;
             _spawnCoolDown = cooldown;
             _shouldDisable = false;
             _hasBeenDisabled = false;
@@ -73,31 +81,75 @@ namespace ObstacleSystem
         
         private void HandleDeleteObstacle(GameObject road)
         {
-            ObstaclesCollision obstaclesCollision = road.GetComponentInChildren<ObstaclesCollision>();
+            ObstaclesCollision[] obstaclesCollision = road.GetComponentsInChildren<ObstaclesCollision>();
             
-            if (obstaclesCollision == null) return;
-            Destroy(obstaclesCollision.gameObject);
-            _obstaclesCount--;
+            if (obstaclesCollision == null || obstaclesCollision.Length == 0) return;
+            foreach (var collision in obstaclesCollision)
+            {
+                DeleteObstacle(collision.gameObject);
+            }
         }
 
+        private void DeleteObstacle(GameObject obstacle)
+        {
+            ObstaclesObjectPool.Instance?.ReturnToPool(obstacle);
+            _obstaclesCount--;
+        }
+        
         private void HandleNewRoadInstance(GameObject road)
         {
             if (!_shouldSpawnObject)
                 return;
-
-            _shouldSpawnObject = false;
-            float roadWidth = road.transform.localScale.x;
-            GameObject obstacle = Instantiate(obstaclePrefab, road.transform, false);
-            _lastSpawnedObstacle = obstacle;
-            obstacle.transform.localPosition = new Vector3(Random.Range(-roadWidth / 2, roadWidth / 2), obstacle.transform.localPosition.y, 0);
-            _obstaclesCount++;
             
+            _shouldSpawnObject = false;
+            float roadWidth = mapBounds.horizontalBounds.max - mapBounds.horizontalBounds.min;
+            float roadDepth = road.GetComponentInChildren<RoadDepthObtainer>().GetRoadDepth();
+
+            float roadVelocity = road.GetComponentInChildren<Movement>().GetVelocity();
+            float obstaclesToInstantiateCount = Mathf.Floor(roadDepth / roadVelocity / _spawnCoolDown);
+
+            for (int i = 0; i < obstaclesToInstantiateCount; i++)
+            {
+                GameObject obstacle = ObstaclesObjectPool.Instance?.GetPooledObject();
+                if (obstacle == null)
+                {
+                    Debug.LogWarning("Obstacle is null");
+                    continue;
+                }
+                
+                obstacle.transform.SetParent(road.transform);
+                obstacle.SetActive(true);
+                
+                _lastSpawnedObstacle = obstacle;
+                Vector3 spawnPositionInX = GetSpawnPosition(roadWidth, obstacle.transform.localPosition.y);
+                _lastObstacleSpawnPosition = new Vector3(spawnPositionInX.x, spawnPositionInX.y,
+                    roadDepth * (i / obstaclesToInstantiateCount));
+                obstacle.transform.localPosition = _lastObstacleSpawnPosition;
+                _obstaclesCount++;
+            }
+
             if (_spawnCoroutine != null)
                 StopCoroutine(SpawnObjectCoroutine());
 
             _spawnCoroutine = StartCoroutine(SpawnObjectCoroutine());
         }
 
+        private Vector3 GetSpawnPosition(float width, float height)
+        {
+            bool hasPossibleSpawnPosition = false;
+            Vector3 spawnPosition = new Vector3();
+            while (!hasPossibleSpawnPosition)
+            {
+                spawnPosition = new Vector3(Random.Range(-width / 2, width / 2), height, 0);
+
+                if (_lastSpawnedObstacle == null || Mathf.Abs(spawnPosition.x - _lastObstacleSpawnPosition.x) >
+                    _minDistanceBetweenObstacles)
+                    hasPossibleSpawnPosition = true;
+            }
+
+            return spawnPosition;
+        }
+        
         private IEnumerator SpawnObjectCoroutine()
         {
             yield return new WaitForSeconds(_spawnCoolDown);

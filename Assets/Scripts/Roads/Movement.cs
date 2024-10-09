@@ -32,5 +32,10 @@ namespace Roads
         {
             road.position += _velocityToUse * Time.deltaTime;
         }
+
+        public float GetVelocity()
+        {
+            return _velocityToUse.magnitude;
+        }
     }
 }

@@ -44,9 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7911285fbe39f3f4fb5fa7987bce665d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnRadiusFromPlayer: 1
-  timeBetweenSpawns: 0.25
-  spawnCooldown: 2
-  spawnQuantity: 10
   fallingBlock: {fileID: 2873061450910897065, guid: c02fe28806b8ebe408584f7b7177db58, type: 3}
   onPlayerPositionChanged: {fileID: 11400000, guid: 1edae3268f02d1c4190e82ddfa3be357, type: 2}
+  onHandleAttack: {fileID: 11400000, guid: b7beabe1d50e1c046bb77491b247d49b, type: 2}
+  onFinishSpawningBlocks: {fileID: 11400000, guid: cfa0964e0735edd48b4aa4868148bc0c, type: 2}
+  onFallingBlockDisabledEvent: {fileID: 11400000, guid: 1c63510fe8dd09043842cc3ca5b9f987, type: 2}

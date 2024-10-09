@@ -147,7 +147,7 @@ MonoBehaviour:
   initialHeightRange: {x: 10, y: 15}
   heightToDestroy: -2
   parentObject: {fileID: 2873061450910897065}
-  acceleration: 15
+  onFallingBlockDisabledEvent: {fileID: 11400000, guid: 1c63510fe8dd09043842cc3ca5b9f987, type: 2}
 --- !u!1001 &55331476020963364
 PrefabInstance:
   m_ObjectHideFlags: 0
