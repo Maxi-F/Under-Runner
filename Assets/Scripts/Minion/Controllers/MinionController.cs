@@ -13,6 +13,15 @@ namespace Minion.Controllers
         protected HealthPoints _healthPoints;
         protected Collider _collider;
         
+        public void LookAtTarget()
+        {
+            Vector3 rotation = Quaternion.LookRotation(target.transform.position).eulerAngles;
+            rotation.x = 0f;
+            rotation.z = 0f;
+            
+            MinionAgent.GetModel().transform.rotation = Quaternion.Euler(rotation);
+        }
+        
         protected virtual void OnEnable()
         {
             _healthPoints ??= GetComponent<HealthPoints>();
