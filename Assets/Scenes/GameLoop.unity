@@ -451,7 +451,7 @@ Transform:
   m_GameObject: {fileID: 198335778}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -116.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -626,6 +626,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+--- !u!1 &363960686 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7056175475773507539, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
+  m_PrefabInstance: {fileID: 576890694}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &391787120
 GameObject:
   m_ObjectHideFlags: 0
@@ -805,6 +810,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6487825136179884570, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
+      propertyPath: visor
+      value: 
+      objectReference: {fileID: 363960686}
+    - target: {fileID: 6487825136179884570, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
+      propertyPath: bikeBody
+      value: 
+      objectReference: {fileID: 363960686}
     - target: {fileID: 6487825136179884570, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
       propertyPath: onPlayerMovementEvent
       value: 

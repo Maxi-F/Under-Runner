@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstacleData:
     obstaclesDuration: 20
-    obstacleCooldown: 1
+    obstacleCooldown: 0.25
     minDistance: 1
   roadData:
     roadVelocity: {x: 0, y: 0, z: -30}
