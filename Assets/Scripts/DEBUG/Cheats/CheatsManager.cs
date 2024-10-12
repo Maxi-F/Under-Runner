@@ -1,6 +1,7 @@
 using System;
 using DEBUG.Input;
 using Events;
+using Events.ScriptableObjects;
 using Health;
 using UnityEngine;
 

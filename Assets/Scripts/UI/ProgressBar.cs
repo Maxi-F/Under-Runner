@@ -1,5 +1,6 @@
 using System;
 using Events;
+using Events.ScriptableObjects;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,13 +21,13 @@ namespace UI
 
         private void OnEnable()
         {
-            onProgressBarActiveEvent?.onBoolEvent.AddListener(HandleProgressBarActive);
+            onProgressBarActiveEvent?.onTypedEvent.AddListener(HandleProgressBarActive);
             onProgressBarValueEvent?.onFloatEvent.AddListener(HandleProgressBarValueEvent);
         }
 
         private void OnDisable()
         {
-            onProgressBarActiveEvent?.onBoolEvent.AddListener(HandleProgressBarActive);
+            onProgressBarActiveEvent?.onTypedEvent.AddListener(HandleProgressBarActive);
             onProgressBarValueEvent?.onFloatEvent.AddListener(HandleProgressBarValueEvent);
         }
 

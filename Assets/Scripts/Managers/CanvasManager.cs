@@ -1,5 +1,6 @@
 using System;
 using Events;
+using Events.ScriptableObjects;
 using UnityEngine;
 
 namespace Managers
@@ -12,7 +13,7 @@ namespace Managers
 
         private void Awake()
         {
-            onHandleCanvas?.onBoolEvent.AddListener(HandleCanvas);
+            onHandleCanvas?.onTypedEvent.AddListener(HandleCanvas);
             canvas.SetActive(false);
         }
 
