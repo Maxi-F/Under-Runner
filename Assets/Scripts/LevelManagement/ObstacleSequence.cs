@@ -11,13 +11,15 @@ namespace LevelManagement
     public class ObstacleSequence : MonoBehaviour
     {
         [SerializeField] private RoadManager roadManager;
+        [SerializeField] private float progressBarMaxValue = 1f;
         
         [Header("Spawners")]
         [SerializeField] private ObstaclesSpawner obstaclesSpawner;
 
-        [Header("UI")]
-        [SerializeField] private Slider progressBar;
-
+        [Header("UI Events")] 
+        [SerializeField] private FloatEventChannelSO onProgressBarChangeEvent;
+        [SerializeField] private BoolEventChannelSO onProgressBarActiveEvent;
+        
         private bool _isObstacleSystemDisabled;
         private LevelLoopSO _levelConfig;
         private IEnumerator _postAction;
@@ -79,7 +81,7 @@ namespace LevelManagement
         private IEnumerator ObstacleSequencePreActions()
         {
             obstaclesSpawner.gameObject.SetActive(true);
-            progressBar.gameObject.SetActive(true);
+            onProgressBarActiveEvent?.RaiseEvent(true);
             _isObstacleSystemDisabled = false;
 
             yield return null;
@@ -97,11 +99,11 @@ namespace LevelManagement
             while (timer < obstaclesDuration)
             {
                 timer = Time.time - startTime;
-                progressBar.value = Mathf.Lerp(0, progressBar.maxValue, timer / obstaclesDuration);
+                onProgressBarChangeEvent?.RaiseEvent(Mathf.Lerp(0, progressBarMaxValue, timer / obstaclesDuration));
                 yield return null;
             }
 
-            progressBar.gameObject.SetActive(false);
+            onProgressBarActiveEvent?.RaiseEvent(false);
             obstaclesSpawner.Disable();
         }
 

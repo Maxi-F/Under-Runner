@@ -1,5 +1,6 @@
 using System;
 using DEBUG.Input;
+using Events;
 using Health;
 using UnityEngine;
 
@@ -9,23 +10,22 @@ namespace DEBUG.Cheats
     public class CheatsManager : MonoBehaviour
     {
 #if UNITY_EDITOR || DEVELOPMENT_BUILD || ENABLE_CHEATS
-
-        [SerializeField] private GameObject uiPrefab;
-        [SerializeField] private GameObject canvas;
-
+        
         [SerializeField] private CheatsConfigSO config;
         [SerializeField] private HealthPoints playerHealth;
 
+        [Header("Events")] [SerializeField] private BoolEventChannelSO onHandleCheatsUIEvent;
+        
         private DebugInputReader _inputReader;
-        private GameObject _cheatsUI;
 
+        private bool _isOverlayActive;
         void Start()
         {
             _inputReader = GetComponent<DebugInputReader>();
             _inputReader.OnOpenCheatsMenu += HandleOpenMenu;
 
-            _cheatsUI = Instantiate(uiPrefab, canvas.transform);
-            _cheatsUI.SetActive(false);
+            onHandleCheatsUIEvent?.RaiseEvent(false);
+            _isOverlayActive = false;
             config.playerHealth = playerHealth;
         }
 
@@ -36,7 +36,8 @@ namespace DEBUG.Cheats
 
         private void HandleOpenMenu()
         {
-            _cheatsUI.SetActive(!_cheatsUI.activeInHierarchy);
+            onHandleCheatsUIEvent?.RaiseEvent(!_isOverlayActive);
+            _isOverlayActive = !_isOverlayActive;
         }
 #endif
     }
