@@ -21,8 +21,8 @@ namespace Scenes
         [SerializeField] private SubscribeToSceneChannelSO onSubscribeToSceneEvent;
         [SerializeField] private SubscribeToSceneChannelSO onUnSubscribeToSceneEvent;
 
+        [SerializeField] private VoidEventChannelSO onSceneUnloadedEvent;
         [SerializeField] private BoolEventChannelSO[] onHandleCanvasesEvents;
-        
         private void Start()
         {
             foreach (var optionalScene in optionalScenes)
@@ -89,6 +89,7 @@ namespace Scenes
         private void UnloadScene()
         {
             onUnloadSceneEvent?.RaiseEvent(sceneName);
+            onSceneUnloadedEvent?.RaiseEvent();
             
             foreach (var optionalScene in optionalScenes)
             {

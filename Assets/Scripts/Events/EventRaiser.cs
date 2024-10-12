@@ -16,7 +16,7 @@ namespace Events
 
         public virtual void RaiseEvent(T value)
         {
-            eventToRaise?.RaiseEvent(value);
+            _event?.RaiseEvent(value);
         }
 
         public void ChangeEvent(EventChannelSO<T> eventChannel)
