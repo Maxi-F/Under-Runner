@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using Events;
+using Events.ScriptableObjects;
 using Managers;
 using UnityEngine;
 
@@ -11,21 +13,19 @@ namespace Scenes
         [Tooltip("Current scene name")] [SerializeField] private string sceneName;
         [Tooltip("Optional scenes to activate with the current scene")] [SerializeField] private string[] optionalScenes = new string[] {};
         [SerializeField] private bool setAsActiveOnBoot = false;
-        
-        private SceneryManager _sceneryManager;
+
+        [Header("events")] 
+        [SerializeField] private StringEventChannelSo onLoadSceneEvent;
+        [SerializeField] private StringEventChannelSo onUnloadSceneEvent;
+        [SerializeField] private StringEventChannelSo onSetActiveSceneEvent;
+        [SerializeField] private SubscribeToSceneChannelSO onSubscribeToSceneEvent;
+        [SerializeField] private SubscribeToSceneChannelSO onUnSubscribeToSceneEvent;
         
         private void OnEnable()
         {
-            _sceneryManager = FindObjectOfType<SceneryManager>();
-            if (_sceneryManager == null)
-            {
-                Debug.Log("Scenery manager is null. Will not load optional scenes.");
-                return;
-            }
-            
             foreach (var optionalScene in optionalScenes)
             {
-                _sceneryManager?.LoadScene(optionalScene);
+                onLoadSceneEvent?.RaiseEvent(optionalScene);
             }
 
             if (setAsActiveOnBoot)
@@ -38,11 +38,6 @@ namespace Scenes
 
         private void OnDisable()
         {
-            if (_sceneryManager == null)
-            {
-                Debug.Log("Scenery manager is null. Will not unsubscribe from actions.");
-                return;
-            }
             UnsubscribeToActions();
         }
 
@@ -51,7 +46,7 @@ namespace Scenes
             // returns a yield null as it needs a frame to load the scene, then it can be set
             // as active.
             yield return null;
-            _sceneryManager?.SetActiveScene(sceneName);
+            onSetActiveSceneEvent?.RaiseEvent(sceneName);
         }
         
         /// <summary>
@@ -61,8 +56,11 @@ namespace Scenes
         {
             Array.ForEach(scenesToSubscribeTo, (aSceneName) =>
             {
-                Debug.Log(aSceneName);
-                _sceneryManager?.SubscribeEventToAddScene(aSceneName, UnloadScene);
+                onSubscribeToSceneEvent?.RaiseEvent(new SubscribeToSceneData()
+                {
+                    sceneName = aSceneName,
+                    SubscribeToSceneAction = UnloadScene
+                });
             });
         }
         
@@ -73,7 +71,11 @@ namespace Scenes
         {
             Array.ForEach(scenesToSubscribeTo, (aSceneName) =>
             {
-                _sceneryManager?.UnsubscribeEventToAddScene(aSceneName, UnloadScene);
+                onUnSubscribeToSceneEvent?.RaiseEvent(new SubscribeToSceneData()
+                {
+                    sceneName = aSceneName,
+                    SubscribeToSceneAction = UnloadScene
+                });
             });
         }
         
@@ -82,11 +84,11 @@ namespace Scenes
         /// </summary>
         private void UnloadScene()
         {
-            _sceneryManager?.UnloadScene(sceneName);
-
+            onUnloadSceneEvent?.RaiseEvent(sceneName);
+            
             foreach (var optionalScene in optionalScenes)
             {
-                _sceneryManager?.UnloadScene(optionalScene);
+                onUnloadSceneEvent?.RaiseEvent(optionalScene);
             }
         }
     }
