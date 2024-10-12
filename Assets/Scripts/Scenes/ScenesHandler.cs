@@ -20,8 +20,10 @@ namespace Scenes
         [SerializeField] private StringEventChannelSo onSetActiveSceneEvent;
         [SerializeField] private SubscribeToSceneChannelSO onSubscribeToSceneEvent;
         [SerializeField] private SubscribeToSceneChannelSO onUnSubscribeToSceneEvent;
+
+        [SerializeField] private BoolEventChannelSO[] onHandleCanvasesEvents;
         
-        private void OnEnable()
+        private void Start()
         {
             foreach (var optionalScene in optionalScenes)
             {
@@ -34,11 +36,13 @@ namespace Scenes
             }
             
             SubscribeToActions();
+            HandleCanvasEvents(true);
         }
 
         private void OnDisable()
         {
             UnsubscribeToActions();
+            HandleCanvasEvents(false);
         }
 
         private IEnumerator SetSceneAsActiveScene()
@@ -89,6 +93,17 @@ namespace Scenes
             foreach (var optionalScene in optionalScenes)
             {
                 onUnloadSceneEvent?.RaiseEvent(optionalScene);
+            }
+        }
+
+        /// <summary>
+        ///  Activates or deactivates canvas on scene init
+        /// </summary>
+        private void HandleCanvasEvents(bool value)
+        {
+            foreach (var onHandleCanvasEvent in onHandleCanvasesEvents)
+            {
+                onHandleCanvasEvent?.RaiseEvent(value);
             }
         }
     }
