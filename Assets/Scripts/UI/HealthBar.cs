@@ -49,14 +49,12 @@ namespace UI
     
         private void HandleInit(int maxValue)
         {
-            Debug.Log("initialized");
             slider.maxValue = maxValue;
             slider.value = maxValue;
         }
         
         private void HandleTakeDamage(int currentHealth)
         {
-            Debug.Log("hi?");
             if (!_wasTriggered)
             {
                 slider.gameObject.SetActive(true);

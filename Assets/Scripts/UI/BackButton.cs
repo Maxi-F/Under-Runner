@@ -22,7 +22,6 @@ namespace UI
 
         private void HandleChangeChannel(BoolEventChannelSO eventChannel)
         {
-            Debug.Log(eventChannel);
             boolEventRaiser.ChangeEvent(eventChannel);
         }
     }
