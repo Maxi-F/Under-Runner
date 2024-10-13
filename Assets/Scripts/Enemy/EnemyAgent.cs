@@ -11,7 +11,7 @@ public class EnemyAgent : Agent
 
     [Header("Internal Events")]
     [SerializeField] private ActionEventsWrapper idleEvents;
-    [SerializeField] private ActionEventsWrapper moveEvents;
+    [SerializeField] private ActionEventsWrapper weakenedEvents;
     [SerializeField] private ActionEventsWrapper laserEvents;
     [SerializeField] private ActionEventsWrapper bombThrowEvents;
     [SerializeField] private ActionEventsWrapper bombParryEvents;
@@ -64,9 +64,9 @@ public class EnemyAgent : Agent
         _idleState.ExitAction += idleEvents.ExecuteOnExit;
 
         _weakenedState = new State();
-        _weakenedState.EnterAction += moveEvents.ExecuteOnEnter;
-        _weakenedState.UpdateAction += moveEvents.ExecuteOnUpdate;
-        _weakenedState.ExitAction += moveEvents.ExecuteOnExit;
+        _weakenedState.EnterAction += weakenedEvents.ExecuteOnEnter;
+        _weakenedState.UpdateAction += weakenedEvents.ExecuteOnUpdate;
+        _weakenedState.ExitAction += weakenedEvents.ExecuteOnExit;
 
         _laserState = new State();
         _laserState.EnterAction += laserEvents.ExecuteOnEnter;
@@ -89,6 +89,8 @@ public class EnemyAgent : Agent
         _debrisThrowState.ExitAction += debrisThrowEvents.ExecuteOnExit;
 
         #endregion
+
+        #region Transitions
 
         Transition idleToWeakenedTransition = new Transition(_idleState, _weakenedState);
         _idleState.AddTransition(idleToWeakenedTransition);
@@ -116,6 +118,8 @@ public class EnemyAgent : Agent
 
         Transition weakenedToIdleTransition = new Transition(_weakenedState, _idleState);
         _weakenedState.AddTransition(weakenedToIdleTransition);
+
+        #endregion
 
         return new List<State>()
         {

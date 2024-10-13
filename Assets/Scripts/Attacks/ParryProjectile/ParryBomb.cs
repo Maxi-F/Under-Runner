@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Enemy;
+using Enemy.Shield;
 using Health;
 using ParryProjectile;
 using UnityEngine;
@@ -105,11 +106,12 @@ namespace Attacks.ParryProjectile
         {
             if (other.CompareTag("Enemy") && !_isTargetingPlayer)
             {
-                EnemyController enemy = other.GetComponentInChildren<EnemyController>();
+                ShieldController enemy = other.GetComponentInChildren<ShieldController>();
 
                 if (enemy.TryDestroyShield(shieldDamage))
                 {
                     gameObject.SetActive(false);
+                    other.GetComponent<EnemyAgent>().ChangeStateToWeakened();
                     return;
                 }
 

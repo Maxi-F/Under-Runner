@@ -1,28 +1,34 @@
 using System;
 using System.Collections;
+using Events;
+using Health;
 using UnityEngine;
 
 namespace Enemy.Shield
 {
     public class ShieldController : MonoBehaviour
     {
+        [SerializeField] private HealthPoints _healthPoints;
+        [SerializeField] private VoidEventChannelSO onShieldDestroyedEvent;
+
         [SerializeField] private Material activatingShieldMaterial;
         [SerializeField] private Material translucentMaterial;
         [SerializeField] private Material activeMaterial;
         [SerializeField] private float twinkleSeconds = 0.5f;
         [SerializeField] private GameObject shieldModel;
-        
+
         private bool _isActivating = false;
         private bool _isActive = true;
         private bool _isInCoroutine = false;
         private MeshRenderer _meshRenderer;
-        
+
+
         private void OnEnable()
         {
             _isActivating = false;
             _isActive = true;
             _isInCoroutine = false;
-            
+
             _meshRenderer ??= shieldModel.GetComponent<MeshRenderer>();
         }
 
@@ -45,14 +51,14 @@ namespace Enemy.Shield
                     : translucentMaterial;
 
                 isTraslucentOn = !isTraslucentOn;
-                
+
                 yield return new WaitForSeconds(twinkleSeconds);
             }
 
             _isActivating = false;
             _isInCoroutine = false;
         }
-        
+
         public void SetIsActivating(bool isActivating)
         {
             _isActivating = isActivating;
@@ -75,6 +81,19 @@ namespace Enemy.Shield
             _isActive = isActive;
 
             if (!_isActive) _meshRenderer.material = translucentMaterial;
+        }
+
+        public bool TryDestroyShield(int parryDamage)
+        {
+            _healthPoints.TryTakeDamage(parryDamage);
+
+            if (_healthPoints.IsDead())
+            {
+                onShieldDestroyedEvent?.RaiseEvent();
+                return true;
+            }
+
+            return false;
         }
     }
 }

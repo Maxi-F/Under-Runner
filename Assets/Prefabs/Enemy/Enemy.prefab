@@ -832,6 +832,7 @@ GameObject:
   - component: {fileID: 6036891029877782225}
   - component: {fileID: 3623727221341694570}
   - component: {fileID: 2011814886892266701}
+  - component: {fileID: 3120035166251398144}
   - component: {fileID: 717183507908027113}
   - component: {fileID: 3084234489356656795}
   - component: {fileID: 4678668245326787109}
@@ -935,7 +936,53 @@ MonoBehaviour:
     onExit:
       m_PersistentCalls:
         m_Calls: []
-  moveEvents:
+  weakenedEvents:
+    onEnter:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3120035166251398144}
+          m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+          m_MethodName: set_enabled
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 3120035166251398144}
+          m_TargetAssemblyTypeName: WeakenedController, Assembly-CSharp
+          m_MethodName: HandleShield
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    onUpdate:
+      m_PersistentCalls:
+        m_Calls: []
+    onExit:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3120035166251398144}
+          m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+          m_MethodName: set_enabled
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  laserEvents:
     onEnter:
       m_PersistentCalls:
         m_Calls: []
@@ -945,22 +992,30 @@ MonoBehaviour:
     onExit:
       m_PersistentCalls:
         m_Calls: []
-  attackEvents:
+  bombThrowEvents:
     onEnter:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 3084234489356656795}
-          m_TargetAssemblyTypeName: 
-          m_MethodName: 
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: 
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
+    onUpdate:
+      m_PersistentCalls:
+        m_Calls: []
+    onExit:
+      m_PersistentCalls:
+        m_Calls: []
+  bombParryEvents:
+    onEnter:
+      m_PersistentCalls:
+        m_Calls: []
+    onUpdate:
+      m_PersistentCalls:
+        m_Calls: []
+    onExit:
+      m_PersistentCalls:
+        m_Calls: []
+  debrisThrowEvents:
+    onEnter:
+      m_PersistentCalls:
+        m_Calls: []
     onUpdate:
       m_PersistentCalls:
         m_Calls: []
@@ -992,6 +1047,28 @@ MonoBehaviour:
   onInternalResetEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3120035166251398144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8961736479340173517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2da3ab2ba7e7da74dbc03473d8ed252f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyAgent: {fileID: 3623727221341694570}
+  healthPoints: {fileID: 2011814886892266701}
+  shieldController: {fileID: 5362483775112485171}
+  shieldActive: 1
+  timeToReactivateShield: 4
+  timeToStartReactivatingShield: 2
+  shieldPoints: {fileID: 3269783526113023923}
+  onEnemyDeathEvent: {fileID: 11400000, guid: 36bbe8a4a81fcf74da11d75999d01f40, type: 2}
+  onEnemyParriedEvent: {fileID: 11400000, guid: 2560c5f78509b5141b8e058e758dd606, type: 2}
+  onEnemyDamageEvent: {fileID: 11400000, guid: 41331d8fc0079ac47bec86270d050339, type: 2}
 --- !u!114 &717183507908027113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1004,14 +1081,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b05fd3a81c8047d408dcb40a534b986c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shieldController: {fileID: 5362483775112485171}
-  shieldActive: 1
-  timeToReactivateShield: 4
-  timeToStartReactivatingShield: 2
-  shieldPoints: {fileID: 3269783526113023923}
-  onEnemyDeathEvent: {fileID: 11400000, guid: 36bbe8a4a81fcf74da11d75999d01f40, type: 2}
-  onEnemyParriedEvent: {fileID: 11400000, guid: 2560c5f78509b5141b8e058e758dd606, type: 2}
-  onEnemyDamageEvent: {fileID: 11400000, guid: 41331d8fc0079ac47bec86270d050339, type: 2}
+  enemyAgent: {fileID: 0}
+  healthPoints: {fileID: 0}
 --- !u!114 &3084234489356656795
 MonoBehaviour:
   m_ObjectHideFlags: 0
