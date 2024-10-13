@@ -12,30 +12,52 @@ public class EnemyAgent : Agent
     [Header("Internal Events")]
     [SerializeField] private ActionEventsWrapper idleEvents;
     [SerializeField] private ActionEventsWrapper moveEvents;
-    [FormerlySerializedAs("attackEvents")]
-    [SerializeField] private ActionEventsWrapper combatEvents;
+    [SerializeField] private ActionEventsWrapper laserEvents;
+    [SerializeField] private ActionEventsWrapper bombThrowEvents;
+    [SerializeField] private ActionEventsWrapper bombParryEvents;
+    [SerializeField] private ActionEventsWrapper debrisThrowEvents;
 
     private State _idleState;
     private State _weakenedState;
-    private State _combatState;
-
-    public void ChangeStateToWeakened()
-    {
-        Fsm.ChangeState(_weakenedState);
-    }
-
-    public void ChangeStateToCombat()
-    {
-        Fsm.ChangeState(_combatState);
-    }
+    private State _laserState;
+    private State _bombThrowState;
+    private State _bombParryState;
+    private State _debrisThrowState;
 
     public void ChangeStateToIdle()
     {
         Fsm.ChangeState(_idleState);
     }
 
+    public void ChangeStateToWeakened()
+    {
+        Fsm.ChangeState(_weakenedState);
+    }
+
+    public void ChangeStateToLaser()
+    {
+        Fsm.ChangeState(_laserState);
+    }
+
+    public void ChangeStateToBombThrow()
+    {
+        Fsm.ChangeState(_bombThrowState);
+    }
+
+    public void ChangeStateToBombParry()
+    {
+        Fsm.ChangeState(_bombParryState);
+    }
+
+    public void ChangeStateToDebrisThrow()
+    {
+        Fsm.ChangeState(_debrisThrowState);
+    }
+
     protected override List<State> GetStates()
     {
+        #region States
+
         _idleState = new State();
         _idleState.EnterAction += idleEvents.ExecuteOnEnter;
         _idleState.UpdateAction += idleEvents.ExecuteOnUpdate;
@@ -46,28 +68,63 @@ public class EnemyAgent : Agent
         _weakenedState.UpdateAction += moveEvents.ExecuteOnUpdate;
         _weakenedState.ExitAction += moveEvents.ExecuteOnExit;
 
-        _combatState = new State();
-        _combatState.EnterAction += combatEvents.ExecuteOnEnter;
-        _combatState.UpdateAction += combatEvents.ExecuteOnUpdate;
-        _combatState.ExitAction += combatEvents.ExecuteOnExit;
+        _laserState = new State();
+        _laserState.EnterAction += laserEvents.ExecuteOnEnter;
+        _laserState.UpdateAction += laserEvents.ExecuteOnUpdate;
+        _laserState.ExitAction += laserEvents.ExecuteOnExit;
 
-        Transition idleToMoveTransition = new Transition(_idleState, _weakenedState);
-        _idleState.AddTransition(idleToMoveTransition);
+        _bombThrowState = new State();
+        _bombThrowState.EnterAction += bombThrowEvents.ExecuteOnEnter;
+        _bombThrowState.UpdateAction += bombThrowEvents.ExecuteOnUpdate;
+        _bombThrowState.ExitAction += bombThrowEvents.ExecuteOnExit;
 
-        Transition moveToDashTransition = new Transition(_weakenedState, _combatState);
-        _weakenedState.AddTransition(moveToDashTransition);
+        _bombParryState = new State();
+        _bombParryState.EnterAction += bombParryEvents.ExecuteOnEnter;
+        _bombParryState.UpdateAction += bombParryEvents.ExecuteOnUpdate;
+        _bombParryState.ExitAction += bombParryEvents.ExecuteOnExit;
 
-        Transition dashToMoveTransition = new Transition(_combatState, _weakenedState);
-        _combatState.AddTransition(dashToMoveTransition);
+        _debrisThrowState = new State();
+        _debrisThrowState.EnterAction += debrisThrowEvents.ExecuteOnEnter;
+        _debrisThrowState.UpdateAction += debrisThrowEvents.ExecuteOnUpdate;
+        _debrisThrowState.ExitAction += debrisThrowEvents.ExecuteOnExit;
 
-        Transition dashToIdleTransition = new Transition(_combatState, _idleState);
-        _combatState.AddTransition(dashToIdleTransition);
+        #endregion
+
+        Transition idleToWeakenedTransition = new Transition(_idleState, _weakenedState);
+        _idleState.AddTransition(idleToWeakenedTransition);
+
+        Transition idleToLaserTransition = new Transition(_idleState, _laserState);
+        _laserState.AddTransition(idleToLaserTransition);
+
+        Transition laserToIdleTransition = new Transition(_laserState, _idleState);
+        _laserState.AddTransition(laserToIdleTransition);
+
+        Transition idleToBombThrowTransition = new Transition(_idleState, _bombThrowState);
+        _laserState.AddTransition(idleToBombThrowTransition);
+
+        Transition bombThrowToIdleTransition = new Transition(_bombThrowState, _idleState);
+        _laserState.AddTransition(bombThrowToIdleTransition);
+
+        Transition idleToBombParryTransition = new Transition(_idleState, _bombParryState);
+        _laserState.AddTransition(idleToBombParryTransition);
+
+        Transition bombParryToIdleTransition = new Transition(_bombParryState, _idleState);
+        _laserState.AddTransition(bombParryToIdleTransition);
+
+        Transition bombParryToWeakenedTransition = new Transition(_bombParryState, _weakenedState);
+        _laserState.AddTransition(bombParryToWeakenedTransition);
+
+        Transition weakenedToIdleTransition = new Transition(_weakenedState, _idleState);
+        _weakenedState.AddTransition(weakenedToIdleTransition);
 
         return new List<State>()
         {
             _idleState,
             _weakenedState,
-            _combatState
+            _laserState,
+            _bombThrowState,
+            _bombParryState,
+            _debrisThrowState
         };
     }
 }
