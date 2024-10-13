@@ -1,11 +1,10 @@
-using System;
 using System.Collections;
 using Events;
 using Minion.Manager;
 using UnityEngine;
 using Utils;
 
-namespace LevelManagement
+namespace LevelManagement.Sequences
 {
     public class MinionsSequence : MonoBehaviour
     {

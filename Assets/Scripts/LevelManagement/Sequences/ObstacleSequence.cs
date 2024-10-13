@@ -2,12 +2,10 @@ using System.Collections;
 using Events;
 using Events.ScriptableObjects;
 using ObstacleSystem;
-using Roads;
 using UnityEngine;
-using UnityEngine.UI;
 using Utils;
 
-namespace LevelManagement
+namespace LevelManagement.Sequences
 {
     public class ObstacleSequence : MonoBehaviour
     {
