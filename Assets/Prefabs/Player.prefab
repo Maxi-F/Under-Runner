@@ -202,6 +202,7 @@ GameObject:
   - component: {fileID: 1856129533111618862}
   - component: {fileID: 4004944892389013156}
   - component: {fileID: -3657109322286029522}
+  - component: {fileID: 8569875037951016330}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -414,6 +415,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98cd89dde1d6f6f45bee14bef0b50fb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pauseData: {fileID: 0}
   inputHandler: {fileID: 11400000, guid: 4902f51743585ca40aec021ece06aa06, type: 2}
   onPlayerNewPositionEvent: {fileID: 11400000, guid: 1edae3268f02d1c4190e82ddfa3be357, type: 2}
   onPlayerMovementEvent: {fileID: 0}
@@ -543,6 +545,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 228fa0e3e1cf3bb4caa19c5fad704627, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pauseData: {fileID: 0}
   inputHandler: {fileID: 11400000, guid: 4902f51743585ca40aec021ece06aa06, type: 2}
   attackAmplitude: 160
   meleeWeaponPivot: {fileID: 8905774787942367586}
@@ -650,6 +653,23 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   pauseData: {fileID: 11400000, guid: 050aabf23c6e8a747ba6431bbbb165f5, type: 2}
+--- !u!114 &8569875037951016330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4780633370198621073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7d9f5c22fe80a44b9f952eb84657c81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initPosition: {x: 0, y: 0, z: 0}
+  healthPoints: {fileID: 4004944892389013156}
+  dashController: {fileID: 4699157676241342615}
+  onPlayerDeathEvent: {fileID: 11400000, guid: 1609b932e078810448a25604c23359d3, type: 2}
+  onGameplayResetEvent: {fileID: 11400000, guid: ab870950ec2b0124da9411e0e9f8faa6, type: 2}
 --- !u!1 &7261930984988719095
 GameObject:
   m_ObjectHideFlags: 0

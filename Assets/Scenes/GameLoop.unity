@@ -700,6 +700,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2923836183902203749, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
+      propertyPath: initPosition.y
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2923836183902203749, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
+      propertyPath: initPosition.z
+      value: 1.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2923836183902203749, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
+      propertyPath: onPlayerDeathEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: 1609b932e078810448a25604c23359d3, type: 2}
+    - target: {fileID: 2923836183902203749, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
+      propertyPath: onGameplayResetEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: ab870950ec2b0124da9411e0e9f8faa6, type: 2}
+    - target: {fileID: 4004944892389013156, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
+      propertyPath: onResetPointsEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: d276143688fe85f45bce528b1753dd72, type: 2}
     - target: {fileID: 4004944892389013156, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
       propertyPath: onInitializeMaxHealthEvent
       value: 
@@ -752,6 +772,14 @@ PrefabInstance:
       propertyPath: onPlayerMovementEvent
       value: 
       objectReference: {fileID: 11400000, guid: 6a4bb4062610c7b4fa1d1458d1248c67, type: 2}
+    - target: {fileID: 8569875037951016330, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
+      propertyPath: initPosition.y
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8569875037951016330, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
+      propertyPath: initPosition.z
+      value: 1.15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2459,6 +2487,14 @@ PrefabInstance:
       propertyPath: playerHealthPoints
       value: 
       objectReference: {fileID: 1059696746}
+    - target: {fileID: 7147819174927887729, guid: 997a42626b659814cb0aa0d749e0b092, type: 3}
+      propertyPath: onResetGameplayEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: ab870950ec2b0124da9411e0e9f8faa6, type: 2}
+    - target: {fileID: 7147819174927887729, guid: 997a42626b659814cb0aa0d749e0b092, type: 3}
+      propertyPath: onTryAgainCanvasEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: 45952cb3995e2054ea77145faefe979e, type: 2}
     - target: {fileID: 9200447392731979298, guid: 997a42626b659814cb0aa0d749e0b092, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
