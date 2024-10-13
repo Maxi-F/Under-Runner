@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Events;
+using Managers;
 using UnityEngine;
 
 public class DodgeHandler : MonoBehaviour
@@ -10,8 +11,9 @@ public class DodgeHandler : MonoBehaviour
     [Header("Bullet Time Settings")]
     [SerializeField] private float bulletTimeDuration;
     [SerializeField] private AnimationCurve bulletTimeVariationCurve;
-
-    private Coroutine dodgeBulletTimeCoroutine;
+    [SerializeField] private PauseSO pauseData;
+    
+    private Coroutine _dodgeBulletTimeCoroutine;
 
     private void OnEnable()
     {
@@ -25,10 +27,10 @@ public class DodgeHandler : MonoBehaviour
 
     private void HandleDodgeEvent()
     {
-        if (dodgeBulletTimeCoroutine != null)
-            StopCoroutine(dodgeBulletTimeCoroutine);
+        if (_dodgeBulletTimeCoroutine != null)
+            StopCoroutine(_dodgeBulletTimeCoroutine);
 
-        dodgeBulletTimeCoroutine = StartCoroutine(DodgeBulletTimeCoroutine());
+        _dodgeBulletTimeCoroutine = StartCoroutine(DodgeBulletTimeCoroutine());
     }
 
     private IEnumerator DodgeBulletTimeCoroutine()
@@ -40,8 +42,9 @@ public class DodgeHandler : MonoBehaviour
         {
             timer = Time.time - startTime;
             float timerProgress = Mathf.Lerp(0, 1, timer / bulletTimeDuration);
-            Time.timeScale = bulletTimeVariationCurve.Evaluate(timerProgress);
-            yield return null;
+            if(!pauseData.isPaused)
+                Time.timeScale = bulletTimeVariationCurve.Evaluate(timerProgress);
+            yield return new WaitWhile(() => pauseData.isPaused);
         }
 
         Time.timeScale = 1;

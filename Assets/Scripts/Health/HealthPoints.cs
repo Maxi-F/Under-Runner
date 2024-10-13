@@ -15,6 +15,8 @@ namespace Health
         [SerializeField] private VoidEventChannelSO onDeathEvent;
         [SerializeField] private IntEventChannelSO onTakeDamageEvent;
         [SerializeField] private IntEventChannelSO onResetPointsEvent;
+        [SerializeField] private IntEventChannelSO onInitializeHealthEvent;
+        [SerializeField] private IntEventChannelSO onInitializeMaxHealthEvent;
         [SerializeField] private VoidEventChannelSO onDamageAvoidedEvent;
 
         [Header("Internal events")]
@@ -39,6 +41,8 @@ namespace Health
         void Start()
         {
             CurrentHp = initHealth;
+            onInitializeHealthEvent?.RaiseEvent(CurrentHp);
+            onInitializeMaxHealthEvent?.RaiseEvent(MaxHealth);
         }
 
         private void OnDestroy()

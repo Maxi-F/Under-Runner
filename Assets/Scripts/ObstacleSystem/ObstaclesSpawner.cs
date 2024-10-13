@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Events;
 using MapBounds;
 using Roads;
@@ -24,7 +26,7 @@ namespace ObstacleSystem
         private GameObject _lastSpawnedObstacle = null;
         private bool _shouldDisable = false;
         private bool _hasBeenDisabled = false;
-        private int _obstaclesCount = 0;
+        private List<GameObject> _spawnedObstacles;
         private float _minDistanceBetweenObstacles = 0.1f;
 
         private float _spawnCoolDown;
@@ -33,6 +35,7 @@ namespace ObstacleSystem
         public void OnEnable()
         {
             _shouldDisable = false;
+            _spawnedObstacles = new List<GameObject>();
             onRoadInstantiatedEvent?.onGameObjectEvent.AddListener(HandleNewRoadInstance);
             onRoadDeletedEvent?.onGameObjectEvent.AddListener(HandleDeleteObstacle);
             onObstacleTriggeredEvent?.onGameObjectEvent.AddListener(HandleDeleteObstacle);
@@ -41,7 +44,7 @@ namespace ObstacleSystem
 
         private void Update()
         {
-            if (_shouldDisable && _obstaclesCount == 0 && !_hasBeenDisabled)
+            if (_shouldDisable && _spawnedObstacles.Count == 0 && !_hasBeenDisabled)
             {
                 onObstaclesDisabled.RaiseEvent();
                 _hasBeenDisabled = true;
@@ -93,7 +96,7 @@ namespace ObstacleSystem
         private void DeleteObstacle(GameObject obstacle)
         {
             ObstaclesObjectPool.Instance?.ReturnToPool(obstacle);
-            _obstaclesCount--;
+            _spawnedObstacles.Remove(obstacle);
         }
         
         private void HandleNewRoadInstance(GameObject road)
@@ -125,7 +128,7 @@ namespace ObstacleSystem
                 _lastObstacleSpawnPosition = new Vector3(spawnPositionInX.x, spawnPositionInX.y,
                     roadDepth * (i / obstaclesToInstantiateCount));
                 obstacle.transform.localPosition = _lastObstacleSpawnPosition;
-                _obstaclesCount++;
+                _spawnedObstacles.Add(obstacle);
             }
 
             if (_spawnCoroutine != null)
@@ -154,6 +157,15 @@ namespace ObstacleSystem
         {
             yield return new WaitForSeconds(_spawnCoolDown);
             _shouldSpawnObject = true;
+        }
+
+        public void Clear()
+        {
+            if (_spawnedObstacles == null) return;
+            foreach (var spawnedObstacle in _spawnedObstacles.ToList())
+            {
+                DeleteObstacle(spawnedObstacle);
+            }
         }
     }
 }

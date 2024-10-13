@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Events;
+using Events.ScriptableObjects;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -30,12 +31,12 @@ namespace Enemy.Attacks
             _isEnemyParried = false;
             SelectRandomAttack();
             
-            onEnemyParriedEvent?.onBoolEvent.AddListener(HandleEnemyParried);
+            onEnemyParriedEvent?.onTypedEvent.AddListener(HandleEnemyParried);
         }
 
         private void OnDisable()
         {
-            onEnemyParriedEvent?.onBoolEvent.RemoveListener(HandleEnemyParried);
+            onEnemyParriedEvent?.onTypedEvent.RemoveListener(HandleEnemyParried);
         }
 
         private void HandleEnemyParried(bool isShieldActive)

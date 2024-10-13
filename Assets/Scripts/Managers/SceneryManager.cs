@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Events;
+using Events.ScriptableObjects;
 using Scenes.ScriptableObjects;
 using UnityEngine;
 using UnityEngine.Events;
@@ -15,18 +16,31 @@ namespace Managers
         [Tooltip("Scenes that are on boot")] 
         [SerializeField] private string[] initScenes;
 
-        [Header("events")] [SerializeField] private StringEventChannelSo onLoadScene;
+        [Header("events")] 
+        [SerializeField] private StringEventChannelSo onLoadScene;
+        [SerializeField] private StringEventChannelSo onUnloadScene;
+        [SerializeField] private StringEventChannelSo onSetActiveScene;
+        [SerializeField] private SubscribeToSceneChannelSO onSubscribeToScene;
+        [SerializeField] private SubscribeToSceneChannelSO onUnsubscribeToScene;
         
         private readonly List<SerializedScene> _activeScenes = new List<SerializedScene>();
 
         private void OnEnable()
         {
             onLoadScene?.onStringEvent.AddListener(LoadScene);
+            onUnloadScene?.onStringEvent.AddListener(UnloadScene);
+            onSetActiveScene?.onStringEvent.AddListener(SetActiveScene);
+            onSubscribeToScene?.onSubscribeEvent.AddListener(SubscribeEventToAddScene);
+            onUnsubscribeToScene?.onSubscribeEvent.AddListener(UnsubscribeEventToAddScene);
         }
 
         private void OnDisable()
         {
             onLoadScene?.onStringEvent.RemoveListener(LoadScene);
+            onUnloadScene?.onStringEvent.RemoveListener(UnloadScene);
+            onSetActiveScene?.onStringEvent.RemoveListener(SetActiveScene);
+            onSubscribeToScene?.onSubscribeEvent.RemoveListener(SubscribeEventToAddScene);
+            onUnsubscribeToScene?.onSubscribeEvent.RemoveListener(UnsubscribeEventToAddScene);
         }
 
         /// <summary>
@@ -62,7 +76,7 @@ namespace Managers
         /// <summary>
         /// Unloads the scene.
         /// </summary>
-        /// <param name="sceneName">The scene name to unload.</param>
+        /// <param name="aSceneName">The scene name to unload.</param>
         public void UnloadScene(string aSceneName)
         {
             SerializedScene aScene = scenesDataConfig.GetSerializedScene(aSceneName);
@@ -92,25 +106,21 @@ namespace Managers
         /// <summary>
         /// Subscribes an event to an Add scene event
         /// </summary>
-        /// <param name="sceneName">Scene name to load the event to</param>
-        /// <param name="action">Action to subscribe.</param>
-        public void SubscribeEventToAddScene(string sceneName, UnityAction action)
+        public void SubscribeEventToAddScene(SubscribeToSceneData eventData)
         {
-            SerializedScene aScene = scenesDataConfig.GetSerializedScene(sceneName);
-            Debug.Log(aScene.onLoad);
-            aScene.onLoad.AddListener(action);
+            SerializedScene aScene = scenesDataConfig.GetSerializedScene(eventData.sceneName);
+            
+            aScene.onLoad.AddListener(eventData.SubscribeToSceneAction);
         }
         
         /// <summary>
         /// Unsubscribes an event from the Add scene event
         /// </summary>
-        /// <param name="sceneName">Scene name to unload the action</param>
-        /// <param name="action">Action to unsubscribe.</param>
-        public void UnsubscribeEventToAddScene(string sceneName, UnityAction action)
+        public void UnsubscribeEventToAddScene(SubscribeToSceneData eventData)
         {
-            SerializedScene aScene = scenesDataConfig.GetSerializedScene(sceneName);
+            SerializedScene aScene = scenesDataConfig.GetSerializedScene(eventData.sceneName);
 
-            aScene.onLoad.RemoveListener(action);
+            aScene.onLoad.RemoveListener(eventData.SubscribeToSceneAction);
         }
 
         public void SetActiveScene(string sceneName)

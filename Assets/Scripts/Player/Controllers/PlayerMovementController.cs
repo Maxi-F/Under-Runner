@@ -1,5 +1,7 @@
+using System.Collections;
 using Events;
 using Input;
+using Managers;
 using MapBounds;
 using Player.Controllers;
 using UnityEngine;
@@ -8,6 +10,8 @@ namespace Player
 {
     public class PlayerMovementController : PlayerController
     {
+        [SerializeField] private PauseSO pauseData;
+        
         [Header("Input")] [SerializeField] private InputHandlerSO inputHandler;
         [SerializeField] private Vector3EventChannelSO onPlayerNewPositionEvent;
         [SerializeField] private Vector3EventChannelSO onPlayerMovementEvent;
@@ -25,6 +29,7 @@ namespace Player
         [SerializeField] private GameObject bikeBody;
 
         private Vector3 currentDir;
+        private Coroutine _handleTiltCoroutine;
 
         private bool _canMove = true;
 
@@ -75,6 +80,12 @@ namespace Player
             float frontalAngle = Mathf.Asin(normalizedDir.y) * Mathf.Rad2Deg;
             frontalAngle = Mathf.Clamp(frontalAngle, -maxTiltAngles.y, maxTiltAngles.y);
 
+            StartCoroutine(HandleTilt(lateralAngle, frontalAngle));
+        }
+
+        private IEnumerator HandleTilt(float lateralAngle, float frontalAngle)
+        {
+            yield return new WaitWhile(() => pauseData.isPaused);
             bikeBody.transform.rotation = Quaternion.Euler(frontalAngle, 0, -lateralAngle);
         }
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using Input;
+using Managers;
 using Player.Weapon;
 using Unity.Mathematics;
 using UnityEngine;
@@ -8,6 +9,7 @@ namespace Player
 {
     public class PlayerAttack : MonoBehaviour
     {
+        [SerializeField] private PauseSO pauseData;
         [SerializeField] private InputHandlerSO inputHandler;
 
         [Header("Attack Configuration")]
@@ -35,7 +37,7 @@ namespace Player
 
         public void HandleAttack()
         {
-            if (!_canAttack)
+            if (!_canAttack || pauseData.isPaused)
                 return;
 
             if (_attackCoroutine != null)

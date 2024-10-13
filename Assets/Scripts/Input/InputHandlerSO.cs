@@ -9,7 +9,7 @@ namespace Input
     {
         public UnityEvent<Vector2> onPlayerMove;
         public UnityEvent onPlayerAttack;
-        
+        public UnityEvent onPauseToggle;
         public UnityEvent onPlayerDashStarted;
         public UnityEvent onPlayerDashFinished;
 
@@ -33,6 +33,12 @@ namespace Input
         {
             if (context.started)
                 onPlayerAttack?.Invoke();
+        }
+
+        public void HandlePause(InputAction.CallbackContext context)
+        {
+            if(context.started)
+                onPauseToggle?.Invoke();
         }
     }
 }

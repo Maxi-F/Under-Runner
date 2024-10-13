@@ -2,6 +2,7 @@ using System.Collections;
 using Events;
 using Health;
 using Input;
+using Managers;
 using MapBounds;
 using Player.Controllers;
 using UnityEngine;
@@ -10,6 +11,8 @@ namespace Player
 {
     public class PlayerDashController : PlayerController
     {
+        [SerializeField] private PauseSO pauseData;
+        
         [Header("Input")]
         [SerializeField] private InputHandlerSO inputHandler;
 
@@ -175,9 +178,11 @@ namespace Player
 
             while (timer < bulletTimeDuration)
             {
+                yield return new WaitWhile(() => pauseData.isPaused);
                 timer = Time.time - startTime;
                 float timerProgress = Mathf.Lerp(0, 1, timer / bulletTimeDuration);
-                Time.timeScale = bulletTimeVariationCurve.Evaluate(timerProgress);
+                if(!pauseData.isPaused)
+                    Time.timeScale = bulletTimeVariationCurve.Evaluate(timerProgress);
                 yield return null;
             }
 
@@ -190,6 +195,12 @@ namespace Player
             _healthPoints.SetCanTakeDamage(false);
             yield return new WaitForSeconds(phantomDuration);
             _healthPoints.SetCanTakeDamage(true);
+        }
+
+        public void ResetDash()
+        {
+            _canDash = true;
+            onDashRechargedEvent?.RaiseEvent();
         }
     }
 }

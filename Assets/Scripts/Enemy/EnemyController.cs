@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Enemy.Shield;
 using Events;
+using Events.ScriptableObjects;
 using Health;
 using UnityEngine;
 using UnityEngine.Serialization;

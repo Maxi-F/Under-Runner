@@ -17,4 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameLoop.unity
     guid: 748affaa315e2a14c90fba11374f7559
+  - enabled: 1
+    path: Assets/Scenes/OverlayCanvas.unity
+    guid: 7173541d653761b48bdf939479f774c9
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: afabe5d021f3c174a8a2feca4330be86
   m_configObjects: {}
