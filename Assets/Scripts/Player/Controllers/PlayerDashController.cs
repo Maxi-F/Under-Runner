@@ -196,5 +196,11 @@ namespace Player
             yield return new WaitForSeconds(phantomDuration);
             _healthPoints.SetCanTakeDamage(true);
         }
+
+        public void ResetDash()
+        {
+            _canDash = true;
+            onDashRechargedEvent?.RaiseEvent();
+        }
     }
 }
