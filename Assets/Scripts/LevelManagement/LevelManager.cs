@@ -1,12 +1,16 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Events;
 using Events.ScriptableObjects;
 using Health;
+using LevelManagement.Sequences;
 using UnityEngine;
+using Utils;
 
 namespace LevelManagement
 {
+    [RequireComponent(typeof(StartLevelSequence))]
     public class LevelManager : MonoBehaviour
     {
         [SerializeField] private List<LevelLoopSO> loopConfigs;
@@ -27,7 +31,15 @@ namespace LevelManagement
         
         private void Start()
         {
+            Sequence sequence = GetComponent<StartLevelSequence>().GetStartSequence();
+            sequence.AddPostAction(HandleStartGameplay());
+            StartCoroutine(sequence.Execute());
+        }
+
+        private IEnumerator HandleStartGameplay()
+        {
             HandleResetGameplay();
+            yield return null;
         }
 
         private void OnEnable()
@@ -80,6 +92,7 @@ namespace LevelManagement
 
         private void HandleResetGameplay()
         {
+            Debug.Log("Hi?");
             _loopConfigIndex = 0;
             playerHealthPoints.ResetHitPoints();
             bossHealthPoints.ResetHitPoints();

@@ -1,4 +1,5 @@
 using System.Collections;
+using LevelManagement.Sequences;
 using ObstacleSystem;
 using UnityEngine;
 
@@ -23,7 +24,7 @@ namespace LevelManagement
             _actualLoopSequence = StartCoroutine(StartLoopWithConfig());
         }
 
-        private void SetupLevelLoop(LevelLoopSO loopConfig)
+        public void SetupLevelLoop(LevelLoopSO loopConfig)
         {
             _levelConfig = loopConfig;
 
