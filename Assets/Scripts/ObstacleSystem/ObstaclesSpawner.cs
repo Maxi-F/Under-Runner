@@ -62,6 +62,8 @@ namespace ObstacleSystem
 
             if (_spawnCoroutine != null)
                 StopCoroutine(SpawnObjectCoroutine());
+            
+            Clear();
         }
 
         public void Disable()
