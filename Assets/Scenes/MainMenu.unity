@@ -431,8 +431,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8516856103388622650, guid: 65e5f6d121e9e014c998b48c5e16648e, type: 3}
+      propertyPath: scenesToSubscribeTo.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8516856103388622650, guid: 65e5f6d121e9e014c998b48c5e16648e, type: 3}
       propertyPath: onHandleCanvasesEvents.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8516856103388622650, guid: 65e5f6d121e9e014c998b48c5e16648e, type: 3}
+      propertyPath: scenesToSubscribeTo.Array.data[1]
+      value: Credits
       objectReference: {fileID: 0}
     - target: {fileID: 8516856103388622650, guid: 65e5f6d121e9e014c998b48c5e16648e, type: 3}
       propertyPath: onHandleCanvasesEvents.Array.data[0]
