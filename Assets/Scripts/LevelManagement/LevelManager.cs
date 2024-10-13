@@ -13,12 +13,14 @@ namespace LevelManagement
         [SerializeField] private LevelLoopManager levelLoopManager;
         [SerializeField] private HealthPoints playerHealthPoints;
         [SerializeField] private HealthPoints bossHealthPoints;
+        [SerializeField] private String creditsScene = "Credits";
         
         [Header("Events")]
         [SerializeField] private IntEventChannelSO onEnemyDamageEvent;
         [SerializeField] private VoidEventChannelSO onPlayerDeathEvent;
         [SerializeField] private BoolEventChannelSO onTryAgainCanvasEvent;
         [SerializeField] private VoidEventChannelSO onResetGameplayEvent;
+        [SerializeField] private StringEventChannelSo onOpenSceneEvent;
         
         private int _loopConfigIndex;
         private LevelLoopSO _actualLoopConfig;
@@ -62,13 +64,20 @@ namespace LevelManagement
         {
             if (_loopConfigIndex >= loopConfigs.Count)
             {
-                Debug.LogWarning("Loop index more than count");
+                Debug.LogWarning("Loop index more than count. Finishing gameplay");
+                HandleFinish();
                 return;
             }
             
             _actualLoopConfig = loopConfigs[_loopConfigIndex];
         }
-        
+
+        private void HandleFinish()
+        {
+            levelLoopManager.StopSequence();
+            onOpenSceneEvent.RaiseEvent(creditsScene);
+        }
+
         private void HandleResetGameplay()
         {
             _loopConfigIndex = 0;
