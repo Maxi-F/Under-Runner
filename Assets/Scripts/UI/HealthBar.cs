@@ -61,7 +61,6 @@ namespace UI
                 _wasTriggered = true;
             }
 
-            Debug.Log($"{slider.value}, {currentHealth}");
             slider.value = currentHealth;
         }
     }
