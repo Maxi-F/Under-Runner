@@ -44,6 +44,12 @@ namespace LevelManagement
             obstaclesSpawner.gameObject.SetActive(false);
             roadManager.HandleNewVelocity(roadData.roadVelocity);
         }
+
+        public void ClearSequence()
+        {
+            obstaclesSpawner.Clear();
+            obstaclesSpawner.gameObject.SetActive(false);
+        }
         
         private void HandleObstacleSystemDisabled()
         {
@@ -63,7 +69,6 @@ namespace LevelManagement
         public void SetPostAction(IEnumerator postAction)
         {
             _postAction = postAction;
-            Debug.Log(_postAction);
         }
 
         private Sequence GetObstacleSequence()

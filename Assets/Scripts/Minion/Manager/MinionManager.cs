@@ -69,6 +69,7 @@ namespace Minion.Manager
         
         private void RemoveAllMinions()
         {
+            if (_minions == null) return;
             foreach (var minion in _minions.ToList())
             {
                 _minions.Remove(minion);
@@ -125,6 +126,11 @@ namespace Minion.Manager
 
             _isSpawning = false;
             yield return null;
+        }
+
+        public void Clear()
+        {
+            RemoveAllMinions();
         }
     }
 }

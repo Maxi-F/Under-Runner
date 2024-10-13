@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Events;
+using Events.ScriptableObjects;
 using Health;
 using UnityEngine;
 
@@ -12,41 +13,39 @@ namespace LevelManagement
         [SerializeField] private LevelLoopManager levelLoopManager;
         [SerializeField] private HealthPoints playerHealthPoints;
         [SerializeField] private HealthPoints bossHealthPoints;
-        [SerializeField] private string playerDeathGoToScene = "Menu";
         
         [Header("Events")]
         [SerializeField] private IntEventChannelSO onEnemyDamageEvent;
         [SerializeField] private VoidEventChannelSO onPlayerDeathEvent;
-        [SerializeField] private StringEventChannelSo onChangeSceneEvent;
+        [SerializeField] private BoolEventChannelSO onTryAgainCanvasEvent;
+        [SerializeField] private VoidEventChannelSO onResetGameplayEvent;
         
         private int _loopConfigIndex;
         private LevelLoopSO _actualLoopConfig;
         
         private void Start()
         {
-            _loopConfigIndex = 0;
-            playerHealthPoints.ResetHitPoints();
-            bossHealthPoints.ResetHitPoints();
-            
-            SetActualLoop();
-            levelLoopManager.StartLevelSequence(_actualLoopConfig);
+            HandleResetGameplay();
         }
 
         private void OnEnable()
         {
+            onResetGameplayEvent?.onEvent.AddListener(HandleResetGameplay);
             onEnemyDamageEvent?.onIntEvent.AddListener(HandleNextPhase);
             onPlayerDeathEvent?.onEvent.AddListener(HandlePlayerDeath);
         }
 
         private void OnDisable()
         {
+            onResetGameplayEvent?.onEvent.RemoveListener(HandleResetGameplay);
             onEnemyDamageEvent?.onIntEvent.RemoveListener(HandleNextPhase);
             onPlayerDeathEvent?.onEvent.RemoveListener(HandlePlayerDeath);
         }
 
         private void HandlePlayerDeath()
         {
-            onChangeSceneEvent?.RaiseEvent(playerDeathGoToScene);
+            onTryAgainCanvasEvent?.RaiseEvent(true);
+            levelLoopManager.StopSequence();
         }
         
         private void HandleNextPhase(int hitPointsLeft)
@@ -68,6 +67,16 @@ namespace LevelManagement
             }
             
             _actualLoopConfig = loopConfigs[_loopConfigIndex];
+        }
+        
+        private void HandleResetGameplay()
+        {
+            _loopConfigIndex = 0;
+            playerHealthPoints.ResetHitPoints();
+            bossHealthPoints.ResetHitPoints();
+            
+            SetActualLoop();
+            levelLoopManager.StartLevelSequence(_actualLoopConfig);
         }
     }
 }
