@@ -1,10 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Events;
-using Roads.ScriptableObjects;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Roads
 {
@@ -20,7 +17,7 @@ namespace Roads
         [SerializeField] private GameObjectEventChannelSO onRoadDeleteTriggerEvent;
         [SerializeField] private GameObjectEventChannelSO onRoadInstantiatedEvent;
         [SerializeField] private Vector3EventChannelSO onNewVelocityEvent;
-        [SerializeField] private VoidEventChannelSO onGameplayEndEvent;
+        [SerializeField] private Vector3EventChannelSO onNewRoadManagerVelocity;
         
         private int _roadCount;
         private List<GameObject> _roads = new List<GameObject>();
@@ -39,14 +36,16 @@ namespace Roads
                 initRoad.SetActive(true);
                 _roads.Add(initRoad);
             }
+            
+            HandleNewVelocity(roadsInitVelocity);
+            onNewRoadManagerVelocity?.onVectorEvent.AddListener(HandleNewVelocity);
             onRoadDeleteTriggerEvent?.onGameObjectEvent.AddListener(HandleDeleteRoad);
-            onGameplayEndEvent?.onEvent.AddListener(HandleRemoveRoads);
         }
 
         public void OnDisable()
         {
+            onNewRoadManagerVelocity?.onVectorEvent.RemoveListener(HandleNewVelocity);
             onRoadDeleteTriggerEvent?.onGameObjectEvent.RemoveListener(HandleDeleteRoad);
-            onGameplayEndEvent?.onEvent.RemoveListener(HandleRemoveRoads);
         }
 
         private void HandleRemoveRoads()

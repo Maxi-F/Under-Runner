@@ -11,12 +11,13 @@ namespace LevelManagement
 {
     public class ObstacleSequence : MonoBehaviour
     {
-        [SerializeField] private RoadManager roadManager;
         [SerializeField] private float progressBarMaxValue = 1f;
         
         [Header("Spawners")]
         [SerializeField] private ObstaclesSpawner obstaclesSpawner;
 
+        [Header("Events")] [SerializeField] private Vector3EventChannelSO onNewRoadManagerVelocity;
+        
         [Header("UI Events")] 
         [SerializeField] private FloatEventChannelSO onProgressBarChangeEvent;
         [SerializeField] private BoolEventChannelSO onProgressBarActiveEvent;
@@ -42,7 +43,7 @@ namespace LevelManagement
         public void SetupSequence(RoadData roadData)
         {
             obstaclesSpawner.gameObject.SetActive(false);
-            roadManager.HandleNewVelocity(roadData.roadVelocity);
+            onNewRoadManagerVelocity?.RaiseEvent(roadData.roadVelocity);
         }
 
         public void ClearSequence()

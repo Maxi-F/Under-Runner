@@ -193,7 +193,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6288261650114330022, guid: d1b9efb00f169a74eba642e6c29ec261, type: 3}
       propertyPath: initScenes.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6288261650114330022, guid: d1b9efb00f169a74eba642e6c29ec261, type: 3}
       propertyPath: initScenes.Array.data[0]
@@ -202,6 +202,10 @@ PrefabInstance:
     - target: {fileID: 6288261650114330022, guid: d1b9efb00f169a74eba642e6c29ec261, type: 3}
       propertyPath: initScenes.Array.data[1]
       value: MainMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 6288261650114330022, guid: d1b9efb00f169a74eba642e6c29ec261, type: 3}
+      propertyPath: initScenes.Array.data[2]
+      value: Roads
       objectReference: {fileID: 0}
     - target: {fileID: 7888415006632084745, guid: d1b9efb00f169a74eba642e6c29ec261, type: 3}
       propertyPath: m_LocalPosition.x
