@@ -4,6 +4,7 @@ using System.Linq;
 using Events;
 using Minion.ScriptableObjects;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Minion.Manager
 {
@@ -16,7 +17,7 @@ namespace Minion.Manager
         [Header("Events")]
         [SerializeField] private GameObjectEventChannelSO onMinionDeletedEvent;
         [SerializeField] private VoidEventChannelSO onAllMinionsDestroyedEvent;
-        [SerializeField] private VoidEventChannelSO onPlayerDeathEvent;
+        [SerializeField] private VoidEventChannelSO onGameplayEndEvent;
         [SerializeField] private GameObjectEventChannelSO onMinionAttackingEvent;
         [SerializeField] private GameObjectEventChannelSO onMinionAttackedEvent;
         
@@ -32,7 +33,7 @@ namespace Minion.Manager
             CanAttack = true;
             _spawnCoroutine = StartCoroutine(SpawnMinions());
             onMinionDeletedEvent?.onGameObjectEvent.AddListener(HandleDeletedEvent);
-            onPlayerDeathEvent?.onEvent.AddListener(RemoveAllMinions);
+            onGameplayEndEvent?.onEvent.AddListener(RemoveAllMinions);
             onMinionAttackingEvent?.onGameObjectEvent.AddListener(AddAttackingMinion);
             onMinionAttackedEvent?.onGameObjectEvent.AddListener(RemoveAttackingMinion);
         }
@@ -40,7 +41,7 @@ namespace Minion.Manager
         protected void OnDisable()
         {
             onMinionDeletedEvent?.onGameObjectEvent.RemoveListener(HandleDeletedEvent);
-            onPlayerDeathEvent?.onEvent.RemoveListener(RemoveAllMinions);
+            onGameplayEndEvent?.onEvent.RemoveListener(RemoveAllMinions);
             onMinionAttackingEvent?.onGameObjectEvent.RemoveListener(AddAttackingMinion);
             onMinionAttackedEvent?.onGameObjectEvent.RemoveListener(RemoveAttackingMinion);
             StopCoroutine(_spawnCoroutine);
@@ -68,6 +69,7 @@ namespace Minion.Manager
         
         private void RemoveAllMinions()
         {
+            if (_minions == null) return;
             foreach (var minion in _minions.ToList())
             {
                 _minions.Remove(minion);
@@ -124,6 +126,11 @@ namespace Minion.Manager
 
             _isSpawning = false;
             yield return null;
+        }
+
+        public void Clear()
+        {
+            RemoveAllMinions();
         }
     }
 }

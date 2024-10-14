@@ -783,7 +783,7 @@ GameObject:
   - component: {fileID: 9144514285473780771}
   - component: {fileID: 1520005682604174300}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: GameplayUICanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1189,6 +1189,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7327458791721136900}
   - component: {fileID: 371584187405682488}
+  - component: {fileID: 4396712340851485178}
   m_Layer: 5
   m_Name: ProgressBar
   m_TagString: Untagged
@@ -1268,6 +1269,20 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4396712340851485178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6832293685234490094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e12168603d457fa4c9d936c62b2f7f97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onProgressBarActiveEvent: {fileID: 11400000, guid: beab834ba12792d4a91e8638176bf181, type: 2}
+  onProgressBarValueEvent: {fileID: 11400000, guid: e510a2ae5cc7ffb40b5e982f51399a93, type: 2}
 --- !u!1 &7045684566012187175
 GameObject:
   m_ObjectHideFlags: 0
@@ -1743,11 +1758,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcc4f15cea37ddf46bb499cad79758ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: {fileID: 0}
   slider: {fileID: 7009945050609195404}
   shouldStartHided: 0
   onTakeDamage: {fileID: 11400000, guid: 703652f7737657e41ba9437afd9a0117, type: 2}
-  onResetDamage: {fileID: 0}
+  onResetDamage: {fileID: 11400000, guid: d276143688fe85f45bce528b1753dd72, type: 2}
+  onInitializeSlider: {fileID: 0}
 --- !u!1 &8803981736539142156
 GameObject:
   m_ObjectHideFlags: 0

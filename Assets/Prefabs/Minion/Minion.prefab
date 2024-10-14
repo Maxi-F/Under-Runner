@@ -161,11 +161,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcc4f15cea37ddf46bb499cad79758ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: {fileID: 5575126865424349212}
   slider: {fileID: 5135750954969982833}
   shouldStartHided: 0
   onTakeDamage: {fileID: 11400000, guid: d7c92d4ecc5578245b7e8d6eca51d765, type: 2}
   onResetDamage: {fileID: 0}
+  onInitializeSlider: {fileID: 11400000, guid: 8dd2cf95881f9294b8af19fe69792246, type: 2}
 --- !u!1 &3481237237909825566
 GameObject:
   m_ObjectHideFlags: 0
@@ -1107,6 +1107,8 @@ MonoBehaviour:
   onDeathEvent: {fileID: 0}
   onTakeDamageEvent: {fileID: 11400000, guid: d7c92d4ecc5578245b7e8d6eca51d765, type: 2}
   onResetPointsEvent: {fileID: 0}
+  onInitializeHealthEvent: {fileID: 0}
+  onInitializeMaxHealthEvent: {fileID: 11400000, guid: 8dd2cf95881f9294b8af19fe69792246, type: 2}
   onDamageAvoidedEvent: {fileID: 0}
   onInternalDeathEvent:
     m_PersistentCalls:

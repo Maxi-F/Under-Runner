@@ -66,7 +66,12 @@ namespace LevelManagement
 
             return minionSequence.Execute();
         }
-        
-        
+
+
+        public void ClearSequence()
+        {
+            minionManager.Clear();
+            HandleAllMinionsDestroyed();
+        }
     }
 }

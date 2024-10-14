@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Linq;
 using Events;
+using Events.ScriptableObjects;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -21,7 +22,6 @@ namespace Enemy.Attacks
             _attacks ??= GetComponents<IEnemyAttack>();
 
             SelectRandomAttack();
-
         }
 
         public void PerformAttack()

@@ -15,11 +15,12 @@ namespace LevelManagement
         [SerializeField] private BossSequence bossSequence;
         
         private LevelLoopSO _levelConfig;
+        private Coroutine _actualLoopSequence;
 
         public void StartLevelSequence(LevelLoopSO loopConfig)
         {
             SetupLevelLoop(loopConfig);
-            StartCoroutine(StartLoopWithConfig());
+            _actualLoopSequence = StartCoroutine(StartLoopWithConfig());
         }
 
         private void SetupLevelLoop(LevelLoopSO loopConfig)
@@ -38,6 +39,16 @@ namespace LevelManagement
         private IEnumerator StartLoopWithConfig()
         {
             return obstacleSequence.Execute();
+        }
+
+        public void StopSequence()
+        {
+            if (_actualLoopSequence != null)
+            {
+                StopCoroutine(_actualLoopSequence);
+                obstacleSequence.ClearSequence();
+                minionsSequence.ClearSequence();
+            }
         }
     }
 }
