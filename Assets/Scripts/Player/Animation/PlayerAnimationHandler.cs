@@ -20,4 +20,14 @@ public class PlayerAnimationHandler : MonoBehaviour
         _animator.SetFloat("velocity_x", normalizedDir.x, animationConfig.moveDampTime, Time.deltaTime);
         _animator.SetFloat("velocity_z", normalizedDir.y, animationConfig.moveDampTime, Time.deltaTime);
     }
+
+    public void StartAttackAnimation()
+    {
+        _animator.SetTrigger("Attack");
+    }
+
+    public void SetAttackProgress(float progress)
+    {
+        _animator.SetFloat("attackProgress", progress);
+    }
 }

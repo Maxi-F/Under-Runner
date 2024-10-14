@@ -12,15 +12,16 @@ namespace Player
         [SerializeField] private PauseSO pauseData;
         [SerializeField] private InputHandlerSO inputHandler;
 
-        [Header("Attack Configuration")]
-        [SerializeField] private float attackAmplitude;
+        [Header("Animation Handler")]
+        [SerializeField] private PlayerAnimationHandler animationHandler;
 
-        [SerializeField] private GameObject meleeWeaponPivot;
+        [Header("Attack Configuration")]
         [SerializeField] private MeleeWeapon meleeWeapon;
-        [SerializeField] private float attackRadius;
+        [SerializeField] private AnimationCurve attackCurve;
+        [SerializeField] private LayerMask layers;
         [SerializeField] private float attackDuration;
         [SerializeField] private float attackCoolDown;
-        [SerializeField] private LayerMask layers;
+
 
         private bool _canAttack = true;
         private Coroutine _attackCoroutine = null;
@@ -49,29 +50,20 @@ namespace Player
         private IEnumerator AttackCoroutine()
         {
             _canAttack = false;
-            float minAngle = 90 - attackAmplitude / 2;
-            float maxAngle = -90 - attackAmplitude / 2;
-            minAngle = -minAngle;
 
-            quaternion startRotation = Quaternion.Euler(0, -(90 - attackAmplitude / 2), 0);
-            quaternion finalRotation = Quaternion.Euler(0, -(90 + attackAmplitude / 2), 0);
-            meleeWeaponPivot.transform.localRotation = startRotation;
-            meleeWeaponPivot.SetActive(true);
-
+            meleeWeapon.enabled = true;
             float timer = 0;
             float startTime = Time.time;
+            animationHandler.StartAttackAnimation();
 
-            while (timer < attackDuration && meleeWeaponPivot.activeInHierarchy)
+            while (timer < attackDuration)
             {
                 timer = Time.time - startTime;
-                float yAxisAngle = Mathf.Lerp(minAngle, maxAngle, timer / attackDuration);
-                meleeWeaponPivot.transform.localRotation = Quaternion.Euler(0, yAxisAngle, 0);
-                // meleeWeapon.transform.localRotation = Quaternion.Lerp(startRotation, finalRotation, timer / attackDuration);
+                animationHandler.SetAttackProgress(attackCurve.Evaluate(timer / attackDuration));
                 yield return null;
             }
 
-            meleeWeaponPivot.SetActive(false);
-            meleeWeapon.GetComponent<MeleeWeapon>().ResetHittedEnemiesBuffer();
+            meleeWeapon.enabled = false;
             yield return CoolDownCoroutine();
             _canAttack = true;
         }
