@@ -6,9 +6,10 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class PlayerAnimationHandler : MonoBehaviour
 {
-    [SerializeField] private float movementDampTime;
-    
+    [SerializeField] private PlayerAnimationConfigSO animationConfig;
+
     private Animator _animator;
+
     private void Awake()
     {
         _animator = GetComponent<Animator>();
@@ -16,7 +17,7 @@ public class PlayerAnimationHandler : MonoBehaviour
 
     public void SetPlayerDirection(Vector2 normalizedDir)
     {
-        _animator.SetFloat("velocity_x", normalizedDir.x, movementDampTime, Time.deltaTime);
-        _animator.SetFloat("velocity_z", normalizedDir.y, movementDampTime, Time.deltaTime);
+        _animator.SetFloat("velocity_x", normalizedDir.x, animationConfig.moveDampTime, Time.deltaTime);
+        _animator.SetFloat("velocity_z", normalizedDir.y, animationConfig.moveDampTime, Time.deltaTime);
     }
 }

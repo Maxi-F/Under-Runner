@@ -931,4 +931,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c041e74c5b6f755449c3ffc2fc2b6354, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementDampTime: 0.2
+  animationConfig: {fileID: 11400000, guid: 68e84a2ede4a0ca429e7d7b7e44e6f4b, type: 2}
