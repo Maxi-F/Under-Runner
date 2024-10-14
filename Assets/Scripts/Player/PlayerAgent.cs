@@ -18,6 +18,16 @@ namespace Player
         private State _moveState;
         private State _dashState;
 
+        public void DisableFSM()
+        {
+            Fsm.Disable();
+        }
+
+        public void EnableFSM()
+        {
+            Fsm.Enable();
+        }
+
         public void ChangeStateToMove()
         {
             Fsm.ChangeState(_moveState);

@@ -69,6 +69,7 @@ namespace Health
             CurrentHp = maxHealth;
             onResetPointsEvent?.RaiseEvent(CurrentHp);
             onInternalResetEvent?.Invoke(CurrentHp);
+            RaiseInitMaxHpEvent();
         }
 
         public bool TryTakeDamage(int damage)
@@ -103,6 +104,11 @@ namespace Health
         {
             if (_isInvincible) return;
             TryTakeDamage(damage);
+        }
+
+        public void RaiseInitMaxHpEvent()
+        {
+            onInitializeMaxHealthEvent?.RaiseEvent(MaxHealth);
         }
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD

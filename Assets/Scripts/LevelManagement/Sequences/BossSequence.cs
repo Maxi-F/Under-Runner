@@ -3,7 +3,7 @@ using Attacks.FallingAttack;
 using UnityEngine;
 using Utils;
 
-namespace LevelManagement
+namespace LevelManagement.Sequences
 {
     public class BossSequence : MonoBehaviour
     {

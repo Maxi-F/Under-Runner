@@ -40,5 +40,10 @@ namespace FSM
         {
             _isDisabled = true;
         }
+
+        public void Enable()
+        {
+            _isDisabled = false;
+        }
     }
 }

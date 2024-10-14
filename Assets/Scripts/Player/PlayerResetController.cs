@@ -21,7 +21,6 @@ namespace Player
         
         private void OnEnable()
         {
-            transform.position = initPosition;
             onPlayerDeathEvent?.onEvent.AddListener(DisablePlayer);
         }
 
@@ -39,6 +38,7 @@ namespace Player
         {
             healthPoints.ResetHitPoints();
             dashController.ResetDash();
+            transform.position = initPosition;
             gameObject.SetActive(true);
         }
 
