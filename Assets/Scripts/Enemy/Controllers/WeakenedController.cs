@@ -2,6 +2,7 @@ using System.Collections;
 using Enemy;
 using Enemy.Shield;
 using Events;
+using Events.ScriptableObjects;
 using FSM;
 using Health;
 using UnityEngine;
@@ -19,7 +20,7 @@ public class WeakenedController : EnemyController
 
     [Header("Events")]
     [SerializeField] private VoidEventChannelSO onEnemyDeathEvent;
-    [SerializeField] private BoolEventChannelSO onEnemyParriedEvent;
+    [SerializeField] private EventChannelSO<bool> onEnemyParriedEvent;
     [SerializeField] private IntEventChannelSO onEnemyDamageEvent;
 
     private void OnEnable()
