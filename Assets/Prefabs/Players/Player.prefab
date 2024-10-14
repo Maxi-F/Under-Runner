@@ -575,7 +575,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 192
   attackDuration: 1.25
-  attackCoolDown: 0.25
+  attackCoolDown: 0.1
 --- !u!114 &1856129533111618862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -743,8 +743,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.11199057, y: 0.02, z: 0.18024309}
-  m_Center: {x: -0.059200756, y: -0.00000025511943, z: 0.009879157}
+  m_Size: {x: 0.12256369, y: 0.02, z: 0.18024309}
+  m_Center: {x: -0.064487636, y: -0.0000003521879, z: 0.009879428}
 --- !u!54 &3264810219008562671
 Rigidbody:
   m_ObjectHideFlags: 0

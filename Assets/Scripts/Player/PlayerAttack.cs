@@ -60,6 +60,9 @@ namespace Player
             {
                 timer = Time.time - startTime;
                 animationHandler.SetAttackProgress(attackCurve.Evaluate(timer / attackDuration));
+                if (meleeWeapon.enabled && timer / attackDuration > 0.5f)
+                    meleeWeapon.enabled = false;
+                
                 yield return null;
             }
 
