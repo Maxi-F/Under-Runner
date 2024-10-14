@@ -18,7 +18,7 @@ namespace LevelManagement.Sequences
         [SerializeField] private float otherPlayersEndZPosition;
         [SerializeField] private float playerInitZPosition;
 
-        [Header("Events")] 
+        [Header("Events")]
         [SerializeField] private VoidEventChannelSO onCinematicStarted;
         [SerializeField] private VoidEventChannelSO onStartCinematicCanvas;
         [SerializeField] private VoidEventChannelSO onEndCinematicCanvas;
@@ -26,7 +26,7 @@ namespace LevelManagement.Sequences
         [SerializeField] private BoolEventChannelSO onGameplayUICanvasEvent;
         [SerializeField] private BoolEventChannelSO onCinematicUICanvasEvent;
         [SerializeField] private VoidEventChannelSO onCinematicEnded;
-        
+
         private bool _isCinematicCanvasAnimating;
 
         private void OnEnable()
@@ -42,7 +42,7 @@ namespace LevelManagement.Sequences
         public Sequence GetStartSequence()
         {
             Sequence startSequence = new Sequence();
-            
+
             startSequence.AddPreAction(StopPlayerMovement());
             startSequence.AddPreAction(HandleStartCinematicCanvas());
             startSequence.AddPreAction(MoveOtherPlayers());
@@ -56,8 +56,10 @@ namespace LevelManagement.Sequences
         {
             onCinematicStarted?.RaiseEvent();
             PlayerAgent agent = player.GetComponent<PlayerAgent>();
-            
+            PlayerAttack playerAttack = player.GetComponent<PlayerAttack>();
+
             agent.DisableFSM();
+            playerAttack.enabled = false;
             yield return null;
         }
 
@@ -68,9 +70,11 @@ namespace LevelManagement.Sequences
                 player.transform.position += new Vector3(0, 0, playersVelocity) * Time.deltaTime;
                 yield return null;
             }
-            
+
             PlayerAgent agent = player.GetComponent<PlayerAgent>();
             agent.EnableFSM();
+            PlayerAttack playerAttack = player.GetComponent<PlayerAttack>();
+            playerAttack.enabled = true;
         }
 
         private IEnumerator MoveOtherPlayers()
@@ -114,7 +118,7 @@ namespace LevelManagement.Sequences
             _isCinematicCanvasAnimating = true;
             yield return new WaitWhile(() => _isCinematicCanvasAnimating);
         }
-        
+
         private void HandleFinishedAnimation()
         {
             _isCinematicCanvasAnimating = false;
