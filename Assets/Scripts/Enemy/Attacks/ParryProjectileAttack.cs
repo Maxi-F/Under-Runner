@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Attacks.ParryProjectile;
 using Events;
+using Events.ScriptableObjects;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -19,7 +20,7 @@ namespace Enemy.Attacks
 
         [Header("Events")]
         [SerializeField] private VoidEventChannelSO onAnotherAttackExecuted;
-        [SerializeField] private BoolEventChannelSO onParryFinished;
+        [SerializeField] private EventChannelSO<bool> onParryFinished;
 
         private ParryBomb _parryBomb;
         private int _executedAttacksQuantity;
@@ -27,13 +28,13 @@ namespace Enemy.Attacks
         private void OnEnable()
         {
             onAnotherAttackExecuted?.onEvent.AddListener(AddExecutedAttack);
-            onParryFinished?.onBoolEvent.AddListener(HandleParryFinished);
+            onParryFinished?.onTypedEvent.AddListener(HandleParryFinished);
         }
 
         private void OnDisable()
         {
             onAnotherAttackExecuted?.onEvent.RemoveListener(AddExecutedAttack);
-            onParryFinished?.onBoolEvent.RemoveListener(HandleParryFinished);
+            onParryFinished?.onTypedEvent.RemoveListener(HandleParryFinished);
         }
 
         private void AddExecutedAttack()

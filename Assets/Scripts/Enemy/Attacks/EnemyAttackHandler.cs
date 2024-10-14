@@ -26,7 +26,6 @@ namespace Enemy.Attacks
 
         public void PerformAttack()
         {
-            SelectRandomAttack();
             StartCoroutine(ExecuteAttack());
         }
 
@@ -38,6 +37,8 @@ namespace Enemy.Attacks
 
         IEnumerator ExecuteAttack()
         {
+            yield return null;
+            SelectRandomAttack();
             yield return new WaitForSeconds(timeBetweenAttacks);
             yield return _actualAttack.Execute();
             onAttackExecutedEvent?.RaiseEvent();

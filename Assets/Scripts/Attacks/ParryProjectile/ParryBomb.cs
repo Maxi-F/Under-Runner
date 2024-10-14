@@ -3,6 +3,7 @@ using System.Collections;
 using Enemy;
 using Enemy.Shield;
 using Events;
+using Events.ScriptableObjects;
 using Health;
 using ParryProjectile;
 using UnityEngine;
@@ -34,7 +35,7 @@ namespace Attacks.ParryProjectile
         private float startVelocityInParry;
 
         [Header("Events")]
-        [SerializeField] private BoolEventChannelSO onParryFinished;
+        [SerializeField] private EventChannelSO<bool> onParryFinished;
 
         private GameObject _firstObjectToFollow;
         private Vector3 _targetPosition;
