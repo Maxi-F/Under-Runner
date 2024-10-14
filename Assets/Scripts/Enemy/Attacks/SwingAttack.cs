@@ -6,7 +6,7 @@ using Utils;
 
 namespace Enemy.Attacks
 {
-    public class SwingAttack : MonoBehaviour, IEnemyAttack
+    public class SwingAttack : EnemyController, IEnemyAttack
     {
         [SerializeField] private Swing swing;
         [SerializeField] private MeshRenderer bodyMeshRenderer;
@@ -27,7 +27,9 @@ namespace Enemy.Attacks
 
         public IEnumerator Execute()
         {
+            enemyAgent.ChangeStateToLaser();
             yield return CreateLaserSequence().Execute();
+            enemyAgent.ChangeStateToIdle();
         }
 
         private Sequence CreateLaserSequence()
