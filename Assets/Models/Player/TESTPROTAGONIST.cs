@@ -19,6 +19,6 @@ public class TESTPROTAGONIST : MonoBehaviour
     }
     public void Hit()
     {
-        anim.SetTrigger("ATTACK");
+        anim.SetTrigger("Attack");
     }
 }
