@@ -833,7 +833,6 @@ GameObject:
   - component: {fileID: 3623727221341694570}
   - component: {fileID: 2011814886892266701}
   - component: {fileID: 3120035166251398144}
-  - component: {fileID: 717183507908027113}
   - component: {fileID: 3084234489356656795}
   - component: {fileID: 4678668245326787109}
   - component: {fileID: 4729209335015210498}
@@ -929,7 +928,19 @@ MonoBehaviour:
   idleEvents:
     onEnter:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 3084234489356656795}
+          m_TargetAssemblyTypeName: Enemy.Attacks.EnemyAttackHandler, Assembly-CSharp
+          m_MethodName: PerformAttack
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     onUpdate:
       m_PersistentCalls:
         m_Calls: []
@@ -995,17 +1006,53 @@ MonoBehaviour:
   bombThrowEvents:
     onEnter:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 4678668245326787109}
+          m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+          m_MethodName: set_enabled
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
     onUpdate:
       m_PersistentCalls:
         m_Calls: []
     onExit:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 4678668245326787109}
+          m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+          m_MethodName: set_enabled
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   bombParryEvents:
     onEnter:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 3623727221341694570}
+          m_TargetAssemblyTypeName: EnemyAgent, Assembly-CSharp
+          m_MethodName: ChangeStateToIdle
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     onUpdate:
       m_PersistentCalls:
         m_Calls: []
@@ -1015,13 +1062,37 @@ MonoBehaviour:
   debrisThrowEvents:
     onEnter:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 4729209335015210498}
+          m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+          m_MethodName: set_enabled
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
     onUpdate:
       m_PersistentCalls:
         m_Calls: []
     onExit:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 4729209335015210498}
+          m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+          m_MethodName: set_enabled
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &2011814886892266701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1065,24 +1136,9 @@ MonoBehaviour:
   shieldActive: 1
   timeToReactivateShield: 4
   timeToStartReactivatingShield: 2
-  shieldPoints: {fileID: 3269783526113023923}
   onEnemyDeathEvent: {fileID: 11400000, guid: 36bbe8a4a81fcf74da11d75999d01f40, type: 2}
   onEnemyParriedEvent: {fileID: 11400000, guid: 2560c5f78509b5141b8e058e758dd606, type: 2}
   onEnemyDamageEvent: {fileID: 11400000, guid: 41331d8fc0079ac47bec86270d050339, type: 2}
---- !u!114 &717183507908027113
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8961736479340173517}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b05fd3a81c8047d408dcb40a534b986c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyAgent: {fileID: 0}
-  healthPoints: {fileID: 0}
 --- !u!114 &3084234489356656795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1096,7 +1152,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBetweenAttacks: 2
-  onEnemyParriedEvent: {fileID: 11400000, guid: 2560c5f78509b5141b8e058e758dd606, type: 2}
   onAttackExecutedEvent: {fileID: 11400000, guid: 322e70b8667e7784fae7bc03f04b1528, type: 2}
 --- !u!114 &4678668245326787109
 MonoBehaviour:
@@ -1110,6 +1165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7fa5f08dbdd9f142871d41d18595583, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyAgent: {fileID: 3623727221341694570}
   parryProjectile: {fileID: 3647964052860360875, guid: 48bea42002bf10540a71e54ce9228159, type: 3}
   player: {fileID: 0}
   offset: {x: 0, y: 0, z: -2}
@@ -1128,6 +1184,7 @@ MonoBehaviour:
     finalPosition: {x: 0, y: 0, z: -15}
     secondsInAngularVelocity: 1
   onAnotherAttackExecuted: {fileID: 11400000, guid: 322e70b8667e7784fae7bc03f04b1528, type: 2}
+  onParryFinished: {fileID: 11400000, guid: 89d56c8d69d49e34386d078d37079538, type: 2}
 --- !u!114 &4729209335015210498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1140,6 +1197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4423eb638b86e84d920f5ffbace90f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyAgent: {fileID: 3623727221341694570}
   onHandleAttack: {fileID: 11400000, guid: b7beabe1d50e1c046bb77491b247d49b, type: 2}
   onFinishSpawningBlocks: {fileID: 11400000, guid: cfa0964e0735edd48b4aa4868148bc0c, type: 2}
 --- !u!114 &6771036244692420438
@@ -1154,6 +1212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5092ec987e0ae784ca2190f7ef8010cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyAgent: {fileID: 3623727221341694570}
   swing: {fileID: 840522403494077163}
   bodyMeshRenderer: {fileID: 2637695399838873969}
   laserAttackMaterial: {fileID: 2100000, guid: 03b28fbc54a14fa4bb978cdc5c17b1f5, type: 2}
@@ -1187,6 +1246,10 @@ PrefabInstance:
       propertyPath: shieldModel
       value: 
       objectReference: {fileID: 453574315884602139}
+    - target: {fileID: 4991249550616943721, guid: d43615b12d6a40d4faec0d162fbb550c, type: 3}
+      propertyPath: _healthPoints
+      value: 
+      objectReference: {fileID: 3269783526113023923}
     - target: {fileID: 7759332051241287578, guid: d43615b12d6a40d4faec0d162fbb550c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

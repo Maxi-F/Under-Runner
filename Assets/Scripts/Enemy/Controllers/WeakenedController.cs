@@ -2,21 +2,20 @@ using System.Collections;
 using Enemy;
 using Enemy.Shield;
 using Events;
+using FSM;
 using Health;
 using UnityEngine;
 
 public class WeakenedController : EnemyController
 {
     [Header("Properties")]
+    [SerializeField] private HealthPoints healthPoints;
     [SerializeField] private ShieldController shieldController;
     [SerializeField] private bool shieldActive;
 
     [Header("ShieldProperties")]
     [SerializeField] private float timeToReactivateShield = 4.0f;
-
     [SerializeField] private float timeToStartReactivatingShield = 2.0f;
-
-    [SerializeField] private HealthPoints shieldPoints;
 
     [Header("Events")]
     [SerializeField] private VoidEventChannelSO onEnemyDeathEvent;
@@ -41,19 +40,20 @@ public class WeakenedController : EnemyController
     {
         gameObject.SetActive(false);
     }
-    
+
     public void HandleShield(bool isActive)
     {
         if (!isActive && !shieldController.IsActive()) return;
 
+        healthPoints.SetCanTakeDamage(!isActive);
+
         shieldController.SetActive(isActive);
-        shieldPoints.SetCanTakeDamage(!isActive);
-
+        
         onEnemyParriedEvent?.RaiseEvent(isActive);
-
         if (isActive)
         {
-            shieldPoints.ResetHitPoints();
+            shieldController.ResetShield();
+            enemyAgent.ChangeStateToIdle();
         }
         else
         {

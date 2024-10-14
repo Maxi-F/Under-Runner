@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Enemy;
 using Enemy.Shield;
+using Events;
 using Health;
 using ParryProjectile;
 using UnityEngine;
@@ -31,6 +32,9 @@ namespace Attacks.ParryProjectile
 
         [Header("Parry Properties")] [SerializeField]
         private float startVelocityInParry;
+
+        [Header("Events")]
+        [SerializeField] private BoolEventChannelSO onParryFinished;
 
         private GameObject _firstObjectToFollow;
         private Vector3 _targetPosition;
@@ -99,6 +103,7 @@ namespace Attacks.ParryProjectile
                 yield return null;
             }
 
+            onParryFinished.RaiseEvent(false);
             gameObject.SetActive(false);
         }
 
@@ -111,10 +116,11 @@ namespace Attacks.ParryProjectile
                 if (enemy.TryDestroyShield(shieldDamage))
                 {
                     gameObject.SetActive(false);
-                    other.GetComponent<EnemyAgent>().ChangeStateToWeakened();
+                    onParryFinished.RaiseEvent(true);
                     return;
                 }
 
+                other.GetComponent<EnemyAgent>().ChangeStateToBombParry();
                 Deflect(_firstObjectToFollow);
                 return;
             }
@@ -124,6 +130,7 @@ namespace Attacks.ParryProjectile
                 ITakeDamage damageTaker = other.GetComponent<ITakeDamage>();
 
                 damageTaker.TryTakeDamage(damage);
+                onParryFinished.RaiseEvent(false);
                 gameObject.SetActive(false);
             }
         }

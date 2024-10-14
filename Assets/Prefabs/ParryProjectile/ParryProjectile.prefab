@@ -52,6 +52,7 @@ MonoBehaviour:
   damage: 5
   shieldDamage: 1
   startVelocityInParry: 7
+  onParryFinished: {fileID: 11400000, guid: 89d56c8d69d49e34386d078d37079538, type: 2}
 --- !u!135 &8785185740733102612
 SphereCollider:
   m_ObjectHideFlags: 0

@@ -9,7 +9,6 @@ namespace Enemy.Shield
     public class ShieldController : MonoBehaviour
     {
         [SerializeField] private HealthPoints _healthPoints;
-        [SerializeField] private VoidEventChannelSO onShieldDestroyedEvent;
 
         [SerializeField] private Material activatingShieldMaterial;
         [SerializeField] private Material translucentMaterial;
@@ -89,11 +88,17 @@ namespace Enemy.Shield
 
             if (_healthPoints.IsDead())
             {
-                onShieldDestroyedEvent?.RaiseEvent();
+                _healthPoints.SetCanTakeDamage(false);
                 return true;
             }
 
             return false;
+        }
+
+        public void ResetShield()
+        {
+            _healthPoints.SetCanTakeDamage(true);
+            _healthPoints.ResetHitPoints();
         }
     }
 }
