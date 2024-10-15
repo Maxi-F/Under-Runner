@@ -19,14 +19,22 @@ namespace UI
 
         private Coroutine _moveIntoScreenCoroutine;
         private Coroutine _moveOutOfScreenCoroutine;
+        private Vector3 _initTopLocalPosition;
+        private Vector3 _initBottomLocalPosition;
         
         private void OnEnable()
         {
-            RectTransform topBarTransform = (RectTransform)topBar.transform;
-            RectTransform bottomBarTransform = (RectTransform)bottomBar.transform;
-            
             onStartCinematicCanvas?.onEvent.AddListener(MoveBarsToScreen);
             onEndCinematicCanvas?.onEvent.AddListener(MoveBarsOutOfScreen);
+
+            _initTopLocalPosition = topBar.transform.localPosition;
+            _initBottomLocalPosition = bottomBar.transform.localPosition;
+        }
+
+        private void OnDisable()
+        {
+            topBar.transform.localPosition = _initTopLocalPosition;
+            bottomBar.transform.localPosition = _initBottomLocalPosition;
         }
 
         private void MoveBarsOutOfScreen()
@@ -52,6 +60,7 @@ namespace UI
                 movedPixels += barMovementVelocity * Time.deltaTime;
                 yield return null;
             }
+
             
             onCinematicCanvasFinishedAnimation?.RaiseEvent();
         }

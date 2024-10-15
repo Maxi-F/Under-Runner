@@ -32,5 +32,10 @@ namespace LevelManagement.Sequences
             yield return null;
             boss.SetActive(true);
         }
+
+        public void ClearSequence()
+        {
+            boss.SetActive(false);
+        }
     }
 }
