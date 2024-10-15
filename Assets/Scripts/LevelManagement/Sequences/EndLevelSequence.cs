@@ -10,16 +10,17 @@ namespace LevelManagement.Sequences
     {
         [SerializeField] private GameObject player;
         [SerializeField] private float playerVelocity;
+        [SerializeField] private float finishZPosition;
+        [SerializeField] private string creditsScene = "Credits";
         
         [Header("Events")]
-        [SerializeField] private VoidEventChannelSO onCinematicStarted;
+        [SerializeField] private VoidEventChannelSO onCinematicPlayerLockStart;
         [SerializeField] private VoidEventChannelSO onStartCinematicCanvas;
         [SerializeField] private VoidEventChannelSO onEndCinematicCanvas;
         [SerializeField] private VoidEventChannelSO onCinematicCanvasFinishedAnimation;
         [SerializeField] private BoolEventChannelSO onGameplayUICanvasEvent;
         [SerializeField] private BoolEventChannelSO onCinematicUICanvasEvent;
         [SerializeField] private StringEventChannelSo onChangeSceneEvent;
-        [SerializeField] private VoidEventChannelSO onCinematicEnded;
         
         private bool _isCinematicCanvasAnimating;
         
@@ -37,14 +38,34 @@ namespace LevelManagement.Sequences
         {
             Sequence endSequence = new Sequence();
             
-            endSequence.AddPostAction(HandleStartCinematicCanvas());
+            endSequence.AddPreAction(HandleStartCinematic());
+            endSequence.SetAction(MovePlayerToHorizon());
+            endSequence.AddPostAction(HandleOpenCredits());
             
             return endSequence;
         }
-        
 
-        private IEnumerator HandleStartCinematicCanvas()
+        private IEnumerator HandleOpenCredits()
         {
+            onChangeSceneEvent?.RaiseEvent(creditsScene);
+            yield return null;
+        }
+
+        private IEnumerator MovePlayerToHorizon()
+        {
+            while (player.transform.position.z < finishZPosition)
+            {
+                player.transform.position += new Vector3(0, 0, playerVelocity) * Time.deltaTime;
+                yield return null;
+            }
+            
+            player.SetActive(false);
+        }
+
+
+        private IEnumerator HandleStartCinematic()
+        {
+            onCinematicPlayerLockStart?.RaiseEvent();
             onGameplayUICanvasEvent?.RaiseEvent(false);
             onCinematicUICanvasEvent?.RaiseEvent(true);
             onStartCinematicCanvas?.RaiseEvent();
