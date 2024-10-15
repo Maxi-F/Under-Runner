@@ -8,6 +8,9 @@ namespace Player.Controllers
         protected PlayerAgent playerAgent;
         protected Collider playerCollider;
 
+        [Header("Animation Handler")]
+        [SerializeField] protected PlayerAnimationHandler animatorHandler;
+
         protected virtual void OnEnable()
         {
             playerAgent ??= GetComponent<PlayerAgent>();

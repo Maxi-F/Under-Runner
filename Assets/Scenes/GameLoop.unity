@@ -1970,6 +1970,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 49bed95fec698814188e97e4aef4801b, type: 2}
     - target: {fileID: 4072355942097122109, guid: 997a42626b659814cb0aa0d749e0b092, type: 3}
+      propertyPath: onCinematicFinished
+      value: 
+      objectReference: {fileID: 11400000, guid: 9f9b493eaa207164b9413b5af5fee35b, type: 2}
+    - target: {fileID: 4072355942097122109, guid: 997a42626b659814cb0aa0d749e0b092, type: 3}
       propertyPath: onEndCinematicCanvas
       value: 
       objectReference: {fileID: 11400000, guid: 68da0e8aef79f8041932fb582d16cfcb, type: 2}
@@ -1986,6 +1990,10 @@ PrefabInstance:
       value: 44
       objectReference: {fileID: 0}
     - target: {fileID: 4072355942097122109, guid: 997a42626b659814cb0aa0d749e0b092, type: 3}
+      propertyPath: onCinematicPlayerLockStart
+      value: 
+      objectReference: {fileID: 11400000, guid: b711b8f3d88f6614bb9d23a652188ca8, type: 2}
+    - target: {fileID: 4072355942097122109, guid: 997a42626b659814cb0aa0d749e0b092, type: 3}
       propertyPath: otherPlayers.Array.data[0]
       value: 
       objectReference: {fileID: 386285595}
@@ -2001,6 +2009,10 @@ PrefabInstance:
       propertyPath: otherPlayers.Array.data[3]
       value: 
       objectReference: {fileID: 1159027144}
+    - target: {fileID: 4072355942097122109, guid: 997a42626b659814cb0aa0d749e0b092, type: 3}
+      propertyPath: onCinematicPlayerLockFinished
+      value: 
+      objectReference: {fileID: 11400000, guid: 83f6a3608cca1b64a9e546fae228e30e, type: 2}
     - target: {fileID: 4072355942097122109, guid: 997a42626b659814cb0aa0d749e0b092, type: 3}
       propertyPath: onCinematicCanvasFinishedAnimation
       value: 

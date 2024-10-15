@@ -18,15 +18,16 @@ namespace LevelManagement.Sequences
         [SerializeField] private float otherPlayersEndZPosition;
         [SerializeField] private float playerInitZPosition;
 
-        [Header("Events")] 
-        [SerializeField] private VoidEventChannelSO onCinematicStarted;
+        [Header("Events")]
+        [SerializeField] private VoidEventChannelSO onCinematicPlayerLockStart;
+        [SerializeField] private VoidEventChannelSO onCinematicPlayerLockFinished;
         [SerializeField] private VoidEventChannelSO onStartCinematicCanvas;
         [SerializeField] private VoidEventChannelSO onEndCinematicCanvas;
         [SerializeField] private VoidEventChannelSO onCinematicCanvasFinishedAnimation;
         [SerializeField] private BoolEventChannelSO onGameplayUICanvasEvent;
         [SerializeField] private BoolEventChannelSO onCinematicUICanvasEvent;
         [SerializeField] private VoidEventChannelSO onCinematicEnded;
-        
+
         private bool _isCinematicCanvasAnimating;
 
         private void OnEnable()
@@ -42,8 +43,8 @@ namespace LevelManagement.Sequences
         public Sequence GetStartSequence()
         {
             Sequence startSequence = new Sequence();
-            
-            startSequence.AddPreAction(StopPlayerMovement());
+
+            startSequence.AddPreAction(RaiseStartCinematicEvent());
             startSequence.AddPreAction(HandleStartCinematicCanvas());
             startSequence.AddPreAction(MoveOtherPlayers());
             startSequence.SetAction(MovePlayerToMiddle());
@@ -52,12 +53,9 @@ namespace LevelManagement.Sequences
             return startSequence;
         }
 
-        private IEnumerator StopPlayerMovement()
+        private IEnumerator RaiseStartCinematicEvent()
         {
-            onCinematicStarted?.RaiseEvent();
-            PlayerAgent agent = player.GetComponent<PlayerAgent>();
-            
-            agent.DisableFSM();
+            onCinematicPlayerLockStart?.RaiseEvent();
             yield return null;
         }
 
@@ -68,9 +66,8 @@ namespace LevelManagement.Sequences
                 player.transform.position += new Vector3(0, 0, playersVelocity) * Time.deltaTime;
                 yield return null;
             }
-            
-            PlayerAgent agent = player.GetComponent<PlayerAgent>();
-            agent.EnableFSM();
+
+            onCinematicPlayerLockFinished?.RaiseEvent();
         }
 
         private IEnumerator MoveOtherPlayers()
@@ -114,7 +111,7 @@ namespace LevelManagement.Sequences
             _isCinematicCanvasAnimating = true;
             yield return new WaitWhile(() => _isCinematicCanvasAnimating);
         }
-        
+
         private void HandleFinishedAnimation()
         {
             _isCinematicCanvasAnimating = false;

@@ -1,4 +1,5 @@
 using System.Collections;
+using Events;
 using Input;
 using Managers;
 using Player.Weapon;
@@ -12,15 +13,20 @@ namespace Player
         [SerializeField] private PauseSO pauseData;
         [SerializeField] private InputHandlerSO inputHandler;
 
-        [Header("Attack Configuration")]
-        [SerializeField] private float attackAmplitude;
+        [Header("Animation Handler")]
+        [SerializeField] private PlayerAnimationHandler animationHandler;
 
-        [SerializeField] private GameObject meleeWeaponPivot;
+        [Header("Initial Sequence Events")]
+        [SerializeField] private VoidEventChannelSO onCinematicStarted;
+        [SerializeField] private VoidEventChannelSO onCinematicFinished;
+
+        [Header("Attack Configuration")]
         [SerializeField] private MeleeWeapon meleeWeapon;
-        [SerializeField] private float attackRadius;
+        [SerializeField] private AnimationCurve attackCurve;
+        [SerializeField] private LayerMask layers;
         [SerializeField] private float attackDuration;
         [SerializeField] private float attackCoolDown;
-        [SerializeField] private LayerMask layers;
+
 
         private bool _canAttack = true;
         private Coroutine _attackCoroutine = null;
@@ -28,11 +34,17 @@ namespace Player
         private void OnEnable()
         {
             inputHandler.onPlayerAttack.AddListener(HandleAttack);
+
+            onCinematicStarted.onEvent.AddListener(DisableAttack);
+            onCinematicFinished.onEvent.AddListener(EnableAttack);
         }
 
         private void OnDisable()
         {
             inputHandler.onPlayerAttack.RemoveListener(HandleAttack);
+
+            onCinematicStarted.onEvent.RemoveListener(DisableAttack);
+            onCinematicFinished.onEvent.RemoveListener(EnableAttack);
         }
 
         public void HandleAttack()
@@ -49,29 +61,23 @@ namespace Player
         private IEnumerator AttackCoroutine()
         {
             _canAttack = false;
-            float minAngle = 90 - attackAmplitude / 2;
-            float maxAngle = -90 - attackAmplitude / 2;
-            minAngle = -minAngle;
 
-            quaternion startRotation = Quaternion.Euler(0, -(90 - attackAmplitude / 2), 0);
-            quaternion finalRotation = Quaternion.Euler(0, -(90 + attackAmplitude / 2), 0);
-            meleeWeaponPivot.transform.localRotation = startRotation;
-            meleeWeaponPivot.SetActive(true);
-
+            meleeWeapon.enabled = true;
             float timer = 0;
             float startTime = Time.time;
+            animationHandler.StartAttackAnimation();
 
-            while (timer < attackDuration && meleeWeaponPivot.activeInHierarchy)
+            while (timer < attackDuration)
             {
                 timer = Time.time - startTime;
-                float yAxisAngle = Mathf.Lerp(minAngle, maxAngle, timer / attackDuration);
-                meleeWeaponPivot.transform.localRotation = Quaternion.Euler(0, yAxisAngle, 0);
-                // meleeWeapon.transform.localRotation = Quaternion.Lerp(startRotation, finalRotation, timer / attackDuration);
+                animationHandler.SetAttackProgress(attackCurve.Evaluate(timer / attackDuration));
+                if (meleeWeapon.enabled && timer / attackDuration > 0.5f)
+                    meleeWeapon.enabled = false;
+
                 yield return null;
             }
 
-            meleeWeaponPivot.SetActive(false);
-            meleeWeapon.GetComponent<MeleeWeapon>().ResetHittedEnemiesBuffer();
+            meleeWeapon.enabled = false;
             yield return CoolDownCoroutine();
             _canAttack = true;
         }
@@ -79,6 +85,16 @@ namespace Player
         private IEnumerator CoolDownCoroutine()
         {
             yield return new WaitForSeconds(attackCoolDown);
+        }
+
+        private void EnableAttack()
+        {
+            _canAttack = true;
+        }
+
+        private void DisableAttack()
+        {
+            _canAttack = false;
         }
     }
 }
