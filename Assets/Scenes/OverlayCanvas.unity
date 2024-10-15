@@ -1044,6 +1044,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameplayUI
       objectReference: {fileID: 0}
+    - target: {fileID: 7727646535386843466, guid: 4cef017080308ce47b26c03ad4d2b108, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8760363022818257731, guid: 4cef017080308ce47b26c03ad4d2b108, type: 3}
       propertyPath: onInitializeSlider
       value: 
