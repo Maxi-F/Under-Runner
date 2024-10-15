@@ -421,6 +421,8 @@ MonoBehaviour:
   inputHandler: {fileID: 11400000, guid: 4902f51743585ca40aec021ece06aa06, type: 2}
   onPlayerNewPositionEvent: {fileID: 11400000, guid: 1edae3268f02d1c4190e82ddfa3be357, type: 2}
   onPlayerMovementEvent: {fileID: 0}
+  onCinematicStarted: {fileID: 0}
+  onCinematicFinished: {fileID: 0}
   boundsConfig: {fileID: 11400000, guid: ec9fc6062f1b51d4596422a3e4f7f265, type: 2}
   speed: 7.5
 --- !u!114 &4699157676241342615
@@ -721,12 +723,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7261930984988719095}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.000000037252903, y: 0.000000037252903, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 245402293782231676}
+  m_Father: {fileID: 1144671202781511183}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &2910608714162043841
 BoxCollider:
@@ -774,7 +776,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!114 &4645382247631583565
 MonoBehaviour:
@@ -845,17 +847,17 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 316993502900566261, guid: 307923de71b833449b055d96f2c19d72, type: 3}
-      insertIndex: -1
+    - targetCorrespondingSourceObject: {fileID: 640434306180922502, guid: 307923de71b833449b055d96f2c19d72, type: 3}
+      insertIndex: 0
       addedObject: {fileID: 5425943183477852265}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5376431236390557913, guid: 307923de71b833449b055d96f2c19d72, type: 3}
       insertIndex: -1
       addedObject: {fileID: 977276183979043023}
   m_SourcePrefab: {fileID: 100100000, guid: 307923de71b833449b055d96f2c19d72, type: 3}
---- !u!4 &245402293782231676 stripped
+--- !u!4 &1144671202781511183 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 316993502900566261, guid: 307923de71b833449b055d96f2c19d72, type: 3}
+  m_CorrespondingSourceObject: {fileID: 640434306180922502, guid: 307923de71b833449b055d96f2c19d72, type: 3}
   m_PrefabInstance: {fileID: 504957309232480905}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &2123000488000570907 stripped

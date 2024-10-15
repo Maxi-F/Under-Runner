@@ -601,6 +601,10 @@ PrefabInstance:
       propertyPath: enemy
       value: 
       objectReference: {fileID: 1224237589}
+    - target: {fileID: 4645382247631583565, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
+      propertyPath: damage
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4699157676241342615, guid: 3083adca6baa6e84f9ab522107f1414b, type: 3}
       propertyPath: onDashUsedEvent
       value: 
