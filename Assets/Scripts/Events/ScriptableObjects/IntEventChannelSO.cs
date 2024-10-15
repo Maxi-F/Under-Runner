@@ -13,6 +13,7 @@ namespace Events
             if (onIntEvent != null)
             {
                 onIntEvent.Invoke(value);
+                onEvent.Invoke();
             }
             else
             {
