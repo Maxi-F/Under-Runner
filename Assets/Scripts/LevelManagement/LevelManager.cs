@@ -11,6 +11,7 @@ using Utils;
 namespace LevelManagement
 {
     [RequireComponent(typeof(StartLevelSequence))]
+    [RequireComponent(typeof(EndLevelSequence))]
     public class LevelManager : MonoBehaviour
     {
         [SerializeField] private List<LevelLoopSO> loopConfigs;
@@ -68,7 +69,10 @@ namespace LevelManagement
             {
                 _loopConfigIndex++;
                 SetActualLoop();
-                levelLoopManager.StartLevelSequence(_actualLoopConfig);
+                if (_actualLoopConfig != null)
+                    levelLoopManager.StartLevelSequence(_actualLoopConfig);
+                else
+                    levelLoopManager.StopSequence();
             }
         }
 
@@ -78,6 +82,7 @@ namespace LevelManagement
             {
                 Debug.LogWarning("Loop index more than count. Finishing gameplay");
                 HandleFinish();
+                _actualLoopConfig = null;
                 return;
             }
             
@@ -87,12 +92,14 @@ namespace LevelManagement
         private void HandleFinish()
         {
             levelLoopManager.StopSequence();
-            onOpenSceneEvent.RaiseEvent(creditsScene);
+            
+            Sequence sequence = GetComponent<EndLevelSequence>().GetEndSequence();
+            
+            StartCoroutine(sequence.Execute());
         }
 
         private void HandleResetGameplay()
         {
-            Debug.Log("Hi?");
             _loopConfigIndex = 0;
             playerHealthPoints.ResetHitPoints();
             bossHealthPoints.ResetHitPoints();

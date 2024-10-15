@@ -37,6 +37,7 @@ namespace LevelManagement.Sequences
 
         private void OnDisable()
         {
+            onCinematicCanvasFinishedAnimation?.onEvent.RemoveListener(HandleFinishedAnimation);
             onGameplayUICanvasEvent?.RaiseEvent(false);
         }
 
@@ -61,6 +62,8 @@ namespace LevelManagement.Sequences
 
         private IEnumerator MovePlayerToMiddle()
         {
+            player.SetActive(true);
+            
             while (player.transform.position.z < playerInitZPosition)
             {
                 player.transform.position += new Vector3(0, 0, playersVelocity) * Time.deltaTime;
