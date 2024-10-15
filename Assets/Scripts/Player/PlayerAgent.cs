@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Events;
 using FSM;
 using Health;
 using UnityEngine;
@@ -14,9 +15,27 @@ namespace Player
         [SerializeField] private ActionEventsWrapper moveEvents;
         [SerializeField] private ActionEventsWrapper dashEvents;
 
+        [Header("Initial Sequence Events")]
+        [SerializeField] private VoidEventChannelSO onCinematicStarted;
+        [SerializeField] private VoidEventChannelSO onCinematicFinished;
+
         private State _idleState;
         private State _moveState;
         private State _dashState;
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            onCinematicStarted.onEvent.AddListener(DisableFSM);
+            onCinematicFinished.onEvent.AddListener(EnableFSM);
+        }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            onCinematicStarted.onEvent.RemoveListener(DisableFSM);
+            onCinematicFinished.onEvent.RemoveListener(EnableFSM);
+        }
 
         public void DisableFSM()
         {
@@ -68,7 +87,7 @@ namespace Player
 
             Transition dashToMoveTransition = new Transition(_dashState, _moveState);
             _dashState.AddTransition(dashToMoveTransition);
-            
+
             Transition dashToIdleTransition = new Transition(_dashState, _idleState);
             _dashState.AddTransition(dashToIdleTransition);
 

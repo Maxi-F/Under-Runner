@@ -19,7 +19,8 @@ namespace LevelManagement.Sequences
         [SerializeField] private float playerInitZPosition;
 
         [Header("Events")]
-        [SerializeField] private VoidEventChannelSO onCinematicStarted;
+        [SerializeField] private VoidEventChannelSO onCinematicPlayerLockStart;
+        [SerializeField] private VoidEventChannelSO onCinematicPlayerLockFinished;
         [SerializeField] private VoidEventChannelSO onStartCinematicCanvas;
         [SerializeField] private VoidEventChannelSO onEndCinematicCanvas;
         [SerializeField] private VoidEventChannelSO onCinematicCanvasFinishedAnimation;
@@ -43,7 +44,7 @@ namespace LevelManagement.Sequences
         {
             Sequence startSequence = new Sequence();
 
-            startSequence.AddPreAction(StopPlayerMovement());
+            startSequence.AddPreAction(RaiseStartCinematicEvent());
             startSequence.AddPreAction(HandleStartCinematicCanvas());
             startSequence.AddPreAction(MoveOtherPlayers());
             startSequence.SetAction(MovePlayerToMiddle());
@@ -52,14 +53,9 @@ namespace LevelManagement.Sequences
             return startSequence;
         }
 
-        private IEnumerator StopPlayerMovement()
+        private IEnumerator RaiseStartCinematicEvent()
         {
-            onCinematicStarted?.RaiseEvent();
-            PlayerAgent agent = player.GetComponent<PlayerAgent>();
-            PlayerAttack playerAttack = player.GetComponent<PlayerAttack>();
-
-            agent.DisableFSM();
-            playerAttack.enabled = false;
+            onCinematicPlayerLockStart?.RaiseEvent();
             yield return null;
         }
 
@@ -71,10 +67,7 @@ namespace LevelManagement.Sequences
                 yield return null;
             }
 
-            PlayerAgent agent = player.GetComponent<PlayerAgent>();
-            agent.EnableFSM();
-            PlayerAttack playerAttack = player.GetComponent<PlayerAttack>();
-            playerAttack.enabled = true;
+            onCinematicPlayerLockFinished?.RaiseEvent();
         }
 
         private IEnumerator MoveOtherPlayers()
