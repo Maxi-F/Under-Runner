@@ -818,7 +818,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   swingPivot: {fileID: 5982544777939341962}
   laserObject: {fileID: 5948675016384544887}
-  swingConfigSo: {fileID: 11400000, guid: 5ded94f39775e2d45b3c8ec6bc876b42, type: 2}
+  swingConfigSo:
+  - {fileID: 11400000, guid: 5ded94f39775e2d45b3c8ec6bc876b42, type: 2}
+  - {fileID: 11400000, guid: 8b7b550851ce2b6419cac2257606d710, type: 2}
 --- !u!1 &8961736479340173517
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,8 +1,6 @@
-using System;
 using System.Collections;
-using Events;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Utils;
 
 namespace Attacks.Swing
@@ -12,7 +10,7 @@ namespace Attacks.Swing
         [Header("References")]
         [SerializeField] private GameObject swingPivot;
         [SerializeField] private GameObject laserObject;
-        [SerializeField] private SwingConfigSO swingConfigSo;
+        [SerializeField] private List<SwingConfigSO> swingConfigSo = new List<SwingConfigSO>();
 
         private Quaternion _startingRotation;
         private Quaternion _finishingRotation;
@@ -20,12 +18,8 @@ namespace Attacks.Swing
         private Sequence _swingSequence;
         private Coroutine swingCoroutine;
 
-        public SwingConfigSO SwingConfigSo
-        {
-            get { return swingConfigSo; }
-            set { swingConfigSo = value; }
-        }
-        
+        private int randomIndex;
+
         [ContextMenu("Swing")]
         private void TestRunSwing()
         {
@@ -56,13 +50,14 @@ namespace Attacks.Swing
 
         private IEnumerator SwingSetup()
         {
+            randomIndex = Random.Range(0, swingConfigSo.Count);
             swingPivot.SetActive(true);
 
-            _startingRotation = Quaternion.Euler(0, swingConfigSo.startingDegreesY, 0);
-            _finishingRotation = Quaternion.Euler(0, swingConfigSo.finishingDegreesY, 0);
+            _startingRotation = Quaternion.Euler(0, swingConfigSo[randomIndex].startingDegreesY, 0);
+            _finishingRotation = Quaternion.Euler(0, swingConfigSo[randomIndex].finishingDegreesY, 0);
 
-            laserObject.transform.localScale = swingConfigSo.initialLaserScale;
-            laserObject.transform.localPosition = swingConfigSo.initialLaserLocalPosition;
+            laserObject.transform.localScale = swingConfigSo[randomIndex].initialLaserScale;
+            laserObject.transform.localPosition = swingConfigSo[randomIndex].initialLaserLocalPosition;
 
             swingPivot.transform.localRotation = _startingRotation;
             yield break;
@@ -73,15 +68,15 @@ namespace Attacks.Swing
             float timer = 0;
             float startingTime = Time.time;
 
-            while (timer < swingConfigSo.growDuration)
+            while (timer < swingConfigSo[randomIndex].growDuration)
             {
                 timer = Time.time - startingTime;
 
-                float scaleUpValue = Mathf.Lerp(swingConfigSo.startingSize, swingConfigSo.finishingSize, swingConfigSo.laserGrowCurve.Evaluate(timer / swingConfigSo.growDuration));
+                float scaleUpValue = Mathf.Lerp(swingConfigSo[randomIndex].startingSize, swingConfigSo[randomIndex].finishingSize, swingConfigSo[randomIndex].laserGrowCurve.Evaluate(timer / swingConfigSo[randomIndex].growDuration));
 
                 Vector3 scale = new Vector3(scaleUpValue, 1, 1);
 
-                laserObject.transform.localPosition = new Vector3(swingConfigSo.initialLaserLocalPosition.x + scaleUpValue / 2, 0, 0);
+                laserObject.transform.localPosition = new Vector3(swingConfigSo[randomIndex].initialLaserLocalPosition.x + scaleUpValue / 2, 0, 0);
                 laserObject.transform.localScale = scale;
                 yield return null;
             }
@@ -92,10 +87,10 @@ namespace Attacks.Swing
             float timer = 0;
             float startingTime = Time.time;
 
-            while (timer < swingConfigSo.swingDuration)
+            while (timer < swingConfigSo[randomIndex].swingDuration)
             {
                 timer = Time.time - startingTime;
-                float swingValue = swingConfigSo.swingCurve.Evaluate(timer / swingConfigSo.swingDuration);
+                float swingValue = swingConfigSo[randomIndex].swingCurve.Evaluate(timer / swingConfigSo[randomIndex].swingDuration);
                 swingPivot.transform.localRotation = Quaternion.Slerp(_startingRotation, _finishingRotation, swingValue);
                 yield return null;
             }
