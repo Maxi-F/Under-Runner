@@ -1146,6 +1146,12 @@ MonoBehaviour:
   onInternalResetEvent:
     m_PersistentCalls:
       m_Calls: []
+  onInternalTakeDamageEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onInternalInitializeMaxHealthEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &3120035166251398144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1259,6 +1265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42edcadc0f8549d4a9fef95c6dca8c71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyConfig: {fileID: 11400000, guid: 3e495b6192997ef46978af1453840058, type: 2}
   minMaxYMovement: {x: 0, y: 0.5}
   distanceToChangeDirection: 0.2
 --- !u!1001 &1094134541066028378
