@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d39da1732360bc045847c0c8e895238b, type: 3}
   m_Name: MinionsManagerConfig
   m_EditorClassIdentifier: 
-  maxMinionsAttackingAtSameTime: 3
+  maxMinionsAttackingAtSameTime: 1
   maxMinionsAtSameTime: 5

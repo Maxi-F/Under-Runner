@@ -11,6 +11,7 @@ using Utils;
 namespace LevelManagement
 {
     [RequireComponent(typeof(StartLevelSequence))]
+    [RequireComponent(typeof(EndLevelSequence))]
     public class LevelManager : MonoBehaviour
     {
         [SerializeField] private List<LevelLoopSO> loopConfigs;
@@ -21,6 +22,8 @@ namespace LevelManagement
         
         [Header("Events")]
         [SerializeField] private IntEventChannelSO onEnemyDamageEvent;
+
+        [SerializeField] private VoidEventChannelSO onEnemyDeathEvent;
         [SerializeField] private VoidEventChannelSO onPlayerDeathEvent;
         [SerializeField] private BoolEventChannelSO onTryAgainCanvasEvent;
         [SerializeField] private VoidEventChannelSO onResetGameplayEvent;
@@ -44,6 +47,7 @@ namespace LevelManagement
 
         private void OnEnable()
         {
+            onEnemyDeathEvent?.onEvent.AddListener(HandleFinish);
             onResetGameplayEvent?.onEvent.AddListener(HandleResetGameplay);
             onEnemyDamageEvent?.onIntEvent.AddListener(HandleNextPhase);
             onPlayerDeathEvent?.onEvent.AddListener(HandlePlayerDeath);
@@ -51,6 +55,7 @@ namespace LevelManagement
 
         private void OnDisable()
         {
+            onEnemyDeathEvent?.onEvent.RemoveListener(HandleFinish);
             onResetGameplayEvent?.onEvent.RemoveListener(HandleResetGameplay);
             onEnemyDamageEvent?.onIntEvent.RemoveListener(HandleNextPhase);
             onPlayerDeathEvent?.onEvent.RemoveListener(HandlePlayerDeath);
@@ -68,7 +73,10 @@ namespace LevelManagement
             {
                 _loopConfigIndex++;
                 SetActualLoop();
-                levelLoopManager.StartLevelSequence(_actualLoopConfig);
+                if (_actualLoopConfig != null)
+                    levelLoopManager.StartLevelSequence(_actualLoopConfig);
+                else
+                    levelLoopManager.StopSequence();
             }
         }
 
@@ -76,8 +84,8 @@ namespace LevelManagement
         {
             if (_loopConfigIndex >= loopConfigs.Count)
             {
-                Debug.LogWarning("Loop index more than count. Finishing gameplay");
-                HandleFinish();
+                Debug.LogError("Loop index more than count");
+                _actualLoopConfig = null;
                 return;
             }
             
@@ -87,12 +95,13 @@ namespace LevelManagement
         private void HandleFinish()
         {
             levelLoopManager.StopSequence();
-            onOpenSceneEvent.RaiseEvent(creditsScene);
+            
+            Sequence sequence = GetComponent<EndLevelSequence>().GetEndSequence();
+            StartCoroutine(sequence.Execute());
         }
 
         private void HandleResetGameplay()
         {
-            Debug.Log("Hi?");
             _loopConfigIndex = 0;
             playerHealthPoints.ResetHitPoints();
             bossHealthPoints.ResetHitPoints();

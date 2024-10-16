@@ -417,10 +417,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animatorHandler: {fileID: 977276183979043023}
-  pauseData: {fileID: 0}
+  pauseData: {fileID: 11400000, guid: 050aabf23c6e8a747ba6431bbbb165f5, type: 2}
   inputHandler: {fileID: 11400000, guid: 4902f51743585ca40aec021ece06aa06, type: 2}
   onPlayerNewPositionEvent: {fileID: 11400000, guid: 1edae3268f02d1c4190e82ddfa3be357, type: 2}
-  onPlayerMovementEvent: {fileID: 0}
+  onPlayerMovementEvent: {fileID: 11400000, guid: 6a4bb4062610c7b4fa1d1458d1248c67, type: 2}
+  onCinematicStarted: {fileID: 11400000, guid: b711b8f3d88f6614bb9d23a652188ca8, type: 2}
+  onCinematicFinished: {fileID: 11400000, guid: 83f6a3608cca1b64a9e546fae228e30e, type: 2}
   boundsConfig: {fileID: 11400000, guid: ec9fc6062f1b51d4596422a3e4f7f265, type: 2}
   speed: 7.5
 --- !u!114 &4699157676241342615
@@ -532,7 +534,7 @@ MonoBehaviour:
   onDashRechargeEvent: {fileID: 11400000, guid: 3e281a7f78b52ac4ca6dfe9670c23833, type: 2}
   onDashRechargedEvent: {fileID: 11400000, guid: b24f4335f7210144ebd127ad26fa2a6f, type: 2}
   onDashUsedEvent: {fileID: 11400000, guid: 314cc26a951a7f445b33baca6dc46fc9, type: 2}
-  onDashMovementEvent: {fileID: 0}
+  onDashMovementEvent: {fileID: 11400000, guid: bbb7d509b23dc6e44a57ecc08ccba7b3, type: 2}
 --- !u!114 &6481343404815373606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -545,7 +547,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 228fa0e3e1cf3bb4caa19c5fad704627, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseData: {fileID: 0}
+  pauseData: {fileID: 11400000, guid: 050aabf23c6e8a747ba6431bbbb165f5, type: 2}
   inputHandler: {fileID: 11400000, guid: 4902f51743585ca40aec021ece06aa06, type: 2}
   animationHandler: {fileID: 977276183979043023}
   onCinematicStarted: {fileID: 11400000, guid: b711b8f3d88f6614bb9d23a652188ca8, type: 2}
@@ -610,14 +612,20 @@ MonoBehaviour:
   canTakeDamage: 1
   onDeathEvent: {fileID: 11400000, guid: 1609b932e078810448a25604c23359d3, type: 2}
   onTakeDamageEvent: {fileID: 11400000, guid: 703652f7737657e41ba9437afd9a0117, type: 2}
-  onResetPointsEvent: {fileID: 0}
+  onResetPointsEvent: {fileID: 11400000, guid: d276143688fe85f45bce528b1753dd72, type: 2}
   onInitializeHealthEvent: {fileID: 0}
-  onInitializeMaxHealthEvent: {fileID: 0}
+  onInitializeMaxHealthEvent: {fileID: 11400000, guid: 36c9d30be97db6f4e8dfd2b5eba408c4, type: 2}
   onDamageAvoidedEvent: {fileID: 11400000, guid: 4f9416a5c19eeda4e9b3e6a791d2b357, type: 2}
   onInternalDeathEvent:
     m_PersistentCalls:
       m_Calls: []
   onInternalResetEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onInternalTakeDamageEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onInternalInitializeMaxHealthEvent:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &-3657109322286029522
@@ -689,7 +697,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7d9f5c22fe80a44b9f952eb84657c81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initPosition: {x: 0, y: 0, z: 0}
+  initPosition: {x: 0, y: 1.1, z: 1.15}
   healthPoints: {fileID: 4004944892389013156}
   dashController: {fileID: 4699157676241342615}
   onPlayerDeathEvent: {fileID: 11400000, guid: 1609b932e078810448a25604c23359d3, type: 2}
@@ -721,12 +729,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7261930984988719095}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.000000037252903, y: 0.000000037252903, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 245402293782231676}
+  m_Father: {fileID: 1144671202781511183}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &2910608714162043841
 BoxCollider:
@@ -774,7 +782,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!114 &4645382247631583565
 MonoBehaviour:
@@ -789,7 +797,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 0}
-  damage: 2
+  damage: 10
 --- !u!1001 &504957309232480905
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -845,17 +853,17 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 316993502900566261, guid: 307923de71b833449b055d96f2c19d72, type: 3}
-      insertIndex: -1
+    - targetCorrespondingSourceObject: {fileID: 640434306180922502, guid: 307923de71b833449b055d96f2c19d72, type: 3}
+      insertIndex: 0
       addedObject: {fileID: 5425943183477852265}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5376431236390557913, guid: 307923de71b833449b055d96f2c19d72, type: 3}
       insertIndex: -1
       addedObject: {fileID: 977276183979043023}
   m_SourcePrefab: {fileID: 100100000, guid: 307923de71b833449b055d96f2c19d72, type: 3}
---- !u!4 &245402293782231676 stripped
+--- !u!4 &1144671202781511183 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 316993502900566261, guid: 307923de71b833449b055d96f2c19d72, type: 3}
+  m_CorrespondingSourceObject: {fileID: 640434306180922502, guid: 307923de71b833449b055d96f2c19d72, type: 3}
   m_PrefabInstance: {fileID: 504957309232480905}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &2123000488000570907 stripped

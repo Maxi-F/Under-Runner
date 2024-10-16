@@ -49,6 +49,7 @@ namespace LevelManagement
                 StopCoroutine(_actualLoopSequence);
                 obstacleSequence.ClearSequence();
                 minionsSequence.ClearSequence();
+                bossSequence.ClearSequence();
             }
         }
     }
