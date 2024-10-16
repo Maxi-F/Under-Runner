@@ -38,7 +38,8 @@ namespace Player
         [SerializeField] private VoidEventChannelSO onDashRechargedEvent;
         [SerializeField] private VoidEventChannelSO onDashUsedEvent;
         [SerializeField] private Vector3EventChannelSO onDashMovementEvent;
-
+        [SerializeField] private VoidEventChannelSO onDamageAvoidedEvent;
+        
         private PlayerMovementController _movementController;
         private HealthPoints _healthPoints;
 
@@ -50,7 +51,10 @@ namespace Player
         private float _currentDashSpeed;
 
         private Bounds _playerColliderBounds;
-
+        private bool _hasAvoidedSomething;
+        private bool _hasActivatedFastCooldown;
+        private Coroutine _cooldownCoroutine;
+        
         private void Awake()
         {
             _movementController = GetComponent<PlayerMovementController>();
@@ -60,13 +64,22 @@ namespace Player
         protected override void OnEnable()
         {
             base.OnEnable();
+            _hasAvoidedSomething = false;
             _playerColliderBounds = playerCollider.bounds;
+            
+            onDamageAvoidedEvent?.onEvent.AddListener(HandleDamageAvoided);
             inputHandler.onPlayerDashStarted.AddListener(HandleDash);
         }
 
         private void OnDisable()
         {
+            onDamageAvoidedEvent?.onEvent.AddListener(HandleDamageAvoided);
             inputHandler.onPlayerDashStarted.RemoveListener(HandleDash);
+        }
+
+        private void HandleDamageAvoided()
+        {
+            _hasAvoidedSomething = true;
         }
 
         private bool CanDash()
@@ -86,34 +99,6 @@ namespace Player
                 StopCoroutine(_dashCoroutine);
 
             _healthPoints.SetIsInvincible(true);
-            _dashCoroutine = StartCoroutine(DashCoroutine());
-        }
-
-
-        public void HandleBulletTimeDashStart()
-        {
-            if (!CanDash())
-                return;
-
-            if (_bulletTimeCoroutine != null)
-                StopCoroutine(_bulletTimeCoroutine);
-
-            _bulletTimeCoroutine = StartCoroutine(BulletTimeCoroutine());
-        }
-
-        public void HandleBulletTimeDashFinish()
-        {
-            if (!CanDash() || Time.timeScale == 1)
-                return;
-
-            if (_bulletTimeCoroutine != null)
-                StopCoroutine(_bulletTimeCoroutine);
-            Time.timeScale = 1f;
-
-            if (_dashCoroutine != null)
-                StopCoroutine(_dashCoroutine);
-
-            dashPredictionLine.ToggleVisibility(false);
             _dashCoroutine = StartCoroutine(DashCoroutine());
         }
 
@@ -145,6 +130,16 @@ namespace Player
                 onDashMovementEvent?.RaiseEvent(transform.position - previousPosition);
 
                 timer = Time.time - startTime;
+                if (_hasAvoidedSomething)
+                {
+                    if(_cooldownCoroutine != null)
+                        StopCoroutine(_cooldownCoroutine);
+                
+                    _cooldownCoroutine = StartCoroutine(CoolDownCoroutine());
+
+                    _hasAvoidedSomething = false;
+                    _hasActivatedFastCooldown = true;
+                }
                 yield return null;
             }
 
@@ -153,8 +148,16 @@ namespace Player
             else
                 playerAgent.ChangeStateToMove();
 
-            yield return CoolDownCoroutine();
-            _canDash = true;
+            if (!_hasAvoidedSomething && !_hasActivatedFastCooldown)
+            {
+                if(_cooldownCoroutine != null)
+                    StopCoroutine(_cooldownCoroutine);
+                
+                _cooldownCoroutine = StartCoroutine(CoolDownCoroutine());
+            }
+
+            _hasAvoidedSomething = false;
+            _hasActivatedFastCooldown = false;
         }
 
         private IEnumerator CoolDownCoroutine()
@@ -164,30 +167,11 @@ namespace Player
             {
                 onDashRechargeEvent.RaiseEvent(timeInCooldown);
                 yield return null;
-                timeInCooldown += Time.deltaTime;
+                timeInCooldown += Time.unscaledDeltaTime;
             }
 
             onDashRechargedEvent.RaiseEvent();
-        }
-
-        private IEnumerator BulletTimeCoroutine()
-        {
-            float timer = 0;
-            float startTime = Time.time;
-            dashPredictionLine.ToggleVisibility(true);
-
-            while (timer < bulletTimeDuration)
-            {
-                yield return new WaitWhile(() => pauseData.isPaused);
-                timer = Time.time - startTime;
-                float timerProgress = Mathf.Lerp(0, 1, timer / bulletTimeDuration);
-                if(!pauseData.isPaused)
-                    Time.timeScale = bulletTimeVariationCurve.Evaluate(timerProgress);
-                yield return null;
-            }
-
-            dashPredictionLine.ToggleVisibility(false);
-            Time.timeScale = 1;
+            _canDash = true;
         }
 
         private IEnumerator PhantomCoroutine()
