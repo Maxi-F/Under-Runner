@@ -82,7 +82,8 @@ namespace Health
             }
 
             CurrentHp -= damage;
-
+            
+            
             if (IsDead())
             {
                 onDeathEvent?.RaiseEvent();
