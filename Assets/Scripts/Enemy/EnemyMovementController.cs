@@ -5,6 +5,7 @@ namespace Enemy
 {
     public class EnemyMovementController : MonoBehaviour
     {
+        [SerializeField] private EnemyConfigSO enemyConfig;
         [SerializeField] private Vector2 minMaxYMovement;
         [SerializeField] private float distanceToChangeDirection = 0.2f;
         
@@ -14,7 +15,7 @@ namespace Enemy
         
         void OnEnable()
         {
-            _originPosition = transform.position;
+            _originPosition = enemyConfig.defaultPosition;
         }
         
         void Update()

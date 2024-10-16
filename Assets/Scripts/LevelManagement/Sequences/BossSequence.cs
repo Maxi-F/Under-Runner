@@ -1,5 +1,6 @@
 using System.Collections;
 using Attacks.FallingAttack;
+using Enemy;
 using UnityEngine;
 using Utils;
 
@@ -8,13 +9,14 @@ namespace LevelManagement.Sequences
     public class BossSequence : MonoBehaviour
     {
         [SerializeField] private FallingBlockSpawner fallingBlockSpawner;
-        
+        [SerializeField] private EnemyConfigSO enemyConfig;
         [Header("Game Objects")]
         [SerializeField] private GameObject boss;
 
         public void SetupSequence(BossData bossData)
         {
             boss.SetActive(false);
+            boss.transform.position = enemyConfig.defaultPosition;
             fallingBlockSpawner.SetFallingAttackData(bossData.fallingAttackData);
         }
         

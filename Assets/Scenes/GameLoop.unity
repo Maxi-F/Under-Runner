@@ -1643,6 +1643,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fallingBlockSpawner: {fileID: 1109886477}
+  enemyConfig: {fileID: 11400000, guid: 3e495b6192997ef46978af1453840058, type: 2}
   boss: {fileID: 1224237589}
 --- !u!1001 &1946947093
 PrefabInstance:
