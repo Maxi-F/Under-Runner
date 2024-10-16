@@ -21,9 +21,10 @@ namespace Health
 
         [Header("Internal events")]
         [SerializeField] private UnityEvent onInternalDeathEvent;
-
         [SerializeField] private UnityEvent<int> onInternalResetEvent;
-
+        [SerializeField] private UnityEvent<int> onInternalTakeDamageEvent;
+        [SerializeField] private UnityEvent<int> onInternalInitializeMaxHealthEvent;
+        
         public int MaxHealth
         {
             get { return maxHealth; }
@@ -42,7 +43,7 @@ namespace Health
         {
             CurrentHp = initHealth;
             onInitializeHealthEvent?.RaiseEvent(CurrentHp);
-            onInitializeMaxHealthEvent?.RaiseEvent(MaxHealth);
+            RaiseInitMaxHpEvent();
         }
 
         private void OnDestroy()
@@ -81,7 +82,8 @@ namespace Health
             }
 
             CurrentHp -= damage;
-
+            
+            
             if (IsDead())
             {
                 onDeathEvent?.RaiseEvent();
@@ -90,6 +92,7 @@ namespace Health
             else
             {
                 onTakeDamageEvent?.RaiseEvent(CurrentHp);
+                onInternalTakeDamageEvent?.Invoke(CurrentHp);
             }
 
             return true;
@@ -109,6 +112,7 @@ namespace Health
         public void RaiseInitMaxHpEvent()
         {
             onInitializeMaxHealthEvent?.RaiseEvent(MaxHealth);
+            onInternalInitializeMaxHealthEvent?.Invoke(MaxHealth);
         }
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
