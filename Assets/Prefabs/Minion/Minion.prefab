@@ -163,9 +163,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider: {fileID: 5135750954969982833}
   shouldStartHided: 0
-  onTakeDamage: {fileID: 11400000, guid: d7c92d4ecc5578245b7e8d6eca51d765, type: 2}
+  onTakeDamage: {fileID: 0}
   onResetDamage: {fileID: 0}
-  onInitializeSlider: {fileID: 11400000, guid: 8dd2cf95881f9294b8af19fe69792246, type: 2}
+  onInitializeSlider: {fileID: 0}
 --- !u!1 &3481237237909825566
 GameObject:
   m_ObjectHideFlags: 0
@@ -1101,8 +1101,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04cb3bb3ce8700649b43a4c9b6a29908, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 6
-  initHealth: 6
+  maxHealth: 15
+  initHealth: 15
   canTakeDamage: 1
   onDeathEvent: {fileID: 0}
   onTakeDamageEvent: {fileID: 11400000, guid: d7c92d4ecc5578245b7e8d6eca51d765, type: 2}
@@ -1131,6 +1131,36 @@ MonoBehaviour:
       - m_Target: {fileID: 4749338615536808895}
         m_TargetAssemblyTypeName: UI.HealthBar, Assembly-CSharp
         m_MethodName: HandleReset
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onInternalTakeDamageEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4749338615536808895}
+        m_TargetAssemblyTypeName: UI.HealthBar, Assembly-CSharp
+        m_MethodName: HandleTakeDamage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onInternalInitializeMaxHealthEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4749338615536808895}
+        m_TargetAssemblyTypeName: UI.HealthBar, Assembly-CSharp
+        m_MethodName: HandleInit
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -2,6 +2,7 @@ using System;
 using Events;
 using Health;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace UI
@@ -31,7 +32,7 @@ namespace UI
                 _wasTriggered = false;
             }
 
-            onTakeDamage.onIntEvent.AddListener(HandleTakeDamage);
+            onTakeDamage?.onIntEvent.AddListener(HandleTakeDamage);
             onResetDamage?.onIntEvent.AddListener(HandleReset);
         }
 
@@ -47,13 +48,13 @@ namespace UI
             slider.value = currentHp;
         }
     
-        private void HandleInit(int maxValue)
+        public void HandleInit(int maxValue)
         {
             slider.maxValue = maxValue;
             slider.value = maxValue;
         }
         
-        private void HandleTakeDamage(int currentHealth)
+        public void HandleTakeDamage(int currentHealth)
         {
             if (!_wasTriggered)
             {
