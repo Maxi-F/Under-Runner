@@ -891,7 +891,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!135 &6036891029877782225
 SphereCollider:
@@ -967,7 +967,19 @@ MonoBehaviour:
           m_CallState: 2
         - m_Target: {fileID: 3120035166251398144}
           m_TargetAssemblyTypeName: WeakenedController, Assembly-CSharp
-          m_MethodName: HandleShield
+          m_MethodName: HandleDefensesDown
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 4860931461339575274}
+          m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+          m_MethodName: set_enabled
           m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -994,6 +1006,18 @@ MonoBehaviour:
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 4860931461339575274}
+          m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+          m_MethodName: set_enabled
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
           m_CallState: 2
   laserEvents:
     onEnter:
@@ -1135,6 +1159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyAgent: {fileID: 3623727221341694570}
+  enemyConfig: {fileID: 11400000, guid: 3e495b6192997ef46978af1453840058, type: 2}
   healthPoints: {fileID: 2011814886892266701}
   shieldController: {fileID: 5362483775112485171}
   shieldActive: 1
@@ -1143,6 +1168,8 @@ MonoBehaviour:
   onEnemyDeathEvent: {fileID: 11400000, guid: 36bbe8a4a81fcf74da11d75999d01f40, type: 2}
   onEnemyParriedEvent: {fileID: 11400000, guid: 2560c5f78509b5141b8e058e758dd606, type: 2}
   onEnemyDamageEvent: {fileID: 11400000, guid: 41331d8fc0079ac47bec86270d050339, type: 2}
+  weakenedMoveDuration: 2
+  recoverMoveDuration: 1
 --- !u!114 &3084234489356656795
 MonoBehaviour:
   m_ObjectHideFlags: 0

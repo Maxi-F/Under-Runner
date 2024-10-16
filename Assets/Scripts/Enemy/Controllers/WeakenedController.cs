@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Enemy;
 using Enemy.Shield;
@@ -6,10 +7,12 @@ using Events.ScriptableObjects;
 using FSM;
 using Health;
 using UnityEngine;
+using Utils;
 
 public class WeakenedController : EnemyController
 {
     [Header("Properties")]
+    [SerializeField] private EnemyConfigSO enemyConfig;
     [SerializeField] private HealthPoints healthPoints;
     [SerializeField] private ShieldController shieldController;
     [SerializeField] private bool shieldActive;
@@ -22,6 +25,10 @@ public class WeakenedController : EnemyController
     [SerializeField] private VoidEventChannelSO onEnemyDeathEvent;
     [SerializeField] private EventChannelSO<bool> onEnemyParriedEvent;
     [SerializeField] private IntEventChannelSO onEnemyDamageEvent;
+
+    [Header("Movement Properties")]
+    [SerializeField] private float weakenedMoveDuration;
+    [SerializeField] private float recoverMoveDuration;
 
     private void OnEnable()
     {
@@ -42,36 +49,50 @@ public class WeakenedController : EnemyController
         gameObject.SetActive(false);
     }
 
-    public void HandleShield(bool isActive)
+    public void HandleDefensesDown()
     {
-        if (!isActive && !shieldController.IsActive()) return;
+        Sequence weakenedSequence = new Sequence();
+        weakenedSequence.AddPreAction(ToggleShield(false));
+        weakenedSequence.AddPreAction(MoveTo(enemyConfig.defaultPosition, enemyConfig.weakenedPosition, weakenedMoveDuration));
+        weakenedSequence.SetAction(ReactivateShield());
+        weakenedSequence.AddPostAction(ToggleShield(true));
+        weakenedSequence.AddPostAction(MoveTo(enemyConfig.weakenedPosition, enemyConfig.defaultPosition, recoverMoveDuration));
 
+        StartCoroutine(weakenedSequence.Execute());
+    }
+
+    private IEnumerator ReactivateShield()
+    {
+        yield return new WaitForSeconds(timeToStartReactivatingShield);
+        shieldController.SetIsActivating(true);
+        yield return new WaitForSeconds(timeToReactivateShield);
+        shieldController.SetActiveMaterial();
+    }
+
+    private IEnumerator ToggleShield(bool isActive)
+    {
         healthPoints.SetCanTakeDamage(!isActive);
-
         shieldController.SetActive(isActive);
-        
         onEnemyParriedEvent?.RaiseEvent(isActive);
         if (isActive)
         {
             shieldController.ResetShield();
             enemyAgent.ChangeStateToIdle();
         }
-        else
-        {
-            StartCoroutine(ReactivateShield());
-        }
+
+        yield break;
     }
 
-    private IEnumerator ReactivateShield()
+    private IEnumerator MoveTo(Vector3 startingPos, Vector3 target, float duration)
     {
-        yield return new WaitForSeconds(timeToStartReactivatingShield);
+        float timer = 0;
+        float startingTime = Time.time;
 
-        shieldController.SetIsActivating(true);
-
-        yield return new WaitForSeconds(timeToReactivateShield);
-
-        shieldController.SetActiveMaterial();
-
-        HandleShield(true);
+        while (timer < duration)
+        {
+            timer = Time.time - startingTime;
+            transform.position = Vector3.Lerp(startingPos, target, timer / duration);
+            yield return null;
+        }
     }
 }
