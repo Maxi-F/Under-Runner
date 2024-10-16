@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Events;
+using Events.ScriptableObjects;
 using Minion.Manager;
 using Minion.ScriptableObjects;
 using UnityEngine;
@@ -10,18 +11,21 @@ namespace Minion.Controllers
     public class MinionIdleController : MinionController
     {
         [SerializeField] private MinionSO minionConfig;
-
+        [SerializeField] private BoolEventChannelSO onCanMinionsAttackEvent;
+        
         private Coroutine _idleTime;
+        private bool _canAttack;
 
         protected override void OnEnable()
         {
             SetIdleCoroutineAsNull();
-            
+            onCanMinionsAttackEvent?.onTypedEvent.AddListener(SetCanAttack);
             base.OnEnable();
         }
         
         private void OnDisable()
         {
+            onCanMinionsAttackEvent?.onTypedEvent.RemoveListener(SetCanAttack);
             SetIdleCoroutineAsNull();
         }
 
@@ -32,16 +36,17 @@ namespace Minion.Controllers
             {
                 _idleTime = StartCoroutine(HandleIdleTime());
             }
-            else
-            {
-                Debug.LogError("PLEASEE");
-            }
+        }
+
+        public void SetCanAttack(bool value)
+        {
+            _canAttack = value;
         }
 
         private IEnumerator HandleIdleTime()
         {
             yield return new WaitForSeconds(minionConfig.GetRandomIdleTime());
-            yield return new WaitUntil(() => MinionManager.CanAttack);
+            yield return new WaitUntil(() => _canAttack);
             MinionAgent.SetIsInAttackState();
             MinionAgent.ChangeStateToMove();
         }
