@@ -7,25 +7,22 @@ using Minion.ScriptableObjects;
 using UnityEngine;
 
 namespace Minion.Controllers
-{ 
+{
     public class MinionIdleController : MinionController
     {
         [SerializeField] private MinionSO minionConfig;
-        [SerializeField] private BoolEventChannelSO onCanMinionsAttackEvent;
-        
+
         private Coroutine _idleTime;
         private bool _canAttack;
 
         protected override void OnEnable()
         {
             SetIdleCoroutineAsNull();
-            onCanMinionsAttackEvent?.onTypedEvent.AddListener(SetCanAttack);
             base.OnEnable();
         }
-        
+
         private void OnDisable()
         {
-            onCanMinionsAttackEvent?.onTypedEvent.RemoveListener(SetCanAttack);
             SetIdleCoroutineAsNull();
         }
 
@@ -50,7 +47,7 @@ namespace Minion.Controllers
             MinionAgent.SetIsInAttackState();
             MinionAgent.ChangeStateToMove();
         }
-        
+
         public void Exit()
         {
             SetIdleCoroutineAsNull();
