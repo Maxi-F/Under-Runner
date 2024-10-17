@@ -17,11 +17,11 @@ namespace Minion.Manager
         [SerializeField] private GameObject player;
 
         [Header("Events")]
-        [SerializeField] private EventChannelSO<GameObject> onMinionDeletedEvent;
+        [SerializeField] private EventChannelSO<MinionAgent> onMinionDeletedEvent;
         [SerializeField] private VoidEventChannelSO onAllMinionsDestroyedEvent;
         [SerializeField] private VoidEventChannelSO onGameplayEndEvent;
-        [SerializeField] private EventChannelSO<GameObject> onMinionAttackingEvent;
-        [SerializeField] private EventChannelSO<GameObject> onMinionAttackedEvent;
+        [SerializeField] private EventChannelSO<MinionAgent> onMinionAttackingEvent;
+        [SerializeField] private EventChannelSO<MinionAgent> onMinionAttackedEvent;
 
         private List<MinionAgent> _minions;
         private bool _isSpawning;
