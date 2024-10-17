@@ -16,6 +16,8 @@ namespace Player
         [Header("Animation Handler")]
         [SerializeField] private PlayerAnimationHandler animationHandler;
 
+        [Header("Events")] [SerializeField] private VoidEventChannelSO onPlayerDeath;
+        
         [Header("Initial Sequence Events")]
         [SerializeField] private VoidEventChannelSO onCinematicStarted;
         [SerializeField] private VoidEventChannelSO onCinematicFinished;
@@ -26,8 +28,7 @@ namespace Player
         [SerializeField] private LayerMask layers;
         [SerializeField] private float attackDuration;
         [SerializeField] private float attackCoolDown;
-
-
+        
         private bool _canAttack = true;
         private Coroutine _attackCoroutine = null;
 
@@ -37,6 +38,7 @@ namespace Player
 
             onCinematicStarted.onEvent.AddListener(DisableAttack);
             onCinematicFinished.onEvent.AddListener(EnableAttack);
+            onPlayerDeath.onEvent.AddListener(EnableAttack);
         }
 
         private void OnDisable()
@@ -45,6 +47,7 @@ namespace Player
 
             onCinematicStarted.onEvent.RemoveListener(DisableAttack);
             onCinematicFinished.onEvent.RemoveListener(EnableAttack);
+            onPlayerDeath.onEvent.RemoveListener(EnableAttack);
         }
 
         public void HandleAttack()
