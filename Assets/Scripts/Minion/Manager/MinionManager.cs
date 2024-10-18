@@ -49,7 +49,9 @@ namespace Minion.Manager
 
         private void AddAttackingMinion(MinionAgent minion)
         {
-            _attackQueue.Add(minion);
+            if (!_attackQueue.Contains(minion))
+                _attackQueue.Add(minion);
+
             if (CanMinionAttack())
                 HandleMinionOrder();
         }
@@ -66,15 +68,15 @@ namespace Minion.Manager
 
         private void RemoveAllMinions()
         {
+            _attackQueue.Clear();
+            _attackingMinions.Clear();
+
             if (_minions == null) return;
             foreach (var minion in _minions.ToList())
             {
                 _minions.Remove(minion);
                 MinionObjectPool.Instance?.ReturnToPool(minion.gameObject);
             }
-
-            _attackQueue.Clear();
-            _attackingMinions.Clear();
         }
 
         private void HandleMinionOrder()
@@ -88,12 +90,12 @@ namespace Minion.Manager
 
         private void HandleDeletedEvent(MinionAgent deletedMinion)
         {
-            MinionObjectPool.Instance?.ReturnToPool(deletedMinion.gameObject);
-
             _minions.Remove(deletedMinion);
             _attackingMinions.RemoveAll(aMinion => aMinion == deletedMinion);
             _attackQueue.Remove(deletedMinion);
 
+            MinionObjectPool.Instance?.ReturnToPool(deletedMinion.gameObject);
+            
             if (_minions.Count == 0 && !_isSpawning)
             {
                 onAllMinionsDestroyedEvent?.RaiseEvent();
