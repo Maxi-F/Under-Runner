@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Events.ScriptableObjects;
 using FSM;
@@ -30,15 +31,11 @@ namespace Minion
         private State _attackState;
         private State _fallbackState;
 
+
         protected override void OnDisable()
         {
             healthPoints?.ResetHitPoints();
-            
-            ClearStateWithEvent(_idleState, idleEvents);
-            ClearStateWithEvent(_moveState, moveEvents);
-            ClearStateWithEvent(_chargeAttackState, chargeAttackEvents);
-            ClearStateWithEvent(_attackState, attackEvents);
-            ClearStateWithEvent(_fallbackState, fallbackEvents);
+
             base.OnDisable();
         }
 
@@ -105,6 +102,15 @@ namespace Minion
             Transition fallbackToIdleTransition = new Transition(_fallbackState, _idleState);
             _fallbackState.AddTransition(fallbackToIdleTransition);
 
+            Transition moveToIdle = new Transition(_moveState, _idleState);
+            _moveState.AddTransition(moveToIdle);
+            
+            Transition chargeToIdle = new Transition(_chargeAttackState, _idleState);
+            _chargeAttackState.AddTransition(chargeToIdle);
+            
+            Transition attackToIdle = new Transition(_attackState, _idleState);
+            _attackState.AddTransition(attackToIdle);
+
             return new List<State>
                 ()
                 {
@@ -143,6 +149,23 @@ namespace Minion
         public GameObject GetModel()
         {
             return model;
+        }
+
+        [ContextMenu("CurrentState")]
+        public void DebugCurrentState()
+        {
+            State currentState = Fsm.GetCurrentState();
+            if(currentState == _idleState)
+                Debug.Log("Idle");
+            else if(currentState == _moveState)
+                Debug.Log("Move");
+            else if(currentState == _chargeAttackState)
+                Debug.Log("Charge");
+            else if(currentState == _fallbackState)
+                Debug.Log("Fallback");
+            else if(currentState == _attackState)
+                Debug.Log("Attack");
+                
         }
     }
 }

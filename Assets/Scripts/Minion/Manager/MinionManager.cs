@@ -90,12 +90,16 @@ namespace Minion.Manager
 
         private void HandleDeletedEvent(MinionAgent deletedMinion)
         {
+            if (_attackingMinions.Contains(deletedMinion) && CanMinionAttack() && _attackQueue.Count > 0)
+                HandleMinionOrder();
+
             _minions.Remove(deletedMinion);
-            _attackingMinions.RemoveAll(aMinion => aMinion == deletedMinion);
+            _attackingMinions.Remove(deletedMinion);
             _attackQueue.Remove(deletedMinion);
 
+
             MinionObjectPool.Instance?.ReturnToPool(deletedMinion.gameObject);
-            
+
             if (_minions.Count == 0 && !_isSpawning)
             {
                 onAllMinionsDestroyedEvent?.RaiseEvent();

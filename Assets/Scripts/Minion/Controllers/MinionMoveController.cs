@@ -11,18 +11,22 @@ namespace Minion.Controllers
         [SerializeField] private MinionSO minionConfig;
         [SerializeField] private Vector3EventChannelSO onPlayerMovedEvent;
         [SerializeField] private Vector3EventChannelSO onDashMovementEvent;
-        
+
         private Vector3 _moveDir;
+        private Coroutine _moveCoroutine;
 
         public void OnDisable()
         {
             onPlayerMovedEvent.onVectorEvent.RemoveListener(HandleMove);
             onDashMovementEvent.onVectorEvent.RemoveListener(HandleMove);
+
+            if (_moveCoroutine != null)
+                StopCoroutine(_moveCoroutine);
         }
 
         public void Enter()
         {
-            StartCoroutine(HandleChangeState());
+            _moveCoroutine = StartCoroutine(HandleChangeState());
         }
 
         private IEnumerator HandleChangeState()
@@ -67,7 +71,6 @@ namespace Minion.Controllers
 
         public void OnUpdate()
         {
-            
         }
     }
 }

@@ -17,22 +17,22 @@ namespace Minion.Controllers
 
         protected override void OnEnable()
         {
-            SetIdleCoroutineAsNull();
+            StopIdleCoroutine();
             base.OnEnable();
         }
 
         private void OnDisable()
         {
-            SetIdleCoroutineAsNull();
+            StopIdleCoroutine();
         }
 
         public void Enter()
         {
             transform.rotation = Quaternion.identity;
-            if (_idleTime == null)
-            {
-                _idleTime = StartCoroutine(HandleIdleTime());
-            }
+            StopIdleCoroutine();
+
+            SetCanAttack(false);
+            _idleTime = StartCoroutine(HandleIdleTime());
         }
 
         public void SetCanAttack(bool value)
@@ -42,7 +42,6 @@ namespace Minion.Controllers
 
         private IEnumerator HandleIdleTime()
         {
-            _canAttack = false;
             yield return new WaitForSeconds(minionConfig.GetRandomIdleTime());
             onMinionWantsToAttack?.RaiseEvent(minionAgent);
             yield return new WaitUntil(() => _canAttack);
@@ -51,12 +50,13 @@ namespace Minion.Controllers
 
         public void Exit()
         {
-            SetIdleCoroutineAsNull();
+            StopIdleCoroutine();
         }
 
-        private void SetIdleCoroutineAsNull()
+        private void StopIdleCoroutine()
         {
-            _idleTime = null;
+            if (_idleTime != null)
+                StopCoroutine(_idleTime);
         }
     }
 }
