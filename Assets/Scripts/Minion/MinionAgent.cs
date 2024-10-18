@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Events;
 using Events.ScriptableObjects;
 using FSM;
 using Health;
@@ -14,9 +13,8 @@ namespace Minion
         [SerializeField] private HealthPoints healthPoints;
 
         [Header("Events")]
-        [SerializeField] private EventChannelSO<MinionAgent> onMinionDeletedEvent;
-        [SerializeField] private EventChannelSO<MinionAgent> onMinionAttackedEvent;
-        [SerializeField] private EventChannelSO<MinionAgent> onMinionAttackingEvent;
+        [SerializeField] private MinionAgentEventChannelSO onMinionDeletedEvent;
+        [SerializeField] private MinionAgentEventChannelSO onMinionAttackedEvent;
 
         [Header("Internal Events")]
         [SerializeField] private ActionEventsWrapper idleEvents;
@@ -47,11 +45,6 @@ namespace Minion
         public void SetIsNotInAttackState()
         {
             onMinionAttackedEvent?.RaiseEvent(this);
-        }
-
-        public void SetIsInAttackState()
-        {
-            onMinionAttackingEvent?.RaiseEvent(this);
         }
 
         public GameObject GetPlayer()

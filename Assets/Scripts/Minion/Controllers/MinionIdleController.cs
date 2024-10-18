@@ -11,7 +11,7 @@ namespace Minion.Controllers
     public class MinionIdleController : MinionController
     {
         [SerializeField] private MinionSO minionConfig;
-
+        [SerializeField] private MinionAgentEventChannelSO onMinionWantsToAttack;
         private Coroutine _idleTime;
         private bool _canAttack;
 
@@ -42,10 +42,11 @@ namespace Minion.Controllers
 
         private IEnumerator HandleIdleTime()
         {
+            _canAttack = false;
             yield return new WaitForSeconds(minionConfig.GetRandomIdleTime());
+            onMinionWantsToAttack?.RaiseEvent(minionAgent);
             yield return new WaitUntil(() => _canAttack);
-            MinionAgent.SetIsInAttackState();
-            MinionAgent.ChangeStateToMove();
+            minionAgent.ChangeStateToMove();
         }
 
         public void Exit()

@@ -60,7 +60,7 @@ namespace Minion.Controllers
             }
 
             _aimLine.enabled = false;
-            MinionAgent.ChangeStateToAttack();
+            minionAgent.ChangeStateToAttack();
         }
     }
 }

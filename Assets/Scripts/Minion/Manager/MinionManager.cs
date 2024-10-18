@@ -17,16 +17,16 @@ namespace Minion.Manager
         [SerializeField] private GameObject player;
 
         [Header("Events")]
-        [SerializeField] private EventChannelSO<MinionAgent> onMinionDeletedEvent;
+        [SerializeField] private MinionAgentEventChannelSO onMinionDeletedEvent;
         [SerializeField] private VoidEventChannelSO onAllMinionsDestroyedEvent;
         [SerializeField] private VoidEventChannelSO onGameplayEndEvent;
-        [SerializeField] private EventChannelSO<MinionAgent> onMinionAttackingEvent;
-        [SerializeField] private EventChannelSO<MinionAgent> onMinionAttackedEvent;
+        [SerializeField] private MinionAgentEventChannelSO onMinionWantsToAttackEvent;
+        [SerializeField] private MinionAgentEventChannelSO onMinionAttackedEvent;
 
         private List<MinionAgent> _minions;
         private bool _isSpawning;
         private Coroutine _spawnCoroutine;
-        private Queue<MinionAgent> _attackQueue;
+        private List<MinionAgent> _attackQueue;
         private List<MinionAgent> _attackingMinions;
 
         protected void OnEnable()
@@ -34,7 +34,7 @@ namespace Minion.Manager
             _spawnCoroutine = StartCoroutine(SpawnMinions());
             onMinionDeletedEvent?.onTypedEvent.AddListener(HandleDeletedEvent);
             onGameplayEndEvent?.onEvent.AddListener(RemoveAllMinions);
-            onMinionAttackingEvent?.onTypedEvent.AddListener(AddAttackingMinion);
+            onMinionWantsToAttackEvent?.onTypedEvent.AddListener(AddAttackingMinion);
             onMinionAttackedEvent?.onTypedEvent.AddListener(RemoveAttackingMinion);
         }
 
@@ -42,21 +42,26 @@ namespace Minion.Manager
         {
             onMinionDeletedEvent?.onTypedEvent.RemoveListener(HandleDeletedEvent);
             onGameplayEndEvent?.onEvent.RemoveListener(RemoveAllMinions);
-            onMinionAttackingEvent?.onTypedEvent.RemoveListener(AddAttackingMinion);
+            onMinionWantsToAttackEvent?.onTypedEvent.RemoveListener(AddAttackingMinion);
             onMinionAttackedEvent?.onTypedEvent.RemoveListener(RemoveAttackingMinion);
             StopCoroutine(_spawnCoroutine);
         }
 
         private void AddAttackingMinion(MinionAgent minion)
         {
-            _attackQueue.Enqueue(minion);
-            StartCoroutine(HandleMinionOrder());
+            _attackQueue.Add(minion);
+            if (CanMinionAttack())
+                HandleMinionOrder();
         }
 
         private void RemoveAttackingMinion(MinionAgent minion)
         {
             if (_attackingMinions.Contains(minion))
+            {
                 _attackingMinions.Remove(minion);
+                if (CanMinionAttack() && _attackQueue.Count > 0)
+                    HandleMinionOrder();
+            }
         }
 
         private void RemoveAllMinions()
@@ -67,12 +72,15 @@ namespace Minion.Manager
                 _minions.Remove(minion);
                 MinionObjectPool.Instance?.ReturnToPool(minion.gameObject);
             }
+
+            _attackQueue.Clear();
+            _attackingMinions.Clear();
         }
 
-        private IEnumerator HandleMinionOrder()
+        private void HandleMinionOrder()
         {
-            yield return new WaitUntil(CanMinionsAttack);
-            MinionAgent minion = _attackQueue.Dequeue();
+            MinionAgent minion = _attackQueue[0];
+            _attackQueue.RemoveAt(0);
             MinionIdleController minionIdleController = minion.GetComponent<MinionIdleController>();
             minionIdleController.SetCanAttack(true);
             _attackingMinions.Add(minion);
@@ -84,6 +92,7 @@ namespace Minion.Manager
 
             _minions.Remove(deletedMinion);
             _attackingMinions.RemoveAll(aMinion => aMinion == deletedMinion);
+            _attackQueue.Remove(deletedMinion);
 
             if (_minions.Count == 0 && !_isSpawning)
             {
@@ -91,7 +100,7 @@ namespace Minion.Manager
             }
         }
 
-        private bool CanMinionsAttack()
+        private bool CanMinionAttack()
         {
             return _attackingMinions.Count < minionManagerConfig.maxMinionsAttackingAtSameTime;
         }
@@ -100,7 +109,7 @@ namespace Minion.Manager
         {
             _isSpawning = true;
             _minions = new List<MinionAgent>();
-            _attackQueue = new Queue<MinionAgent>();
+            _attackQueue = new List<MinionAgent>();
             _attackingMinions = new List<MinionAgent>();
 
             int minionsSpawned = 0;
@@ -118,9 +127,6 @@ namespace Minion.Manager
 
                 MinionAgent minionAgent = minion.GetComponent<MinionAgent>();
                 minionAgent.SetPlayer(player);
-
-                MinionIdleController minionIdleController = minion.GetComponent<MinionIdleController>();
-                minionIdleController.SetCanAttack(CanMinionsAttack());
 
                 minion.transform.position = minionSpawnerConfig.GetSpawnPoint();
                 minion.SetActive(true);

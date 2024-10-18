@@ -56,7 +56,7 @@ namespace Minion.Controllers
             yield return new WaitForSeconds(minionConfig.GetRandomMoveTime());
             onPlayerMovedEvent.onVectorEvent.RemoveListener(HandleMove);
             onDashMovementEvent.onVectorEvent.RemoveListener(HandleMove);
-            MinionAgent.ChangeStateToChargeAttack();
+            minionAgent.ChangeStateToChargeAttack();
         }
 
         private void HandleMove(Vector3 movement)

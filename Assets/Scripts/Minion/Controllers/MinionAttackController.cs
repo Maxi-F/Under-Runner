@@ -40,13 +40,13 @@ namespace Minion.Controllers
             }
             _healthPoints.SetCanTakeDamage(true);
 
-            MinionAgent.ChangeStateToFallingBack();
+            minionAgent.ChangeStateToFallingBack();
         }
 
         public void Exit()
         {
             _isAttacking = false;
-            MinionAgent.SetIsNotInAttackState();
+            minionAgent.SetIsNotInAttackState();
         }
         
         private void OnTriggerEnter(Collider other)
