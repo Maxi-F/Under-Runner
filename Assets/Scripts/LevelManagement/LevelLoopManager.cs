@@ -1,5 +1,4 @@
 using System.Collections;
-using LevelManagement.Seq6uences;
 using LevelManagement.Sequences;
 using ObstacleSystem;
 using UnityEngine;

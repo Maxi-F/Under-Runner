@@ -4,7 +4,7 @@ using Minion.Manager;
 using UnityEngine;
 using Utils;
 
-namespace LevelManagement.Seq6uences
+namespace LevelManagement.Sequences
 {
     public class MinionsSequence : MonoBehaviour
     {
