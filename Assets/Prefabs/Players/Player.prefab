@@ -555,6 +555,7 @@ MonoBehaviour:
   onCinematicStarted: {fileID: 11400000, guid: b711b8f3d88f6614bb9d23a652188ca8, type: 2}
   onCinematicFinished: {fileID: 11400000, guid: 83f6a3608cca1b64a9e546fae228e30e, type: 2}
   meleeWeapon: {fileID: 4645382247631583565}
+  attackBufferSeconds: 2
   attackCurve:
     serializedVersion: 2
     m_Curve:

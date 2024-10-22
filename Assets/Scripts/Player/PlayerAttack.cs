@@ -1,4 +1,7 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Events;
 using Input;
 using Managers;
@@ -8,6 +11,12 @@ using UnityEngine;
 
 namespace Player
 {
+    [Serializable]
+    public class AttackInputAction
+    {
+        public float inputTime;
+    }
+    
     public class PlayerAttack : MonoBehaviour
     {
         [SerializeField] private PauseSO pauseData;
@@ -24,16 +33,19 @@ namespace Player
 
         [Header("Attack Configuration")]
         [SerializeField] private MeleeWeapon meleeWeapon;
+        [SerializeField] private float attackBufferSeconds;
         [SerializeField] private AnimationCurve attackCurve;
         [SerializeField] private LayerMask layers;
         [SerializeField] private float attackDuration;
         [SerializeField] private float attackCoolDown;
         
         private bool _canAttack = true;
+        private List<AttackInputAction> _attackInputActions;
         private Coroutine _attackCoroutine = null;
 
         private void OnEnable()
         {
+            _attackInputActions = new List<AttackInputAction>();
             inputHandler.onPlayerAttack.AddListener(HandleAttack);
 
             onCinematicStarted.onEvent.AddListener(DisableAttack);
@@ -50,7 +62,33 @@ namespace Player
             onPlayerDeath.onEvent.RemoveListener(EnableAttack);
         }
 
+        private void Update()
+        {
+            if (_canAttack)
+            {
+                bool attackDone = false;
+                foreach (var attackInputAction in _attackInputActions.ToList())
+                {
+                    _attackInputActions.Remove(attackInputAction);
+                    if (attackInputAction.inputTime + attackBufferSeconds >= Time.time && !attackDone)
+                    {
+                        Debug.Log("Doing!");
+                        DoAttack();
+                        attackDone = true;
+                    }
+                }
+            }
+        }
+        
         public void HandleAttack()
+        {
+            _attackInputActions.Add(new AttackInputAction()
+            {
+                inputTime = Time.time
+            });
+        }
+
+        private void DoAttack()
         {
             if (!_canAttack || pauseData.isPaused)
                 return;
@@ -58,13 +96,12 @@ namespace Player
             if (_attackCoroutine != null)
                 StopCoroutine(_attackCoroutine);
 
+            _canAttack = false;
             _attackCoroutine = StartCoroutine(AttackCoroutine());
         }
-
+        
         private IEnumerator AttackCoroutine()
         {
-            _canAttack = false;
-
             meleeWeapon.enabled = true;
             float timer = 0;
             float startTime = Time.time;
@@ -81,13 +118,7 @@ namespace Player
             }
 
             meleeWeapon.enabled = false;
-            yield return CoolDownCoroutine();
             _canAttack = true;
-        }
-
-        private IEnumerator CoolDownCoroutine()
-        {
-            yield return new WaitForSeconds(attackCoolDown);
         }
 
         private void EnableAttack()
