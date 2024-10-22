@@ -2094,7 +2094,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7416696082052646234, guid: 307923de71b833449b055d96f2c19d72, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2592,6 +2592,10 @@ PrefabInstance:
     - target: {fileID: 8182577420945262153, guid: 861b2a8bc9d9ed7458a191169b2724af, type: 3}
       propertyPath: m_Name
       value: Boss
+      objectReference: {fileID: 0}
+    - target: {fileID: 8182577420945262153, guid: 861b2a8bc9d9ed7458a191169b2724af, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8990949599782388121, guid: 861b2a8bc9d9ed7458a191169b2724af, type: 3}
       propertyPath: m_Controller
