@@ -1776,6 +1776,7 @@ MonoBehaviour:
   slider: {fileID: 7009945050609195404}
   shouldStartHided: 0
   onTakeDamage: {fileID: 11400000, guid: 703652f7737657e41ba9437afd9a0117, type: 2}
+  onSumHealth: {fileID: 11400000, guid: a9a6f490798423f4594ceb6a0672f7f9, type: 2}
   onResetDamage: {fileID: 11400000, guid: d276143688fe85f45bce528b1753dd72, type: 2}
   onInitializeSlider: {fileID: 0}
 --- !u!1 &8803981736539142156
