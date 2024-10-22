@@ -34,6 +34,9 @@ namespace Minion.Manager
         
         protected void OnEnable()
         {
+            _attackQueue = new List<MinionAgent>();
+            _attackingMinions = new List<MinionAgent>();
+
             _spawnCoroutine = StartCoroutine(SpawnMinions());
             onMinionDeletedEvent?.onTypedEvent.AddListener(HandleDeletedEvent);
             onGameplayEndEvent?.onEvent.AddListener(RemoveAllMinions);
