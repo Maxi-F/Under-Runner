@@ -49,6 +49,7 @@ namespace Enemy.Attacks
 
         public IEnumerator Execute()
         {
+            animationHandler.StartBombThrowAnimation();
             enemyAgent.ChangeStateToBombThrow();
             _executedAttacksQuantity = 0;
 

@@ -8,7 +8,7 @@ namespace Enemy.Attacks
     {
         [SerializeField] private VoidEventChannelSO onHandleAttack;
         [SerializeField] private VoidEventChannelSO onFinishSpawningBlocks;
-        
+
         private bool _isExecuting;
 
         private void OnEnable()
@@ -28,6 +28,8 @@ namespace Enemy.Attacks
 
         public IEnumerator Execute()
         {
+            animationHandler.StartAttackUpAnimation();
+            
             enemyAgent.ChangeStateToDebrisThrow();
             _isExecuting = true;
 
