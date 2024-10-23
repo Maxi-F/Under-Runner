@@ -14,6 +14,7 @@ namespace UI
     
         [Header("Events")]
         [SerializeField] private IntEventChannelSO onTakeDamage;
+        [SerializeField] private IntEventChannelSO onSumHealth;
         [SerializeField] private IntEventChannelSO onResetDamage;
         [SerializeField] private IntEventChannelSO onInitializeSlider;
         
@@ -32,12 +33,14 @@ namespace UI
                 _wasTriggered = false;
             }
 
+            onSumHealth?.onIntEvent.AddListener(HandleTakeDamage);
             onTakeDamage?.onIntEvent.AddListener(HandleTakeDamage);
             onResetDamage?.onIntEvent.AddListener(HandleReset);
         }
 
         private void OnDestroy()
         {
+            onSumHealth?.onIntEvent?.RemoveListener(HandleTakeDamage);
             onTakeDamage?.onIntEvent.RemoveListener(HandleTakeDamage);
             onInitializeSlider?.onIntEvent.RemoveListener(HandleInit);
             onResetDamage?.onIntEvent.RemoveListener(HandleReset);
