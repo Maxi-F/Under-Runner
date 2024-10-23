@@ -132,7 +132,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 1
-  m_Spacing: 50
+  m_Spacing: 24.55
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -207,8 +207,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: PAUSE
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 3b5859e672d24d54eaf8d4e3962a6907, type: 2}
+  m_sharedMaterial: {fileID: -6738979220624707452, guid: 3b5859e672d24d54eaf8d4e3962a6907, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -238,7 +238,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 100
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -398,7 +398,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3738226892593517375, guid: 52cdce4984584f34daddcada32e3f602, type: 3}
       propertyPath: m_fontSize
-      value: 50
+      value: 71
       objectReference: {fileID: 0}
     - target: {fileID: 3739996199882316302, guid: 52cdce4984584f34daddcada32e3f602, type: 3}
       propertyPath: m_Name
@@ -561,7 +561,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3738226892593517375, guid: 52cdce4984584f34daddcada32e3f602, type: 3}
       propertyPath: m_fontSize
-      value: 50
+      value: 71
       objectReference: {fileID: 0}
     - target: {fileID: 3739996199882316302, guid: 52cdce4984584f34daddcada32e3f602, type: 3}
       propertyPath: m_Name
@@ -913,7 +913,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3738226892593517375, guid: 52cdce4984584f34daddcada32e3f602, type: 3}
       propertyPath: m_fontSize
-      value: 50
+      value: 71
       objectReference: {fileID: 0}
     - target: {fileID: 3739996199882316302, guid: 52cdce4984584f34daddcada32e3f602, type: 3}
       propertyPath: m_Name
