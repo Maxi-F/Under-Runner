@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: MapBounds
   m_EditorClassIdentifier: 
   horizontalBounds:
-    min: -5.4
-    max: 5.4
+    min: -9.5
+    max: 9.5
   depthBounds:
     min: -4
     max: 8

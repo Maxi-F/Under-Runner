@@ -310,6 +310,10 @@ PrefabInstance:
       value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 840522403494077163, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: swingConfigSo
+      value: 
+      objectReference: {fileID: 11400000, guid: 8b7b550851ce2b6419cac2257606d710, type: 2}
+    - target: {fileID: 840522403494077163, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
       propertyPath: swingDuration
       value: 1.5
       objectReference: {fileID: 0}
@@ -326,9 +330,21 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 840522403494077163, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: swingConfigSo.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 840522403494077163, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
       propertyPath: initialLaserLocalPosition.x
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 840522403494077163, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: swingConfigSo.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 5ded94f39775e2d45b3c8ec6bc876b42, type: 2}
+    - target: {fileID: 840522403494077163, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
+      propertyPath: swingConfigSo.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 8b7b550851ce2b6419cac2257606d710, type: 2}
     - target: {fileID: 840522403494077163, guid: 8098ae3de085dbd4fb021df7f95f5adb, type: 3}
       propertyPath: swingCurve.m_Curve.Array.size
       value: 2

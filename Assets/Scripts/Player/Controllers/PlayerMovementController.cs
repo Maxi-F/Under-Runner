@@ -1,5 +1,7 @@
+using System.Collections;
 using Events;
 using Input;
+using Managers;
 using MapBounds;
 using Player.Controllers;
 using UnityEngine;
@@ -8,9 +10,13 @@ namespace Player
 {
     public class PlayerMovementController : PlayerController
     {
+        [SerializeField] private PauseSO pauseData;
+
         [Header("Input")] [SerializeField] private InputHandlerSO inputHandler;
         [SerializeField] private Vector3EventChannelSO onPlayerNewPositionEvent;
         [SerializeField] private Vector3EventChannelSO onPlayerMovementEvent;
+        [SerializeField] private VoidEventChannelSO onCinematicStarted;
+        [SerializeField] private VoidEventChannelSO onCinematicFinished;
         
         [Header("MapBounds")]
         [SerializeField] private MapBoundsSO boundsConfig;
@@ -18,64 +24,66 @@ namespace Player
         [Header("Movement Config")]
         [SerializeField] private float speed;
 
-        [Header("Look Config")]
-        [SerializeField] private Vector2 maxTiltAngles;
-
-        [SerializeField] private GameObject visor;
-        [SerializeField] private GameObject bikeBody;
-
-        private Vector3 currentDir;
-
+        private Vector3 _currentDir;
+        private Coroutine _handleTiltCoroutine;
         private bool _canMove = true;
+        private bool _isInCinematic = false;
 
-        public Vector3 CurrentDir => currentDir;
+        public Vector3 CurrentDir => _currentDir;
 
         protected override void OnEnable()
         {
             base.OnEnable();
+            onCinematicStarted?.onEvent.AddListener(HandleCinematic);
+            onCinematicFinished?.onEvent.AddListener(HandleEndCinematic);
             inputHandler.onPlayerMove.AddListener(HandleMovement);
         }
 
         private void OnDisable()
         {
+            onCinematicStarted?.onEvent.RemoveListener(HandleCinematic);
+            onCinematicFinished?.onEvent.RemoveListener(HandleEndCinematic);
             inputHandler.onPlayerMove.RemoveListener(HandleMovement);
         }
 
         public void OnUpdate()
         {
-            if (_canMove)
+            if (_canMove && !_isInCinematic)
             {
                 Vector3 previousPosition = transform.position;
-                transform.position = boundsConfig.ClampPosition(transform.position + currentDir * (speed * Time.deltaTime), playerCollider.bounds.size);
+                transform.position = boundsConfig.ClampPosition(transform.position + _currentDir * (speed * Time.deltaTime), playerCollider.bounds.size);
                 onPlayerNewPositionEvent?.RaiseEvent(transform.position);
-                
+
                 onPlayerMovementEvent?.RaiseEvent(transform.position - previousPosition);
             }
+        }
+        
+        private void HandleEndCinematic()
+        {
+            _isInCinematic = false;
+        }
+
+        private void HandleCinematic()
+        {
+            _isInCinematic = true;
         }
 
         private void HandleMovement(Vector2 dir)
         {
-            if (currentDir == Vector3.zero && _canMove)
+            if (_currentDir == Vector3.zero && _canMove)
                 playerAgent.ChangeStateToMove();
             else if (dir == Vector2.zero && _canMove)
                 playerAgent.ChangeStateToIdle();
 
-            currentDir.x = dir.x;
-            currentDir.y = 0;
-            currentDir.z = dir.y;
+            _currentDir.x = dir.x;
+            _currentDir.y = 0;
+            _currentDir.z = dir.y;
         }
 
         public void TiltAround()
         {
-            Vector2 normalizedDir = new Vector2(currentDir.x, currentDir.z).normalized;
-
-            float lateralAngle = Mathf.Asin(normalizedDir.x) * Mathf.Rad2Deg;
-            lateralAngle = Mathf.Clamp(lateralAngle, -maxTiltAngles.x, maxTiltAngles.x);
-
-            float frontalAngle = Mathf.Asin(normalizedDir.y) * Mathf.Rad2Deg;
-            frontalAngle = Mathf.Clamp(frontalAngle, -maxTiltAngles.y, maxTiltAngles.y);
-
-            bikeBody.transform.rotation = Quaternion.Euler(frontalAngle, 0, -lateralAngle);
+            Vector2 normalizedDir = new Vector2(_currentDir.x, _currentDir.z).normalized;
+            animatorHandler.SetPlayerDirection(normalizedDir);
         }
 
         public void ToggleMoveability()

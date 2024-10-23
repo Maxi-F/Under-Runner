@@ -2,7 +2,7 @@ name: Build project
 
 env:
   itchio_channel: windows
-  BuildName: UnderRunner ${{ github.event.release.tag_name }}
+  BuildName: Under Runner ${{ github.event.release.tag_name }}
   ReleaseBody: ${{github.event.release.body}}
 
 on:

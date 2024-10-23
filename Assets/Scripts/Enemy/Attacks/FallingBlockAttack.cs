@@ -1,15 +1,16 @@
-using System;
 using System.Collections;
 using Events;
 using UnityEngine;
 
 namespace Enemy.Attacks
 {
-    public class FallingBlockAttack : MonoBehaviour, IEnemyAttack
+    public class FallingBlockAttack : EnemyController, IEnemyAttack
     {
         [SerializeField] private VoidEventChannelSO onHandleAttack;
         [SerializeField] private VoidEventChannelSO onFinishSpawningBlocks;
-        
+
+        [Header("Anim Config")]
+        [SerializeField] private float initialDelay;
         private bool _isExecuting;
 
         private void OnEnable()
@@ -29,10 +30,14 @@ namespace Enemy.Attacks
 
         public IEnumerator Execute()
         {
+            animationHandler.StartAttackUpAnimation();
+            yield return new WaitForSeconds(initialDelay);
+            enemyAgent.ChangeStateToDebrisThrow();
             _isExecuting = true;
 
             onHandleAttack?.RaiseEvent();
             yield return new WaitWhile(() => _isExecuting);
+            enemyAgent.ChangeStateToIdle();
         }
 
         private void HandleFinishSpawningBlocks()

@@ -1,21 +1,12 @@
-using System;
 using System.Collections;
-using Enemy;
+using Enemy.Shield;
+using Events.ScriptableObjects;
 using Health;
 using ParryProjectile;
 using UnityEngine;
 
 namespace Attacks.ParryProjectile
 {
-    [Serializable]
-    public class ParryProjectileFirstForce
-    {
-        public Vector3 startImpulse;
-        public Vector3 angularForce;
-        public Vector3 finalPosition;
-        public float secondsInAngularVelocity;
-    }
-
     public class ParryBomb : MonoBehaviour, IDeflectable
     {
         [Header("Second Force Properties")]
@@ -31,10 +22,14 @@ namespace Attacks.ParryProjectile
         [Header("Parry Properties")] [SerializeField]
         private float startVelocityInParry;
 
+        [Header("Events")]
+        [SerializeField] private EventChannelSO<bool> onParryFinished;
+
+        [SerializeField] private EventChannelSO<bool> onParried;
+        
         private GameObject _firstObjectToFollow;
         private Vector3 _targetPosition;
         private bool _isTargetingPlayer;
-        private GameObject _objectToFollow;
         private Rigidbody _rigidbody;
         private ParryProjectileFirstForce _parryProjectileConfig;
 
@@ -98,6 +93,7 @@ namespace Attacks.ParryProjectile
                 yield return null;
             }
 
+            onParryFinished.RaiseEvent(false);
             gameObject.SetActive(false);
         }
 
@@ -105,14 +101,16 @@ namespace Attacks.ParryProjectile
         {
             if (other.CompareTag("Enemy") && !_isTargetingPlayer)
             {
-                EnemyController enemy = other.GetComponentInChildren<EnemyController>();
+                ShieldController enemy = other.GetComponentInChildren<ShieldController>();
 
                 if (enemy.TryDestroyShield(shieldDamage))
                 {
                     gameObject.SetActive(false);
+                    onParryFinished.RaiseEvent(true);
                     return;
                 }
 
+                other.GetComponent<EnemyAgent>().ChangeStateToBombParry();
                 Deflect(_firstObjectToFollow);
                 return;
             }
@@ -122,14 +120,9 @@ namespace Attacks.ParryProjectile
                 ITakeDamage damageTaker = other.GetComponent<ITakeDamage>();
 
                 damageTaker.TryTakeDamage(damage);
+                onParryFinished.RaiseEvent(false);
                 gameObject.SetActive(false);
             }
-        }
-
-        public void SetObjectToFollow(GameObject newObjectToFollow)
-        {
-            _objectToFollow = newObjectToFollow;
-            _isTargetingPlayer = false;
         }
 
         public void SetFirstObjectToFollow(GameObject newFirstObjectToFollow)
@@ -149,6 +142,7 @@ namespace Attacks.ParryProjectile
             _rigidbody.velocity = GetDirection(newObjectToFollow.transform.position) * startVelocityInParry;
 
             _isTargetingPlayer = !_isTargetingPlayer;
+            onParried?.RaiseEvent(_isTargetingPlayer);
             SetTargetPosition(newObjectToFollow.transform.position);
             SetDirection(_targetPosition);
         }

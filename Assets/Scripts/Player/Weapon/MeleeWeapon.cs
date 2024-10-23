@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Health;
 using ParryProjectile;
@@ -14,9 +15,14 @@ namespace Player.Weapon
 
         private List<Collider> hittedEnemies = new List<Collider>();
 
+        private void OnDisable()
+        {
+            ResetHittedEnemiesBuffer();
+        }
+
         private void OnTriggerEnter(Collider other)
         {
-            if (hittedEnemies.Contains(other))
+            if (!this.enabled || hittedEnemies.Contains(other))
                 return;
 
             if (other.transform.CompareTag("Deflectable"))

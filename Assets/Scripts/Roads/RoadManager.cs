@@ -1,15 +1,12 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Events;
-using Roads.ScriptableObjects;
 using UnityEngine;
 
 namespace Roads
 {
     public class RoadManager : MonoBehaviour
     {
-        [SerializeField] private RoadSO[] roads;
         [SerializeField] private GameObject startingLastRoad;
         [SerializeField] private int initRoadCount = 7;
         [SerializeField] private int maxRoads = 7;
@@ -20,7 +17,7 @@ namespace Roads
         [SerializeField] private GameObjectEventChannelSO onRoadDeleteTriggerEvent;
         [SerializeField] private GameObjectEventChannelSO onRoadInstantiatedEvent;
         [SerializeField] private Vector3EventChannelSO onNewVelocityEvent;
-        [SerializeField] private VoidEventChannelSO onPlayerDeathEvent;
+        [SerializeField] private Vector3EventChannelSO onNewRoadManagerVelocity;
         
         private int _roadCount;
         private List<GameObject> _roads = new List<GameObject>();
@@ -39,14 +36,16 @@ namespace Roads
                 initRoad.SetActive(true);
                 _roads.Add(initRoad);
             }
+            
+            HandleNewVelocity(roadsInitVelocity);
+            onNewRoadManagerVelocity?.onVectorEvent.AddListener(HandleNewVelocity);
             onRoadDeleteTriggerEvent?.onGameObjectEvent.AddListener(HandleDeleteRoad);
-            onPlayerDeathEvent?.onEvent.AddListener(HandleRemoveRoads);
         }
 
         public void OnDisable()
         {
+            onNewRoadManagerVelocity?.onVectorEvent.RemoveListener(HandleNewVelocity);
             onRoadDeleteTriggerEvent?.onGameObjectEvent.RemoveListener(HandleDeleteRoad);
-            onPlayerDeathEvent?.onEvent.RemoveListener(HandleRemoveRoads);
         }
 
         private void HandleRemoveRoads()

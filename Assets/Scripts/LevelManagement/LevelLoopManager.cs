@@ -1,4 +1,5 @@
 using System.Collections;
+using LevelManagement.Sequences;
 using ObstacleSystem;
 using UnityEngine;
 
@@ -15,19 +16,20 @@ namespace LevelManagement
         [SerializeField] private BossSequence bossSequence;
         
         private LevelLoopSO _levelConfig;
+        private Coroutine _actualLoopSequence;
 
         public void StartLevelSequence(LevelLoopSO loopConfig)
         {
             SetupLevelLoop(loopConfig);
-            StartCoroutine(StartLoopWithConfig());
+            _actualLoopSequence = StartCoroutine(StartLoopWithConfig());
         }
 
-        private void SetupLevelLoop(LevelLoopSO loopConfig)
+        public void SetupLevelLoop(LevelLoopSO loopConfig)
         {
             _levelConfig = loopConfig;
 
             obstacleSequence.SetupSequence(_levelConfig.roadData);
-            minionsSequence.SetupSequence();
+            minionsSequence.SetupSequence(_levelConfig.minionsData);
             bossSequence.SetupSequence(_levelConfig.bossData);
             
             obstacleSequence.SetLevelConfig(_levelConfig);
@@ -38,6 +40,17 @@ namespace LevelManagement
         private IEnumerator StartLoopWithConfig()
         {
             return obstacleSequence.Execute();
+        }
+
+        public void StopSequence()
+        {
+            if (_actualLoopSequence != null)
+            {
+                StopCoroutine(_actualLoopSequence);
+                obstacleSequence.ClearSequence();
+                minionsSequence.ClearSequence();
+                bossSequence.ClearSequence();
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using Events;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -14,14 +15,18 @@ namespace Health
         [Header("events")]
         [SerializeField] private VoidEventChannelSO onDeathEvent;
         [SerializeField] private IntEventChannelSO onTakeDamageEvent;
+        [SerializeField] private IntEventChannelSO onSumHealthEvent;
         [SerializeField] private IntEventChannelSO onResetPointsEvent;
+        [SerializeField] private IntEventChannelSO onInitializeHealthEvent;
+        [SerializeField] private IntEventChannelSO onInitializeMaxHealthEvent;
         [SerializeField] private VoidEventChannelSO onDamageAvoidedEvent;
 
         [Header("Internal events")]
         [SerializeField] private UnityEvent onInternalDeathEvent;
-
         [SerializeField] private UnityEvent<int> onInternalResetEvent;
-
+        [SerializeField] private UnityEvent<int> onInternalTakeDamageEvent;
+        [SerializeField] private UnityEvent<int> onInternalInitializeMaxHealthEvent;
+        
         public int MaxHealth
         {
             get { return maxHealth; }
@@ -39,6 +44,8 @@ namespace Health
         void Start()
         {
             CurrentHp = initHealth;
+            onInitializeHealthEvent?.RaiseEvent(CurrentHp);
+            RaiseInitMaxHpEvent();
         }
 
         private void OnDestroy()
@@ -65,6 +72,7 @@ namespace Health
             CurrentHp = maxHealth;
             onResetPointsEvent?.RaiseEvent(CurrentHp);
             onInternalResetEvent?.Invoke(CurrentHp);
+            RaiseInitMaxHpEvent();
         }
 
         public bool TryTakeDamage(int damage)
@@ -76,7 +84,8 @@ namespace Health
             }
 
             CurrentHp -= damage;
-
+            
+            
             if (IsDead())
             {
                 onDeathEvent?.RaiseEvent();
@@ -85,6 +94,7 @@ namespace Health
             else
             {
                 onTakeDamageEvent?.RaiseEvent(CurrentHp);
+                onInternalTakeDamageEvent?.Invoke(CurrentHp);
             }
 
             return true;
@@ -99,6 +109,18 @@ namespace Health
         {
             if (_isInvincible) return;
             TryTakeDamage(damage);
+        }
+
+        public void RaiseInitMaxHpEvent()
+        {
+            onInitializeMaxHealthEvent?.RaiseEvent(MaxHealth);
+            onInternalInitializeMaxHealthEvent?.Invoke(MaxHealth);
+        }
+
+        public void SumHealth(int wonHealth)
+        {
+            CurrentHp = math.min(maxHealth, wonHealth + CurrentHp);
+            onSumHealthEvent?.RaiseEvent(CurrentHp);
         }
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD

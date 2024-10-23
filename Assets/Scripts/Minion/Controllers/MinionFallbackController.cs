@@ -17,7 +17,8 @@ namespace Minion.Controllers
             }
             else
             {
-                MinionAgent.ChangeStateToIdle();
+                minionAgent.SetIsNotInAttackState();
+                minionAgent.ChangeStateToIdle();
             }
         }
 

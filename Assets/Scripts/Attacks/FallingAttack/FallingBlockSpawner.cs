@@ -10,15 +10,13 @@ namespace Attacks.FallingAttack
 {
     public class FallingBlockSpawner : MonoBehaviour
     {
-        [Header("Prefab")]
-        [SerializeField] private GameObject fallingBlock;
-        
         [Header("Events")] 
         [SerializeField] private Vector3EventChannelSO onPlayerPositionChanged;
         [SerializeField] private VoidEventChannelSO onHandleAttack;
         [SerializeField] private VoidEventChannelSO onFinishSpawningBlocks;
         [SerializeField] private GameObjectEventChannelSO onFallingBlockDisabledEvent;
-
+        [SerializeField] private VoidEventChannelSO onGameplayEndedEvent;
+        
         private Vector3 _playerPosition;
         private bool _isSpawning;
         private List<GameObject> _fallingBlocks;
@@ -26,6 +24,7 @@ namespace Attacks.FallingAttack
         
         private void OnEnable()
         {
+            onGameplayEndedEvent?.onEvent.AddListener(HandleGameplayEnd);
             onPlayerPositionChanged?.onVectorEvent.AddListener(HandleNewPlayerPosition);
             onHandleAttack?.onEvent.AddListener(HandleSpawnBlocks);
             onFallingBlockDisabledEvent?.onGameObjectEvent.AddListener(HandleFallingBlockDisabled);
@@ -33,6 +32,7 @@ namespace Attacks.FallingAttack
         
         private void OnDisable()
         {
+            onGameplayEndedEvent?.onEvent.RemoveListener(HandleGameplayEnd);
             onPlayerPositionChanged?.onVectorEvent.RemoveListener(HandleNewPlayerPosition);
             onHandleAttack?.onEvent.RemoveListener(HandleSpawnBlocks);
             onFallingBlockDisabledEvent?.onGameObjectEvent.RemoveListener(HandleFallingBlockDisabled);
@@ -45,8 +45,18 @@ namespace Attacks.FallingAttack
 
         private void HandleSpawnBlocks()
         {
+            if (_fallingAttackData == null) return;
             _fallingBlocks = new List<GameObject>();
             StartCoroutine(SpawnBlocks(_fallingAttackData.spawnQuantity));
+        }
+        
+        private void HandleGameplayEnd()
+        {
+            if (_fallingBlocks == null || _fallingBlocks.Count == 0) return;
+            foreach (var fallingBlock in _fallingBlocks)
+            {
+                FallingBlockObjectPool.Instance?.ReturnToPool(fallingBlock);
+            }
         }
 
         private void HandleNewPlayerPosition(Vector3 playerPosition)
@@ -93,11 +103,9 @@ namespace Attacks.FallingAttack
         private void HandleFallingBlockDisabled(GameObject fallingBlock)
         {
             _fallingBlocks.Remove(fallingBlock);
-            Debug.Log("HandleFallingBlockDisabled");
 
             if (_fallingBlocks.Count > 0 || _isSpawning)
             {
-                Debug.Log($"falling blocks count {_fallingBlocks.Count}, Is Spawning {_isSpawning}");
                 return;
             }
 

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 
 namespace FSM
@@ -40,6 +39,16 @@ namespace FSM
         public void Disable()
         {
             _isDisabled = true;
+        }
+
+        public void Enable()
+        {
+            _isDisabled = false;
+        }
+
+        public State GetCurrentState()
+        {
+            return _currentStateSo;
         }
     }
 }
