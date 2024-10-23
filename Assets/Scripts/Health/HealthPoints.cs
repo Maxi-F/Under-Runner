@@ -1,5 +1,6 @@
 using System;
 using Events;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -118,7 +119,7 @@ namespace Health
 
         public void SumHealth(int wonHealth)
         {
-            CurrentHp += wonHealth;
+            CurrentHp = math.max(maxHealth, wonHealth + CurrentHp);
             onSumHealthEvent?.RaiseEvent(CurrentHp);
         }
 
