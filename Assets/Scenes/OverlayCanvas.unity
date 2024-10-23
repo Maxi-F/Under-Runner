@@ -954,11 +954,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6228934395445202696, guid: 95a84187696de0943b2083e5029056a4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6432849490016397382, guid: 95a84187696de0943b2083e5029056a4, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7065283408083315628, guid: 95a84187696de0943b2083e5029056a4, type: 3}
       propertyPath: m_SizeDelta.x
