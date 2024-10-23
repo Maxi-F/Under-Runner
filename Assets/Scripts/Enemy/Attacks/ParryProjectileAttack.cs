@@ -22,6 +22,9 @@ namespace Enemy.Attacks
         [SerializeField] private VoidEventChannelSO onAnotherAttackExecuted;
         [SerializeField] private EventChannelSO<bool> onParryFinished;
 
+        [Header("Anim Config")]
+        [SerializeField] private float initialDelay;
+        
         private ParryBomb _parryBomb;
         private int _executedAttacksQuantity;
 
@@ -50,6 +53,7 @@ namespace Enemy.Attacks
         public IEnumerator Execute()
         {
             animationHandler.StartBombThrowAnimation();
+            yield return new WaitForSeconds(initialDelay);
             enemyAgent.ChangeStateToBombThrow();
             _executedAttacksQuantity = 0;
 
