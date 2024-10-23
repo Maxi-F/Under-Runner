@@ -119,7 +119,7 @@ namespace Health
 
         public void SumHealth(int wonHealth)
         {
-            CurrentHp = math.max(maxHealth, wonHealth + CurrentHp);
+            CurrentHp = math.min(maxHealth, wonHealth + CurrentHp);
             onSumHealthEvent?.RaiseEvent(CurrentHp);
         }
 
