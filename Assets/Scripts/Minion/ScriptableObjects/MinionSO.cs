@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Minion.ScriptableObjects
@@ -9,6 +10,7 @@ namespace Minion.ScriptableObjects
     {
         public float duration;
         public float length;
+        public AnimationCurve chargeCurve;
     }
 
     [Serializable]
