@@ -66,6 +66,7 @@ namespace Minion.Controllers
                 yield return null;
             }
 
+            yield return new WaitForSeconds(minionConfig.chargeAttackData.delayAfterLine);
             _aimLine.enabled = false;
             minionAgent.ChangeStateToAttack();
         }
