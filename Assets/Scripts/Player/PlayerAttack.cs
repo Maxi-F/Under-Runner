@@ -159,7 +159,6 @@ namespace Player
                 yield return null;
             }
             
-            Debug.Log("AAAAA");
             meleeWeapon.enabled = false;
             _canAttack = true;
         }
