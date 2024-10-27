@@ -37,7 +37,8 @@ namespace Player
         [SerializeField] private AnimationCurve attackCurve;
         [SerializeField] private LayerMask layers;
         [SerializeField] private float attackDuration;
-        [SerializeField] private float attackCoolDown;
+        [SerializeField] private float attackExitPercentage;
+        [SerializeField] private float doubleAttackExitPercentage = 0.81f;
         
         private bool _canAttack = true;
         private List<AttackInputAction> _attackInputActions;
@@ -66,20 +67,11 @@ namespace Player
         {
             if (_canAttack)
             {
-                bool attackDone = false;
-                foreach (var attackInputAction in _attackInputActions.ToList())
-                {
-                    _attackInputActions.Remove(attackInputAction);
-                    if (attackInputAction.inputTime + attackBufferSeconds >= Time.time && !attackDone)
-                    {
-                        Debug.Log("Doing!");
-                        DoAttack();
-                        attackDone = true;
-                    }
-                }
+                CheckAndDoAttack();
             }
         }
-        
+
+
         public void HandleAttack()
         {
             _attackInputActions.Add(new AttackInputAction()
@@ -100,23 +92,74 @@ namespace Player
             _attackCoroutine = StartCoroutine(AttackCoroutine());
         }
         
+        private void CheckAndDoAttack()
+        {
+            bool attackDone = false;
+            foreach (var attackInputAction in _attackInputActions.ToList())
+            {
+                _attackInputActions.Remove(attackInputAction);
+                if (attackInputAction.inputTime + attackBufferSeconds >= Time.time && !attackDone)
+                {
+                    DoAttack();
+                    attackDone = true;
+                }
+            }
+        }
+
+        private void ClearAttackBuffer()
+        {
+            foreach (var attackInputAction in _attackInputActions.ToList())
+            {
+                _attackInputActions.Remove(attackInputAction);
+            }
+        }
+
+        private bool HasBufferedAttack()
+        {
+            return _attackInputActions.Any(attack => attack.inputTime + attackBufferSeconds >= Time.time);
+        }
+        
         private IEnumerator AttackCoroutine()
         {
             meleeWeapon.enabled = true;
-            float timer = 0;
             float startTime = Time.time;
             animationHandler.StartAttackAnimation();
 
-            while (timer < attackDuration)
+            bool isExiting = false;
+            bool isEndingAttack = false;
+            float timer = 0;
+            while (!isExiting)
             {
                 timer = Time.time - startTime;
-                animationHandler.SetAttackProgress(attackCurve.Evaluate(timer / attackDuration));
+                float percentage = timer / attackDuration;
+                animationHandler.SetAttackProgress(attackCurve.Evaluate(percentage));
+                
                 if (meleeWeapon.enabled && timer / attackDuration > 0.5f)
                     meleeWeapon.enabled = false;
+                
+                if(percentage > attackExitPercentage && !HasBufferedAttack())
+                {
+                    animationHandler.EndAttackAnimation();
+                    isEndingAttack = true;
+                }
 
+                if (!isEndingAttack && percentage > doubleAttackExitPercentage && HasBufferedAttack())
+                {
+                    ClearAttackBuffer();
+                    animationHandler.StartAttackAnimation();
+                    meleeWeapon.enabled = true;
+                    startTime = Time.time;
+                }
+                
+                if (percentage > 1)
+                {
+                    isExiting = true;
+                }
+                
                 yield return null;
             }
-
+            
+            Debug.Log("AAAAA");
             meleeWeapon.enabled = false;
             _canAttack = true;
         }
