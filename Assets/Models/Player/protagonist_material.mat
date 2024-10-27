@@ -24,7 +24,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Albedo:
-        m_Texture: {fileID: 2800000, guid: 1b150f26f97bb8f43a81a30a4f8460ea, type: 3}
+        m_Texture: {fileID: 2800000, guid: 6fc1813ae3103cc418def793a3f1385a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -49,6 +49,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissiveTexture:
+        m_Texture: {fileID: 2800000, guid: db63d946d88e8974daf6198008c4005f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -115,7 +119,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _ShadowOpacity: 1
+    - _ShadowOpacity: 0.57
     - _ShadowStep: 0
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
@@ -130,7 +134,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _LightDirectionRotation: {r: 0.36, g: 0, b: 0.29, a: 0}
-    - _PolkaDotsColor: {r: 0.14483818, g: 0.08904414, b: 0.21698111, a: 0}
+    - _PolkaDotsColor: {r: 0.2225881, g: 0.16091135, b: 0.3018868, a: 0}
     - _ShadowColor: {r: 0.16958883, g: 0.17310783, b: 0.3490566, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _TilingTrama: {r: 4, g: 4, b: 0, a: 0}

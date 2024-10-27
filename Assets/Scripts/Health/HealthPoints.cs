@@ -1,5 +1,6 @@
 using System;
 using Events;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -14,6 +15,7 @@ namespace Health
         [Header("events")]
         [SerializeField] private VoidEventChannelSO onDeathEvent;
         [SerializeField] private IntEventChannelSO onTakeDamageEvent;
+        [SerializeField] private IntEventChannelSO onSumHealthEvent;
         [SerializeField] private IntEventChannelSO onResetPointsEvent;
         [SerializeField] private IntEventChannelSO onInitializeHealthEvent;
         [SerializeField] private IntEventChannelSO onInitializeMaxHealthEvent;
@@ -113,6 +115,12 @@ namespace Health
         {
             onInitializeMaxHealthEvent?.RaiseEvent(MaxHealth);
             onInternalInitializeMaxHealthEvent?.Invoke(MaxHealth);
+        }
+
+        public void SumHealth(int wonHealth)
+        {
+            CurrentHp = math.min(maxHealth, wonHealth + CurrentHp);
+            onSumHealthEvent?.RaiseEvent(CurrentHp);
         }
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3134848022867861568}
   - component: {fileID: 8785185740733102612}
   - component: {fileID: 4547405529671904918}
+  - component: {fileID: 1873945220621369432}
   m_Layer: 7
   m_Name: ParryProjectile
   m_TagString: Deflectable
@@ -53,6 +54,7 @@ MonoBehaviour:
   shieldDamage: 2
   startVelocityInParry: 7
   onParryFinished: {fileID: 11400000, guid: 89d56c8d69d49e34386d078d37079538, type: 2}
+  onParried: {fileID: 11400000, guid: 4ec8adbff0eef4041baed35ddf1bf17a, type: 2}
 --- !u!135 &8785185740733102612
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -101,6 +103,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1873945220621369432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3647964052860360875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f6e0324c2728a4ab7310fbd5110567, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 2988119618688019392}
+  onParried: {fileID: 11400000, guid: 4ec8adbff0eef4041baed35ddf1bf17a, type: 2}
 --- !u!1 &4549070928176536417
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,5 +261,10 @@ PrefabInstance:
 --- !u!4 &1192224463625999537 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7310605154321291359, guid: a8984d0c1f693754daed70fa9a8ffcf1, type: 3}
+  m_PrefabInstance: {fileID: 8502758106055347438}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &2988119618688019392 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6667635892645455662, guid: a8984d0c1f693754daed70fa9a8ffcf1, type: 3}
   m_PrefabInstance: {fileID: 8502758106055347438}
   m_PrefabAsset: {fileID: 0}

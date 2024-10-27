@@ -75,3 +75,29 @@ crashlytics-build.properties
 # Ignore temporaries from GameCI
 /[Aa]rtifacts/
 /[Cc]odeCoverage/
+
+# GITIGNORE template for Wwise Project
+
+.backup*
+.cache*
+*.akd
+*.prof
+*.validationcache
+*.wsettings
+*.wem
+*.prof
+
+AkWwiseProjectData.asset
+IncrementalSoundBankData.xml
+
+# Caché temporal de project data (en carpeta de Assets de Unity)
+/[Aa]ssets/Wwise/Editor/ProjectData/AkWwiseProjectData.asset*
+# Sound Banks: NO VERSIONARLOS. REGENERARLOS CADA VEZ.
+*WwiseProject/GeneratedSoundBanks/
+# Documentación: NO VERSIONARLA.
+/[Aa]ssets/Wwise/Documentation.meta
+/[Aa]ssets/Wwise/Documentation/*
+# Carpeta plugins: AL SER MUY PESADA, QUE CADA UNO QUE NECESITE EL
+PROYECTO DE UNITY HAGA LA INTEGRACIÓN DE WWISE DE FORMA PROPIA
+/[Aa]ssets/Wwise/API/Runtime/Plugins.meta
+/[Aa]ssets/Wwise/API/Runtime/Plugins/*

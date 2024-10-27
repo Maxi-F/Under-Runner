@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using Events;
+using Health;
 using Managers;
 using UnityEngine;
 
 public class DodgeHandler : MonoBehaviour
 {
     [SerializeField] private VoidEventChannelSO onDodgeEvent;
+
+    [SerializeField] private HealthPoints playerHealthPoints;
+    [SerializeField] private int healthPointsPerDodge = 5;
 
     [Header("Bullet Time Settings")]
     [SerializeField] private float bulletTimeDuration;
@@ -27,6 +31,8 @@ public class DodgeHandler : MonoBehaviour
 
     private void HandleDodgeEvent()
     {
+        playerHealthPoints.SumHealth(healthPointsPerDodge);
+
         if (_dodgeBulletTimeCoroutine != null)
             StopCoroutine(_dodgeBulletTimeCoroutine);
 
