@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 561053917505782176, guid: 50c1969e35b790748b452faf93f0976f, type: 3}
+      propertyPath: wallRoot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 561053917505782176, guid: 50c1969e35b790748b452faf93f0976f, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 580101771174567560, guid: 50c1969e35b790748b452faf93f0976f, type: 3}
       propertyPath: m_Size.z
       value: 29.599245
@@ -92,7 +100,8 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 30
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 561053917505782176, guid: 50c1969e35b790748b452faf93f0976f, type: 3}
     m_RemovedGameObjects:
     - {fileID: 8777501481920828533, guid: 50c1969e35b790748b452faf93f0976f, type: 3}
     m_AddedGameObjects:
