@@ -38,8 +38,11 @@ public class WallSetter : MonoBehaviour
         yield return null;
         currentWalls = RoadWallsManager.Instance.GetRandomWalls(wallType);
 
-        if (currentWalls.Count == 0)
-            yield break;
+        while (currentWalls.Count < 2)
+        {
+            currentWalls.Clear();
+            currentWalls = RoadWallsManager.Instance.GetRandomWalls(wallType);
+        }
 
         for (int i = 0; i < currentWalls.Count; i++)
         {

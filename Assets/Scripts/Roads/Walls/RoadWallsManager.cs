@@ -28,15 +28,22 @@ namespace Roads.Walls
         public List<GameObject> GetRandomWalls(WallTypes wallType)
         {
             List<GameObject> wallsToReturn = new List<GameObject>();
+            GameObject wall;
             switch (wallType)
             {
                 case WallTypes.Corner:
-                    wallsToReturn.Add(CornerWallsObjectPool.Instance.GetRandomPooledObject());
-                    wallsToReturn.Add(CornerWallsObjectPool.Instance.GetRandomPooledObject());
+                    wall = CornerWallsObjectPool.Instance.GetRandomPooledObject();
+                    wall.SetActive(true);
+                    wallsToReturn.Add(wall);
+                    wall = CornerWallsObjectPool.Instance.GetRandomPooledObject();
+                    wallsToReturn.Add(wall);
                     break;
                 case WallTypes.Middle:
-                    wallsToReturn.Add(MiddleWallsObjectPool.Instance.GetRandomPooledObject());
-                    wallsToReturn.Add(MiddleWallsObjectPool.Instance.GetRandomPooledObject());
+                    wall = MiddleWallsObjectPool.Instance.GetRandomPooledObject();
+                    wall.SetActive(true);
+                    wallsToReturn.Add(wall);
+                    wall = MiddleWallsObjectPool.Instance.GetRandomPooledObject();
+                    wallsToReturn.Add(wall);
                     break;
             }
 
