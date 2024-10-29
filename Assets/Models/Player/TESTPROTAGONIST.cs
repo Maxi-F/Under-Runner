@@ -7,18 +7,46 @@ public class TESTPROTAGONIST : MonoBehaviour
 {
     [SerializeField] Animator anim;
     [SerializeField] Slider sliderX;
-    [SerializeField] Slider sliderZ;
 
-    public void ChangeMovementX()
+    public void Laser()
     {
-        anim.SetFloat("velocity_x", (sliderX.value * 2) - 1);
+        anim.SetFloat("BlendLaser", (sliderX.value * 2) - 1);
     }
-    public void ChangeMovementZ()
+    public void BombThrow()
     {
-        anim.SetFloat("velocity_z", (sliderZ.value * 2) - 1);
+        anim.SetTrigger("BombThrow");
     }
-    public void Hit()
+    public void AttackUp()
     {
-        anim.SetTrigger("ATTACK");
+        anim.SetTrigger("AttackUp");
     }
+    public void LeftRecovery()
+    {
+        anim.SetTrigger("LeftRecovery");
+    }
+    public void RightRecovery()
+    {
+        anim.SetTrigger("RightRecovery");
+    }
+    public void StartLaser()
+    {
+        anim.SetTrigger("StartLaser");
+    }
+    public void BossExplosion()
+    {
+        anim.SetTrigger("BossExplosion");
+    }
+    public void GetHit()
+    {
+        anim.SetTrigger("GetHit");
+    }
+    public void Death()
+    {
+        anim.SetTrigger("Death");
+    }
+    public void Recover()
+    {
+        anim.SetTrigger("Recover");
+    }
+
 }
