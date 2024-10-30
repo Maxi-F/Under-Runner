@@ -5,11 +5,11 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace UI
+namespace UI.Bars
 {
-    public class HealthBar : MonoBehaviour
+    public class FillBar : MonoBehaviour
     {
-        [SerializeField] private Slider slider;
+        [SerializeField] private Image fillImage;
         [SerializeField] private bool shouldStartHided;
     
         [Header("Events")]
@@ -17,7 +17,8 @@ namespace UI
         [SerializeField] private IntEventChannelSO onSumHealth;
         [SerializeField] private IntEventChannelSO onResetDamage;
         [SerializeField] private IntEventChannelSO onInitializeSlider;
-        
+
+        private int _maxValue;
         private bool _wasTriggered = false;
 
         private void Awake()
@@ -29,7 +30,7 @@ namespace UI
         {
             if (shouldStartHided)
             {
-                slider.gameObject.SetActive(false);
+                fillImage.gameObject.SetActive(false);
                 _wasTriggered = false;
             }
 
@@ -48,25 +49,27 @@ namespace UI
 
         public void HandleReset(int currentHp)
         {
-            slider.value = currentHp;
+            fillImage.fillAmount = 1;
         }
     
         public void HandleInit(int maxValue)
         {
             Debug.Log($"Handle init {maxValue}");
-            slider.maxValue = maxValue;
-            slider.value = maxValue;
+            _maxValue = maxValue;
+            fillImage.fillAmount = 1;
         }
         
         public void HandleTakeDamage(int currentHealth)
         {
             if (!_wasTriggered)
             {
-                slider.gameObject.SetActive(true);
+                fillImage.gameObject.SetActive(true);
                 _wasTriggered = true;
             }
-            Debug.Log($"Handle take damage {slider.maxValue} {slider.value}");
-            slider.value = currentHealth;
+            
+            Debug.Log($"Handle take damage {_maxValue} {fillImage.fillAmount}");
+
+            fillImage.fillAmount = (float)currentHealth / (float)_maxValue;
         }
     }
 }
