@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5651314687527777499}
+  - component: {fileID: 4094482642921107015}
   m_Layer: 0
   m_Name: MiddleBlockRoad
   m_TagString: Untagged
@@ -33,6 +34,21 @@ Transform:
   - {fileID: 7690232631043357084}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4094482642921107015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1735206726054836275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef161466a8b9f4a46b1f569f1548ca4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wallRoot: {fileID: 6633276070871342571}
+  wallType: 1
+  offset: {x: 0, y: 0, z: 0}
 --- !u!1 &3843104115858823503
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,6 +329,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Street_Middle
       objectReference: {fileID: 0}
+    - target: {fileID: 2192041450456943812, guid: df7d38291f2e74d489d6c4eac8a14a55, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5203545889852648116, guid: df7d38291f2e74d489d6c4eac8a14a55, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -353,13 +373,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8627265110859599627, guid: df7d38291f2e74d489d6c4eac8a14a55, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2854075399585063678, guid: df7d38291f2e74d489d6c4eac8a14a55, type: 3}
+    - {fileID: 5710460407675444125, guid: df7d38291f2e74d489d6c4eac8a14a55, type: 3}
+    - {fileID: 8627265110859599627, guid: df7d38291f2e74d489d6c4eac8a14a55, type: 3}
+    - {fileID: 2192041450456943812, guid: df7d38291f2e74d489d6c4eac8a14a55, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df7d38291f2e74d489d6c4eac8a14a55, type: 3}
 --- !u!4 &161860823790737913 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5203545889852648116, guid: df7d38291f2e74d489d6c4eac8a14a55, type: 3}
+  m_PrefabInstance: {fileID: 5335005124756845389}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6633276070871342571 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1587412851766046374, guid: df7d38291f2e74d489d6c4eac8a14a55, type: 3}
   m_PrefabInstance: {fileID: 5335005124756845389}
   m_PrefabAsset: {fileID: 0}
